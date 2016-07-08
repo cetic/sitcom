@@ -22,6 +22,11 @@ gem 'lodash-rails'
 gem 'react-rails', '~> 1.0'
 gem 'sprockets-coffee-react'
 
+# File Attachments
+
+gem 'rmagick'
+gem 'carrierwave'
+
 # Utils
 gem 'enumerize'
 gem 'factory_girl'
