@@ -1,0 +1,9 @@
+#= require jquery
+#= require jquery_ujs
+#= require moment-2.14.1
+#= require select2
+#= require lodash
+#= require react
+#= require react_ujs
+#= require_self
+#= require_tree .

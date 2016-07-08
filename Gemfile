@@ -28,9 +28,11 @@ gem 'factory_girl'
 gem 'faker'
 gem 'rabl'
 gem 'uuidtools'
-gem 'airbrake'
+gem 'airbrake', '4.1.0'
+gem 'dotenv-rails'
 
 group :development do
+  gem 'listen'
   gem 'puma', '~> 3.0'
 end
 

@@ -23,3 +23,6 @@
 
 /public/system
 /private/system
+
+.env.production
+.env
