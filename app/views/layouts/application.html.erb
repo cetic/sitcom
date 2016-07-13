@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>LLiW</title>
+    <title>Sitcom / LLiW</title>
 
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
 
   <body>
+
+    <%= render 'shared/flash', :flash => flash %>
+
     <%= yield %>
 
     <%= javascript_include_tag 'application' %>

@@ -3,7 +3,7 @@ fr:
     attributes:
       user:
         current_password: Mot de passe actuel
-        email: Courriel
+        email: Email
         password: Mot de passe
         password_confirmation: Confirmation du mot de passe
         remember_me: Se souvenir de moi
@@ -21,10 +21,10 @@ fr:
     failure:
       already_authenticated: Vous êtes déjà connecté(e).
       inactive: Votre compte n’est pas encore activé.
-      invalid: Courriel ou mot de passe incorrect.
+      invalid: Email ou mot de passe incorrect.
       last_attempt: Il vous reste une chance avant que votre compte soit bloqué.
       locked: Votre compte est verrouillé.
-      not_found_in_database: Courriel ou mot de passe incorrect.
+      not_found_in_database: Email ou mot de passe incorrect.
       timeout: Votre session est expirée, veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez vous connecter ou vous enregistrer pour continuer.
       unconfirmed: Vous devez confirmer votre compte par courriel.
@@ -91,8 +91,8 @@ fr:
       already_signed_out: Déconnecté(e).
       new:
         sign_in: Connexion
-      signed_in: Connecté(e) avec succès.
-      signed_out: Déconnecté(e) avec succès.
+      signed_in: ''
+      signed_out: ''
     shared:
       links:
         back: Retour
