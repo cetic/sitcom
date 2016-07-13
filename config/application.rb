@@ -6,9 +6,10 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Lliw
+module Sitcom
   class Application < Rails::Application
-    config.time_zone           = 'Brussels'
-    config.i18n.default_locale = :fr
+    config.time_zone              = 'Brussels'
+    config.i18n.available_locales = [:fr]
+    config.i18n.default_locale    = :fr
   end
 end

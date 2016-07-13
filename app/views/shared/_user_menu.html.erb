@@ -1,0 +1,7 @@
+<% if current_user %>
+  <div class="pull-right">
+    Connecté en tant que <%= current_user.name %><br />
+    <%= link_to "Changer de mot de passe", profile_password_path %> |
+    <%= link_to "Me déconnecter", destroy_user_session_path, :method => 'DELETE' %>
+  </div>
+<% end %>

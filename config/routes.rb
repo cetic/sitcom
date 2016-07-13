@@ -11,6 +11,10 @@ Rails.application.routes.draw do
 
   resources :contacts
 
+  resource :profile do
+    resource :password
+  end
+
   # Root
 
   root to: 'contacts#index'

@@ -1,0 +1,10 @@
+fr:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            password_confirmation:
+              confirmation: "Le nouveau mot de passe et sa confirmation ne concordent pas."
+            current_password:
+              invalid: "Le mot de passe actuel est invalide."
