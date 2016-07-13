@@ -10,3 +10,5 @@ bundle exec rails server
 ```
 
 ## Production
+
+See `DEPLOY.md` on how to deploy on a Ubuntu server.
