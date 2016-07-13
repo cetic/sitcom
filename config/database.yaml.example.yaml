@@ -2,7 +2,7 @@ development:
   adapter: mysql2
   host: localhost
   username: root
-  database: lliw
+  database: sitcom
   pool: 5
   timeout: 5000
   encoding: utf8mb4
