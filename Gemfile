@@ -47,7 +47,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'capistrano-bundler'
-  gem 'capistrano-passenger' #, '0.0.2'
+  gem 'capistrano-passenger'
 end
 
 group :production do
