@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.0.0.rc1'
+gem 'rails', '~> 5.0.0'
 gem 'mysql2'
 
 # Authorization
-gem 'devise', '4.1.1'
+gem 'devise'
 
 # ElasticSearch
 gem 'elasticsearch-model'
