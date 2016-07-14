@@ -1,9 +1,7 @@
 class ApplicationController < ActionController::Base
 
   # Forgery Protection
-  # https://github.com/plataformatec/devise/pull/4033/files
-
-  protect_from_forgery prepend: true
+  protect_from_forgery with: :exception
 
   # Filters
 
