@@ -4,7 +4,7 @@ gem 'rails', '~> 5.0.0'
 gem 'mysql2'
 
 # Authorization
-gem 'devise'
+gem 'devise', '4.1.1'
 
 # ElasticSearch
 gem 'elasticsearch-model'
