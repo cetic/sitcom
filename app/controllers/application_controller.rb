@@ -1,14 +1,14 @@
 class ApplicationController < ActionController::Base
 
-  # Filters
-
-  before_action :authenticate_user!
-  #before_action :http_basic_auth
-
   # Forgery Protection
   # https://github.com/plataformatec/devise/pull/4033/files
 
   protect_from_forgery prepend: true
+
+  # Filters
+
+  before_action :authenticate_user!
+  #before_action :http_basic_auth
 
   # Methods
 
