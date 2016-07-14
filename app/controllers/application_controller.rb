@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
 
   # Forgery Protection
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :null_session
 
   # Filters
 

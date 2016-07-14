@@ -97,6 +97,13 @@ Create a file in **/etc/nginx/sites-available/sitcom** :
       passenger_app_env production;
       passenger_friendly_error_pages on;
 
+      location ~ ^/(assets)/  {
+        root /home/deploy/apps/sitcom/current/public;
+        gzip_static on;
+        expires     max;
+        add_header  Cache-Control public;
+      }
+
       client_max_body_size 300M;
     }
 
