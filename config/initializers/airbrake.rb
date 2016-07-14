@@ -1,4 +1,4 @@
-if ENV['AIRBRAKE_KEY']
+if ENV['AIRBRAKE_KEY'].present?
   Airbrake.configure do |config|
     config.api_key = ENV['AIRBRAKE_KEY']
     config.secure  = false

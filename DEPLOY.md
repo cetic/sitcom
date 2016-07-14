@@ -122,6 +122,7 @@ Then:
 
 ### Deploy for the first time
 
+    bundle exec cap production deploy:check
     bundle exec cap production deploy
 
 ## Configure logrotate
