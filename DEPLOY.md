@@ -80,7 +80,7 @@ Create a file in **/etc/nginx/sites-available/sitcom** :
 
     server {
       listen 80;
-      server_name example.com;
+      server_name sitcom.cetic.be;
 
       access_log /var/log/nginx/sitcom.access.log;
       sendfile on;
@@ -122,6 +122,8 @@ Then:
 
 ### Deploy for the first time
 
+Create the env file in `/home/deploy/apps/sitcom/shared/.env.production`. Then:
+
     bundle exec cap production deploy:check
     bundle exec cap production deploy
 
@@ -130,11 +132,15 @@ Then:
 In **/etc/logrotate.d/sitcom**:
 
     /home/deploy/apps/sitcom/shared/log/*.log {
-        daily
-        missingok
-        rotate 15
-        compress
-        delaycompress
-        notifempty
-        copytruncate
+      daily
+      missingok
+      rotate 15
+      compress
+      delaycompress
+      notifempty
+      copytruncate
     }
+
+Test it:
+
+    sudo logrotate /etc/logrotate.conf
