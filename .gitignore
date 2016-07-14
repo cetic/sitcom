@@ -24,5 +24,6 @@
 /public/system
 /private/system
 
+.env.development
 .env.production
 .env
