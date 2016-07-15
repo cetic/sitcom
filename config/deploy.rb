@@ -13,26 +13,4 @@ set :linked_dirs,  %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/sy
 set :rbenv_type, 'user'
 
 set :bundle_binstubs, nil
-set :bundle_bins,     %w(gem rake rails)
-
-
-namespace :deploy do
-  task :start, :roles => :app, :except => { :no_release => true } do
-    run "cd #{current_path} && bundle exec passenger start -e #{fetch(:stage)} -p 8080 -d"
-  end
-
-  task :stop, :roles => :app, :except => { :no_release => true } do
-    run "cd #{current_path} && bundle exec passenger stop -p 8080"
-  end
-
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run <<-CMD
-      if [[ -f #{current_path}/tmp/pids/passenger.8080.pid ]];
-      then
-        cd #{current_path} && bundle exec passenger stop -p 8080;
-      fi
-    CMD
-
-    run "cd #{current_path} && bundle exec passenger start -e #{fetch(:stage)} -p 8080 -d"
-  end
-end
+set :bundle_bins,     %w(gem rake rails passenger)

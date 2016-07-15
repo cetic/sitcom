@@ -1,11 +1,5 @@
 class ApplicationController < ActionController::Base
 
-  before_action :debug
-
-  def debug
-    Rails.logger.info request.headers.inspect
-  end
-
   # Forgery Protection
   protect_from_forgery with: :exception
 
