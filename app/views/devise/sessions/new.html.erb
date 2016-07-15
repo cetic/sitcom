@@ -32,7 +32,3 @@
 <%= form_tag '/', method: 'POST' do %>
   <%= submit_tag "test" %>
 <% end %>
-
-<% session[:brol].blank? ? session[:brol] = Time.now.to_i.to_s : nil %>
-
-<%= session[:brol] %>
