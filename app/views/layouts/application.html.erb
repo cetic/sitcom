@@ -1,18 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="<%= session[:locale] ? session[:locale] : 'en' %>"
+      id="<%= "#{params[:controller].gsub('/', '-')}-#{params[:action]}" %>"
+      data-rails-env="<%= Rails.env %>">
   <head>
-    <title>Sitcom / LLiW</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="<%= yield(:description) %>">
+    <meta name="keywords" content="<%= yield(:keywords) %>">
+
+    <% if yield(:title).present? %>
+      <% title = "#{yield(:title)} - SItCOM" %>
+    <% else %>
+      <% title = "SItCOM - SImple COmmunity Management" %>
+    <% end %>
+
+    <meta property="fb:app_id"      content="<%# FACEBOOK_APP_ID %>" />
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content="<%= request.original_url %>" />
+    <meta property="og:title"       content="<%= title %>" />
+    <meta property="og:description" content="<%= yield(:description) %>" />
+    <%= yield(:facebook_images) %>
+
+    <meta name="twitter:card"        content="summary" />
+    <meta name="twitter:url"         content="<%= request.original_url %>" />
+    <meta name="twitter:title"       content="<%= title %>" />
+    <meta name="twitter:description" content="<%= yield(:description) %>" />
+    <%= yield(:twitter_images) %>
+
+    <title>
+      <%= title %>
+    </title>
+
+    <%= stylesheet_link_tag("application",         media: "all") %>
+    <%# stylesheet_link_tag("application_windows", media: 'all') if browser.platform == :windows %>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+
+    <%= yield :special_header %>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
 
-  <body data-rails-env="<%= Rails.env %>">
-
-    <%= render 'shared/flash', :flash => flash %>
+  <body>
+    <%# render 'shared/analytics' %>
+    <%= render 'shared/flash' %>
     <%= render 'shared/user_menu' %>
 
     <%= yield %>
+
+    <%# render 'shared/footer' %>
 
     <%= javascript_include_tag 'application' %>
   </body>
