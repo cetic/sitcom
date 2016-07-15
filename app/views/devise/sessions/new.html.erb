@@ -33,6 +33,6 @@
   <%= submit_tag "test" %>
 <% end %>
 
-<% if session[:brol].blank? ? session[:brol] = Time.now.to_i.to_s : nil %>
+<% session[:brol].blank? ? session[:brol] = Time.now.to_i.to_s : nil %>
 
 <%= session[:brol] %>
