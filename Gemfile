@@ -35,10 +35,10 @@ gem 'rabl'
 gem 'uuidtools'
 gem 'airbrake', '4.1.0'
 gem 'dotenv-rails'
+gem 'puma', '~> 3.0'
 
 group :development do
   gem 'listen'
-  gem 'puma', '~> 3.0'
 end
 
 # Deployment
@@ -53,5 +53,4 @@ end
 group :production do
   gem 'therubyracer'
   gem 'libv8'
-  gem 'passenger'
 end
