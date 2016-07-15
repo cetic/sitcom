@@ -18,9 +18,14 @@ Rails.application.routes.draw do
   # Root
 
   root to: 'contacts#index'
-  post '/' => 'contacts#index'
 
   # Admin
+
+  namespace :admin do
+    resources :users
+
+    root to: 'users#index'
+  end
 
   # API
 
