@@ -33,5 +33,6 @@
   <%= submit_tag "test" %>
 <% end %>
 
-<%= cookies.inspect %>
-<%= session.inspect %>
+<% if session[:brol].blank? ? session[:brol] = Time.now.to_i.to_s : nil %>
+
+<%= session[:brol] %>

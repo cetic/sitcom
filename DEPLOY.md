@@ -89,9 +89,6 @@ Create a file in **/etc/nginx/sites-available/sitcom** :
       gzip on;
       gzip_disable "msie6";
 
-      add_header Strict-Transport-Security "max-age=63072000; preload"; # HSTS
-      add_header X-Frame-Options           "DENY";                      # Deny iframes
-
       passenger_enabled on;
       passenger_ruby /home/deploy/.rbenv/shims/ruby;
       passenger_app_env production;
