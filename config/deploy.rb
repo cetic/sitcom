@@ -14,5 +14,3 @@ set :rbenv_type, 'user'
 
 set :bundle_binstubs, nil
 set :bundle_bins,     %w(gem rake rails passenger)
-
-after 'deploy:publishing', 'passenger:standalone:restart'
