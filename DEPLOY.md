@@ -106,6 +106,7 @@ Create a file in **/etc/nginx/sites-available/sitcom** :
 
 Enable the server block:
 
+    unlink /etc/nginx/sites-enabled/default
     ln -s /etc/nginx/sites-available/sitcom /etc/nginx/sites-enabled/sitcom
 
 Then restart nginx:
