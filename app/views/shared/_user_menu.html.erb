@@ -9,9 +9,9 @@
           <a href="<%= edit_profile_password_path %>">Changer de mot de passe</a>
         </li>
 
-        <% if false && current_user.root? %>
+        <% if current_user.admin? %>
           <li class="divider"></li>
-          <li><a href="<%= admin_path %>">Admin</a></li>
+          <li><a href="<%= admin_root_path %>">Admin</a></li>
         <% end %>
 
         <li class="divider"></li>
