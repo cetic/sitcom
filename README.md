@@ -1,4 +1,4 @@
-# Sitcom / LLiW
+# SItCOM / LLiW
 
 ## Development
 
