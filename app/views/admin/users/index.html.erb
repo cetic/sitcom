@@ -1,24 +1,27 @@
-<div class="row">
-  <div class="col-md-12">
-    <ol class="breadcrumb">
-      <li class="active">Utilisateurs</li>
-    </ol>
+<div class="container container-main">
+  <div class="row">
+    <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li class="active">Utilisateurs</li>
+      </ol>
 
-    <%= link_to 'Ajouter un utilisateur', new_admin_user_path, :class => 'btn btn-xs btn-default pull-right btn-new' %>
+      <%= link_to 'Ajouter un utilisateur', new_admin_user_path, :class => 'btn btn-xs btn-default pull-right btn-new' %>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th class="col-md-4">Nom</th>
-          <th class="col-md-4">Email</th>
-          <th class="col-md-2">Dernière connexion</th>
-          <th class="col-md-1">Actions</th>
-        </tr>
-      </thead>
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="col-md-4">Nom</th>
+            <th class="col-md-4">Email</th>
+            <th class="col-md-1 center">Admin</th>
+            <th class="col-md-2">Dernière connexion</th>
+            <th class="col-md-1 actions">Actions</th>
+          </tr>
+        </thead>
 
-      <tbody>
-        <%= render @users %>
-      </tbody>
-    </table>
+        <tbody>
+          <%= render @users %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

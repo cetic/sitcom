@@ -1,9 +1,16 @@
 <tr>
   <td><%= user.name %></td>
   <td><%= user.email %></td>
+
+  <td class="center">
+    <% if user.admin? %>
+      <%= fa('check') %>
+    <% end %>
+  </td>
+
   <td><%= user.last_sign_in_at.present? ? l(user.last_sign_in_at, format: :short) : 'Never' %></td>
 
-  <td>
+  <td class="actions">
     <%= link_to fa('edit'), edit_admin_user_path(user), :class => 'btn btn-xs btn-default' %>
 
     <% unless user.id == current_user.id %>
