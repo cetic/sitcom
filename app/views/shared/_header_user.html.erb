@@ -1,0 +1,32 @@
+<ul class="nav navbar-nav user">
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <img src="<%= current_user.gravatar_url(:size => 34) %>" class="img-thumbnail">
+      <%= current_user.name %> <i class="fa fa-caret-down"></i>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="<%= edit_user_password_path %>">
+          Modifier le mot de passe
+        </a>
+      </li>
+
+      <% if current_user.admin? %>
+        <li class="divider"></li>
+        <li>
+          <a href="<%= admin_root_path %>">
+            Admin
+          </a>
+        </li>
+      <% end %>
+
+      <li class="divider"></li>
+
+      <li>
+        <a href="<%= destroy_user_session_path %>" data-method="delete">
+          Se déconnecter
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>

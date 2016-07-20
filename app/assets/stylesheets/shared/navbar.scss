@@ -5,20 +5,26 @@
 
   .navbar-header {
     float: left;
+    width: 138px;
+    border-right: 1px solid $brand-primary;
+    padding-bottom: 3px;
 
     .navbar-brand {
       height: 100%;
-      padding-left: 25px;
+      padding-right: 0px;
+      padding-left: 30px;
+      padding-top: 2px;
+
+      img {
+        display: inline;
+      }
 
       strong {
-        text-transform: uppercase;
-        font-size: 40px;
-        margin-left: 77px;
+        font-size: 26px;
         color: #6A6A6A;
-        display: block;
-        line-height: initial;
-        padding: 14px;
         letter-spacing: 0.5px;
+        vertical-align: -5px;
+        margin-left: 10px;
 
         em {
           color: $brand-primary;
@@ -27,4 +33,117 @@
       }
     }
   }
+
+  .projects {
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    margin-left: -50%;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    .project {
+      margin-left: 138px;
+      padding-bottom: 8px;
+      padding-top: 13px;
+      padding-bottom: 7px;
+      background-color: $brand-primary;
+
+      h1 {
+        display: inline;
+        text-transform: uppercase;
+        font-size: 30px;
+        color: white;
+        font-weight: 100;
+        letter-spacing: 3px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        line-height: inherit;
+      }
+
+      .fa {
+        margin-left: 6px;
+        vertical-align: -1px;
+        font-size: 30px;
+        color: white;
+        letter-spacing: 3px;
+      }
+    }
+  }
+
+  ul.nav.sections {
+    width: calc(100% - 138px);
+    margin-top: 62px;
+    border-top: 1px solid $brand-primary;
+
+    li > a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+
+  .user {
+    position: absolute;
+    display: block;
+    top: 0px;
+    right: 0px;
+    font-size: 14px;
+
+    .dropdown > a {
+      color: whitesmoke;
+    }
+
+    li > a {
+      padding-top: 9px;
+      padding-bottom: 9px;
+    }
+
+    img {
+      margin-right: 7px;
+      vertical-align: -17px;
+    }
+
+    .fa {
+      margin-left: 2px;
+    }
+  }
 }
+
+// @media (max-width: $screen-md-max) {
+//   .navbar {
+//     .navbar-header {
+//       .navbar-brand {
+//         strong {
+//           font-size: 28px;
+//           padding: 21px;
+//           letter-spacing: 0px;
+//         }
+//       }
+//     }
+
+//     .projects {
+//       .project {
+//         padding-top: 39px;
+//         padding-bottom: 37px;
+
+//         h1 {
+//           font-size: 20px;
+//         }
+
+//         .fa {
+//           font-size: 20px;
+//         }
+//       }
+//     }
+
+//     .user {
+//       padding-top: 43px;
+//       padding-bottom: 39px;
+//       font-size: 16px;
+//     }
+//   }
+// }

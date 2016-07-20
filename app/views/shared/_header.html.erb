@@ -1,53 +1,56 @@
 <% if current_user %>
-  <% if params[:controller].split('/').first == 'admin' %>
-    <div class="navbar navbar-inverse" role="navigation">
-      <div class="container">
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <div class="row">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-
-          <a id="brand" class="navbar-brand" href="<%= admin_root_path %>">Sitcom Admin</a>
+          <a class="navbar-brand" href="<%= root_path %>">
+            <%= link_to image_tag('logo.png', :height => 100), root_path %>
+            <!--
+              <strong>
+                SITCOM
+              </strong>
+            -->
+          </a>
         </div>
 
+        <% if params[:controller].split('/').first == 'admin' %>
+          <div class="projects">
+            <div class="project">
+              <h1>Administration</h1>
+            </div>
+          </div>
 
-        <ul class="nav navbar-nav">
-          <% admin_users_tab_active = params[:controller] == 'admin/users' %>
-          <li<%= ' class="active"'.html_safe if admin_users_tab_active %>>
-            <a href="<%= admin_users_path %>">Utilisateurs</a>
-          </li>
-        </ul>
+          <ul class="nav navbar-nav sections">
+            <li>
+              <a href="<%= admin_users_path %>">Utilisateurs</a>
+            </li>
+          </ul>
+        <% else %>
+          <div class="projects">
+            <div class="project">
+              <h1>Smart Gastronomy Lab</h1>
+              <i class="fa fa-caret-down"></i>
+            </div>
+          </div>
 
-        <%= render 'shared/user_menu' %>
+          <ul class="nav navbar-nav sections">
+            <li>
+              <a href="<%= contacts_path %>">Contacts</a>
+            </li>
+            <li>
+              <a href="<%= contacts_path %>">Organisations</a>
+            </li>
+            <li>
+              <a href="<%= contacts_path %>">Projets</a>
+            </li>
+            <li>
+              <a href="<%= contacts_path %>">Evenements</a>
+            </li>
+          </ul>
+        <% end %>
+
+        <%= render 'shared/header_user' %>
       </div>
     </div>
-  <% else %>
-    <div class="navbar navbar-inverse" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-
-          <a id="brand" class="navbar-brand" href="<%= root_path %>">Sitcom</a>
-        </div>
-
-
-        <ul class="nav navbar-nav">
-          <% contacts_tab_active = params[:controller] == 'contacts' %>
-          <li<%= ' class="active"'.html_safe if contacts_tab_active %>>
-            <a href="<%= contacts_path %>">Contacts</a>
-          </li>
-        </ul>
-
-        <%= render 'shared/user_menu' %>
-      </div>
-    </div>
-  <% end %>
+  </nav>
 <% end %>
