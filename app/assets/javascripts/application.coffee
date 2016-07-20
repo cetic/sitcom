@@ -1,5 +1,6 @@
 #= require jquery
 #= require jquery_ujs
+#= require bootstrap
 #= require moment-2.14.1
 #= require select2
 #= require lodash

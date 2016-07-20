@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="<%= session[:locale] ? session[:locale] : 'en' %>"
       id="<%= "#{params[:controller].gsub('/', '-')}-#{params[:action]}" %>"
       data-rails-env="<%= Rails.env %>">
@@ -50,8 +51,8 @@
 
   <body>
     <%# render 'shared/analytics' %>
+    <%= render 'shared/header' %>
     <%= render 'shared/flash' %>
-    <%= render 'shared/user_menu' %>
 
     <%= yield %>
 
