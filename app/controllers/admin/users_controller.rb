@@ -26,7 +26,13 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def update
-    if @user.update_attributes(strong_params)
+    if params[:user][:password].present?
+      updated = @user.update(strong_params)
+    else
+      updated = @user.update_without_password(strong_params)
+    end
+
+    if updated
       redirect_to admin_users_path
     else
       set_flash_now_errors(@user)
@@ -48,10 +54,6 @@ class Admin::UsersController < Admin::BaseController
   private
 
   def strong_params
-    if params[:action] == 'create'
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    else
-      params.require(:user).permit(:name, :email)
-    end
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 end

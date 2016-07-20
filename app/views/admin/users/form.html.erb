@@ -9,25 +9,41 @@
       <%= render 'shared/flash' %>
 
       <%= form_for([:admin, @user], :html => { :class => 'form-horizontal' }) do |f| %>
-        <div class="form-group">
-          <%= f.label :name, 'Nom', :class => 'control-label col-md-3' %>
+        <fieldset>
+          <legend>Général</legend>
 
-          <div class="col-md-9">
-            <%= f.text_field :name, :class => 'form-control' %>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :email, 'Email', :class => 'control-label col-md-3' %>
-
-          <div class="col-md-9">
-            <%= f.text_field :email, :class => 'form-control' %>
-          </div>
-        </div>
-
-        <% unless @user.persisted? %>
           <div class="form-group">
-            <%= f.label :password, 'Nouveau mot de passe', :class => 'control-label col-md-3' %>
+            <%= f.label :name, 'Nom', :class => 'control-label col-md-3' %>
+
+            <div class="col-md-9">
+              <%= f.text_field :name, :class => 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :email, 'Email', :class => 'control-label col-md-3' %>
+
+            <div class="col-md-9">
+              <%= f.text_field :email, :class => 'form-control' %>
+            </div>
+          </div>
+        </fieldset>
+
+
+
+        <fieldset>
+          <% if @user.persisted? %>
+            <legend>Changer le mot de passe</legend>
+          <% else %>
+            <legend>Mot de passe</legend>
+          <% end %>
+
+          <% if @user.persisted? %>
+            <div class="alert alert-info">Ne pas remplir les champs pour garder le mot de passe actuel.</div>
+          <% end %>
+
+          <div class="form-group">
+            <%= f.label :password, 'Mot de passe', :class => 'control-label col-md-3' %>
 
             <div class="col-md-9">
               <%= f.password_field :password, :class => 'form-control', :placeholder => '' %>
@@ -41,7 +57,7 @@
               <%= f.password_field :password_confirmation, :class => 'form-control', :placeholder => '' %>
             </div>
           </div>
-        <% end %>
+        </fieldset>
 
         <div class="form-group">
           <div class="col-md-offset-3 col-md-9">
