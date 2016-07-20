@@ -1,0 +1,30 @@
+.navbar {
+  background-color: white;
+  height: 105px;
+  margin-bottom: 0px;
+
+  .navbar-header {
+    float: left;
+
+    .navbar-brand {
+      height: 100%;
+      padding-left: 25px;
+
+      strong {
+        text-transform: uppercase;
+        font-size: 40px;
+        margin-left: 77px;
+        color: #6A6A6A;
+        display: block;
+        line-height: initial;
+        padding: 14px;
+        letter-spacing: 0.5px;
+
+        em {
+          color: $brand-primary;
+          font-style: normal;
+        }
+      }
+    }
+  }
+}

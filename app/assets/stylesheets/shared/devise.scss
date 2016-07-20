@@ -1,0 +1,96 @@
+#devise-sessions-create,
+#devise-sessions-new,
+#devise-passwords-create,
+#devise-passwords-new,
+#devise-passwords-edit,
+#devise-registrations-create,
+#devise-registrations-new,
+#modal-signin {
+  .panel {
+    margin-top: 50px;
+    margin-bottom: 32px;
+    opacity: 0.92;
+    background-color:white;
+    padding: 15px 0px
+  }
+
+  h1 {
+    font-size: 26px;
+    text-align: left;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    padding-top: 6px;
+    padding-bottom: 18px;
+    padding-left: 19px;
+    padding-right: 19px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  label {
+    font-weight: 500;
+    color: #555555;
+  }
+
+  .form-group {
+    padding-left: 19px;
+    padding-right: 19px;
+  }
+
+  // radio's
+  label.btn {
+    text-align: left;
+    display: block;
+    float: none;
+    border-radius: 0;
+    padding: 10px 16px;
+
+    img {
+      padding: 0px;
+      margin-right: 6px;
+      border: 0px;
+    }
+  }
+
+  label.btn.active {
+    color: #fff;
+    background-color: #F78F8D;
+    border-color: #DD4E4A;
+  }
+
+  .alert {
+    margin-right: 10px;
+    margin-left: 10px;
+
+    .close {
+      top: 0px;
+    }
+  }
+
+
+  .actions {
+    text-align: right;
+    padding-top: 16px;
+    padding-left: 19px;
+    padding-right: 19px;
+    margin-top: 20px;
+    border-top: 1px solid #e5e5e5;
+
+    .btn {
+      margin-left: 6px;
+    }
+  }
+
+  a.forgot-password {
+    float: left;
+    margin: 10px 0 0;
+    color: #888888;
+    font-size: 13px;
+    line-height: 34px;
+  }
+
+  .actions-lg {
+    .btn {
+      letter-spacing: 2px;
+    }
+  }
+}

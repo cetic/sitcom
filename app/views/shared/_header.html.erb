@@ -1,6 +1,6 @@
 <% if current_user %>
   <% if params[:controller].split('/').first == 'admin' %>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-inverse" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -25,7 +25,7 @@
       </div>
     </div>
   <% else %>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-inverse" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -35,7 +35,7 @@
             <span class="icon-bar"></span>
           </button>
 
-          <a id="brand" class="navbar-brand" href="<%= admin_root_path %>">Sitcom</a>
+          <a id="brand" class="navbar-brand" href="<%= root_path %>">Sitcom</a>
         </div>
 
 
