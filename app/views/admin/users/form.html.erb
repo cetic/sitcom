@@ -6,6 +6,8 @@
         <li class="active"><%= params[:action].in?(['new', 'create']) ? 'Créer un utilisateur' : 'Modifier un utilisateur' %></li>
       </ol>
 
+      <%= render 'shared/flash' %>
+
       <%= form_for([:admin, @user], :html => { :class => 'form-horizontal' }) do |f| %>
         <div class="form-group">
           <%= f.label :name, 'Nom', :class => 'control-label col-md-3' %>

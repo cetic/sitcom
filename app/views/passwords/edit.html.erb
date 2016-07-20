@@ -3,6 +3,8 @@
     <div class="col-md-8 col-md-offset-2">
       <h2>Modifier mon mot de passe</h2>
 
+      <%= render 'shared/flash' %>
+
       <%= form_for(@user, url: profile_password_path, :html => { :class => 'form-horizontal', :method => :put }) do |f| %>
         <div class="form-group">
           <%= f.label :current_password, "Mot de passe actuel", :class => 'control-label col-md-3' %>
