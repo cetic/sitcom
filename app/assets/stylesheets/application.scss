@@ -17,5 +17,7 @@ $brand-primary-dark: darken($brand-primary, 12%);
 @import 'shared/mixins';
 @import 'shared/navbar';
 @import 'shared/admin';
+@import 'shared/offcanvas';
 
 @import 'admin/users/index';
+@import 'admin/users/form';
