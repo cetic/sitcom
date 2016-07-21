@@ -8,6 +8,12 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   #before_action :http_basic_auth
 
+  # Actions
+
+  def root
+    redirect_to "/#{Lab.first.slug}"
+  end
+
   # Methods
 
   protected
@@ -20,6 +26,10 @@ class ApplicationController < ActionController::Base
     if object.errors.any?
       flash.now[:alert] = object.errors.messages.values.join('<br />').html_safe
     end
+  end
+
+  def find_lab
+    @lab = Lab.find_by_slug(params[:lab_slug])
   end
 
   def http_basic_auth

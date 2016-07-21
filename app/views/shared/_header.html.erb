@@ -3,14 +3,15 @@
     <div class="container-fluid">
       <div class="row">
         <div class="navbar-header">
-          <a class="navbar-brand" href="<%= root_path %>">
-            <%= image_tag('logo.svg', :height => 100) %>
-            <!--
-              <strong>
-                SITCOM
-              </strong>
-            -->
-          </a>
+          <% if @lab %>
+            <a class="navbar-brand" href="<%= root_path(:lab_slug => @lab.slug) %>">
+              <%= image_tag('logo.svg', :height => 100) %>
+            </a>
+          <% else %>
+            <a class="navbar-brand" href="<%= main_root_path %>">
+              <%= image_tag('logo.svg', :height => 100) %>
+            </a>
+          <% end %>
         </div>
 
         <% if params[:controller].split('/').first == 'admin' %>
@@ -32,25 +33,31 @@
         <% else %>
           <div class="projects">
             <div class="project">
-              <h1>Smart Gastronomy Lab</h1>
-              <i class="fa fa-caret-down"></i>
+              <% if @lab %>
+                <h1><%= @lab.name %></h1>
+                <i class="fa fa-caret-down"></i>
+              <% else %>
+                <h1>&nbsp;</h1>
+              <% end %>
             </div>
           </div>
 
-          <ul class="nav navbar-nav sections">
-            <li>
-              <a href="<%= contacts_path %>">Contacts</a>
-            </li>
-            <li>
-              <a href="<%= contacts_path %>">Organisations</a>
-            </li>
-            <li>
-              <a href="<%= contacts_path %>">Projets</a>
-            </li>
-            <li>
-              <a href="<%= contacts_path %>">Evenements</a>
-            </li>
-          </ul>
+          <% if @lab %>
+            <ul class="nav navbar-nav sections">
+              <li>
+                <a href="<%= contacts_path(:lab_slug => @lab.slug) %>">Contacts</a>
+              </li>
+              <li>
+                <a href="<%= contacts_path(:lab_slug => @lab.slug) %>">Organisations</a>
+              </li>
+              <li>
+                <a href="<%= contacts_path(:lab_slug => @lab.slug) %>">Projets</a>
+              </li>
+              <li>
+                <a href="<%= contacts_path(:lab_slug => @lab.slug) %>">Evenements</a>
+              </li>
+            </ul>
+          <% end %>
         <% end %>
 
         <%= render 'shared/header_user' %>

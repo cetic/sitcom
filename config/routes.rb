@@ -4,18 +4,6 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  # App
-
-  resources :contacts
-
-  resource :profile do
-    resource :password
-  end
-
-  # Root
-
-  root to: 'contacts#index'
-
   # Admin
 
   namespace :admin do
@@ -30,4 +18,18 @@ Rails.application.routes.draw do
   namespace :api do
     # nothing ATM
   end
+
+  # App
+
+  resource :profile do
+    resource :password
+  end
+
+  scope ':lab_slug' do
+    resources :contacts
+
+    root to: 'contacts#index'
+  end
+
+  root to: 'application#root', as: :main_root
 end
