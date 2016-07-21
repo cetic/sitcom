@@ -6,6 +6,8 @@
 $brand-primary: #3db7e4;
 $brand-primary-dark: darken($brand-primary, 12%);
 
+$secondary: #e17000; // not bootstrap
+
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 @import 'font-awesome';
@@ -17,7 +19,9 @@ $brand-primary-dark: darken($brand-primary, 12%);
 @import 'shared/mixins';
 @import 'shared/navbar';
 @import 'shared/admin';
-@import 'shared/offcanvas';
+@import 'shared/quick_search';
+
+@import 'contacts/index';
 
 @import 'admin/users/index';
 @import 'admin/users/form';

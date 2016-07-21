@@ -1,0 +1,100 @@
+#contacts-index {
+  .contacts {
+    margin-top: 40px;
+
+    .contact {
+      position: relative;
+      margin-bottom: 36px;
+      background-color: white;
+      width: 700px;
+      left: -350px;
+      margin-left: 50%;
+      min-height: 80px;
+      box-shadow: 0px 0px 10px #cccccc;
+
+      .picture {
+        position: absolute;
+        left: -17px;
+        top: -13px;
+
+        img {
+          width: 56px;
+          height: 56px;
+        }
+      }
+
+      .activity {
+        position: absolute;
+        top: -8px;
+        right: -9px;
+        width: 20px;
+        height: 20px;
+        padding: 5px;
+        border: 1px solid $brand-primary-dark;
+        background-color: white;
+        @include border-radius(50%);
+
+        .activity-inside {
+          width: 8px;
+          height: 8px;
+          background-color: $brand-primary-dark;
+          @include border-radius(50%);
+        }
+      }
+
+      .social {
+        position: absolute;
+        right: 0px;
+        top: 16px;
+        width: 22px;
+        line-height: 16px;
+
+        .fa {
+          font-size: 20px;
+          color: #666666;
+        }
+      }
+
+      .infos {
+        margin-left: 48px;
+        margin-top: 5px;
+
+        .name {
+          font-size: 22px;
+        }
+
+        .companies {
+          font-size: 10px;
+          margin-left: 1px;
+          font-weight: 300;
+        }
+      }
+
+      .skills {
+        margin-left: 48px;
+        list-style-type: none;
+        padding-left: 0px;
+
+        .skill {
+          float: left;
+          margin-right: 4px;
+        }
+      }
+
+      .events {
+        margin-left: 48px;
+        margin-top: 4px;
+
+        .event {
+          float: left;
+          border: 1px solid #cccccc;
+          font-size: 10px;
+          margin-right: 4px;
+          padding: .2em .6em .3em;
+          font-size: 75%;
+          margin-bottom: 4px;
+        }
+      }
+    }
+  }
+}

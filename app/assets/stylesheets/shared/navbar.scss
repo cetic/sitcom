@@ -6,7 +6,6 @@
   .navbar-header {
     float: left;
     width: 138px;
-    border-right: 1px solid $brand-primary;
     padding-bottom: 3px;
 
     .navbar-brand {
@@ -78,6 +77,7 @@
     width: calc(100% - 138px);
     margin-top: 62px;
     border-top: 1px solid $brand-primary;
+    border-left: 1px solid #e2e2e2;
 
     li > a {
       padding-top: 10px;
