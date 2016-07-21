@@ -20,10 +20,14 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users
+    resources :labs
 
     root to: 'users#index', as: :root
   end
 
   # API
 
+  namespace :api do
+    # nothing ATM
+  end
 end

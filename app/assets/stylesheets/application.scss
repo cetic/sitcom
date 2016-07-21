@@ -21,3 +21,5 @@ $brand-primary-dark: darken($brand-primary, 12%);
 
 @import 'admin/users/index';
 @import 'admin/users/form';
+@import 'admin/labs/index';
+@import 'admin/labs/form';

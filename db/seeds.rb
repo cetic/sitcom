@@ -1,3 +1,5 @@
+# Users
+
 aurels = User.create!({
   :name                  => 'Aurélien Malisart',
   :email                 => 'aurelien@phonoid.com',
@@ -21,3 +23,8 @@ nicolas = User.create!({
   :password_confirmation => 'testtest42',
   :admin                 => true
 })
+
+# Labs
+
+Lab.create(:name => 'Smart Gastronomy')
+Lab.create(:name => 'e-Health')
