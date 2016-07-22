@@ -25,11 +25,10 @@ Rails.application.routes.draw do
     resource :password
   end
 
-  scope ':lab_slug' do
+  resources :labs, :path => ''
+  resources :labs, :path => '', :only => [] do
     resources :contacts
-
-    root to: 'contacts#index'
   end
 
-  root to: 'application#root', as: :main_root
+  root to: 'labs#index'
 end

@@ -9,18 +9,22 @@ th.actions {
 }
 
 .breadcrumb {
-  background-color: $brand-primary-dark;
+  //background-color: $brand-primary-dark;
+  padding-left: 6px;
+  background-color: white;
+  border-bottom: 1px solid #cccccc;
   margin-top: 10px;
+  border-radius: 0px;
+  font-weight: 400;
+  font-size: 20px;
 
   li, li.active {
-    color: white;
+    //color: white;
+    color: #444444;
 
-    a {
-      color: #dadada;
-    }
-
-    a:hover {
-      color: white;
+    a, a:hover {
+      color: #999999;
+      //color: #dadada;
     }
   }
 }

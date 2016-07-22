@@ -94,3 +94,24 @@
     }
   }
 }
+
+#devise-sessions-create,
+#devise-sessions-new {
+  .logo-container {
+    margin-top: 10px;
+    text-align: center;
+
+    img {
+      width: 240px;
+      height: 240px;
+    }
+  }
+
+  .jumbotron {
+    padding-top: 12px;
+
+    .panel {
+      margin-top: 0px;
+    }
+  }
+}

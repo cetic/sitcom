@@ -10,8 +10,6 @@
 
       <%= form_for([:admin, @user], :html => { :class => 'form-horizontal' }) do |f| %>
         <fieldset>
-          <legend>Général</legend>
-
           <div class="form-group">
             <%= f.label :name, 'Nom', :class => 'control-label col-md-3' %>
 
@@ -29,15 +27,7 @@
           </div>
         </fieldset>
 
-
-
         <fieldset>
-          <% if @user.persisted? %>
-            <legend>Modifier le mot de passe</legend>
-          <% else %>
-            <legend>Mot de passe</legend>
-          <% end %>
-
           <% if @user.persisted? %>
             <div class="alert alert-info">Ne pas remplir les champs pour garder le mot de passe actuel.</div>
           <% end %>

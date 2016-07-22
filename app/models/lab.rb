@@ -13,4 +13,8 @@ class Lab < ApplicationRecord
 
   # Methods
 
+  def to_param
+    slug
+  end
+
 end

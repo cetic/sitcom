@@ -3,15 +3,9 @@
     <div class="container-fluid">
       <div class="row">
         <div class="navbar-header">
-          <% if @lab %>
-            <a class="navbar-brand" href="<%= root_path(:lab_slug => @lab.slug) %>">
-              <%= image_tag('logo.svg', :height => 100) %>
-            </a>
-          <% else %>
-            <a class="navbar-brand" href="<%= main_root_path %>">
-              <%= image_tag('logo.svg', :height => 100) %>
-            </a>
-          <% end %>
+          <a class="navbar-brand" href="<%= @lab ? lab_contacts_path(@lab) : root_path %>">
+            <%= image_tag('logo.svg', :height => 100) %>
+          </a>
         </div>
 
         <% if params[:controller].split('/').first == 'admin' %>
@@ -45,16 +39,16 @@
           <% if @lab %>
             <ul class="nav navbar-nav sections">
               <li>
-                <a href="<%= contacts_path(:lab_slug => @lab.slug) %>">Contacts</a>
+                <a href="<%= lab_contacts_path(@lab) %>">Contacts</a>
               </li>
               <li>
-                <a href="<%= contacts_path(:lab_slug => @lab.slug) %>">Organisations</a>
+                <a href="<%= lab_contacts_path(@lab) %>">Organisations</a>
               </li>
               <li>
-                <a href="<%= contacts_path(:lab_slug => @lab.slug) %>">Projets</a>
+                <a href="<%= lab_contacts_path(@lab) %>">Projets</a>
               </li>
               <li>
-                <a href="<%= contacts_path(:lab_slug => @lab.slug) %>">Evenements</a>
+                <a href="<%= lab_contacts_path(@lab) %>">Evenements</a>
               </li>
             </ul>
           <% end %>

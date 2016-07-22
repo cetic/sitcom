@@ -1,5 +1,13 @@
 <% content_for :title, "Connexion" %>
 
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 logo-container">
+      <%= image_tag 'logo.svg' %>
+    </div>
+  </div>
+</div>
+
 <div class="jumbotron">
   <div class="container">
     <div class="col-md-6 col-md-offset-3 well panel">
@@ -26,7 +34,6 @@
 
         <div class="actions">
           <%= link_to 'Mot de passe perdu ?', new_password_path(resource_name), :class => 'forgot-password' %>
-          <%= link_to 'Annuler', main_root_path, :class => 'btn btn-default' %>
           <%= f.submit 'Se connecter', :class => 'btn btn-primary' %>
         </div>
       <% end %>

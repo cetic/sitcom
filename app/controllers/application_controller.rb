@@ -10,10 +10,6 @@ class ApplicationController < ActionController::Base
 
   # Actions
 
-  def root
-    redirect_to "/#{Lab.first.slug}"
-  end
-
   # Methods
 
   protected
@@ -29,7 +25,7 @@ class ApplicationController < ActionController::Base
   end
 
   def find_lab
-    @lab = Lab.find_by_slug(params[:lab_slug])
+    @lab = Lab.find_by_slug(params[:lab_id])
   end
 
   def http_basic_auth
@@ -39,16 +35,6 @@ class ApplicationController < ActionController::Base
         password == ENV['HTTP_BASIC_AUTH_PASSWORD']
       end
     end
-  end
-
-  # Devise hooks
-
-  def after_sign_in_path_for(resource)
-    main_root_path
-  end
-
-  def after_sign_out_path_for(resource)
-    main_root_path
   end
 
 end
