@@ -8,7 +8,7 @@ class Lab < ApplicationRecord
   # Callbacks
 
   before_save do
-    self.slug = name.slugify
+    self.slug = name.parameterize
   end
 
   # Methods

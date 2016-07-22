@@ -42,7 +42,7 @@ class Admin::LabsController < Admin::BaseController
   protected
 
   def find_lab
-    @lab = Lab.find(params[:id])
+    @lab = Lab.find_by_slug(params[:id])
   end
 
   private

@@ -17,13 +17,13 @@ $secondary: #e17000; // not bootstrap
 @import 'shared/global';
 @import 'shared/devise';
 @import 'shared/mixins';
-@import 'shared/navbar';
+@import 'shared/header';
 @import 'shared/admin';
 @import 'shared/quick_search';
 
 @import 'contacts/index';
 
+@import 'admin/form';
+
 @import 'admin/users/index';
-@import 'admin/users/form';
 @import 'admin/labs/index';
-@import 'admin/labs/form';

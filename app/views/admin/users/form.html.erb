@@ -1,6 +1,6 @@
 <div class="container container-main">
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="panel col-md-6 col-md-offset-3">
       <ol class="breadcrumb">
         <li><%= link_to 'Utilisateurs', admin_users_path %></li>
         <li class="active"><%= params[:action].in?(['new', 'create']) ? 'Créer un utilisateur' : 'Modifier un utilisateur' %></li>
@@ -28,11 +28,11 @@
 
           <% unless @user.id == current_user.id %>
             <div class="form-group">
-              <div class="col-md-offset-3 col-md-9">
-                <div class="checkbox"
-                  <label>
-                    <%= f.check_box :admin %>&nbsp;&nbsp;Cet utilisateur est administrateur
-                  </label>
+              <%= f.label :admin, 'Administrateur', :class => 'control-label col-md-3' %>
+
+              <div class="col-md-9">
+                <div class="checkbox">
+                  <%= f.check_box :admin %>
                 </div>
               </div>
             </div>
@@ -40,10 +40,6 @@
         </fieldset>
 
         <fieldset>
-          <% if @user.persisted? %>
-            <div class="alert alert-info">Ne pas remplir les champs pour garder le mot de passe actuel.</div>
-          <% end %>
-
           <div class="form-group">
             <%= f.label :password, 'Mot de passe', :class => 'control-label col-md-3' %>
 
@@ -57,14 +53,17 @@
 
             <div class="col-md-9">
               <%= f.password_field :password_confirmation, :class => 'form-control', :placeholder => '' %>
+
+              <% if @user.persisted? %>
+                <span class="help-block" style="font-size: 11px;">Ne pas remplir les champs "password" pour garder le mot de passe actuel.</span>
+              <% end %>
             </div>
           </div>
         </fieldset>
 
-        <div class="form-group">
-          <div class="col-md-offset-3 col-md-9">
-            <%= f.submit 'Enregistrer', :class => 'btn btn-default' %>
-          </div>
+        <div class="actions">
+          <%= link_to 'Annuler', admin_users_path, :class => 'btn btn-default' %>
+          <%= f.submit 'Enregistrer', :class => 'btn btn-primary' %>
         </div>
       <% end %>
     </div>

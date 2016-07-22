@@ -94,8 +94,15 @@
     right: 0px;
     font-size: 14px;
 
-    .dropdown > a {
-      color: whitesmoke;
+    .dropdown {
+      > a {
+        color: whitesmoke;
+      }
+
+      .divider {
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
     }
 
     li > a {

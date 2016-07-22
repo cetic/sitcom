@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="navbar-header">
-          <a class="navbar-brand" href="<%= @lab ? lab_contacts_path(@lab) : root_path %>">
+          <a class="navbar-brand" href="<%= current_lab ? lab_contacts_path(current_lab) : root_path %>">
             <%= image_tag('logo.svg', :height => 100) %>
           </a>
         </div>
@@ -27,8 +27,8 @@
         <% else %>
           <div class="projects">
             <div class="project">
-              <% if @lab %>
-                <h1><%= @lab.name %></h1>
+              <% if current_lab %>
+                <h1><%= current_lab.name %></h1>
                 <i class="fa fa-caret-down"></i>
               <% else %>
                 <h1>&nbsp;</h1>
@@ -36,19 +36,19 @@
             </div>
           </div>
 
-          <% if @lab %>
+          <% if current_lab %>
             <ul class="nav navbar-nav sections">
               <li>
-                <a href="<%= lab_contacts_path(@lab) %>">Contacts</a>
+                <a href="<%= lab_contacts_path(current_lab) %>">Contacts</a>
               </li>
               <li>
-                <a href="<%= lab_contacts_path(@lab) %>">Organisations</a>
+                <a href="<%= lab_contacts_path(current_lab) %>">Organisations</a>
               </li>
               <li>
-                <a href="<%= lab_contacts_path(@lab) %>">Projets</a>
+                <a href="<%= lab_contacts_path(current_lab) %>">Projets</a>
               </li>
               <li>
-                <a href="<%= lab_contacts_path(@lab) %>">Evenements</a>
+                <a href="<%= lab_contacts_path(current_lab) %>">Evenements</a>
               </li>
             </ul>
           <% end %>

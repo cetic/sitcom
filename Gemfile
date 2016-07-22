@@ -23,7 +23,6 @@ gem 'react-rails', '~> 1.0'
 gem 'sprockets-coffee-react'
 
 # File Attachments
-
 gem 'rmagick'
 gem 'carrierwave'
 
@@ -36,7 +35,6 @@ gem 'uuidtools'
 gem 'airbrake', '4.1.0'
 gem 'dotenv-rails'
 gem 'puma', '~> 3.0'
-gem 'slugify'
 
 group :development do
   gem 'listen'

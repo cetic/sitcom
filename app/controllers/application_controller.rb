@@ -24,9 +24,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def find_lab
-    @lab = Lab.find_by_slug(params[:lab_id])
+  def current_lab
+    if params[:lab_id] && params[:controller].split('/').first != 'admin'
+      Lab.find_by_slug(params[:lab_id])
+    end
   end
+  helper_method :current_lab
 
   def http_basic_auth
     if Rails.env.production? && ENV['HTTP_BASIC_AUTH_USERNAME'].present?

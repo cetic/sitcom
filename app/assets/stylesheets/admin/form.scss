@@ -1,0 +1,28 @@
+#admin-labs-new,
+#admin-labs-edit,
+#admin-labs-create,
+#admin-labs-update,
+#admin-users-new,
+#admin-users-edit,
+#admin-users-create,
+#admin-users-update {
+  .panel {
+    margin-top: 20px;
+    background-color: white;
+  }
+
+  .checkbox {
+    input {
+      margin-left: 0px;
+    }
+  }
+
+  .actions {
+    text-align: right;
+    margin-bottom: 12px;
+
+    .btn {
+      margin-left: 6px;
+    }
+  }
+}
