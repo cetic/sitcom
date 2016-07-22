@@ -26,7 +26,7 @@ fr:
       locked: Votre compte est verrouillé.
       not_found_in_database: Email ou mot de passe incorrect.
       timeout: Votre session est expirée, veuillez vous reconnecter pour continuer.
-      unauthenticated: Vous devez vous connecter pour continuer.
+      unauthenticated: ''
       unconfirmed: Vous devez confirmer votre compte par courriel.
     mailer:
       confirmation_instructions:

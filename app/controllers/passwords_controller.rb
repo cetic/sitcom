@@ -1,4 +1,5 @@
 class PasswordsController < ApplicationController
+
   def show
     redirect_to edit_profile_password_path
   end

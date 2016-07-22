@@ -1,4 +1,4 @@
-<% if current_user %>
+<% if display_header? %>
   <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
       <div class="row">
@@ -8,7 +8,7 @@
           </a>
         </div>
 
-        <% if params[:controller].split('/').first == 'admin' %>
+        <% if admin_page? %>
           <div class="projects">
             <div class="project">
               <h1>Administration</h1>
