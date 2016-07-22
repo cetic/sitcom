@@ -54,6 +54,8 @@ class Admin::UsersController < Admin::BaseController
   private
 
   def strong_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(
+      :name, :email, :password, :password_confirmation, :admin
+    )
   end
 end
