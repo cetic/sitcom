@@ -18,7 +18,7 @@ michael = User.create!({
 
 nicolas = User.create!({
   :name                  => 'Nicolas Devos',
-  :email                 => 'nicolas.devos@cetic.be ',
+  :email                 => 'nicolas.devos@cetic.be',
   :password              => 'testtest42',
   :password_confirmation => 'testtest42',
   :admin                 => true
