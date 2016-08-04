@@ -11,5 +11,7 @@ module Sitcom
     config.time_zone              = 'Brussels'
     config.i18n.available_locales = [:fr]
     config.i18n.default_locale    = :fr
+
+    config.action_controller.forgery_protection_origin_check = false
   end
 end
