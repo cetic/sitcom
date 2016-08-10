@@ -25,8 +25,10 @@ class ApplicationController < ActionController::Base
   end
 
   def current_lab
-    if params[:lab_id] && params[:controller].split('/').first != 'admin'
-      Lab.find_by_slug(params[:lab_id])
+    @current_lab ||= begin
+      if params[:lab_id] && params[:controller].split('/').first != 'admin'
+        Lab.find_by_slug(params[:lab_id])
+      end
     end
   end
   helper_method :current_lab
