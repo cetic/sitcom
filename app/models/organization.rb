@@ -5,6 +5,10 @@ class Organization < ApplicationRecord
   include CommonIndexConcern
   include OrganizationIndexConcern
 
+  # Validations
+
+  validates :name, :presence => { :message => "Le nom est obligatoire."  }
+
   # Associations
 
   belongs_to :lab
