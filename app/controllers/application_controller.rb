@@ -14,6 +14,16 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def find_lab_from_cookies
+    if cookies.permanent.signed[:current_lab_id]
+      @lab = Lab.find(cookies.permanent.signed[:current_lab_id])
+    end
+  end
+
+  def save_lab_in_cookies(lab)
+    cookies.permanent.signed[:current_lab_id] = lab.id
+  end
+
   def render_404
     raise ActionController::RoutingError.new('Not Found')
   end
@@ -24,14 +34,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def current_lab
-    @current_lab ||= begin
-      if params[:lab_id] && params[:controller].split('/').first != 'admin'
-        Lab.find_by_slug(params[:lab_id])
-      end
-    end
+  def admin_page?
+    params[:controller].split('/').first == 'admin'
   end
-  helper_method :current_lab
 
   def http_basic_auth
     if Rails.env.production? && ENV['HTTP_BASIC_AUTH_USERNAME'].present?

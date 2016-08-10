@@ -1,18 +1,24 @@
 class LabsController < ApplicationController
 
-  before_action :find_lab, :only => [:show]
+  before_action :find_lab_from_cookies, :only => [:index]
+  before_action :find_lab,              :only => [:show]
 
   def index
-    redirect_to "/#{Lab.first.slug}/contacts"
+    if @lab
+      redirect_to lab_contacts_path(@lab)
+    else
+      @labs = current_user.labs
+    end
   end
 
   def show
     redirect_to lab_contacts_path(@lab)
   end
 
-  def find_lab
-    @lab = Lab.find_by_slug(params[:id])
+  private
 
-    render_404 if @lab.blank?
+  def find_lab
+    @lab = current_user.labs.find_by_slug!(params[:id])
+    save_lab_in_cookies(@lab)
   end
 end

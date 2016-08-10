@@ -12,6 +12,8 @@ module ApplicationHelper
   end
 
   def display_header?
-    current_user && params[:controller] != 'passwords'
+    current_user &&
+      params[:controller] != 'passwords' &&
+      !(params[:controller] == 'labs' && params[:action] == 'index')
   end
 end

@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   resource :profile do
     resource :password
+    resource :current_lab
   end
 
   resources :labs, :path => ''
