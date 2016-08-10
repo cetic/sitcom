@@ -164,9 +164,6 @@ GEM
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
     orm_adapter (0.5.0)
-    passenger (5.0.29)
-      rack
-      rake (>= 0.8.1)
     pkg-config (1.1.7)
     puma (3.4.0)
     rabl (0.12.0)
@@ -280,7 +277,6 @@ DEPENDENCIES
   listen
   lodash-rails
   mysql2
-  passenger
   puma (~> 3.0)
   rabl
   rails (~> 5.0.0)

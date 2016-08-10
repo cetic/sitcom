@@ -52,5 +52,4 @@ end
 group :production do
   gem 'therubyracer'
   gem 'libv8'
-  gem 'passenger'
 end
