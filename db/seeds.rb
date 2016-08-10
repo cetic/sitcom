@@ -23,17 +23,3 @@ nicolas = User.create!({
   :password_confirmation => 'testtest42',
   :admin                 => true
 })
-
-# Labs
-
-gastro = Lab.create(:name => 'Smart Gastronomy')
-health = Lab.create(:name => 'e-Health')
-
-aurels.labs << gastro
-aurels.labs << health
-
-michael.labs << gastro
-michael.labs << health
-
-nicolas.labs << gastro
-nicolas.labs << health

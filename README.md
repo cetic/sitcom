@@ -6,6 +6,7 @@
 bundle install
 bundle exec rails db:migrate:reset
 bundle exec rails db:seed
+bundle exec rake environment elasticsearch:import:all FORCE=true
 bundle exec rails server
 ```
 

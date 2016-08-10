@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   resources :labs, :path => ''
   resources :labs, :path => '', :only => [] do
     resources :contacts
+    resources :organizations
   end
 
   root to: 'labs#index'
