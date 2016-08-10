@@ -1,5 +1,10 @@
 class Lab < ApplicationRecord
 
+  # Associations
+
+  has_many :lab_user_links, :dependent => :destroy
+  has_many :uers, :through => :lab_user_links
+
   # Validations
 
   validates :name, :presence   => { :message => "Le nom est obligatoire."  },

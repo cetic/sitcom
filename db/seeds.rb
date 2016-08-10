@@ -26,5 +26,14 @@ nicolas = User.create!({
 
 # Labs
 
-Lab.create(:name => 'Smart Gastronomy')
-Lab.create(:name => 'e-Health')
+gastro = Lab.create(:name => 'Smart Gastronomy')
+health = Lab.create(:name => 'e-Health')
+
+aurels.labs << gastro
+aurels.labs << health
+
+michael.labs << gastro
+michael.labs << health
+
+nicolas.labs << gastro
+nicolas.labs << health

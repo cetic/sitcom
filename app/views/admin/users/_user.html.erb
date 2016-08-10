@@ -8,6 +8,7 @@
     <% end %>
   </td>
 
+  <td class="number"><%= user.labs.count %></td>
   <td><%= user.last_sign_in_at.present? ? l(user.last_sign_in_at, format: :short) : 'Never' %></td>
 
   <td class="actions">

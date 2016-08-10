@@ -61,6 +61,22 @@
           </div>
         </fieldset>
 
+          <div class="form-group">
+            <%= f.label :lab_ids, 'Labs', :class => 'control-label col-md-3' %>
+
+            <div class="col-md-9">
+              <ul class="labs">
+                <% Lab.order(:name).each do |lab| %>
+                  <li>
+                    <%= check_box_tag 'user[lab_ids][]', lab.id, @user.lab_ids.include?(lab.id), :id => "user_lab_ids_#{lab.id}" %>
+                    <label for="user_lab_ids_<%= lab.id %>"><%= lab.name %></label>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </fieldset>
+
         <div class="actions">
           <%= link_to 'Annuler', admin_users_path, :class => 'btn btn-default' %>
           <%= f.submit 'Enregistrer', :class => 'btn btn-primary' %>

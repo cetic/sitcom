@@ -55,7 +55,7 @@ class Admin::UsersController < Admin::BaseController
 
   def strong_params
     params.require(:user).permit(
-      :name, :email, :password, :password_confirmation, :admin
+      :name, :email, :password, :password_confirmation, :admin, :lab_ids => []
     )
   end
 end

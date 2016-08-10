@@ -1,0 +1,15 @@
+#admin-users-new,
+#admin-users-edit,
+#admin-users-create,
+#admin-users-update {
+  ul.labs {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 7px;
+
+    label {
+      font-weight: normal;
+      padding-left: 3px;
+    }
+  }
+}

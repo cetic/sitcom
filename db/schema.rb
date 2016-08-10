@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160721115357) do
+ActiveRecord::Schema.define(version: 20160810110801) do
+
+  create_table "lab_user_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "lab_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lab_id"], name: "index_lab_user_links_on_lab_id", using: :btree
+    t.index ["user_id"], name: "index_lab_user_links_on_user_id", using: :btree
+  end
 
   create_table "labs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "name"
@@ -38,4 +47,6 @@ ActiveRecord::Schema.define(version: 20160721115357) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "lab_user_links", "labs"
+  add_foreign_key "lab_user_links", "users"
 end
