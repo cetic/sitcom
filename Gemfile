@@ -19,8 +19,8 @@ gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 gem 'select2-rails'
 gem 'lodash-rails'
-gem 'react-rails', '~> 1.0'
-gem 'sprockets-coffee-react'
+gem 'react-rails'
+gem 'browserify-rails'
 
 # File Attachments
 gem 'rmagick'
