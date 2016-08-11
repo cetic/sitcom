@@ -8,11 +8,9 @@ class ContactsIndex extends React.Component {
   }
 
   render() {
-    return `
-      <div>
-        <span>Hello World</span>
-      </div>
-    `
+    return <div>
+              <span>Hello World</span>
+           </div>
   }
 }
 
