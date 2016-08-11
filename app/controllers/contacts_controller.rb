@@ -3,8 +3,6 @@ class ContactsController < ApplicationController
 
   def index
     respond_to do |format|
-      format.html
-
       format.json do
         contacts = ContactSearch.new(params.merge({
           :lab_id => @lab.id
@@ -13,6 +11,20 @@ class ContactsController < ApplicationController
         render :json => {
           :contacts => contacts
         }
+      end
+
+      format.html
+    end
+  end
+
+  def show
+    respond_to do |format|
+      format.json do
+        @contact = @lab.contacts.find(params[:id])
+      end
+
+      format.html do
+        render 'index'
       end
     end
   end

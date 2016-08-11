@@ -9,10 +9,11 @@
 #= require_self
 #= require_tree .
 
-global.React    = require('react')
-global.ReactDOM = require('react-dom')
-global.Router   = require('react-router').Router
-global.Route    = require('react-router').Route
-global.Link     = require('react-router').Link
+global.React       = require('react')
+global.ReactDOM    = require('react-dom')
+global.Router      = require('react-router').Router
+global.Route       = require('react-router').Route
+global.Link        = require('react-router').Link
+global.hashHistory = require('react-router').hashHistory
 
-global.ContactsIndex = require('./contacts/index.js.jsx')
+global.ContactsRoutes = require('./contacts/routes.js.jsx')

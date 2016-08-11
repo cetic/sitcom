@@ -3,8 +3,6 @@ class OrganizationsController < ApplicationController
 
   def index
     respond_to do |format|
-      format.html
-
       format.json do
         organizations = OrganizationSearch.new(params.merge({
           :lab_id => @lab.id
@@ -14,6 +12,8 @@ class OrganizationsController < ApplicationController
           :organizations => organizations
         }
       end
+
+      format.html
     end
   end
 

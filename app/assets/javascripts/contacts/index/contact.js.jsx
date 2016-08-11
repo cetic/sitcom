@@ -26,7 +26,7 @@ class Contact extends React.Component {
 
         <div className="infos">
           <span className="name">
-            {this.props.contact.name}
+            <Link to={'/' + this.props.contact.id}>{this.props.contact.name}</Link>
           </span>
 
           <span className="companies">

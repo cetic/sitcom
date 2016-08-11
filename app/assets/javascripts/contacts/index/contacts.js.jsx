@@ -17,7 +17,7 @@ class Contacts extends React.Component {
   }
 
   reloadFromBackend() {
-    $.get(this.props.contactsPath, function(data){
+    $.get(this.props.route.contactsPath, (data) => {
       var camelData = humps.camelizeKeys(data);
 
       this.setState({
@@ -25,12 +25,12 @@ class Contacts extends React.Component {
         booted: true,
         loading: false
       });
-    }.bind(this));
+    });
   }
 
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container-fluid container-contact-index">
         <div className="row">
           <div className="col-md-4 pull-right" style={{ height: '400px', backgroundColor: 'white' }}>
             Recherche avancée
