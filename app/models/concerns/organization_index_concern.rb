@@ -9,6 +9,7 @@ module OrganizationIndexConcern
 
     settings CommonIndexConcern::SETTINGS_HASH do
       mappings do
+        indexes :id,     :index => 'not_analyzed'
         indexes :lab_id
         indexes :name
         indexes :status
@@ -20,7 +21,7 @@ module OrganizationIndexConcern
 
   def as_indexed_json(options = {})
     basic_fields = [
-      :lab_id, :name, :status, :description, :website_url
+      :id, :lab_id, :name, :status, :description, :website_url
     ]
 
     as_json({ :only => basic_fields }).merge({

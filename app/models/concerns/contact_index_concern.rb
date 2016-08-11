@@ -9,6 +9,7 @@ module ContactIndexConcern
 
     settings CommonIndexConcern::SETTINGS_HASH do
       mappings do
+        indexes :id,     :index => 'not_analyzed'
         indexes :lab_id, :index => 'not_analyzed'
         indexes :name
         indexes :active, :index => 'not_analyzed'
@@ -22,7 +23,7 @@ module ContactIndexConcern
 
   def as_indexed_json(options = {})
     basic_fields = [
-      :lab_id, :active, :email, :phone,
+      :id, :lab_id, :active, :email, :phone,
       :twitter_url, :linkedin_url, :facebook_url, :website_url
     ]
 

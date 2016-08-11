@@ -7,7 +7,7 @@ class OrganizationsController < ApplicationController
 
       format.json do
         organizations = OrganizationSearch.new(params.merge({
-          :lab_id => current_lab.id
+          :lab_id => @lab.id
         })).run
 
         render :json => {

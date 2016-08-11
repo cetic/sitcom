@@ -7,7 +7,7 @@ class ContactsController < ApplicationController
 
       format.json do
         contacts = ContactSearch.new(params.merge({
-          :lab_id => current_lab.id
+          :lab_id => @lab.id
         })).run
 
         render :json => {
