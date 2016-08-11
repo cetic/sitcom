@@ -8,10 +8,10 @@
 #= require_self
 #= require_tree .
 
-React    = window.React    = global.React    = require('react')
-ReactDOM = window.ReactDOM = global.ReactDOM = require('react-dom')
-Router   = window.Router   = global.Router   = require('react-router').Router
-Route    = window.Route    = global.Route    = require('react-router').Route
-Link     = window.Link     = global.Link     = require('react-router').Link
+global.React    = require('react')
+global.ReactDOM = require('react-dom')
+global.Router   = require('react-router').Router
+global.Route    = require('react-router').Route
+global.Link     = require('react-router').Link
 
-ContactsIndex = @ContactsIndex = global.ContactsIndex = require("./contacts/index.js.jsx")
+global.ContactsIndex = require('./contacts/index.js.jsx')

@@ -1,3 +1,5 @@
+import Bidon from './index/bidon.js.jsx'
+
 class ContactsIndex extends React.Component {
   constructor(props) {
     super(props);
@@ -8,10 +10,13 @@ class ContactsIndex extends React.Component {
   }
 
   render() {
-    return <div>
-              <span>Hello World</span>
-           </div>
+    return (
+      <div>
+        <span>Hello World {this.state.hello}</span>
+        <Bidon />
+      </div>
+    )
   }
 }
 
-module.exports = ContactsIndex;
+module.exports = ContactsIndex
