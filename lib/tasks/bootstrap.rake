@@ -19,12 +19,30 @@ namespace :app do
     nicolas.labs << gastro
     nicolas.labs << health
 
-    # Contacts
+    # Contacts & Organizations
 
-    gastro.contacts.create!(:active => true,  :first_name => "John",      :last_name => "Doe")
-    gastro.contacts.create!(:active => true,  :first_name => "Thomas",    :last_name => "Deblock")
-    gastro.contacts.create!(:active => true,  :first_name => "Stéphanie", :last_name => "Debloc")
-    gastro.contacts.create!(:active => false, :first_name => "Thomas",    :last_name => "Carly")
+    xlsx = Roo::Spreadsheet.open('misc/private/Copie de Listing participants aux ateliers.xlsx')
+
+    xlsx.sheet('Liste participants globale').each_with_index do |row, index|
+      first_name = row[0]
+      last_name  = row[1]
+      email      = row[3]
+      phone      = row[4]
+
+      if index > 0
+        if first_name.present? && last_name.present?
+          puts "* Importing #{row[0]} #{row[1]}"
+
+          gastro.contacts.create!(
+            :active     => true,
+            :first_name => first_name,
+            :last_name  => last_name,
+            :email      => email,
+            :phone      => phone
+          )
+        end
+      end
+    end
 
     # Organizations
 

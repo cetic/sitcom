@@ -34,6 +34,7 @@ gem 'rabl'
 gem 'uuidtools'
 gem 'airbrake', '4.1.0'
 gem 'dotenv-rails'
+gem 'roo'
 gem 'puma', '~> 3.0'
 
 group :development do
