@@ -1,5 +1,25 @@
-<% @labs.each do |lab| %>
-  <div>
-    <%= link_to lab.name, lab_path(lab) %>
+<% content_for :title, "Connexion" %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 logo-container">
+      <%= image_tag 'logo.svg' %>
+    </div>
   </div>
-<% end %>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <div class="col-md-6 col-md-offset-3 well panel">
+      <h1>Labs</h1>
+
+      <ul>
+        <% @labs.each do |lab| %>
+          <li>
+            <%= link_to lab.name, lab_path(lab) %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

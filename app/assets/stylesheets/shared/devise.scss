@@ -7,6 +7,7 @@
 #devise-registrations-new,
 #passwords-edit,
 #passwords-update,
+#labs-index,
 #modal-signin {
   .panel {
     margin-top: 50px;
@@ -98,7 +99,8 @@
 }
 
 #devise-sessions-create,
-#devise-sessions-new {
+#devise-sessions-new,
+#labs-index {
   .logo-container {
     margin-top: 36px;
     text-align: center;
