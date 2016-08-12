@@ -32,8 +32,21 @@ Rails.application.routes.draw do
 
   resources :labs, :path => ''
   resources :labs, :path => '', :only => [] do
-    resources :contacts
-    resources :organizations
+    resources :contacts do
+      resources :notes
+    end
+
+    resources :organizations do
+      resources :notes
+    end
+
+    resources :projects do
+      resources :notes
+    end
+
+    resources :events do
+      resources :notes
+    end
   end
 
   root to: 'labs#index'
