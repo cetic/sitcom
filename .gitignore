@@ -29,7 +29,5 @@
 .env
 
 /misc/private
-/misc/private/*
-/misc/private/**/*
 
 node_modules

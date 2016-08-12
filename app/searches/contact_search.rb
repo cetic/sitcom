@@ -8,7 +8,6 @@ class ContactSearch < BaseSearch
               { 'term'   => { 'lab_id' => params[:lab_id] } },
             ]
           },
-
         },
       },
 

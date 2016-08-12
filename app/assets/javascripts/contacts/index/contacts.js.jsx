@@ -1,14 +1,16 @@
-import Contact     from './contact.js.jsx'
-import QuickSearch from './quick_search.js.jsx'
+import Contact        from './contact.js.jsx'
+import QuickSearch    from './quick_search.js.jsx'
+import CompleteSearch from './complete_search.js.jsx'
 
 class Contacts extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      contacts: [],
-      booted: false,
-      loading: true
+      contacts:       [],
+      loading:        true,
+      quickSearch:    '',
+      completeSearch: {}
     };
   }
 
@@ -17,27 +19,33 @@ class Contacts extends React.Component {
   }
 
   reloadFromBackend() {
-    $.get(this.props.route.contactsPath, (data) => {
+    $.get(this.props.route.contactsPath, { query: this.state.quickSearch }, (data) => {
       var camelData = humps.camelizeKeys(data);
 
       this.setState({
         contacts: camelData.contacts,
-        booted: true,
-        loading: false
+        loading:  false
       });
     });
+  }
+
+  updateQuickSearch(newQuickSearch) {
+    this.setState({
+      quickSearch: newQuickSearch
+    }, this.reloadFromBackend)
   }
 
   render() {
     return (
       <div className="container-fluid container-contact-index">
         <div className="row">
-          <div className="col-md-4 pull-right" style={{ height: '400px', backgroundColor: 'white' }}>
-            Recherche avancée
+          <div className="col-md-4 pull-right complete-search">
+            <CompleteSearch completeSearch={this.state.completeSearch} />
           </div>
 
           <div className="col-md-8">
-            <QuickSearch />
+            <QuickSearch quickSearch={this.state.quickSearch}
+                         updateQuickSearch={this.updateQuickSearch.bind(this)} />
 
             <div className="contacts">
               {this.renderContacts()}
@@ -49,7 +57,7 @@ class Contacts extends React.Component {
   }
 
   renderContacts() {
-    return _.map(this.state.contacts, function(contact) {
+    return _.map(this.state.contacts, (contact) => {
       return (
         <Contact key={contact.id} contact={contact} />
       );
