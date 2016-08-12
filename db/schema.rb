@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160810113418) do
+ActiveRecord::Schema.define(version: 20160812084949) do
 
   create_table "contact_organization_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "contact_id"
@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(version: 20160810113418) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.index ["lab_id"], name: "index_contacts_on_lab_id", using: :btree
+  end
+
+  create_table "fields", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_fields_on_parent_id", using: :btree
   end
 
   create_table "lab_user_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
@@ -90,6 +98,7 @@ ActiveRecord::Schema.define(version: 20160810113418) do
   add_foreign_key "contact_organization_links", "contacts"
   add_foreign_key "contact_organization_links", "organizations"
   add_foreign_key "contacts", "labs"
+  add_foreign_key "fields", "fields", column: "parent_id"
   add_foreign_key "lab_user_links", "labs"
   add_foreign_key "lab_user_links", "users"
   add_foreign_key "organizations", "labs"

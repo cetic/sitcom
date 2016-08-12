@@ -1,0 +1,26 @@
+<div class="container container-main">
+  <div class="row">
+    <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li class="active">Domaines</li>
+      </ol>
+
+      <%= link_to 'Ajouter un domaine', new_admin_field_path, :class => 'btn btn-xs btn-primary pull-right btn-new' %>
+
+      <% if @fields.any? %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="col-md-4">Nom</th>
+              <th class="col-md-1 actions">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <%= render @fields %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>

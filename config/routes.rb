@@ -10,6 +10,10 @@ Rails.application.routes.draw do
     resources :users
     resources :labs
 
+    resources :fields do
+      resources :children, controller: 'fields'
+    end
+
     root to: 'users#index', as: :root
   end
 
