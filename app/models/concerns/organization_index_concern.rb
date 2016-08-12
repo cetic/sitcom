@@ -16,7 +16,7 @@ module OrganizationIndexConcern
         indexes :description
         indexes :contact_ids, :index => 'not_analyzed'
 
-        indexes :sort_name, :index => 'not_analyzed'
+        indexes :sort_name, :analyzer => :sortable_string_analyzer
       end
     end
   end
