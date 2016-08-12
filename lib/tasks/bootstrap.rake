@@ -24,22 +24,28 @@ namespace :app do
     xlsx = Roo::Spreadsheet.open('misc/private/Copie de Listing participants aux ateliers.xlsx')
 
     xlsx.sheet('Liste participants globale').each_with_index do |row, index|
-      first_name = row[0]
-      last_name  = row[1]
-      email      = row[3]
-      phone      = row[4]
+      if index > 1
+        first_name  = row[0]
+        last_name   = row[1]
+        email       = row[3]
+        phone       = row[4]
+        field_name  = row[6].to_s.strip
 
-      if index > 0
         if first_name.present? && last_name.present?
           puts "* Importing #{row[0]} #{row[1]}"
 
-          gastro.contacts.create!(
+          contact = gastro.contacts.create!(
             :active     => true,
             :first_name => first_name,
             :last_name  => last_name,
             :email      => email,
             :phone      => phone
           )
+
+          if field_name.present?
+            field = Field.where(name: field_name).first_or_create!
+            contact.fields << field
+          end
         end
       end
     end

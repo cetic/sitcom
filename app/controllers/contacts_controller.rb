@@ -29,6 +29,59 @@ class ContactsController < ApplicationController
     end
   end
 
+  def create
+    respond_to do |format|
+      format.json do
+        @contact = @lab.contacts.new(strong_params)
+
+        if @contact.save
+          render_json_success
+        else
+          render_json_errors(@contact)
+        end
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      format.json do
+        @contact = @lab.contacts.find(params[:id])
+
+        if @contact.update_attributes(strong_params)
+          render_json_success
+        else
+          render_json_errors(@contact)
+        end
+      end
+    end
+  end
+
+  def destroy
+    respond_to do |format|
+      format.json do
+        @contact = @lab.contacts.find(params[:id])
+
+        if @contact.destroy
+          render_json_success
+        else
+          render_json_errors(@contact)
+        end
+      end
+    end
+  end
+
+  protected
+
+  def strong_params
+    params.require(:contact).permit(
+      :first_name, :last_name, :active, :email, :phone,
+      :address_street, :address_zip_code, :address_city, :address_country,
+      :twitter_url, :linkedin_url, :facebook_url, :website_url,
+      :organization_ids => [], :field_ids => []
+    )
+  end
+
   private
 
   def find_lab

@@ -20,12 +20,24 @@ module OrganizationIndexConcern
   end
 
   def as_indexed_json(options = {})
-    basic_fields = [
-      :id, :lab_id, :name, :status, :description, :website_url
-    ]
+    {
+      :id          => id,
+      :lab_id      => lab_id,
+      :name        => name,
+      :status      => status,
+      :description => description,
+      :website_url => website_url,
+      :contact_ids => contact_ids,
+      :contacts    => contacts_as_indexed_json
+    }
+  end
 
-    as_json({ :only => basic_fields }).merge({
-      :contact_ids => contact_ids
-    })
+  def contacts_as_indexed_json
+    contacts.collect do |contact|
+      {
+        :id   => contact.id,
+        :name => contact.name
+      }
+    end
   end
 end

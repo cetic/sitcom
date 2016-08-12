@@ -12,6 +12,9 @@ class Contact < ApplicationRecord
   has_many :contact_organization_links, :dependent => :destroy
   has_many :organizations, :through => :contact_organization_links
 
+  has_many :contact_field_links, :dependent => :destroy
+  has_many :fields, :through => :contact_field_links
+
   # Validations
 
   validates :name, :presence => { :message => "Le nom est obligatoire."  }

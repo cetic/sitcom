@@ -9,6 +9,9 @@ class Field < ApplicationRecord
                       :foreign_key => :parent_id,
                       :dependent   => :destroy
 
+  has_many :contact_field_links, :dependent => :destroy
+  has_many :contacts, :through => :contact_field_links
+
   # Validations
 
   validates :name, :presence   => { :message => "Le nom est obligatoire."  },

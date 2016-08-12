@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160812084949) do
+ActiveRecord::Schema.define(version: 20160812093209) do
+
+  create_table "contact_field_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "contact_id"
+    t.integer  "field_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_contact_field_links_on_contact_id", using: :btree
+    t.index ["field_id"], name: "index_contact_field_links_on_field_id", using: :btree
+  end
 
   create_table "contact_organization_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "contact_id"
@@ -95,6 +104,8 @@ ActiveRecord::Schema.define(version: 20160812084949) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "contact_field_links", "contacts"
+  add_foreign_key "contact_field_links", "fields"
   add_foreign_key "contact_organization_links", "contacts"
   add_foreign_key "contact_organization_links", "organizations"
   add_foreign_key "contacts", "labs"

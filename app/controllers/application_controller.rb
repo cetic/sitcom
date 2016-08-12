@@ -34,6 +34,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def render_json_success
+    render :json => {
+      :success => true
+    }
+  end
+
+  def render_json_errors(object)
+    render :json => {
+      :success => false,
+      :errors  => object.errors.messages.values
+    }
+  end
+
   def admin_page?
     params[:controller].split('/').first == 'admin'
   end
