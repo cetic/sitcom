@@ -14,6 +14,10 @@ class Contacts extends React.Component {
     };
   }
 
+  componentWillMount() {
+    this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 300);
+  }
+
   componentDidMount() {
     this.reloadFromBackend();
   }
@@ -32,7 +36,7 @@ class Contacts extends React.Component {
   updateQuickSearch(newQuickSearch) {
     this.setState({
       quickSearch: newQuickSearch
-    }, this.reloadFromBackend)
+    }, this.dReloadFromBackend)
   }
 
   render() {
