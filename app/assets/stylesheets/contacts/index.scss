@@ -3,6 +3,16 @@
   .contacts {
     margin-top: 40px;
 
+    .loading {
+      text-align: center;
+      margin-top: -16px;
+      margin-bottom: 22px;
+    }
+
+    .blank-slate {
+      text-align: center;
+    }
+
     .contact {
       position: relative;
       margin-bottom: 36px;

@@ -1,5 +1,5 @@
 class BaseSearch
-  STEP           = 10_000
+  STEP           = 30
   MAX_EXPANSIONS = 2147483647 # 2^31 - 1 (max value for ElasticSearch)
 
   attr_reader :params
@@ -9,15 +9,6 @@ class BaseSearch
   end
 
   def run
-    from    = 0
-    results = []
-
-    begin
-      response = run_step(from)
-      results += response.results.collect(&:_source)
-      from     = from + STEP
-    end while response.results.total > from
-
-    results
+    run_step.results.collect(&:_source)
   end
 end

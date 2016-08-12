@@ -20,7 +20,7 @@ class Routes extends React.Component {
   render() {
     return (
       <Router history={this.browserHistory}>
-        <Route path="/"    component={Contacts} contactsPath={this.props.contactsPath} />
+        <Route path="/"    component={Contacts} contactsPath={this.props.contactsPath} loadingImagePath={this.props.loadingImagePath} />
         <Route path="/:id" component={Contact}  contactsPath={this.props.contactsPath} />
       </Router>
     );

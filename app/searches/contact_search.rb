@@ -1,11 +1,11 @@
 class ContactSearch < BaseSearch
-  def run_step(from)
+  def run_step
     options = {
       'query' => {
         'filtered' => {
           'filter' => {
             'and' => [
-              { 'term'   => { 'lab_id' => params[:lab_id] } },
+              { 'term' => { 'lab_id' => params[:lab_id] } },
             ]
           },
         },
@@ -13,7 +13,7 @@ class ContactSearch < BaseSearch
 
       'sort' => [ { 'sort_name' => { 'order' => 'asc' }} ],
 
-      'from' => from,
+      'from' => params[:offset].to_i,
       'size' => STEP
     }
 
