@@ -7,6 +7,8 @@ class Lab < ApplicationRecord
 
   has_many :contacts,      :dependent => :destroy
   has_many :organizations, :dependent => :destroy
+  has_many :projects,      :dependent => :destroy
+  has_many :events,        :dependent => :destroy
 
   # Validations
 

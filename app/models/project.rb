@@ -1,0 +1,15 @@
+class Project < ApplicationRecord
+
+  # Associations
+
+  belongs_to :lab
+
+  has_many :contact_project_links, :dependent => :destroy
+  has_many :contacts, :through => :contact_project_links
+
+  has_many :notes, :as => :notable
+
+  # Validations
+
+  validates :name, :presence   => { :message => "Le nom est obligatoire."  }
+end

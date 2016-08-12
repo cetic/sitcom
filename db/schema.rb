@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160812093209) do
+ActiveRecord::Schema.define(version: 20160812122144) do
+
+  create_table "contact_event_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "contact_id"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_contact_event_links_on_contact_id", using: :btree
+    t.index ["event_id"], name: "index_contact_event_links_on_event_id", using: :btree
+  end
 
   create_table "contact_field_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "contact_id"
@@ -28,6 +37,15 @@ ActiveRecord::Schema.define(version: 20160812093209) do
     t.datetime "updated_at",      null: false
     t.index ["contact_id"], name: "index_contact_organization_links_on_contact_id", using: :btree
     t.index ["organization_id"], name: "index_contact_organization_links_on_organization_id", using: :btree
+  end
+
+  create_table "contact_project_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "contact_id"
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_contact_project_links_on_contact_id", using: :btree
+    t.index ["project_id"], name: "index_contact_project_links_on_project_id", using: :btree
   end
 
   create_table "contacts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
@@ -48,6 +66,14 @@ ActiveRecord::Schema.define(version: 20160812093209) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.index ["lab_id"], name: "index_contacts_on_lab_id", using: :btree
+  end
+
+  create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "lab_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lab_id"], name: "index_events_on_lab_id", using: :btree
   end
 
   create_table "fields", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
@@ -74,6 +100,16 @@ ActiveRecord::Schema.define(version: 20160812093209) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "notes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "notable_id"
+    t.string   "notable_type"
+    t.text     "text",         limit: 65535
+    t.string   "privacy"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["notable_id"], name: "index_notes_on_notable_id", using: :btree
+  end
+
   create_table "organizations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "lab_id"
     t.string   "name",                      default: ""
@@ -83,6 +119,14 @@ ActiveRecord::Schema.define(version: 20160812093209) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.index ["lab_id"], name: "index_organizations_on_lab_id", using: :btree
+  end
+
+  create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "lab_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lab_id"], name: "index_projects_on_lab_id", using: :btree
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
@@ -104,13 +148,19 @@ ActiveRecord::Schema.define(version: 20160812093209) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "contact_event_links", "contacts"
+  add_foreign_key "contact_event_links", "events"
   add_foreign_key "contact_field_links", "contacts"
   add_foreign_key "contact_field_links", "fields"
   add_foreign_key "contact_organization_links", "contacts"
   add_foreign_key "contact_organization_links", "organizations"
+  add_foreign_key "contact_project_links", "contacts"
+  add_foreign_key "contact_project_links", "projects"
   add_foreign_key "contacts", "labs"
+  add_foreign_key "events", "labs"
   add_foreign_key "fields", "fields", column: "parent_id"
   add_foreign_key "lab_user_links", "labs"
   add_foreign_key "lab_user_links", "users"
   add_foreign_key "organizations", "labs"
+  add_foreign_key "projects", "labs"
 end

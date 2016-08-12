@@ -18,6 +18,8 @@ module ContactIndexConcern
         indexes :address
         indexes :organization_ids, :index => 'not_analyzed'
         indexes :field_ids,        :index => 'not_analyzed'
+        indexes :projects_ids,     :index => 'not_analyzed'
+        indexes :events_ids,       :index => 'not_analyzed'
       end
     end
   end
@@ -39,7 +41,11 @@ module ContactIndexConcern
       :organization_ids => organization_ids,
       :organizations    => organizations_as_indexed_json,
       :field_ids        => field_ids,
-      :fields           => fields_as_indexed_json
+      :fields           => fields_as_indexed_json,
+      :event_ids        => event_ids,
+      :events           => events_as_indexed_json,
+      :project_ids      => project_ids,
+      :projects         => projects_as_indexed_json
     }
   end
 
@@ -58,6 +64,24 @@ module ContactIndexConcern
         :id        => field.id,
         :parent_id => field.parent_id,
         :name      => field.name
+      }
+    end
+  end
+
+  def events_as_indexed_json
+    events.collect do |event|
+      {
+        :id   => event.id,
+        :name => event.name
+      }
+    end
+  end
+
+  def projects_as_indexed_json
+    projects.collect do |project|
+      {
+        :id   => project.id,
+        :name => project.name
       }
     end
   end

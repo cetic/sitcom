@@ -15,6 +15,14 @@ class Contact < ApplicationRecord
   has_many :contact_field_links, :dependent => :destroy
   has_many :fields, :through => :contact_field_links
 
+  has_many :contact_event_links, :dependent => :destroy
+  has_many :events, :through => :contact_event_links
+
+  has_many :contact_project_links, :dependent => :destroy
+  has_many :projects, :through => :contact_project_links
+
+  has_many :notes, :as => :notable
+
   # Validations
 
   validates :name, :presence => { :message => "Le nom est obligatoire."  }

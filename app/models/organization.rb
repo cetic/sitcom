@@ -16,4 +16,6 @@ class Organization < ApplicationRecord
   has_many :contact_organization_links, :dependent => :destroy
   has_many :contacts, :through => :contact_organization_links
 
+  has_many :notes, :as => :notable
+
 end
