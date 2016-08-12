@@ -20,6 +20,8 @@ module ContactIndexConcern
         indexes :field_ids,        :index => 'not_analyzed'
         indexes :projects_ids,     :index => 'not_analyzed'
         indexes :events_ids,       :index => 'not_analyzed'
+
+        indexes :sort_name, :index => 'not_analyzed'
       end
     end
   end
@@ -31,22 +33,30 @@ module ContactIndexConcern
       :active           => active,
       :email            => email,
       :phone            => phone,
-      :twitter_url      => twitter_url,
-      :linkedin_url     => linkedin_url,
-      :facebook_url     => facebook_url,
-      :website_url      => website_url,
-      :picture_url      => picture_url,
-      :name             => name,
-      :address          => address,
-      :address_html     => address(true),
+
+      :twitter_url  => twitter_url,
+      :linkedin_url => linkedin_url,
+      :facebook_url => facebook_url,
+      :website_url  => website_url,
+      :picture_url  => picture_url,
+
+      :name         => name,
+      :address      => address,
+      :address_html => address(true),
+
       :organization_ids => organization_ids,
       :organizations    => organizations_as_indexed_json,
-      :field_ids        => field_ids,
-      :fields           => fields_as_indexed_json,
-      :event_ids        => event_ids,
-      :events           => events_as_indexed_json,
-      :project_ids      => project_ids,
-      :projects         => projects_as_indexed_json
+
+      :field_ids => field_ids,
+      :fields    => fields_as_indexed_json,
+
+      :event_ids => event_ids,
+      :events    => events_as_indexed_json,
+
+      :project_ids => project_ids,
+      :projects    => projects_as_indexed_json,
+
+      :sort_name => name
     }
   end
 

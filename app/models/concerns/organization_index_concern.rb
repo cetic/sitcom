@@ -15,6 +15,8 @@ module OrganizationIndexConcern
         indexes :status
         indexes :description
         indexes :contact_ids, :index => 'not_analyzed'
+
+        indexes :sort_name, :index => 'not_analyzed'
       end
     end
   end
@@ -27,8 +29,11 @@ module OrganizationIndexConcern
       :status      => status,
       :description => description,
       :website_url => website_url,
+
       :contact_ids => contact_ids,
-      :contacts    => contacts_as_indexed_json
+      :contacts    => contacts_as_indexed_json,
+
+      :sort_name => name
     }
   end
 

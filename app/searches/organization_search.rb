@@ -12,7 +12,7 @@ class OrganizationSearch < BaseSearch
         },
       },
 
-      'sort' => [ { 'name' => { 'order' => 'asc' }} ],
+      'sort' => [ { 'sort_name' => { 'order' => 'asc' }} ],
 
       'from' => from,
       'size' => STEP
