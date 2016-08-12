@@ -4,6 +4,11 @@ class Contact < ApplicationRecord
 
   include CommonIndexConcern
   include ContactIndexConcern
+  include GravatarConcern
+
+  # Uploaders
+
+  mount_uploader :picture, PictureUploader
 
   # Associations
 
@@ -25,16 +30,27 @@ class Contact < ApplicationRecord
 
   # Validations
 
-  validates :name, :presence => { :message => "Le nom est obligatoire."  }
+  validates :first_name, :presence => { :message => "Le prénom est obligatoire."  }
+  validates :last_name,  :presence => { :message => "Le nom de famille est obligatoire."  }
 
   # Methods
 
   def name
-    [first_name, last_name].join(' ')
+    [ first_name, last_name ].join(' ')
   end
 
   def address(html = false)
     separator = html ? '<br />' : "\n"
     [address_street, address_zip_code, address_city, address_country].reject(&:blank?).join(separator)
+  end
+
+  def picture_url
+    if picture.present?
+      picture.url
+    elsif email.present?
+      gravatar_url
+    else
+      # default url
+    end
   end
 end

@@ -1,8 +1,6 @@
-# encoding: utf-8
-
-class LogoUploader < BasePublicUploader
+class PictureUploader < BasePublicUploader
   def extension_white_list
-    %w(png)
+    %w(png jpg jpeg jpe)
   end
 
   version :preview do

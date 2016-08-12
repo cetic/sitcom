@@ -8,6 +8,8 @@ class CreateProjects < ActiveRecord::Migration[5.0]
       t.date   :start_date
       t.date   :end_date
 
+      t.string :picture
+
       t.timestamps
     end
   end

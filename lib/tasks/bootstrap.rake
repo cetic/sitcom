@@ -50,6 +50,12 @@ namespace :app do
       end
     end
 
+    gastro.contacts.create!(
+      first_name:         "Aurélien",
+      last_name:          "Malisart",
+      remote_picture_url: "http://aurelien.malisart.be/assets/images/aurelien-malisart.jpg"
+    )
+
     # Organizations
 
     gastro.organizations.create!(name: "CETIC")

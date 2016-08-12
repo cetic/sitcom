@@ -9,6 +9,8 @@ class CreateEvents < ActiveRecord::Migration[5.0]
       t.text   :description
       t.string :website_url
 
+      t.string :picture
+
       t.timestamps
     end
   end

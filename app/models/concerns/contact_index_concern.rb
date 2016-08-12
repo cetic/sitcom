@@ -35,6 +35,7 @@ module ContactIndexConcern
       :linkedin_url     => linkedin_url,
       :facebook_url     => facebook_url,
       :website_url      => website_url,
+      :picture_url      => picture_url,
       :name             => name,
       :address          => address,
       :address_html     => address(true),

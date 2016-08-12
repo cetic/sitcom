@@ -1,5 +1,9 @@
 class Project < ApplicationRecord
 
+  # Uploaders
+
+  mount_uploader :picture, PictureUploader
+
   # Associations
 
   belongs_to :lab

@@ -5,9 +5,9 @@ class Organization < ApplicationRecord
   include CommonIndexConcern
   include OrganizationIndexConcern
 
-  # Validations
+  # Uploaders
 
-  validates :name, :presence => { :message => "Le nom est obligatoire."  }
+  mount_uploader :picture, PictureUploader
 
   # Associations
 
@@ -17,5 +17,9 @@ class Organization < ApplicationRecord
   has_many :contacts, :through => :contact_organization_links
 
   has_many :notes, :as => :notable
+
+  # Validations
+
+  validates :name, :presence => { :message => "Le nom est obligatoire."  }
 
 end

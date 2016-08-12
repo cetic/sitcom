@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20160812122144) do
     t.string   "linkedin_url",     default: ""
     t.string   "facebook_url",     default: ""
     t.string   "website_url",      default: ""
+    t.string   "picture"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.index ["lab_id"], name: "index_contacts_on_lab_id", using: :btree
@@ -71,8 +72,13 @@ ActiveRecord::Schema.define(version: 20160812122144) do
   create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "lab_id"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.date     "happens_on"
+    t.string   "place"
+    t.text     "description", limit: 65535
+    t.string   "website_url"
+    t.string   "picture"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.index ["lab_id"], name: "index_events_on_lab_id", using: :btree
   end
 
@@ -124,8 +130,12 @@ ActiveRecord::Schema.define(version: 20160812122144) do
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "lab_id"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text     "description", limit: 65535
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "picture"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.index ["lab_id"], name: "index_projects_on_lab_id", using: :btree
   end
 

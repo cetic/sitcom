@@ -19,6 +19,8 @@ class CreateContacts < ActiveRecord::Migration[5.0]
       t.string :facebook_url, :default => ''
       t.string :website_url,  :default => ''
 
+      t.string :picture
+
       t.timestamps
     end
   end
