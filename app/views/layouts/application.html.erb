@@ -56,6 +56,10 @@
 
     <%# render 'shared/footer' %>
 
+    <script>
+      window.infiniteScrollStep = <%= BaseSearch::STEP %>
+    </script>
+
     <%= javascript_include_tag 'application' %>
   </body>
 </html>

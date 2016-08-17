@@ -40,7 +40,7 @@ class Contacts extends React.Component {
         contacts:        offset == 0 ? camelData.contacts : this.state.contacts.concat(camelData.contacts),
         loaded:          true,
         infiniteLoaded:  true,
-        infiniteEnabled: camelData.contacts.length == 30 // no more results
+        infiniteEnabled: camelData.contacts.length == window.infiniteScrollStep // no more results
       });
     });
   }
