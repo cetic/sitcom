@@ -24,7 +24,6 @@ class Contacts extends React.Component {
   componentDidMount() {
     this.reloadFromBackend();
     this.bindInfiniteScroll();
-    console.log(this.props.contactsPath);
   }
 
   componentWillReceiveProps(nextProps) {

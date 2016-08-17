@@ -15,6 +15,12 @@ class QuickSearch extends React.Component {
     })
   }
 
+  resetQuickSearch() {
+    this.setState({ search: '' }, () => {
+      this.props.updateQuickSearch('');
+    })
+  }
+
   render() {
     return (
       <div className="quick-search">
@@ -24,9 +30,17 @@ class QuickSearch extends React.Component {
                value={this.state.search}
                onChange={this.updateQuickSearch.bind(this)} />
         <i className="glyphicon glyphicon-search"></i>
-        <i className="fa fa-times"></i>
+        {this.renderResetIcon()}
       </div>
     )
+  }
+
+  renderResetIcon() {
+    if(this.state.search.length) {
+      return (
+        <i className="fa fa-times" onClick={this.resetQuickSearch.bind(this)}></i>
+      );
+    }
   }
 }
 
