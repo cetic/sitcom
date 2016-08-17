@@ -3,7 +3,7 @@ class QuickSearch extends React.Component {
     super(props);
 
     this.state = {
-      search: this.props.quickSearch
+      search: this.props.quickSearch || ''
     };
   }
 

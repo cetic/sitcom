@@ -13,7 +13,7 @@ class Contact extends React.Component {
   }
 
   contactPath() {
-    return this.props.route.contactsPath + '/' + this.props.params.id
+    return this.props.contactsPath + '/' + this.props.params.id
   }
 
   reloadFromBackend() {

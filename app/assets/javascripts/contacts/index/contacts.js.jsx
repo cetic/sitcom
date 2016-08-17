@@ -24,6 +24,7 @@ class Contacts extends React.Component {
   componentDidMount() {
     this.reloadFromBackend();
     this.bindInfiniteScroll();
+    console.log(this.props.contactsPath);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -33,7 +34,7 @@ class Contacts extends React.Component {
   }
 
   reloadFromBackend(offset = 0) {
-    $.get(this.props.route.contactsPath, { query: this.props.location.query.quickSearch, offset: offset }, (data) => {
+    $.get(this.props.contactsPath, { query: this.props.location.query.quickSearch, offset: offset }, (data) => {
       var camelData = humps.camelizeKeys(data);
 
       this.setState({
@@ -89,7 +90,7 @@ class Contacts extends React.Component {
     if(!this.state.loaded) {
       return (
         <div className="loading">
-          <img src={this.props.route.loadingImagePath}/>
+          <img src={this.props.loadingImagePath}/>
         </div>
       )
     }
@@ -113,7 +114,7 @@ class Contacts extends React.Component {
     if(!this.state.infiniteLoaded && this.state.loaded) {
       return (
         <div className="loading">
-          <img src={this.props.route.loadingImagePath}/>
+          <img src={this.props.loadingImagePath}/>
         </div>
       );
     }
