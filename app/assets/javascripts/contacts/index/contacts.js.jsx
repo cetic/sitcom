@@ -1,15 +1,18 @@
 import Contact        from './contact.js.jsx'
 import QuickSearch    from './quick_search.js.jsx'
-import CompleteSearch from './complete_search.js.jsx'
+import AdvancedSearch from './advanced_search.js.jsx'
 
 class Contacts extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      contacts:       [],
-      loaded:         false,
-      completeSearch: {},
+      contacts: [],
+      loaded:   false,
+
+      advancedSearchFilters: {
+        active: undefined
+      },
 
       infiniteLoaded:       true,
       infiniteEnabled:      true,
@@ -33,7 +36,13 @@ class Contacts extends React.Component {
   }
 
   reloadFromBackend(offset = 0) {
-    $.get(this.props.contactsPath, { query: this.props.location.query.quickSearch, offset: offset }, (data) => {
+    var params = humps.decamelizeKeys({
+      query:  this.props.location.query.quickSearch,
+      active: this.props.location.query.active,
+      offset: offset
+    });
+
+    $.get(this.props.contactsPath, params, (data) => {
       var camelData = humps.camelizeKeys(data);
 
       this.setState({
@@ -59,16 +68,47 @@ class Contacts extends React.Component {
     })
   }
 
+  updateUrl(newValues) {
+    var query = _.assign({}, this.props.location.query, newValues);
+
+    if(_.trim(query.quickSearch).length == 0) {
+      delete query.quickSearch;
+    }
+
+    if(_.isUndefined(query.active)) {
+      delete query.active;
+    }
+
+    this.props.router.push('?' + $.param(query));
+  }
+
   updateQuickSearch(newQuickSearch) {
-    this.props.router.push('?quickSearch=' + newQuickSearch)
+    this.updateUrl({
+      quickSearch: newQuickSearch
+    })
+  }
+
+  updateAdvancedSearchFilter(filterName, newValue) {
+    var newValues = {}
+    newValues[filterName] = newValue
+    this.updateUrl(newValues)
   }
 
   render() {
+    var advancedSearchFilters = {}
+
+    if(this.props.location.query.active == 'true')
+      advancedSearchFilters.active = true
+
+    if(this.props.location.query.active == 'false')
+      advancedSearchFilters.active = false
+
     return (
       <div className="container-fluid container-contact-index">
         <div className="row">
           <div className="col-md-4 pull-right complete-search">
-            <CompleteSearch completeSearch={this.state.completeSearch} />
+            <AdvancedSearch filters={advancedSearchFilters}
+                            updateAdvancedSearchFilter={this.updateAdvancedSearchFilter.bind(this)} />
           </div>
 
           <div className="col-md-8">

@@ -49,7 +49,7 @@ class ContactSearch < BaseSearch
     if params[:active]
       options['query']['filtered']['filter']['and'] << {
         'term' => {
-          'active' => params[:active] == '1'
+          'active' => params[:active] == 'true'
         }
       }
     end
