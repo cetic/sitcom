@@ -35,15 +35,17 @@ class ContactSearch < BaseSearch
       }
     end
 
-    if params[:name]
-      options['query']['filtered']['filter']['and'] << {
-        'multi_match' => {
-          'query'          => params[:name],
-          'fields'         => ['name'],
-          'type'           => 'phrase_prefix',
-          'max_expansions' => MAX_EXPANSIONS
+    [:name, :email, :address, :phone].each do |key|
+      if params[key]
+        options['query']['filtered']['filter']['and'] << {
+          'multi_match' => {
+            'query'          => params[key],
+            'fields'         => [key.to_s],
+            'type'           => 'phrase_prefix',
+            'max_expansions' => MAX_EXPANSIONS
+          }
         }
-      }
+      end
     end
 
     if params[:active]

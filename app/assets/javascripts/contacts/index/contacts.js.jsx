@@ -7,13 +7,8 @@ class Contacts extends React.Component {
     super(props);
 
     this.state = {
-      contacts: [],
-      loaded:   false,
-
-      advancedSearchFilters: {
-        active: undefined
-      },
-
+      contacts:             [],
+      loaded:               false,
       infiniteLoaded:       true,
       infiniteEnabled:      true,
       infiniteScrollOffset: 200
@@ -30,16 +25,29 @@ class Contacts extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.quickSearch != this.props.location.query.quickSearch) {
+    if(this.filtersHaveChanged(nextProps)) {
       this.dReloadFromBackend();
     }
   }
 
+  filtersHaveChanged(nextProps) {
+    return nextProps.quickSearch != this.props.location.query.quickSearch ||
+           nextProps.name        != this.props.location.query.name        ||
+           nextProps.email       != this.props.location.query.email       ||
+           nextProps.address     != this.props.location.query.address     ||
+           nextProps.phone       != this.props.location.query.phone       ||
+           nextProps.active      != this.props.location.query.active;
+  }
+
   reloadFromBackend(offset = 0) {
     var params = humps.decamelizeKeys({
-      query:  this.props.location.query.quickSearch,
-      active: this.props.location.query.active,
-      offset: offset
+      query:   this.props.location.query.quickSearch,
+      name:    this.props.location.query.name,
+      email:   this.props.location.query.email,
+      address: this.props.location.query.address,
+      phone:   this.props.location.query.phone,
+      active:  this.props.location.query.active,
+      offset:  offset
     });
 
     $.get(this.props.contactsPath, params, (data) => {
@@ -75,6 +83,22 @@ class Contacts extends React.Component {
       delete query.quickSearch;
     }
 
+    if(_.trim(query.name).length == 0) {
+      delete query.name;
+    }
+
+    if(_.trim(query.email).length == 0) {
+      delete query.email;
+    }
+
+    if(_.trim(query.address).length == 0) {
+      delete query.address;
+    }
+
+    if(_.trim(query.phone).length == 0) {
+      delete query.phone;
+    }
+
     if(_.isUndefined(query.active)) {
       delete query.active;
     }
@@ -85,17 +109,21 @@ class Contacts extends React.Component {
   updateQuickSearch(newQuickSearch) {
     this.updateUrl({
       quickSearch: newQuickSearch
-    })
+    });
   }
 
-  updateAdvancedSearchFilter(filterName, newValue) {
-    var newValues = {}
-    newValues[filterName] = newValue
-    this.updateUrl(newValues)
+  updateAdvancedSearchFilters(newFilters) {
+    this.updateUrl(newFilters);
   }
 
   render() {
-    var advancedSearchFilters = {}
+    var advancedSearchFilters = {
+      name:    this.props.location.query.name    || '',
+      email:   this.props.location.query.email   || '',
+      address: this.props.location.query.address || '',
+      phone:   this.props.location.query.phone   || '',
+      active:  this.props.location.query.active
+    }
 
     if(this.props.location.query.active == 'true')
       advancedSearchFilters.active = true
@@ -108,7 +136,7 @@ class Contacts extends React.Component {
         <div className="row">
           <div className="col-md-4 pull-right complete-search">
             <AdvancedSearch filters={advancedSearchFilters}
-                            updateAdvancedSearchFilter={this.updateAdvancedSearchFilter.bind(this)} />
+                            updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)} />
           </div>
 
           <div className="col-md-8">
