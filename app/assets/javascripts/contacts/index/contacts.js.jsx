@@ -18,27 +18,21 @@ class Contacts extends React.Component {
   }
 
   componentWillMount() {
-    console.log('componentWillMount')
     this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 300);
   }
 
   componentDidMount() {
-    console.log('componentDidMount');
     this.reloadFromBackend();
     this.bindInfiniteScroll();
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillUpdate')
-
     if(nextProps.quickSearch != this.props.location.query.quickSearch) {
       this.dReloadFromBackend();
     }
   }
 
   reloadFromBackend(offset = 0) {
-    console.log('reloadFromBackend')
-
     $.get(this.props.route.contactsPath, { query: this.props.location.query.quickSearch, offset: offset }, (data) => {
       var camelData = humps.camelizeKeys(data);
 
@@ -66,7 +60,7 @@ class Contacts extends React.Component {
   }
 
   updateQuickSearch(newQuickSearch) {
-    this.props.history.push('?quickSearch=' + newQuickSearch)
+    this.props.router.push('?quickSearch=' + newQuickSearch)
   }
 
   render() {
