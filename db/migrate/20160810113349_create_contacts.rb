@@ -12,7 +12,7 @@ class CreateContacts < ActiveRecord::Migration[5.0]
       t.string :address_country,  :default => ''
       t.string :phone,            :default => ''
 
-      t.boolean :active
+      t.boolean :active,      :default => false
 
       t.string :twitter_url,  :default => ''
       t.string :linkedin_url, :default => ''

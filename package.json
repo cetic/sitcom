@@ -1,7 +1,17 @@
 {
-  "name": "sitcom",
+  "name": "SItCOM",
   "version": "1.0.0",
   "private": true,
+  "description": "SImple COmmunity Management",
+  "license": "MIT",
+  "contributors": [{
+      "name": "Michael Hoste",
+      "email": "michael.hoste@gmail.com"
+    }, {
+      "name": "Aurélien Malisart",
+      "email": "aurelien.malisart@gmail.com"
+    }
+  ],
   "dependencies": {
     "babel-preset-es2015": "^6.13.2",
     "babel-preset-react": "^6.11.1",

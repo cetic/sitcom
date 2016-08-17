@@ -1,3 +1,8 @@
+FactoryGirl.find_definitions
+
+# https://github.com/stympy/faker/issues/266
+Rails.application.config.i18n.available_locales += %w(en)
+
 namespace :app do
   task :bootstrap => :environment do
 
@@ -62,5 +67,85 @@ namespace :app do
     gastro.organizations.create!(name: "Creative Wallonia")
     gastro.organizations.create!(name: "80LIMIT")
     gastro.organizations.create!(name: "Phonoid")
+  end
+
+  task :bootstrap_fake => :environment do
+    puts "Bootstrapping contacts"
+
+    100.times do
+      FactoryGirl.create(:contact, :lab => Lab.all.to_a.sample)
+    end
+
+    puts "Bootstrapping organizations"
+
+    50.times do
+      FactoryGirl.create(:organization, :lab => Lab.all.to_a.sample)
+    end
+
+    puts "Bootstrapping fields"
+
+    10.times do
+      field = FactoryGirl.create(:field, :parent_id => nil)
+
+      (1 + rand(6)).times do
+        FactoryGirl.create(:field, :parent_id => field.id)
+      end
+    end
+
+    puts "Bootstrapping events"
+
+    30.times do
+      FactoryGirl.create(:event, :lab => Lab.all.to_a.sample)
+    end
+
+    puts "Bootstrapping projects"
+
+    30.times do
+      FactoryGirl.create(:project, :lab => Lab.all.to_a.sample)
+    end
+
+    puts "Bootstrapping notes and associations"
+
+    notables = Contact.all.to_a + Organization.all.to_a + Event.all.to_a + Project.all.to_a
+
+    200.times do
+      FactoryGirl.create(:note, :notable => notables.sample)
+    end
+
+    puts "Bootstrapping contacts-organizations associations"
+
+    contacts = Contact.all.to_a
+
+    Organization.all.each do |organization|
+      rand(4).times do
+        organization.contacts << contacts.sample
+      end
+    end
+
+    puts "Bootstrapping contacts-events associations"
+
+    Event.all.each do |event|
+      rand(20).times do
+        event.contacts << contacts.sample
+      end
+    end
+
+    puts "Bootstrapping contacts-projects associations"
+
+    Project.all.each do |project|
+      rand(20).times do
+        project.contacts << contacts.sample
+      end
+    end
+
+    puts "Bootstrapping contacts-fields associations"
+
+    fields = Field.all.to_a
+
+    Contact.all.each do |contact|
+      rand(3).times do
+        contact.fields << fields.sample
+      end
+    end
   end
 end

@@ -9,20 +9,9 @@ class Contact extends React.Component {
   render() {
     return (
       <div className="contact">
-        <div className="picture">
-          <img className="img-thumbnail" src="//gravatar.com/avatar/06bd08d55ba6eb514afba6eab21af2af.png?s=34&d=retro" />
-        </div>
-
-        <div className="activity">
-          <div className="activity-inside">&nbsp;
-          </div>
-        </div>
-
-        <div className="social">
-          <i className="fa fa-facebook-square"></i>
-          <i className="fa fa-linkedin-square"></i>
-          <i className="fa fa-twitter-square"></i>
-        </div>
+        { this.renderPicture() }
+        { this.renderActivity() }
+        { this.renderSocial() }
 
         <div className="infos">
           <span className="name">
@@ -30,7 +19,7 @@ class Contact extends React.Component {
           </span>
 
           <span className="companies">
-            80LIMIT SPRL
+            { _.map(this.props.contact.organizations, (organization) => { organization.name }).join(', ') }
           </span>
         </div>
 
@@ -52,6 +41,37 @@ class Contact extends React.Component {
         </div>
 
         <div style={{ clear: 'both' }}></div>
+      </div>
+    )
+  }
+
+  renderPicture() {
+    return (
+      <div className="picture">
+        <img className="img-thumbnail" src={this.props.contact.pictureUrl} />
+      </div>
+    )
+  }
+
+  renderActivity() {
+    return (
+      <div className="activity">
+        <div className="activity-inside">&nbsp;
+        </div>
+      </div>
+    )
+  }
+
+  renderSocial() {
+    var facebook = this.props.contact.facebookUrl != '' ? <i className="fa fa-facebook-square"></i> : '';
+    var linkedin = this.props.contact.linkedinUrl != '' ? <i className="fa fa-linkedin-square"></i> : '';
+    var twitter  = this.props.contact.twitterUrl  != '' ? <i className="fa fa-twitter-square"></i> : '';
+
+    return (
+      <div className="social">
+        { facebook }
+        { linkedin }
+        { twitter }
       </div>
     )
   }
