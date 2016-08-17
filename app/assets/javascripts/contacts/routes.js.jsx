@@ -8,6 +8,20 @@ import Contact  from './show/contact.js.jsx'
 var ContactsWithRouter = withRouter(Contacts)
 var ContactWithRouter  = withRouter(Contact)
 
+// We want to access props in this.props and not in this.props.route (but it's just a personal choice)
+var mergePropsRouteInProps = (props) => {
+  var cleanedPropsRoute = _.omit(props.route, ['component', 'path']);
+  return _.merge({}, props, cleanedPropsRoute);
+}
+
+const ContactsWrapper = (props) => {
+  return ( <ContactsWithRouter {...mergePropsRouteInProps(props)} /> );
+}
+
+const ContactWrapper = (props) => {
+  return ( <ContactWithRouter {...mergePropsRouteInProps(props)} /> );
+}
+
 class Routes extends React.Component {
   componentWillMount() {
     this.browserHistory = useRouterHistory(createHistory)({
@@ -15,36 +29,11 @@ class Routes extends React.Component {
     });
   }
 
-  contactsWrapper() {
-    var routesComponent = this
-
-    return class extends React.Component {
-      render() {
-        return (
-          <ContactsWithRouter {...this.props} contactsPath={routesComponent.props.contactsPath}
-                                              loadingImagePath={routesComponent.props.loadingImagePath} />
-        );
-      }
-    }
-  }
-
-  contactWrapper() {
-    var routesComponent = this
-
-    return class extends React.Component {
-      render() {
-        return (
-          <ContactWithRouter {...this.props} contactsPath={routesComponent.props.contactsPath} />
-        );
-      }
-    }
-  }
-
   render() {
     return (
       <Router history={this.browserHistory}>
-        <Route path="/"    component={this.contactsWrapper()} />
-        <Route path="/:id" component={this.contactWrapper()} />
+        <Route path="/"    component={ContactsWrapper} contactsPath={this.props.contactsPath} loadingImagePath={this.props.loadingImagePath} />
+        <Route path="/:id" component={ContactWrapper}  contactsPath={this.props.contactsPath}/>
       </Router>
     );
   }
