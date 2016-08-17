@@ -9,7 +9,6 @@ class Contacts extends React.Component {
     this.state = {
       contacts:       [],
       loaded:         false,
-      quickSearch:    '',
       completeSearch: {},
 
       infiniteLoaded:       true,
@@ -19,16 +18,28 @@ class Contacts extends React.Component {
   }
 
   componentWillMount() {
+    console.log('componentWillMount')
     this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 300);
   }
 
   componentDidMount() {
+    console.log('componentDidMount');
     this.reloadFromBackend();
     this.bindInfiniteScroll();
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log('componentWillUpdate')
+
+    if(nextProps.quickSearch != this.props.location.query.quickSearch) {
+      this.dReloadFromBackend();
+    }
+  }
+
   reloadFromBackend(offset = 0) {
-    $.get(this.props.route.contactsPath, { query: this.state.quickSearch, offset: offset }, (data) => {
+    console.log('reloadFromBackend')
+
+    $.get(this.props.route.contactsPath, { query: this.props.location.query.quickSearch, offset: offset }, (data) => {
       var camelData = humps.camelizeKeys(data);
 
       this.setState({
@@ -55,9 +66,7 @@ class Contacts extends React.Component {
   }
 
   updateQuickSearch(newQuickSearch) {
-    this.setState({
-      quickSearch: newQuickSearch,
-    }, this.dReloadFromBackend)
+    this.props.history.push('?quickSearch=' + newQuickSearch)
   }
 
   render() {
@@ -69,7 +78,7 @@ class Contacts extends React.Component {
           </div>
 
           <div className="col-md-8">
-            <QuickSearch quickSearch={this.state.quickSearch}
+            <QuickSearch quickSearch={this.props.location.query.quickSearch}
                          updateQuickSearch={this.updateQuickSearch.bind(this)} />
 
             <div className="contacts">
