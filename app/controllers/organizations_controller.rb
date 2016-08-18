@@ -1,4 +1,5 @@
 class OrganizationsController < ApplicationController
+
   before_action :find_lab
 
   def index

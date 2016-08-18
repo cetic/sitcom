@@ -1,15 +1,9 @@
-class ProjectsController < ApplicationController
+class FieldsController < ApplicationController
 
   before_action :find_lab
 
   def options
-    @projects = @lab.projects.order(:name)
-  end
-
-  protected
-
-  def strong_params
-    params.require(:project).permit(:name)
+    @fields = Field.order(:name)
   end
 
   private

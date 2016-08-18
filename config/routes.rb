@@ -46,10 +46,24 @@ Rails.application.routes.draw do
 
     resources :projects do
       resources :notes
+
+      collection do
+        get :options
+      end
     end
 
     resources :events do
       resources :notes
+
+      collection do
+        get :options
+      end
+    end
+
+    resources :fields do
+      collection do
+        get :options
+      end
     end
   end
 
