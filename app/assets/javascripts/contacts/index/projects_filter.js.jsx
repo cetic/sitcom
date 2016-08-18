@@ -26,7 +26,7 @@ class ProjectsFilter extends React.Component {
 
   udpdateValue(value) {
     this.setState({ projectIds: value }, () => {
-      this.props.updateEventIds(value);
+      this.props.updateProjectIds(value);
     });
   }
 

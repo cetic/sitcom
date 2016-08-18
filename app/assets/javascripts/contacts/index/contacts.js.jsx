@@ -8,7 +8,7 @@ class Contacts extends React.Component {
 
     this.filterNames = [
       'quickSearch', 'name', 'email', 'address', 'phone', 'active',
-      'organizationIds'
+      'organizationIds', 'fieldIds', 'eventIds', 'projectIds'
     ];
 
     this.state = {
@@ -108,6 +108,18 @@ class Contacts extends React.Component {
 
     if(_.trim(query.organizationIds).length == 0) {
       delete query.organizationIds;
+    }
+
+    if(_.trim(query.fieldIds).length == 0) {
+      delete query.fieldIds;
+    }
+
+    if(_.trim(query.eventIds).length == 0) {
+      delete query.eventIds;
+    }
+
+    if(_.trim(query.projectIds).length == 0) {
+      delete query.projectIds;
     }
 
     this.props.router.push('?' + $.param(query));

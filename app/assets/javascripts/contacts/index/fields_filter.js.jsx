@@ -26,7 +26,7 @@ class FieldsFilter extends React.Component {
 
   udpdateValue(value) {
     this.setState({ fieldIds: value }, () => {
-      this.props.updateEventIds(value);
+      this.props.updateFieldIds(value);
     });
   }
 
