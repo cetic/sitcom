@@ -7,7 +7,8 @@ class Contacts extends React.Component {
     super(props);
 
     this.fieldNames = [
-      'quickSearch', 'name', 'email', 'address', 'phone', 'active', 'organizationIds'
+      'quickSearch', 'name', 'email', 'address', 'phone', 'active',
+      'organizationIds'
     ];
 
     this.state = {
@@ -126,20 +127,11 @@ class Contacts extends React.Component {
   }
 
   render() {
-    var advancedSearchFilters = {
-      name:            this.props.location.query.name            || '',
-      email:           this.props.location.query.email           || '',
-      address:         this.props.location.query.address         || '',
-      phone:           this.props.location.query.phone           || '',
-      organizationIds: this.props.location.query.organizationIds || '',
-      active:          this.props.location.query.active
-    }
+    var advancedSearchFilters = {};
 
-    if(this.props.location.query.active == 'true')
-      advancedSearchFilters.active = true
-
-    if(this.props.location.query.active == 'false')
-      advancedSearchFilters.active = false
+    _.each(this.fieldNames, (fieldName) => {
+      advancedSearchFilters[fieldName] = this.props.location.query[fieldName];
+    });
 
     return (
       <div className="container-fluid container-contact-index">

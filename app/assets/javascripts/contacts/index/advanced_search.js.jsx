@@ -7,12 +7,21 @@ class AdvancedSearch extends React.Component {
   constructor(props) {
     super(props);
 
+    var activeFilter;
+
+    if(this.props.filters.active == 'true') {
+      activeFilter = true;
+    }
+    else if(this.props.filters.active == 'false') {
+      activeFilter = false;
+    }
+
     this.state = {
-      name:    this.props.filters.name,
-      email:   this.props.filters.email,
-      address: this.props.filters.address,
-      phone:   this.props.filters.phone,
-      active:  this.props.filters.active
+      name:    this.props.filters.name   || '',
+      email:   this.props.filters.email  || '',
+      address: this.props.filters.address|| '',
+      phone:   this.props.filters.phone  || '',
+      active:  activeFilter
     };
   }
 
