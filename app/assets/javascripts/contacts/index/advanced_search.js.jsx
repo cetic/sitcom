@@ -1,7 +1,4 @@
-import FieldsFilter        from './fields_filter.js.jsx'
-import OrganizationsFilter from './organizations_filter.js.jsx'
-import EventsFilter        from './events_filter.js.jsx'
-import ProjectsFilter      from './projects_filter.js.jsx'
+import SelectFilter from './select_filter.js.jsx'
 
 class AdvancedSearch extends React.Component {
   constructor(props) {
@@ -78,21 +75,25 @@ class AdvancedSearch extends React.Component {
         {this.renderPhoneFilter()}
         {this.renderActiveInactiveFilter()}
 
-        <OrganizationsFilter organizationIds={this.props.filters.organizationIds}
-                             organizationOptionsPath={this.props.organizationOptionsPath}
-                             updateOrganizationIds={this.updateOrganizationIds.bind(this)} />
+        <SelectFilter itemIds={this.props.filters.organizationIds}
+                      optionsPath={this.props.organizationOptionsPath}
+                      updateValue={this.updateOrganizationIds.bind(this)}
+                      label="Organisations" />
 
-        <FieldsFilter fieldIds={this.props.filters.fieldIds}
-                      fieldOptionsPath={this.props.fieldOptionsPath}
-                      updateFieldIds={this.updateFieldIds.bind(this)} />
+        <SelectFilter itemIds={this.props.filters.fieldIds}
+                      optionsPath={this.props.fieldOptionsPath}
+                      updateValue={this.updateFieldIds.bind(this)}
+                      label="Domaines d'expertise" />
 
-        <EventsFilter eventIds={this.props.filters.eventIds}
-                      eventOptionsPath={this.props.eventOptionsPath}
-                      updateEventIds={this.updateEventIds.bind(this)} />
+        <SelectFilter itemIds={this.props.filters.eventIds}
+                      optionsPath={this.props.eventOptionsPath}
+                      updateValue={this.updateEventIds.bind(this)}
+                      label="Evènements" />
 
-        <ProjectsFilter projectIds={this.props.filters.projectIds}
-                        projectOptionsPath={this.props.projectOptionsPath}
-                        updateProjectIds={this.updateProjectIds.bind(this)} />
+        <SelectFilter itemIds={this.props.filters.projectIds}
+                      optionsPath={this.props.projectOptionsPath}
+                      updateValue={this.updateProjectIds.bind(this)}
+                      label="Projets" />
       </div>
     );
   }
