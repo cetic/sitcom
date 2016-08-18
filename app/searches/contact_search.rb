@@ -56,6 +56,18 @@ class ContactSearch < BaseSearch
       }
     end
 
+    if params[:organization_ids]
+      ids = params[:organization_ids].split(',').map(&:to_i)
+
+      if ids.any?
+        options['query']['filtered']['filter']['and'] << {
+          'terms' => {
+            'organization_ids' => ids
+          }
+        }
+      end
+    end
+
     Contact.search(options)
   end
 end

@@ -31,22 +31,24 @@ class Contacts extends React.Component {
   }
 
   filtersHaveChanged(nextProps) {
-    return nextProps.quickSearch != this.props.location.query.quickSearch ||
-           nextProps.name        != this.props.location.query.name        ||
-           nextProps.email       != this.props.location.query.email       ||
-           nextProps.address     != this.props.location.query.address     ||
-           nextProps.phone       != this.props.location.query.phone       ||
-           nextProps.active      != this.props.location.query.active;
+    return nextProps.quickSearch     != this.props.location.query.quickSearch     ||
+           nextProps.name            != this.props.location.query.name            ||
+           nextProps.email           != this.props.location.query.email           ||
+           nextProps.address         != this.props.location.query.address         ||
+           nextProps.phone           != this.props.location.query.phone           ||
+           nextProps.active          != this.props.location.query.active          ||
+           nextProps.organizationIds != this.props.location.query.organizationIds;
   }
 
   reloadFromBackend(offset = 0) {
     var params = humps.decamelizeKeys({
-      query:   this.props.location.query.quickSearch,
-      name:    this.props.location.query.name,
-      email:   this.props.location.query.email,
-      address: this.props.location.query.address,
-      phone:   this.props.location.query.phone,
-      active:  this.props.location.query.active,
+      query:            this.props.location.query.quickSearch,
+      name:             this.props.location.query.name,
+      email:            this.props.location.query.email,
+      address:          this.props.location.query.address,
+      phone:            this.props.location.query.phone,
+      active:           this.props.location.query.active,
+      organizationIds:  this.props.location.query.organizationIds,
       offset:  offset
     });
 
@@ -103,6 +105,10 @@ class Contacts extends React.Component {
       delete query.active;
     }
 
+    if(_.isUndefined(query.organizationIds)) {
+      delete query.organizationIds;
+    }
+
     this.props.router.push('?' + $.param(query));
   }
 
@@ -118,11 +124,12 @@ class Contacts extends React.Component {
 
   render() {
     var advancedSearchFilters = {
-      name:    this.props.location.query.name    || '',
-      email:   this.props.location.query.email   || '',
-      address: this.props.location.query.address || '',
-      phone:   this.props.location.query.phone   || '',
-      active:  this.props.location.query.active
+      name:            this.props.location.query.name            || '',
+      email:           this.props.location.query.email           || '',
+      address:         this.props.location.query.address         || '',
+      phone:           this.props.location.query.phone           || '',
+      organizationIds: this.props.location.query.organizationIds || '',
+      active:          this.props.location.query.active
     }
 
     if(this.props.location.query.active == 'true')
@@ -136,7 +143,8 @@ class Contacts extends React.Component {
         <div className="row">
           <div className="col-md-4 pull-right complete-search">
             <AdvancedSearch filters={advancedSearchFilters}
-                            updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)} />
+                            updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)}
+                            organizationOptionsPath={this.props.organizationOptionsPath} />
           </div>
 
           <div className="col-md-8">

@@ -71,6 +71,10 @@ class OrganizationsController < ApplicationController
     end
   end
 
+  def options
+    @organizations = @lab.organizations.order(:name)
+  end
+
   protected
 
   def strong_params

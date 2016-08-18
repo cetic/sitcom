@@ -32,8 +32,13 @@ class Routes extends React.Component {
   render() {
     return (
       <Router history={this.browserHistory}>
-        <Route path="/"    component={ContactsWrapper} contactsPath={this.props.contactsPath} loadingImagePath={this.props.loadingImagePath} />
-        <Route path="/:id" component={ContactWrapper}  contactsPath={this.props.contactsPath}/>
+        <Route path="/" component={ContactsWrapper}
+                        contactsPath={this.props.contactsPath}
+                        organizationOptionsPath={this.props.organizationOptionsPath}
+                        loadingImagePath={this.props.loadingImagePath} />
+
+        <Route path="/:id" component={ContactWrapper}
+                           contactsPath={this.props.contactsPath}/>
       </Router>
     );
   }

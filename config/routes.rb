@@ -38,6 +38,10 @@ Rails.application.routes.draw do
 
     resources :organizations do
       resources :notes
+
+      collection do
+        get :options
+      end
     end
 
     resources :projects do

@@ -1,13 +1,17 @@
+import FieldsFilter        from './fields_filter.js.jsx'
+import OrganizationsFilter from './organizations_filter.js.jsx'
+
 class AdvancedSearch extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name:     this.props.filters.name,
-      email:    this.props.filters.email,
-      address:  this.props.filters.address,
-      phone:    this.props.filters.phone,
-      active:   this.props.filters.active
+      name:            this.props.filters.name,
+      email:           this.props.filters.email,
+      address:         this.props.filters.address,
+      phone:           this.props.filters.phone,
+      active:          this.props.filters.active,
+      organizationIds: this.props.filters.organizationIds
     };
   }
 
@@ -28,6 +32,14 @@ class AdvancedSearch extends React.Component {
     })
   }
 
+  updateOrganizationIds(value) {
+    this.setState({ organizationIds: value }, () => {
+      this.props.updateAdvancedSearchFilters({
+        organizationIds: value
+      });
+    })
+  }
+
   render() {
     return (
       <div>
@@ -38,6 +50,12 @@ class AdvancedSearch extends React.Component {
         {this.renderAddressFilter()}
         {this.renderPhoneFilter()}
         {this.renderActiveInactiveFilter()}
+
+        <OrganizationsFilter organizationIds={this.state.organizationIds}
+                             organizationOptionsPath={this.props.organizationOptionsPath}
+                             updateOrganizationIds={this.updateOrganizationIds.bind(this)} />
+
+        <FieldsFilter />
       </div>
     );
   }
