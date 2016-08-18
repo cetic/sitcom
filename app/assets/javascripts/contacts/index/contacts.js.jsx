@@ -42,13 +42,9 @@ class Contacts extends React.Component {
   }
 
   buildFilterParams() {
-    var filterParams = {};
-
-    _.each(this.fieldNames, (fieldName) => {
-      filterParams[fieldName] = this.props.location.query[fieldName];
-    });
-
-    return filterParams;
+    return _.zipObject(this.fieldNames, _.map(this.fieldNames, (fieldName) => {
+      return this.props.location.query[fieldName];
+    }));
   }
 
   reloadFromBackend(offset = 0) {
@@ -127,11 +123,9 @@ class Contacts extends React.Component {
   }
 
   render() {
-    var advancedSearchFilters = {};
-
-    _.each(this.fieldNames, (fieldName) => {
-      advancedSearchFilters[fieldName] = this.props.location.query[fieldName];
-    });
+    var advancedSearchFilters = _.zipObject(this.fieldNames, _.map(this.fieldNames, (fieldName) => {
+      return this.props.location.query[fieldName];
+    }));
 
     return (
       <div className="container-fluid container-contact-index">
