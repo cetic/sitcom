@@ -62,13 +62,13 @@ class Contact extends React.Component {
   renderSocial() {
     var facebook = this.props.contact.facebookUrl != '' ? <i className="fa fa-facebook-square"></i> : '';
     var linkedin = this.props.contact.linkedinUrl != '' ? <i className="fa fa-linkedin-square"></i> : '';
-    var twitter  = this.props.contact.twitterUrl  != '' ? <i className="fa fa-twitter-square"></i> : '';
+    var twitter  = this.props.contact.twitterUrl  != '' ? <i className="fa fa-twitter-square"></i>  : '';
 
     return (
       <div className="social">
-        { facebook }
-        { linkedin }
-        { twitter }
+        <a href={this.props.contact.facebookUrl} target="_blank">{ facebook }</a>
+        <a href={this.props.contact.linkedinUrl} target="_blank">{ linkedin }</a>
+        <a href={this.props.contact.twitterUrl}  target="_blank">{ twitter }</a>
       </div>
     )
   }
