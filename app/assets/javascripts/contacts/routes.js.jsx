@@ -1,10 +1,9 @@
-import { useBasename, createHistory } from 'history'
-import { useRouterHistory           } from 'react-router'
-import { withRouter                 } from 'react-router'
+import { createHistory }                from 'history'
+import { useRouterHistory, withRouter } from 'react-router'
 
-import Contacts from './index/contacts.js.jsx'
+import Main from './main.js.jsx'
 
-var ContactsWithRouter = withRouter(Contacts)
+var MainWithRouter = withRouter(Main)
 
 // We want to access props in this.props and not in this.props.route (but it's just a personal choice)
 var mergePropsRouteInProps = (props) => {
@@ -12,8 +11,8 @@ var mergePropsRouteInProps = (props) => {
   return _.merge({}, props, cleanedPropsRoute);
 }
 
-const ContactsWrapper = (props) => {
-  return ( <ContactsWithRouter {...mergePropsRouteInProps(props)} /> );
+const MainWrapper = (props) => {
+  return ( <MainWithRouter {...mergePropsRouteInProps(props)} /> );
 }
 
 class Routes extends React.Component {
@@ -26,14 +25,14 @@ class Routes extends React.Component {
   render() {
     return (
       <Router history={this.browserHistory}>
-        <Route path="/" component={ContactsWrapper}
+        <Route path="/" component={MainWrapper}
                         contactsPath={this.props.contactsPath}
                         organizationOptionsPath={this.props.organizationOptionsPath}
                         fieldOptionsPath={this.props.fieldOptionsPath}
                         eventOptionsPath={this.props.eventOptionsPath}
                         projectOptionsPath={this.props.projectOptionsPath}
                         loadingImagePath={this.props.loadingImagePath}>
-          <Route path=":id" component={ContactsWrapper} />
+          <Route path=":id" component={MainWrapper} />
         </Route>
       </Router>
     );
