@@ -6,7 +6,7 @@ class Contacts extends React.Component {
   constructor(props) {
     super(props);
 
-    this.fieldNames = [
+    this.filterNames = [
       'quickSearch', 'name', 'email', 'address', 'phone', 'active',
       'organizationIds'
     ];
@@ -22,6 +22,7 @@ class Contacts extends React.Component {
 
   componentWillMount() {
     this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 300);
+    this.dUpdateUrl         = _.debounce(this.updateUrl, 300);
   }
 
   componentDidMount() {
@@ -29,21 +30,21 @@ class Contacts extends React.Component {
     this.bindInfiniteScroll();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(this.filtersHaveChanged(nextProps)) {
-      this.dReloadFromBackend();
+  componentDidUpdate(prevProps, prevState) {
+    if(this.filtersHaveChanged(prevProps)) {
+      this.reloadFromBackend();
     }
   }
 
-  filtersHaveChanged(nextProps) {
-    return _.some(this.fieldNames, (fieldName) => {
-      return nextProps.location.query[fieldName] != this.props.location.query[fieldName];
+  filtersHaveChanged(prevProps) {
+    return _.some(this.filterNames, (filterName) => {
+      return prevProps.location.query[filterName] != this.props.location.query[filterName];
     });
   }
 
   buildFilterParams() {
-    return _.zipObject(this.fieldNames, _.map(this.fieldNames, (fieldName) => {
-      return this.props.location.query[fieldName];
+    return _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
+      return this.props.location.query[filterName];
     }));
   }
 
@@ -113,18 +114,18 @@ class Contacts extends React.Component {
   }
 
   updateQuickSearch(newQuickSearch) {
-    this.updateUrl({
+    this.dUpdateUrl({
       quickSearch: newQuickSearch
     });
   }
 
   updateAdvancedSearchFilters(newFilters) {
-    this.updateUrl(newFilters);
+    this.dUpdateUrl(newFilters);
   }
 
   render() {
-    var advancedSearchFilters = _.zipObject(this.fieldNames, _.map(this.fieldNames, (fieldName) => {
-      return this.props.location.query[fieldName];
+    var advancedSearchFilters = _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
+      return this.props.location.query[filterName];
     }));
 
     return (
