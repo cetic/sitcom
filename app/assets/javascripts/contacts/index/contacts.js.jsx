@@ -6,6 +6,10 @@ class Contacts extends React.Component {
   constructor(props) {
     super(props);
 
+    this.fieldNames = [
+      'quickSearch', 'name', 'email', 'address', 'phone', 'active', 'organizationIds'
+    ];
+
     this.state = {
       contacts:             [],
       loaded:               false,
@@ -31,24 +35,25 @@ class Contacts extends React.Component {
   }
 
   filtersHaveChanged(nextProps) {
-    var fieldNames = ['quickSearch', 'name', 'email', 'address', 'phone', 'active', 'organizationIds'];
-
-    return _.some(fieldNames, (fieldName) => {
+    return _.some(this.fieldNames, (fieldName) => {
       return nextProps.location.query[fieldName] != this.props.location.query[fieldName];
     });
   }
 
-  reloadFromBackend(offset = 0) {
-    var params = humps.decamelizeKeys({
-      query:            this.props.location.query.quickSearch,
-      name:             this.props.location.query.name,
-      email:            this.props.location.query.email,
-      address:          this.props.location.query.address,
-      phone:            this.props.location.query.phone,
-      active:           this.props.location.query.active,
-      organizationIds:  this.props.location.query.organizationIds,
-      offset:           offset
+  buildFilterParams() {
+    var filterParams = {};
+
+    _.each(this.fieldNames, (fieldName) => {
+      filterParams[fieldName] = this.props.location.query[fieldName];
     });
+
+    return filterParams;
+  }
+
+  reloadFromBackend(offset = 0) {
+    var params = humps.decamelizeKeys(_.assign({}, this.buildFilterParams(), {
+      offset: offset
+    }));
 
     $.get(this.props.contactsPath, params, (data) => {
       var camelData = humps.camelizeKeys(data);

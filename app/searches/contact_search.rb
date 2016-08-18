@@ -17,10 +17,10 @@ class ContactSearch < BaseSearch
       'size' => STEP
     }
 
-    if params[:query] && params[:query].length > 1
+    if params[:quick_search] && params[:quick_search].length > 1
       options['query']['filtered']['query'] = {
         'multi_match' => {
-          'query' => params[:query],
+          'query' => params[:quick_search],
 
           'fields' => [
             'name',
