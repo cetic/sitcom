@@ -133,7 +133,10 @@ class Contacts extends React.Component {
           <div className="col-md-4 pull-right complete-search">
             <AdvancedSearch filters={advancedSearchFilters}
                             updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)}
-                            organizationOptionsPath={this.props.organizationOptionsPath} />
+                            organizationOptionsPath={this.props.organizationOptionsPath}
+                            fieldOptionsPath={this.props.fieldOptionsPath}
+                            eventOptionsPath={this.props.eventOptionsPath}
+                            projectOptionsPath={this.props.projectOptionsPath} />
           </div>
 
           <div className="col-md-8">

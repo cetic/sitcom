@@ -48,6 +48,24 @@ class AdvancedSearch extends React.Component {
     });
   }
 
+  updateFieldIds(value) {
+    this.props.updateAdvancedSearchFilters({
+      fieldIds: value
+    });
+  }
+
+  updateEventIds(value) {
+    this.props.updateAdvancedSearchFilters({
+      eventIds: value
+    });
+  }
+
+  updateProjectIds(value) {
+    this.props.updateAdvancedSearchFilters({
+      projectIds: value
+    });
+  }
+
   render() {
     return (
       <div>
@@ -64,9 +82,17 @@ class AdvancedSearch extends React.Component {
                              organizationOptionsPath={this.props.organizationOptionsPath}
                              updateOrganizationIds={this.updateOrganizationIds.bind(this)} />
 
-        <FieldsFilter />
-        <EventsFilter />
-        <ProjectsFilter />
+        <FieldsFilter fieldIds={this.props.filters.fieldIds}
+                      fieldOptionsPath={this.props.fieldOptionsPath}
+                      updateFieldIds={this.updateFieldIds.bind(this)}/>
+
+        <EventsFilter eventIds={this.props.filters.eventIds}
+                      eventOptionsPath={this.props.eventOptionsPath}
+                      updateFieldIds={this.updateFieldIds.bind(this)}/>
+
+        <ProjectsFilter projectIds={this.props.filters.projectIds}
+                        projectOptionsPath={this.props.projectOptionsPath}
+                        updateProjectIds={this.updateProjectIds.bind(this)}/>
       </div>
     );
   }

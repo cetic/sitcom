@@ -6,7 +6,7 @@ class OrganizationFilter extends React.Component {
 
     this.state = {
       options: [],
-      organizationIds: this.props.organizationIds || []
+      organizationIds: this.props.organizationIds || ''
     };
   }
 
@@ -24,8 +24,7 @@ class OrganizationFilter extends React.Component {
     });
   }
 
-  updateOrganizationIds(value) {
-    console.log('value: ' + value);
+  updateValue(value) {
     this.setState({ organizationIds: value }, () => {
       this.props.updateOrganizationIds(value);
     });
@@ -38,7 +37,7 @@ class OrganizationFilter extends React.Component {
         <Select multi={true}
                 value={this.state.organizationIds}
                 options={this.state.options}
-                onChange={this.updateOrganizationIds.bind(this)} />
+                onChange={this.updateValue.bind(this)} />
       </div>
     )
   }
