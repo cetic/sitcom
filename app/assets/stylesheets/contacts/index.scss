@@ -1,5 +1,5 @@
-#contacts-index .container-contact-index,
-#contacts-show .container-contact-index {
+#contacts-index .container-contact,
+#contacts-show .container-contact {
   .contacts {
     margin-top: 40px;
 
@@ -113,6 +113,26 @@
           margin-bottom: 4px;
         }
       }
+    }
+  }
+
+  .contact {
+    margin-top: 40px;
+
+    .back {
+      position: absolute;
+      top: -26px;
+    }
+
+    .general {
+      position: relative;
+      margin-bottom: 36px;
+      background-color: white;
+      width: 700px;
+      left: -350px;
+      margin-left: 50%;
+      min-height: 80px;
+      box-shadow: 0px 0px 10px #cccccc;
     }
   }
 }

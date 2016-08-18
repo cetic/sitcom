@@ -82,7 +82,7 @@ class Contact extends React.Component {
   renderFields() {
     return _.map(this.props.contact.fields, (field) => {
       return (
-        <li className="field" key={ field.id}>
+        <li className="field" key={ field.id }>
           <span className="label label-default">{ field.name }</span>
         </li>
       )

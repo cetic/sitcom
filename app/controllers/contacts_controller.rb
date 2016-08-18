@@ -21,6 +21,7 @@ class ContactsController < ApplicationController
     respond_to do |format|
       format.json do
         @contact = @lab.contacts.find(params[:id])
+        render :json => @contact.as_indexed_json
       end
 
       format.html do

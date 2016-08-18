@@ -142,7 +142,7 @@ class Contacts extends React.Component {
     }));
 
     return (
-      <div className="container-fluid container-contact-index">
+      <div className="container-fluid container-contact">
         <div className="row">
           <div className="col-md-4 pull-right complete-search">
             <AdvancedSearch filters={advancedSearchFilters}
@@ -166,7 +166,7 @@ class Contacts extends React.Component {
   }
 
   renderContact() {
-    if(this.props.children) {
+    if(this.props.params.id) {
       return <ContactShow id={this.props.params.id}
                           contactsPath={this.props.contactsPath}
                           search={this.props.location.search} />
@@ -174,7 +174,7 @@ class Contacts extends React.Component {
   }
 
   renderContacts() {
-    if(!this.props.children) {
+    if(!this.props.params.id) {
       return (
         <div className="contacts">
           {this.renderContactsList()}

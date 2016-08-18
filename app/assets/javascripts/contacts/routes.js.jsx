@@ -3,10 +3,8 @@ import { useRouterHistory           } from 'react-router'
 import { withRouter                 } from 'react-router'
 
 import Contacts from './index/contacts.js.jsx'
-import Contact  from './show/contact.js.jsx'
 
 var ContactsWithRouter = withRouter(Contacts)
-var ContactWithRouter  = withRouter(Contact)
 
 // We want to access props in this.props and not in this.props.route (but it's just a personal choice)
 var mergePropsRouteInProps = (props) => {
@@ -16,10 +14,6 @@ var mergePropsRouteInProps = (props) => {
 
 const ContactsWrapper = (props) => {
   return ( <ContactsWithRouter {...mergePropsRouteInProps(props)} /> );
-}
-
-const ContactWrapper = (props) => {
-  return ( <ContactWithRouter {...mergePropsRouteInProps(props)} /> );
 }
 
 class Routes extends React.Component {
