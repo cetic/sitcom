@@ -74,29 +74,30 @@
           font-size: 22px;
         }
 
-        .companies {
+        .organizations {
           font-size: 10px;
           margin-left: 4px;
           font-weight: 300;
         }
       }
 
-      .skills {
+      .fields {
+        height: 14px;
         margin-left: 48px;
         list-style-type: none;
         padding-left: 0px;
 
-        .skill {
+        .field {
           float: left;
           margin-right: 4px;
         }
       }
 
-      .events {
+      .events-and-projects {
         margin-left: 48px;
         margin-top: 4px;
 
-        .event {
+        .events, .projects {
           float: left;
           border: 1px solid #cccccc;
           font-size: 10px;

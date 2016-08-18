@@ -13,10 +13,10 @@ FactoryGirl.define do
     active             { rand(2) == 1 }
     remote_picture_url { rand(5) == 1 ? Faker::Avatar.image : '' }
 
-    twitter_url  { "twitter.com/#{Faker::Internet.user_name}"  }
-    linkedin_url { "linkedin.com/#{Faker::Internet.user_name}" }
-    facebook_url { "facebook.com/#{Faker::Internet.user_name}" }
-    website_url  { Faker::Internet.url                         }
+    twitter_url  { rand(2) == 1 ? "twitter.com/#{Faker::Internet.user_name}"  : '' }
+    linkedin_url { rand(2) == 1 ? "linkedin.com/#{Faker::Internet.user_name}" : '' }
+    facebook_url { rand(2) == 1 ? "facebook.com/#{Faker::Internet.user_name}" : '' }
+    website_url  { rand(2) == 1 ? Faker::Internet.url : ''                         }
   end
 end
 

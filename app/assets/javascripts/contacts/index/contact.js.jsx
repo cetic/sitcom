@@ -18,26 +18,20 @@ class Contact extends React.Component {
             <Link to={'/' + this.props.contact.id}>{this.props.contact.name}</Link>
           </span>
 
-          <span className="companies">
-            { _.map(this.props.contact.organizations, (organization) => { organization.name }).join(', ') }
+          <span className="organizations">
+            { this.renderOrganizations() }
           </span>
         </div>
 
-        <ul className="skills">
-          <li className="skill"><span className="label label-default">Développement</span></li>
-          <li className="skill"><span className="label label-default">Développement web</span></li>
-          <li className="skill"><span className="label label-default">Développement mobile</span></li>
+        <ul className="fields">
+          { this.renderFields() }
         </ul>
 
         <div style={{ clear: 'both' }}></div>
 
-        <div className="events">
-          <div className="event">
-            7 événements <i className="fa fa-caret-down"></i>
-          </div>
-          <div className="event">
-            3 projets <i className="fa fa-caret-down"></i>
-          </div>
+        <div className="events-and-projects">
+          { this.renderEvents() }
+          { this.renderProjects() }
         </div>
 
         <div style={{ clear: 'both' }}></div>
@@ -54,8 +48,11 @@ class Contact extends React.Component {
   }
 
   renderActivity() {
+    var activityClass = 'activity'
+    activityClass     += this.props.contact.active ? ' active' : ''
+
     return (
-      <div className="activity">
+      <div className={activityClass}>
         <div className="activity-inside">&nbsp;
         </div>
       </div>
@@ -72,6 +69,38 @@ class Contact extends React.Component {
         { facebook }
         { linkedin }
         { twitter }
+      </div>
+    )
+  }
+
+  renderOrganizations() {
+    return _.map(this.props.contact.organizations, (organization) => {
+      return organization.name
+    }).join(', ')
+  }
+
+  renderFields() {
+    return _.map(this.props.contact.fields, (field) => {
+      return (
+        <li className="field" key={ field.id}>
+          <span className="label label-default">{ field.name }</span>
+        </li>
+      )
+    })
+  }
+
+  renderEvents() {
+    return (
+      <div className="events">
+        { this.props.contact.events.length } événements <i className="fa fa-caret-down"></i>
+      </div>
+    )
+  }
+
+  renderProjects() {
+    return (
+      <div className="projects">
+        { this.props.contact.projects.length } projets <i className="fa fa-caret-down"></i>
       </div>
     )
   }

@@ -73,13 +73,13 @@ namespace :app do
     puts "Bootstrapping contacts"
 
     100.times do
-      FactoryGirl.create(:contact, :lab => Lab.all.to_a.sample)
+      FactoryGirl.create(:contact, :lab => Lab.all.to_a.sample) rescue puts "    contact name already used"
     end
 
     puts "Bootstrapping organizations"
 
     50.times do
-      FactoryGirl.create(:organization, :lab => Lab.all.to_a.sample)
+      FactoryGirl.create(:organization, :lab => Lab.all.to_a.sample) rescue puts "    organization name already used"
     end
 
     puts "Bootstrapping fields"
@@ -88,20 +88,20 @@ namespace :app do
       field = FactoryGirl.create(:field, :parent_id => nil)
 
       (1 + rand(6)).times do
-        FactoryGirl.create(:field, :parent_id => field.id)
+        FactoryGirl.create(:field, :parent_id => field.id) rescue puts "    field name already used"
       end
     end
 
     puts "Bootstrapping events"
 
     30.times do
-      FactoryGirl.create(:event, :lab => Lab.all.to_a.sample)
+      FactoryGirl.create(:event, :lab => Lab.all.to_a.sample) rescue puts "    event name already used"
     end
 
     puts "Bootstrapping projects"
 
     30.times do
-      FactoryGirl.create(:project, :lab => Lab.all.to_a.sample)
+      FactoryGirl.create(:project, :lab => Lab.all.to_a.sample) rescue puts "    project name already used"
     end
 
     puts "Bootstrapping notes and associations"
@@ -118,7 +118,7 @@ namespace :app do
 
     Organization.all.each do |organization|
       rand(4).times do
-        organization.contacts << contacts.sample
+        organization.contacts << contacts.sample rescue puts 'contact-organization link already present, ignore it'
       end
     end
 
@@ -126,7 +126,7 @@ namespace :app do
 
     Event.all.each do |event|
       rand(20).times do
-        event.contacts << contacts.sample
+        event.contacts << contacts.sample rescue puts 'contact-event link already present, ignore it'
       end
     end
 
@@ -134,7 +134,7 @@ namespace :app do
 
     Project.all.each do |project|
       rand(20).times do
-        project.contacts << contacts.sample
+        project.contacts << contacts.sample rescue puts 'contact-project link already present, ignore it'
       end
     end
 
@@ -144,7 +144,7 @@ namespace :app do
 
     Contact.all.each do |contact|
       rand(3).times do
-        contact.fields << fields.sample
+        contact.fields << fields.sample rescue puts 'contact-field link already present, ignore it'
       end
     end
   end
