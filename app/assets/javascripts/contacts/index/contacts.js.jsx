@@ -1,4 +1,5 @@
-import Contact        from './contact.js.jsx'
+import ContactIndex   from './contact.js.jsx'
+import ContactShow    from '../show/contact.js.jsx'
 import QuickSearch    from './quick_search.js.jsx'
 import AdvancedSearch from './advanced_search.js.jsx'
 
@@ -156,17 +157,34 @@ class Contacts extends React.Component {
             <QuickSearch quickSearch={this.props.location.query.quickSearch}
                          updateQuickSearch={this.updateQuickSearch.bind(this)} />
 
-            <div className="contacts">
-              {this.renderContacts()}
-              {this.renderInfiniteLoading()}
-            </div>
+            { this.renderContact()  }
+            { this.renderContacts() }
           </div>
         </div>
       </div>
     );
   }
 
+  renderContact() {
+    if(this.props.children) {
+      return <ContactShow id={this.props.params.id}
+                          contactsPath={this.props.contactsPath}
+                          search={this.props.location.search} />
+    }
+  }
+
   renderContacts() {
+    if(!this.props.children) {
+      return (
+        <div className="contacts">
+          {this.renderContactsList()}
+          {this.renderInfiniteLoading()}
+        </div>
+      )
+    }
+  }
+
+  renderContactsList() {
     if(!this.state.loaded) {
       return (
         <div className="loading">
@@ -184,7 +202,7 @@ class Contacts extends React.Component {
     else {
       return _.map(this.state.contacts, (contact) => {
         return (
-          <Contact key={contact.id} contact={contact} />
+          <ContactIndex key={contact.id} contact={contact} search={this.props.location.search} />
         );
       });
     }

@@ -13,7 +13,7 @@ class Contact extends React.Component {
   }
 
   contactPath() {
-    return this.props.contactsPath + '/' + this.props.params.id
+    return this.props.contactsPath + '/' + this.props.id
   }
 
   reloadFromBackend() {
@@ -33,7 +33,7 @@ class Contact extends React.Component {
     else {
       return (
         <div>
-          <Link to="/">Liste</Link>
+          <Link to={'/' + this.props.search}>Retour</Link>
           <br />
           {this.state.contact.name}
         </div>

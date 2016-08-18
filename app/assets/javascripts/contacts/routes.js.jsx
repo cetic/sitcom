@@ -38,10 +38,9 @@ class Routes extends React.Component {
                         fieldOptionsPath={this.props.fieldOptionsPath}
                         eventOptionsPath={this.props.eventOptionsPath}
                         projectOptionsPath={this.props.projectOptionsPath}
-                        loadingImagePath={this.props.loadingImagePath} />
-
-        <Route path="/:id" component={ContactWrapper}
-                           contactsPath={this.props.contactsPath}/>
+                        loadingImagePath={this.props.loadingImagePath}>
+          <Route path=":id" component={ContactsWrapper} />
+        </Route>
       </Router>
     );
   }
