@@ -1,17 +1,18 @@
 import FieldsFilter        from './fields_filter.js.jsx'
 import OrganizationsFilter from './organizations_filter.js.jsx'
+import EventsFilter        from './events_filter.js.jsx'
+import ProjectsFilter      from './projects_filter.js.jsx'
 
 class AdvancedSearch extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name:            this.props.filters.name,
-      email:           this.props.filters.email,
-      address:         this.props.filters.address,
-      phone:           this.props.filters.phone,
-      active:          this.props.filters.active,
-      organizationIds: this.props.filters.organizationIds
+      name:    this.props.filters.name,
+      email:   this.props.filters.email,
+      address: this.props.filters.address,
+      phone:   this.props.filters.phone,
+      active:  this.props.filters.active
     };
   }
 
@@ -33,11 +34,9 @@ class AdvancedSearch extends React.Component {
   }
 
   updateOrganizationIds(value) {
-    this.setState({ organizationIds: value }, () => {
-      this.props.updateAdvancedSearchFilters({
-        organizationIds: value
-      });
-    })
+    this.props.updateAdvancedSearchFilters({
+      organizationIds: value
+    });
   }
 
   render() {
@@ -45,17 +44,20 @@ class AdvancedSearch extends React.Component {
       <div>
         <h3>Recherche avancée</h3>
         <h4>Général</h4>
+
         {this.renderNameFilter()}
         {this.renderEmailFilter()}
         {this.renderAddressFilter()}
         {this.renderPhoneFilter()}
         {this.renderActiveInactiveFilter()}
 
-        <OrganizationsFilter organizationIds={this.state.organizationIds}
+        <OrganizationsFilter organizationIds={this.props.filters.organizationIds}
                              organizationOptionsPath={this.props.organizationOptionsPath}
                              updateOrganizationIds={this.updateOrganizationIds.bind(this)} />
 
         <FieldsFilter />
+        <EventsFilter />
+        <ProjectsFilter />
       </div>
     );
   }

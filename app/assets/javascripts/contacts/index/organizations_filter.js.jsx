@@ -25,6 +25,7 @@ class OrganizationFilter extends React.Component {
   }
 
   updateOrganizationIds(value) {
+    console.log('value: ' + value);
     this.setState({ organizationIds: value }, () => {
       this.props.updateOrganizationIds(value);
     });

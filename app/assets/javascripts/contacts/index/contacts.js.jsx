@@ -31,13 +31,11 @@ class Contacts extends React.Component {
   }
 
   filtersHaveChanged(nextProps) {
-    return nextProps.quickSearch     != this.props.location.query.quickSearch     ||
-           nextProps.name            != this.props.location.query.name            ||
-           nextProps.email           != this.props.location.query.email           ||
-           nextProps.address         != this.props.location.query.address         ||
-           nextProps.phone           != this.props.location.query.phone           ||
-           nextProps.active          != this.props.location.query.active          ||
-           nextProps.organizationIds != this.props.location.query.organizationIds;
+    var fieldNames = ['quickSearch', 'name', 'email', 'address', 'phone', 'active', 'organizationIds'];
+
+    return _.some(fieldNames, (fieldName) => {
+      return nextProps.location.query[fieldName] != this.props.location.query[fieldName];
+    });
   }
 
   reloadFromBackend(offset = 0) {
@@ -49,7 +47,7 @@ class Contacts extends React.Component {
       phone:            this.props.location.query.phone,
       active:           this.props.location.query.active,
       organizationIds:  this.props.location.query.organizationIds,
-      offset:  offset
+      offset:           offset
     });
 
     $.get(this.props.contactsPath, params, (data) => {
@@ -105,7 +103,7 @@ class Contacts extends React.Component {
       delete query.active;
     }
 
-    if(_.isUndefined(query.organizationIds)) {
+    if(_.trim(query.organizationIds).length == 0) {
       delete query.organizationIds;
     }
 
