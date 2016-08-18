@@ -56,15 +56,17 @@ class ContactSearch < BaseSearch
       }
     end
 
-    if params[:organization_ids]
-      ids = params[:organization_ids].split(',').map(&:to_i)
+    [:organization_ids, :field_ids, :event_ids, :project_ids].each do |key|
+      if params[key]
+        ids = params[key].split(',').map(&:to_i)
 
-      if ids.any?
-        options['query']['filtered']['filter']['and'] << {
-          'terms' => {
-            'organization_ids' => ids
+        if ids.any?
+          options['query']['filtered']['filter']['and'] << {
+            'terms' => {
+              key => ids
+            }
           }
-        }
+        end
       end
     end
 

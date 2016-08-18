@@ -84,15 +84,15 @@ class AdvancedSearch extends React.Component {
 
         <FieldsFilter fieldIds={this.props.filters.fieldIds}
                       fieldOptionsPath={this.props.fieldOptionsPath}
-                      updateFieldIds={this.updateFieldIds.bind(this)}/>
+                      updateFieldIds={this.updateFieldIds.bind(this)} />
 
         <EventsFilter eventIds={this.props.filters.eventIds}
                       eventOptionsPath={this.props.eventOptionsPath}
-                      updateFieldIds={this.updateFieldIds.bind(this)}/>
+                      updateEventIds={this.updateEventIds.bind(this)} />
 
         <ProjectsFilter projectIds={this.props.filters.projectIds}
                         projectOptionsPath={this.props.projectOptionsPath}
-                        updateProjectIds={this.updateProjectIds.bind(this)}/>
+                        updateProjectIds={this.updateProjectIds.bind(this)} />
       </div>
     );
   }
