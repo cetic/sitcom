@@ -47,6 +47,8 @@ group :development do
   gem 'capistrano-rbenv'
   gem 'capistrano-bundler'
   gem 'capistrano-passenger'
+
+  gem 'sqlite3'
 end
 
 group :production do
