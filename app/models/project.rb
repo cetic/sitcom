@@ -1,5 +1,10 @@
 class Project < ApplicationRecord
 
+  # Concerns
+
+  include CommonIndexConcern
+  include ProjectIndexConcern
+
   # Uploaders
 
   mount_uploader :picture, PictureUploader

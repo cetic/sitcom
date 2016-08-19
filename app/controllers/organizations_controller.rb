@@ -22,6 +22,7 @@ class OrganizationsController < ApplicationController
     respond_to do |format|
       format.json do
         @organization = @lab.organizations.find(params[:id])
+        render :json => @organization.as_indexed_json
       end
 
       format.html do

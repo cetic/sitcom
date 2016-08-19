@@ -69,8 +69,18 @@ class SelectFilter extends React.Component {
         <Select multi={true}
                 value={this.getValue()}
                 options={this.state.options}
-                onChange={this.updateValue.bind(this)} />
+                onChange={this.updateValue.bind(this)}
+                optionRenderer={this.renderOption.bind(this)} />
       );
+    }
+  }
+
+  renderOption(option) {
+    if(option.highlight) {
+      return ( <div><strong>{option.label}</strong></div> );
+    }
+    else {
+      return ( <div>{option.label}</div> );
     }
   }
 }

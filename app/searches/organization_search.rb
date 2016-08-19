@@ -5,7 +5,7 @@ class OrganizationSearch < BaseSearch
         'filtered' => {
           'filter' => {
             'and' => [
-              { 'term'   => { 'lab_id' => params[:lab_id] } },
+              { 'term' => { 'lab_id' => params[:lab_id] } },
             ]
           },
 

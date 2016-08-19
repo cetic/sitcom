@@ -3,7 +3,9 @@ class FieldsController < ApplicationController
   before_action :find_lab
 
   def options
-    @fields = Field.order(:name)
+    @fields =Field.where(parent_id: nil).order(:name).collect do |field|
+      [field, field.children.order(:name)]
+    end.flatten
   end
 
   private

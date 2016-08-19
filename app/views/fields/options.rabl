@@ -7,3 +7,7 @@ end
 node :value do |field|
   field.id
 end
+
+node :highlight do |field|
+  field.parent.blank?
+end

@@ -1,5 +1,10 @@
 class Event < ApplicationRecord
 
+  # Concerns
+
+  include CommonIndexConcern
+  include EventIndexConcern
+
   # Uploaders
 
   mount_uploader :picture, PictureUploader
