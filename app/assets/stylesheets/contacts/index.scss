@@ -1,5 +1,58 @@
 #contacts-index .container-contact,
 #contacts-show .container-contact {
+  // common to index and show
+  .contacts, .contact {
+    .activity {
+      position: absolute;
+      top: -8px;
+      right: -9px;
+      width: 20px;
+      height: 20px;
+      padding: 5px;
+      border: 1px solid $brand-primary-dark;
+      background-color: white;
+      @include border-radius(50%);
+
+      .activity-inside {
+        width: 8px;
+        height: 8px;
+        background-color: white;
+        @include border-radius(50%);
+      }
+    }
+
+    .activity.active {
+      .activity-inside {
+        background-color: $brand-primary-dark;
+      }
+    }
+
+    .social {
+      position: absolute;
+      right: 0px;
+      top: 16px;
+      width: 22px;
+      line-height: 16px;
+
+      .fa {
+        font-size: 20px;
+        color: #666666;
+      }
+    }
+
+    .fields {
+      height: 14px;
+      list-style-type: none;
+      padding-left: 0px;
+
+      .field {
+        float: left;
+        margin-right: 4px;
+      }
+    }
+  }
+
+  // only index
   .contacts {
     margin-top: 40px;
 
@@ -20,7 +73,6 @@
       width: 700px;
       left: -350px;
       margin-left: 50%;
-      min-height: 80px;
       box-shadow: 0px 0px 10px #cccccc;
 
       .picture {
@@ -31,44 +83,6 @@
         img {
           width: 56px;
           height: 56px;
-        }
-      }
-
-      .activity {
-        position: absolute;
-        top: -8px;
-        right: -9px;
-        width: 20px;
-        height: 20px;
-        padding: 5px;
-        border: 1px solid $brand-primary-dark;
-        background-color: white;
-        @include border-radius(50%);
-
-        .activity-inside {
-          width: 8px;
-          height: 8px;
-          background-color: white;
-          @include border-radius(50%);
-        }
-      }
-
-      .activity.active {
-        .activity-inside {
-          background-color: $brand-primary-dark;
-        }
-      }
-
-      .social {
-        position: absolute;
-        right: 0px;
-        top: 16px;
-        width: 22px;
-        line-height: 16px;
-
-        .fa {
-          font-size: 20px;
-          color: #666666;
         }
       }
 
@@ -88,15 +102,7 @@
       }
 
       .fields {
-        height: 14px;
         margin-left: 48px;
-        list-style-type: none;
-        padding-left: 0px;
-
-        .field {
-          float: left;
-          margin-right: 4px;
-        }
       }
 
       .events-and-projects {
@@ -116,6 +122,7 @@
     }
   }
 
+  // only show
   .contact {
     margin-top: 40px;
 
@@ -136,8 +143,47 @@
       width: 700px;
       left: -350px;
       margin-left: 50%;
-      min-height: 80px;
       box-shadow: 0px 0px 10px #cccccc;
+      padding: 12px;
+
+      .btn-edit {
+        position: absolute;
+        right: 43px;
+        top: 15px;
+        padding: 8px;
+        height: auto;
+        font-size: 10px;
+        letter-spacing: 2.4px;
+        z-index: 1;
+      }
+
+      .picture {
+        img {
+          height: 130px;
+          width: 130px;
+          padding: 0px;
+        }
+      }
+
+      h1 {
+        margin-top: 10px;
+        margin-bottom: 0px;
+      }
+
+      .organization {
+        font-size: 12px;
+        color: #555555;
+      }
+
+      .row-contact-infos {
+        font-size: 12px;
+
+        .col-md-4 {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
     }
   }
 }

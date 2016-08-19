@@ -44,7 +44,7 @@ namespace :app do
             :first_name => first_name,
             :last_name  => last_name,
             :email      => email,
-            :phone      => phone
+            :phone      => phone.to_s
           )
 
           if field_name.present?

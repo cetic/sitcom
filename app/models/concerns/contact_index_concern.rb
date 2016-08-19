@@ -28,20 +28,23 @@ module ContactIndexConcern
 
   def as_indexed_json(options = {})
     {
-      :id               => id,
-      :lab_id           => lab_id,
-      :active           => active,
-      :email            => email,
-      :phone            => phone,
+      :id     => id,
+      :lab_id => lab_id,
+      :active => active,
+      :email  => email,
+      :phone  => phone,
 
       :twitter_url  => twitter_url,
       :linkedin_url => linkedin_url,
       :facebook_url => facebook_url,
       :picture_url  => picture_url,
 
-      :name         => name,
-      :address      => address,
-      :address_html => address(true),
+      :name             => name,
+      :address          => address,
+      :address_street   => address_street,
+      :address_zip_code => address_zip_code,
+      :address_city     => address_city,
+      :address_country  => address_country,
 
       :organization_ids => organization_ids,
       :organizations    => organizations_as_indexed_json,

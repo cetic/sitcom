@@ -23,9 +23,7 @@ class Contact extends React.Component {
           </span>
         </div>
 
-        <ul className="fields">
-          { this.renderFields() }
-        </ul>
+        { this.renderFieldsContainer() }
 
         <div style={{ clear: 'both' }}></div>
 
@@ -77,6 +75,15 @@ class Contact extends React.Component {
     return _.map(this.props.contact.organizations, (organization) => {
       return organization.name
     }).join(', ')
+  }
+
+  renderFieldsContainer() {
+    if(this.props.contact.fields.length)
+      return (
+        <ul className="fields">
+          { this.renderFields() }
+        </ul>
+      )
   }
 
   renderFields() {

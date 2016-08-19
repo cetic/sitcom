@@ -48,7 +48,7 @@ class Contact < ApplicationRecord
     if picture.present?
       picture.url
     elsif email.present?
-      gravatar_url
+      gravatar_url(:size => 130)
     else
       # default url
     end

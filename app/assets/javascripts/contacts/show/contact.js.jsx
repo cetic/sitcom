@@ -1,10 +1,14 @@
+import GeneralShow from './general_show.js.jsx'
+import GeneralEdit from './general_edit.js.jsx'
+
 class Contact extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      contact: {},
-      loaded:  false
+      contact:  {},
+      loaded:   false,
+      editMode: false
     };
   }
 
@@ -20,13 +24,17 @@ class Contact extends React.Component {
     $.get(this.contactPath(), (data) => {
       var camelData = humps.camelizeKeys(data)
 
-      console.log(camelData)
-
       this.setState({
         contact: camelData,
-        loaded: true
+        loaded:  true
       })
     });
+  }
+
+  toggleEditMode() {
+    this.setState({
+      editMode: !this. state.editMode
+    })
   }
 
   render() {
@@ -50,74 +58,21 @@ class Contact extends React.Component {
 
   renderGeneral() {
     if(this.state.loaded) {
-      return (
-        <div className="general">
-          <Link to={'/' + this.props.search} className="back">
-            Retour
-          </Link>
-
-          { this.renderGeneralPicture() }
-
-          { this.state.contact.name }
-          { this.renderGeneralOrganizations() }
-          { this.renderGeneralFields() }
-
-          <div className="row">
-            { this.renderGeneralAddress() }
-            { this.renderGeneralPhone() }
-            { this.renderGeneralEmail() }
-          </div>
-        </div>
-      );
+      if(this.state.editMode) {
+        return (
+          <GeneralEdit contact={this.state.contact}
+                       search={this.props.search}
+                       toggleEditMode={this.toggleEditMode.bind(this)} />
+        );
+      }
+      else {
+        return (
+          <GeneralShow contact={this.state.contact}
+                       search={this.props.search}
+                       toggleEditMode={this.toggleEditMode.bind(this)} />
+        )
+      }
     }
-  }
-
-  renderGeneralPicture() {
-    return (
-      <div className="picture">
-        <img className="img-thumbnail" src={this.state.contact.pictureUrl} />
-      </div>
-    )
-  }
-
-  renderGeneralOrganizations() {
-    return _.map(this.state.contact.organizations, (organization) => {
-      return organization.name
-    }).join(', ')
-  }
-
-  renderGeneralFields() {
-    return _.map(this.state.contact.fields, (field) => {
-      return (
-        <li className="field" key={ field.id }>
-          <span className="label label-default">{ field.name }</span>
-        </li>
-      )
-    })
-  }
-
-  renderGeneralAddress() {
-    return (
-      <div className="col-md-4">
-        <h3>Adresse</h3>
-      </div>
-    )
-  }
-
-  renderGeneralPhone() {
-    return (
-      <div className="col-md-4">
-        <h3>Téléphone</h3>
-      </div>
-    )
-  }
-
-  renderGeneralEmail() {
-    return (
-      <div className="col-md-4">
-        <h3>Email</h3>
-      </div>
-    )
   }
 }
 
