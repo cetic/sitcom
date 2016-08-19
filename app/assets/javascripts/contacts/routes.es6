@@ -1,7 +1,7 @@
 import { createHistory }                from 'history'
 import { useRouterHistory, withRouter } from 'react-router'
 
-import Main from './main.js.jsx'
+import Main from './main.es6'
 
 var MainWithRouter = withRouter(Main)
 

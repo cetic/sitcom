@@ -1,4 +1,4 @@
-import Contact from './contact.js.jsx'
+import Contact from './contact.es6'
 
 class Contacts extends React.Component {
   constructor(props) {

@@ -1,5 +1,5 @@
-import GeneralShow from './general_show.js.jsx'
-import GeneralEdit from './general_edit.js.jsx'
+import GeneralShow from './general_show.es6'
+import GeneralEdit from './general_edit.es6'
 
 class Contact extends React.Component {
   constructor(props) {

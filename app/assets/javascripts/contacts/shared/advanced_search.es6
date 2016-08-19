@@ -1,4 +1,4 @@
-import SelectFilter from './select_filter.js.jsx'
+import SelectFilter from './select_filter.es6'
 
 class AdvancedSearch extends React.Component {
   constructor(props) {

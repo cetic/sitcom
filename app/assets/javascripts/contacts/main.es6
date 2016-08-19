@@ -1,7 +1,7 @@
-import Contacts       from './index/contacts.js.jsx'
-import Contact        from './show/contact.js.jsx'
-import QuickSearch    from './shared/quick_search.js.jsx'
-import AdvancedSearch from './shared/advanced_search.js.jsx'
+import Contacts       from './index/contacts.es6'
+import Contact        from './show/contact.es6'
+import QuickSearch    from './shared/quick_search.es6'
+import AdvancedSearch from './shared/advanced_search.es6'
 
 class Main extends React.Component {
   constructor(props) {

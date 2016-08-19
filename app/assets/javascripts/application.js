@@ -16,4 +16,4 @@ global.Route       = require('react-router').Route
 global.Link        = require('react-router').Link
 global.hashHistory = require('react-router').hashHistory
 
-global.ContactsRoutes = require('./contacts/routes.js.jsx')
+global.ContactsRoutes = require('./contacts/routes.es6')
