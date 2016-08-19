@@ -78,8 +78,11 @@ class ContactsController < ApplicationController
     params.require(:contact).permit(
       :first_name, :last_name, :active, :email, :phone,
       :address_street, :address_zip_code, :address_city, :address_country,
-      :twitter_url, :linkedin_url, :facebook_url, :website_url,
-      :organization_ids => [], :field_ids => []
+      :twitter_url, :linkedin_url, :facebook_url,
+      :organization_ids => [],
+      :field_ids        => [],
+      :event_ids        => [],
+      :project_ids      => []
     )
   end
 

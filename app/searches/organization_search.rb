@@ -1,49 +1,15 @@
 class OrganizationSearch < BaseSearch
-  def run_step(from)
-    options = {
-      'query' => {
-        'filtered' => {
-          'filter' => {
-            'and' => [
-              { 'term' => { 'lab_id' => params[:lab_id] } },
-            ]
-          },
+  def run_step
+    options = get_base_options
 
-        },
-      },
+    add_quick_search(options, [ 'name', 'status', 'description', 'website_url' ])
 
-      'sort' => [ { 'sort_name' => { 'order' => 'asc' }} ],
-
-      'from' => from,
-      'size' => STEP
-    }
-
-    if params[:query] && params[:query].length > 1
-      options['query']['filtered']['query'] = {
-        'multi_match' => {
-          'query' => params[:query],
-
-          'fields' => [
-            'name',
-            'status',
-            'description'
-          ],
-
-          'type'           => 'phrase_prefix',
-          'max_expansions' => MAX_EXPANSIONS
-        }
-      }
+    [ 'name', 'description', 'website_url' ].each do |field|
+      add_string_search(options, field)
     end
 
-    if params[:name]
-      options['query']['filtered']['filter']['and'] << {
-        'multi_match' => {
-          'query'          => params[:name],
-          'fields'         => ['name'],
-          'type'           => 'phrase_prefix',
-          'max_expansions' => MAX_EXPANSIONS
-        }
-      }
+    [ 'contact_ids' ].each do |field|
+      add_ids_search(options, field)
     end
 
     Organization.search(options)

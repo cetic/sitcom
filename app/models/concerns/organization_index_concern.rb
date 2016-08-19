@@ -14,6 +14,7 @@ module OrganizationIndexConcern
         indexes :name
         indexes :status
         indexes :description
+        indexes :website_url
         indexes :contact_ids, :index => 'not_analyzed'
 
         indexes :sort_name, :analyzer => :sortable_string_analyzer

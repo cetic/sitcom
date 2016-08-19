@@ -21,4 +21,7 @@ class Project < ApplicationRecord
   # Validations
 
   validates :name, :presence   => { :message => "Le nom est obligatoire."  }
+
+  # Methods
+
 end

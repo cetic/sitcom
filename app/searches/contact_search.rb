@@ -1,51 +1,15 @@
 class ContactSearch < BaseSearch
   def run_step
-    options = {
-      'query' => {
-        'filtered' => {
-          'filter' => {
-            'and' => [
-              { 'term' => { 'lab_id' => params[:lab_id] } },
-            ]
-          },
-        },
-      },
+    options = get_base_options
 
-      'sort' => [ { 'sort_name' => { 'order' => 'asc' }} ],
+    add_quick_search(options, [ 'name', 'email', 'phone', 'address' ])
 
-      'from' => params[:offset].to_i,
-      'size' => STEP
-    }
-
-    if params[:quick_search] && params[:quick_search].length > 1
-      options['query']['filtered']['query'] = {
-        'multi_match' => {
-          'query' => params[:quick_search],
-
-          'fields' => [
-            'name',
-            'email',
-            'phone',
-            'address'
-          ],
-
-          'type'           => 'phrase_prefix',
-          'max_expansions' => MAX_EXPANSIONS
-        }
-      }
+    [ 'name', 'email', 'address', 'phone' ].each do |field|
+      add_string_search(options, field)
     end
 
-    [:name, :email, :address, :phone].each do |key|
-      if params[key]
-        options['query']['filtered']['filter']['and'] << {
-          'multi_match' => {
-            'query'          => params[key],
-            'fields'         => [key.to_s],
-            'type'           => 'phrase_prefix',
-            'max_expansions' => MAX_EXPANSIONS
-          }
-        }
-      end
+    [ 'organization_ids', 'field_ids', 'event_ids', 'project_ids' ].each do |field|
+      add_ids_search(options, field)
     end
 
     if params[:active]
@@ -54,20 +18,6 @@ class ContactSearch < BaseSearch
           'active' => params[:active] == 'true'
         }
       }
-    end
-
-    [:organization_ids, :field_ids, :event_ids, :project_ids].each do |key|
-      if params[key]
-        ids = params[key].split(',').map(&:to_i)
-
-        if ids.any?
-          options['query']['filtered']['filter']['and'] << {
-            'terms' => {
-              key => ids
-            }
-          }
-        end
-      end
     end
 
     Contact.search(options)

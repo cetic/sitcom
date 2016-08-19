@@ -12,6 +12,10 @@ module EventIndexConcern
         indexes :id,          :index => 'not_analyzed'
         indexes :lab_id,      :index => 'not_analyzed'
         indexes :name
+        indexes :happens_on
+        indexes :place
+        indexes :description
+        indexes :website_url
         indexes :contact_ids, :index => 'not_analyzed'
 
         indexes :sort_name, :analyzer => :sortable_string_analyzer
@@ -24,7 +28,12 @@ module EventIndexConcern
       :id     => id,
       :lab_id => lab_id,
 
-      :name => name,
+      :name        => name,
+      :happens_on  => happens_on,
+      :place       => place,
+      :description => description,
+      :website_url => website_url,
+      :picture_url => picture.url,
 
       :contact_ids => contact_ids,
       :contacts    => contacts_as_indexed_json,

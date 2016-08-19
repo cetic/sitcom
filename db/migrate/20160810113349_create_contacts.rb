@@ -17,7 +17,6 @@ class CreateContacts < ActiveRecord::Migration[5.0]
       t.string :twitter_url,  :default => ''
       t.string :linkedin_url, :default => ''
       t.string :facebook_url, :default => ''
-      t.string :website_url,  :default => ''
 
       t.string :picture
 

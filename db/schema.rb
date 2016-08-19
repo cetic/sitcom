@@ -62,7 +62,6 @@ ActiveRecord::Schema.define(version: 20160812122144) do
     t.string   "twitter_url",      default: ""
     t.string   "linkedin_url",     default: ""
     t.string   "facebook_url",     default: ""
-    t.string   "website_url",      default: ""
     t.string   "picture"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
