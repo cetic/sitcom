@@ -56,6 +56,8 @@ module ContactIndexConcern
       :project_ids => project_ids,
       :projects    => projects_as_indexed_json,
 
+      :notes => notes_as_indexed_json,
+
       :sort_name => name
     }
   end
@@ -93,6 +95,16 @@ module ContactIndexConcern
       {
         :id   => project.id,
         :name => project.name
+      }
+    end
+  end
+
+  def notes_as_indexed_json
+    notes.collect do |note|
+      {
+        :id      => note.id,
+        :text    => note.text,
+        :privacy => note.privacy
       }
     end
   end
