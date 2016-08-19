@@ -24,7 +24,8 @@ As root:
 
     apt-get install zlib1g zlib1g-dev build-essential git-core curl emacs imagemagick nginx
     apt-get install mysql-client libmysqlclient-dev libopenssl-ruby1.9.1 libssl-dev libreadline-dev
-    apt-get install mysql-server monit unattended-upgrades logrotate memcached nodejs
+    apt-get install mysql-server monit unattended-upgrades logrotate memcached
+    apt-get install nodejs npm
     apt-get install libcurl4-gnutls-dev libxml2 libxml2-dev libxslt1-dev ruby-dev
     apt-get install mysql-client libmysqlclient-dev libssl-dev libreadline-dev screen
     apt-get install libmagickcore-dev libmagickwand-dev
@@ -36,6 +37,10 @@ Set a [generated password](https://strongpasswordgenerator.com) for mysql root a
 As root:
 
     unattended-upgrades
+
+## Install nodejs
+
+https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions
 
 ## Install `rbenv` and `ruby` (as deploy)
 
