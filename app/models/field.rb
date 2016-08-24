@@ -19,6 +19,10 @@ class Field < ApplicationRecord
 
   # Methods
 
+  def index_dependent_rows
+    contacts.each { |row| row.__elasticsearch__.index_document }
+  end
+
   def as_indexed_json(options = {})
     {
       :id        => id,

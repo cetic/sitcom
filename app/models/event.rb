@@ -20,6 +20,11 @@ class Event < ApplicationRecord
 
   # Validations
 
-  validates :name, :presence   => { :message => "Le nom est obligatoire."  }
+  validates :name, :presence => { :message => "Le nom est obligatoire."  }
 
+  # Methods
+
+  def index_dependent_rows
+    contacts.each { |row| row.__elasticsearch__.index_document }
+  end
 end

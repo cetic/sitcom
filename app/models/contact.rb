@@ -35,6 +35,12 @@ class Contact < ApplicationRecord
 
   # Methods
 
+  def index_dependent_rows
+    organizations.each { |row| row.__elasticsearch__.index_document }
+    events.each        { |row| row.__elasticsearch__.index_document }
+    projects.each      { |row| row.__elasticsearch__.index_document }
+  end
+
   def name
     [ first_name, last_name ].join(' ')
   end

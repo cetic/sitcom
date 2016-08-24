@@ -50,6 +50,11 @@ module ContactIndexConcern
       :address_city     => address_city,
       :address_country  => address_country,
 
+      :organization_ids => organization_ids,
+      :field_ids        => field_ids,
+      :event_ids        => event_ids,
+      :project_ids      => project_ids,
+
       :sort_name => name
     }
 
@@ -57,19 +62,11 @@ module ContactIndexConcern
       fields
     else
       fields.merge({
-        :organization_ids => organization_ids,
-        :organizations    => organizations_as_indexed_json,
-
-        :field_ids => field_ids,
-        :fields    => fields_as_indexed_json,
-
-        :event_ids => event_ids,
-        :events    => events_as_indexed_json,
-
-        :project_ids => project_ids,
-        :projects    => projects_as_indexed_json,
-
-        :notes => notes_as_indexed_json,
+        :organizations => organizations_as_indexed_json,
+        :fields        => fields_as_indexed_json,
+        :events        => events_as_indexed_json,
+        :projects      => projects_as_indexed_json,
+        :notes         => notes_as_indexed_json,
       })
     end
   end

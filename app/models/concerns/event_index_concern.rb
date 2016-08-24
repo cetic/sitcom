@@ -36,6 +36,8 @@ module EventIndexConcern
       :picture_url         => picture.url,
       :preview_picture_url => picture.url(:preview),
 
+      :contact_ids => contact_ids,
+
       :sort_name => name
     }
 
@@ -43,10 +45,8 @@ module EventIndexConcern
       fields
     else
       fields.merge({
-        :contact_ids => contact_ids,
-        :contacts    => contacts_as_indexed_json,
-
-        :notes => notes_as_indexed_json
+        :contacts => contacts_as_indexed_json,
+        :notes    => notes_as_indexed_json
       })
     end
   end

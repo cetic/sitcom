@@ -18,6 +18,7 @@ class NotesController < ApplicationController
         @note = @notable.notes.new(strong_params)
 
         if @note.save
+          @note.index_dependent_rows
           render_json_success
         else
           render_json_errors(@note)
@@ -30,6 +31,7 @@ class NotesController < ApplicationController
     respond_to do |format|
       format.json do
         if @note.update_attributes(strong_params)
+          @note.index_dependent_rows
           render_json_success
         else
           render_json_errors(@note)

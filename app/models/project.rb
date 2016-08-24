@@ -24,4 +24,7 @@ class Project < ApplicationRecord
 
   # Methods
 
+  def index_dependent_rows
+    contacts.each { |row| row.__elasticsearch__.index_document }
+  end
 end

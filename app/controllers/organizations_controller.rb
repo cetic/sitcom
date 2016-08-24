@@ -37,6 +37,7 @@ class OrganizationsController < ApplicationController
         @organization = @lab.organizations.new(strong_params)
 
         if @organization.save
+          @organization.index_dependent_rows
           render_json_success
         else
           render_json_errors(@organization)
@@ -51,6 +52,7 @@ class OrganizationsController < ApplicationController
         @organization = @lab.organizations.find(params[:id])
 
         if @organization.update_attributes(strong_params)
+          @organization.index_dependent_rows
           render_json_success
         else
           render_json_errors(@organization)

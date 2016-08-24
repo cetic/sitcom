@@ -37,6 +37,7 @@ class ContactsController < ApplicationController
         @contact = @lab.contacts.new(strong_params)
 
         if @contact.save
+          @contact.index_dependent_rows
           render_json_success
         else
           render_json_errors(@contact)
@@ -51,6 +52,7 @@ class ContactsController < ApplicationController
         @contact = @lab.contacts.find(params[:id])
 
         if @contact.update_attributes(strong_params)
+          @contact.index_dependent_rows
           render_json_success
         else
           render_json_errors(@contact)

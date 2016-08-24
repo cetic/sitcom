@@ -19,6 +19,10 @@ class Note < ApplicationRecord
 
   # Methods
 
+  def index_dependent_rows
+    notable.__elasticsearch__.index_document
+  end
+
   def as_indexed_json(options = {})
     {
       :id      => id,
