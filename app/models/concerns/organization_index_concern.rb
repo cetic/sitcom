@@ -31,6 +31,9 @@ module OrganizationIndexConcern
       :description => description,
       :website_url => website_url,
 
+      :picture_url         => picture.url,
+      :preview_picture_url => picture.url(:preview),
+
       :contact_ids => contact_ids,
       :contacts    => contacts_as_indexed_json,
 

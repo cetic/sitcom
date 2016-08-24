@@ -66,10 +66,7 @@ module ContactIndexConcern
 
   def organizations_as_indexed_json
     organizations.collect do |organization|
-      {
-        :id   => organization.id,
-        :name => organization.name
-      }
+      organization.as_indexed_json
     end
   end
 
@@ -85,19 +82,13 @@ module ContactIndexConcern
 
   def events_as_indexed_json
     events.collect do |event|
-      {
-        :id   => event.id,
-        :name => event.name
-      }
+      event.as_indexed_json
     end
   end
 
   def projects_as_indexed_json
     projects.collect do |project|
-      {
-        :id   => project.id,
-        :name => project.name
-      }
+      project.as_indexed_json
     end
   end
 
@@ -106,7 +97,7 @@ module ContactIndexConcern
       {
         :id      => note.id,
         :text    => note.text,
-        :privacy => note.privacy
+        :privacy => note.privacy,
       }
     end
   end

@@ -27,11 +27,12 @@ module ProjectIndexConcern
       :id     => id,
       :lab_id => lab_id,
 
-      :name        => name,
-      :description => description,
-      :start_date  => start_date,
-      :end_date    => end_date,
-      :picture_url => picture.url,
+      :name                => name,
+      :description         => description,
+      :start_date          => start_date,
+      :end_date            => end_date,
+      :picture_url         => picture.url,
+      :preview_picture_url => picture.url(:preview),
 
       :contact_ids => contact_ids,
       :contacts    => contacts_as_indexed_json,

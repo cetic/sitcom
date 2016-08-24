@@ -1,5 +1,6 @@
 import GeneralShow from './general_show.es6'
 import GeneralEdit from './general_edit.es6'
+import ItemsBlock  from './items_block.es6'
 
 class Contact extends React.Component {
   constructor(props) {
@@ -40,8 +41,10 @@ class Contact extends React.Component {
   render() {
     return (
       <div className="contact">
-        { this.renderLoading() }
-        { this.renderGeneral() }
+        {this.renderLoading()}
+        {this.renderGeneral()}
+        {this.renderProjectsBlock()}
+        {this.renderEventsBlock()}
       </div>
     )
   }
@@ -72,6 +75,34 @@ class Contact extends React.Component {
                        toggleEditMode={this.toggleEditMode.bind(this)} />
         )
       }
+    }
+  }
+
+  renderProjectsBlock() {
+    if(this.state.loaded) {
+      return (
+        <ItemsBlock label="Projets"
+                    fieldName="projectIds"
+                    items={this.state.contact.projects}
+                    reloadFromBackend={this.reloadFromBackend.bind(this)}
+                    contact={this.state.contact}
+                    contactPath={this.contactPath()}
+                    removeConfirmMessage="Délier ce projet du contact ?" />
+      );
+    }
+  }
+
+  renderEventsBlock() {
+    if(this.state.loaded) {
+      return (
+        <ItemsBlock label="Evènements"
+                    fieldName="eventIds"
+                    items={this.state.contact.events}
+                    reloadFromBackend={this.reloadFromBackend.bind(this)}
+                    contact={this.state.contact}
+                    contactPath={this.contactPath()}
+                    removeConfirmMessage="Délier cet évènement du contact ?" />
+      );
     }
   }
 }
