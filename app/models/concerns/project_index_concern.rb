@@ -23,7 +23,7 @@ module ProjectIndexConcern
   end
 
   def as_indexed_json(options = {})
-    {
+    fields = {
       :id     => id,
       :lab_id => lab_id,
 
@@ -34,19 +34,32 @@ module ProjectIndexConcern
       :picture_url         => picture.url,
       :preview_picture_url => picture.url(:preview),
 
-      :contact_ids => contact_ids,
-      :contacts    => contacts_as_indexed_json,
-
       :sort_name => name
     }
+
+    if options[:simple]
+      fields
+    else
+      fields.merge({
+        :contact_ids => contact_ids,
+        :contacts    => contacts_as_indexed_json,
+
+        :notes => notes_as_indexed_json
+      })
+    end
   end
 
   def contacts_as_indexed_json
     contacts.collect do |contact|
-      {
-        :id   => contact.id,
-        :name => contact.name
-      }
+      contact.as_indexed_json({
+        :simple => true
+      })
+    end
+  end
+
+  def notes_as_indexed_json
+    notes.collect do |note|
+      note.as_indexed_json
     end
   end
 end

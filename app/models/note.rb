@@ -17,4 +17,14 @@ class Note < ApplicationRecord
 
   validates :text, :presence => { :message => 'Le texte est obligaroire.' }
 
+  # Methods
+
+  def as_indexed_json(options = {})
+    {
+      :id      => id,
+      :text    => text,
+      :privacy => privacy,
+    }
+  end
+
 end

@@ -29,7 +29,7 @@ module ContactIndexConcern
   end
 
   def as_indexed_json(options = {})
-    {
+    fields = {
       :id     => id,
       :lab_id => lab_id,
       :active => active,
@@ -50,59 +50,63 @@ module ContactIndexConcern
       :address_city     => address_city,
       :address_country  => address_country,
 
-      :organization_ids => organization_ids,
-      :organizations    => organizations_as_indexed_json,
-
-      :field_ids => field_ids,
-      :fields    => fields_as_indexed_json,
-
-      :event_ids => event_ids,
-      :events    => events_as_indexed_json,
-
-      :project_ids => project_ids,
-      :projects    => projects_as_indexed_json,
-
-      :notes => notes_as_indexed_json,
-
       :sort_name => name
     }
+
+    if options[:simple]
+      fields
+    else
+      fields.merge({
+        :organization_ids => organization_ids,
+        :organizations    => organizations_as_indexed_json,
+
+        :field_ids => field_ids,
+        :fields    => fields_as_indexed_json,
+
+        :event_ids => event_ids,
+        :events    => events_as_indexed_json,
+
+        :project_ids => project_ids,
+        :projects    => projects_as_indexed_json,
+
+        :notes => notes_as_indexed_json,
+      })
+    end
   end
 
   def organizations_as_indexed_json
     organizations.collect do |organization|
-      organization.as_indexed_json
-    end
-  end
-
-  def fields_as_indexed_json
-    fields.collect do |field|
-      {
-        :id        => field.id,
-        :parent_id => field.parent_id,
-        :name      => field.name
-      }
+      organization.as_indexed_json({
+        :simple => true
+      })
     end
   end
 
   def events_as_indexed_json
     events.collect do |event|
-      event.as_indexed_json
+      event.as_indexed_json({
+        :simple => true
+      })
     end
   end
 
   def projects_as_indexed_json
     projects.collect do |project|
-      project.as_indexed_json
+      project.as_indexed_json({
+        :simple => true
+      })
     end
   end
 
   def notes_as_indexed_json
     notes.collect do |note|
-      {
-        :id      => note.id,
-        :text    => note.text,
-        :privacy => note.privacy,
-      }
+      note.as_indexed_json
+    end
+  end
+
+  def fields_as_indexed_json
+    fields.collect do |field|
+      field.as_indexed_json
     end
   end
 end
