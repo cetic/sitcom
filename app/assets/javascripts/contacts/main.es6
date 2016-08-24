@@ -184,7 +184,8 @@ class Main extends React.Component {
                  search={this.props.location.search}
                  loadingImagePath={this.props.loadingImagePath}
                  eventOptionsPath={this.props.eventOptionsPath}
-                 projectOptionsPath={this.props.projectOptionsPath} />
+                 projectOptionsPath={this.props.projectOptionsPath}
+                 organizationOptionsPath={this.props.organizationOptionsPath} />
       )
     }
   }

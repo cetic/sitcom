@@ -91,16 +91,16 @@ class GeneralShow extends React.Component {
   }
 
   renderActivityText() {
-    if(this.props.contact.active)
-      return "actif"
-    else
-      return "inactif"
+    // if(this.props.contact.active)
+    //   return "actif"
+    // else
+    //   return "inactif"
   }
 
   renderOrganizations() {
-    // return _.map(this.props.contact.organizations, (organization) => {
-    //   return organization.name
-    // }).join(', ')
+    return _.map(this.props.contact.organizations, (organization) => {
+      return organization.name
+    }).join(', ')
   }
 
   renderFields() {

@@ -1,16 +1,19 @@
+import SelectFilter from '../shared/select_filter.es6'
+
 class GeneralEdit extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      firstName:      this.props.contact.firstName,
-      lastName:       this.props.contact.lastName,
-      addressStreet:  this.props.contact.addressStreet,
-      addressZipCode: this.props.contact.addressZipCode,
-      addressCity:    this.props.contact.addressCity,
-      addressCountry: this.props.contact.addressCountry,
-      phone:          this.props.contact.phone,
-      email:          this.props.contact.email,
+      firstName:       this.props.contact.firstName,
+      lastName:        this.props.contact.lastName,
+      addressStreet:   this.props.contact.addressStreet,
+      addressZipCode:  this.props.contact.addressZipCode,
+      addressCity:     this.props.contact.addressCity,
+      addressCountry:  this.props.contact.addressCountry,
+      phone:           this.props.contact.phone,
+      email:           this.props.contact.email,
+      organizationIds: this.props.contact.organizationIds
     };
   }
 
@@ -18,14 +21,15 @@ class GeneralEdit extends React.Component {
     var params = {
       _method: 'PUT',
       contact: {
-        firstName:      this.state.firstName,
-        lastName:       this.state.lastName,
-        addressStreet:  this.state.addressStreet,
-        addressZipCode: this.state.addressZipCode,
-        addressCity:    this.state.addressCity,
-        addressCountry: this.state.addressCountry,
-        phone:          this.state.phone,
-        email:          this.state.email,
+        firstName:       this.state.firstName,
+        lastName:        this.state.lastName,
+        addressStreet:   this.state.addressStreet,
+        addressZipCode:  this.state.addressZipCode,
+        addressCity:     this.state.addressCity,
+        addressCountry:  this.state.addressCountry,
+        phone:           this.state.phone,
+        email:           this.state.email,
+        organizationIds: this.state.organizationIds
       }
     }
 
@@ -83,6 +87,12 @@ class GeneralEdit extends React.Component {
     })
   }
 
+  updateOrganizationIds(value) {
+    this.setState({
+      organizationIds: value.split(',')
+    });
+  }
+
   render() {
     return (
       <div className="general edit">
@@ -98,6 +108,9 @@ class GeneralEdit extends React.Component {
             <h1>
               { this.renderName() }
             </h1>
+            <div className="organizations">
+              { this.renderOrganizations() }
+            </div>
           </div>
         </div>
 
@@ -132,6 +145,15 @@ class GeneralEdit extends React.Component {
                defaultValue={this.state.lastName}
                onChange={this.updateLastName.bind(this)} />
       </div>
+    )
+  }
+
+  renderOrganizations() {
+    return (
+      <SelectFilter itemIds={this.state.organizationIds.join(',')}
+                    optionsPath={this.props.organizationOptionsPath}
+                    updateValue={this.updateOrganizationIds.bind(this)}
+                    label="Organisations" />
     )
   }
 

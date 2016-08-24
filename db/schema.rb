@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 20160812122144) do
     t.string   "name",                      default: ""
     t.string   "status",                    default: ""
     t.text     "description", limit: 65535
+    t.string   "picture"
     t.string   "website_url",               default: ""
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false

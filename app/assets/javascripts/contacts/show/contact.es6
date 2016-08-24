@@ -66,6 +66,7 @@ class Contact extends React.Component {
           <GeneralEdit contact={this.state.contact}
                        search={this.props.search}
                        contactPath={this.contactPath()}
+                       organizationOptionsPath={this.props.organizationOptionsPath}
                        toggleEditMode={this.toggleEditMode.bind(this)}
                        reloadFromBackend={this.reloadFromBackend.bind(this)} />
         );

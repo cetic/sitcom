@@ -6,6 +6,7 @@ class CreateOrganizations < ActiveRecord::Migration[5.0]
       t.string :name,        :default => ''
       t.string :status,      :default => ''
       t.text   :description
+      t.string :picture
       t.string :website_url, :default => ''
 
       t.timestamps

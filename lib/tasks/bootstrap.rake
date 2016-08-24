@@ -114,11 +114,9 @@ namespace :app do
 
     puts "Bootstrapping contacts-organizations associations"
 
-    contacts = Contact.all.to_a
-
     Organization.all.each do |organization|
       rand(4).times do
-        organization.contacts << contacts.sample rescue puts 'contact-organization link already present, ignore it'
+        organization.contacts << Contact.where(:lab_id => organization.lab_id).to_a.sample rescue puts 'contact-organization link already present, ignore it'
       end
     end
 
@@ -126,7 +124,7 @@ namespace :app do
 
     Event.all.each do |event|
       rand(20).times do
-        event.contacts << contacts.sample rescue puts 'contact-event link already present, ignore it'
+        event.contacts << Contact.where(:lab_id => event.lab_id).to_a.sample rescue puts 'contact-event link already present, ignore it'
       end
     end
 
@@ -134,7 +132,7 @@ namespace :app do
 
     Project.all.each do |project|
       rand(20).times do
-        project.contacts << contacts.sample rescue puts 'contact-project link already present, ignore it'
+        project.contacts << Contact.where(:lab_id => project.lab_id).to_a.sample rescue puts 'contact-project link already present, ignore it'
       end
     end
 
