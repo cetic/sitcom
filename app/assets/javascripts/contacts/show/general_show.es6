@@ -104,13 +104,13 @@ class GeneralShow extends React.Component {
   }
 
   renderFields() {
-    // return _.map(this.props.contact.fields, (field) => {
-    //   return (
-    //     <li className="field" key={ field.id }>
-    //       <span className="label label-default">{ field.name }</span>
-    //     </li>
-    //   )
-    // })
+    return _.map(this.props.contact.fields, (field) => {
+      return (
+        <li className="field" key={ field.id }>
+          <span className="label label-default">{ field.name }</span>
+        </li>
+      )
+    })
   }
 
   renderAddress() {
