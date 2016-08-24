@@ -90,6 +90,7 @@ class Contact extends React.Component {
                     contact={this.state.contact}
                     contactPath={this.contactPath()}
                     removeConfirmMessage="Délier ce projet du contact ?"
+                    emptyMessage="Aucun projet."
                     optionsPath={this.props.projectOptionsPath} />
       );
     }
@@ -105,6 +106,7 @@ class Contact extends React.Component {
                     contact={this.state.contact}
                     contactPath={this.contactPath()}
                     removeConfirmMessage="Délier cet évènement du contact ?"
+                    emptyMessage="Aucun évènement."
                     optionsPath={this.props.projectOptionsPath} />
       );
     }

@@ -1,4 +1,6 @@
 class ContactsController < ApplicationController
+
+  before_action :fix_params, only: [:create, :update]
   before_action :find_lab
 
   def index
@@ -87,6 +89,13 @@ class ContactsController < ApplicationController
   end
 
   private
+
+  def fix_params
+    params[:contact][:organization_ids] = [] if params[:contact][:organization_ids] == '-1'
+    params[:contact][:project_ids]      = [] if params[:contact][:project_ids]      == '-1'
+    params[:contact][:event_ids]        = [] if params[:contact][:event_ids]        == '-1'
+    params[:contact][:field_ids]        = [] if params[:contact][:field_ids]        == '-1'
+  end
 
   def find_lab
     @lab = current_user.labs.find_by_slug!(params[:lab_id])

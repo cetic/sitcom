@@ -232,12 +232,26 @@
       box-shadow: 0px 0px 10px #cccccc;
       padding: 12px;
 
-      .img-thumbnail {
-        height: 75px;
-      }
+      .item {
+        margin-bottom: 10px;
 
-      .remove-icon {
-        cursor: pointer;
+        .img-thumbnail {
+          height: 75px;
+          float: left;
+        }
+
+        .remove-icon {
+          cursor: pointer;
+          float: right;
+        }
+
+        h4 {
+          float: left;
+        }
+
+        .dates {
+          clear: left;
+        }
       }
 
       .select {

@@ -45,7 +45,7 @@ class ItemsBlock extends React.Component {
       contact: {}
     };
 
-    params.contact[this.props.fieldName] = itemIds;
+    params.contact[this.props.fieldName] = itemIds.length ? itemIds : '-1';
 
     $.post(this.props.contactPath, humps.decamelizeKeys(params), () => {
       this.props.reloadFromBackend();
@@ -63,15 +63,24 @@ class ItemsBlock extends React.Component {
   }
 
   renderItems() {
-    var itemDivs = _.map(this.props.items, (item) => {
-      return this.renderItem(item);
-    });
+    if(this.props.items.length) {
+      var itemDivs = _.map(this.props.items, (item) => {
+        return this.renderItem(item);
+      });
 
-    return (
-      <div className="row">
-        {itemDivs}
-      </div>
-    )
+      return (
+        <div className="row">
+          {itemDivs}
+        </div>
+      )
+    }
+    else {
+      return (
+        <div className="row">
+          {this.props.emptyMessage}
+        </div>
+      )
+    }
   }
 
   renderItem(item) {
@@ -82,6 +91,7 @@ class ItemsBlock extends React.Component {
 
         <i className="fa fa-times remove-icon"
            onClick={this.removeItem.bind(this, item)}></i>
+           <br />
 
         {this.renderDates(item)}
 
@@ -96,13 +106,13 @@ class ItemsBlock extends React.Component {
   renderDates(item) {
     if(this.props.fieldName == 'projectIds') {
       return (
-        <span>{item.startDate} &rarr; {item.endDate}</span>
+        <span className="dates">{item.startDate} &rarr; {item.endDate}</span>
       );
     }
 
     if(this.props.fieldName == 'eventIds') {
       return (
-        <span>{item.happensOn}</span>
+        <span className="dates">{item.happensOn}</span>
       );
     }
   }
