@@ -12,7 +12,7 @@ const MainWrapper = (props) => {
 class Routes extends React.Component {
   componentWillMount() {
     this.browserHistory = useRouterHistory(createHistory)({
-      basename: this.props.contactsPath
+      basename: this.props.organizationsPath
     });
   }
 
@@ -20,11 +20,7 @@ class Routes extends React.Component {
     return (
       <Router history={this.browserHistory}>
         <Route path="/" component={MainWrapper}
-                        contactsPath={this.props.contactsPath}
-                        organizationOptionsPath={this.props.organizationOptionsPath}
-                        fieldOptionsPath={this.props.fieldOptionsPath}
-                        eventOptionsPath={this.props.eventOptionsPath}
-                        projectOptionsPath={this.props.projectOptionsPath}
+                        organizationsPath={this.props.organizationsPath}
                         loadingImagePath={this.props.loadingImagePath}>
 
           <Route path=":id" component={MainWrapper} />
