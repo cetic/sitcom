@@ -34,7 +34,6 @@ class GeneralEdit extends React.Component {
     }
 
     $.post(this.props.contactPath, humps.decamelizeKeys(params), (data) => {
-      //var camelData = humps.camelizeKeys(data);
       this.props.reloadFromBackend(this.props.toggleEditMode)
     });
   }

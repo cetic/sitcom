@@ -45,7 +45,7 @@ class ItemsBlock extends React.Component {
       contact: {}
     };
 
-    params.contact[this.props.fieldName] = itemIds.length ? itemIds : '-1';
+    params.contact[this.props.fieldName] = itemIds.length ? itemIds : [''] // [''] is a way for the rails server to keep the empty array
 
     $.post(this.props.contactPath, humps.decamelizeKeys(params), () => {
       this.props.reloadFromBackend();
