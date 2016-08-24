@@ -20,25 +20,28 @@ class GeneralShow extends React.Component {
 
         <div className="row">
           <div className="col-md-3">
-            { this.renderGeneralPicture() }
+            { this.renderPicture() }
           </div>
           <div className="col-md-8">
             <h1>
               { this.props.contact.name }
             </h1>
+            <div className="activity-text">
+              { this.renderActivityText() }
+            </div>
             <div className="organizations">
-              { this.renderGeneralOrganizations() }
+              { this.renderOrganizations() }
             </div>
             <div className="fields">
-              { this.renderGeneralFields() }
+              { this.renderFields() }
             </div>
           </div>
         </div>
 
         <div className="row row-contact-infos">
-          { this.renderGeneralAddress() }
-          { this.renderGeneralPhone() }
-          { this.renderGeneralEmail() }
+          { this.renderAddress() }
+          { this.renderPhone() }
+          { this.renderEmail() }
         </div>
       </div>
     );
@@ -57,17 +60,17 @@ class GeneralShow extends React.Component {
   }
 
   renderSocial() {
-    var facebook = this.props.contact.facebookUrl != '' ? <i className="fa fa-facebook-square"></i> : '';
-    var linkedin = this.props.contact.linkedinUrl != '' ? <i className="fa fa-linkedin-square"></i> : '';
-    var twitter  = this.props.contact.twitterUrl  != '' ? <i className="fa fa-twitter-square"></i>  : '';
+    // var facebook = this.props.contact.facebookUrl != '' ? <i className="fa fa-facebook-square"></i> : '';
+    // var linkedin = this.props.contact.linkedinUrl != '' ? <i className="fa fa-linkedin-square"></i> : '';
+    // var twitter  = this.props.contact.twitterUrl  != '' ? <i className="fa fa-twitter-square"></i>  : '';
 
-    return (
-      <div className="social">
-        <a href={this.props.contact.facebookUrl} target="_blank">{ facebook }</a>
-        <a href={this.props.contact.linkedinUrl} target="_blank">{ linkedin }</a>
-        <a href={this.props.contact.twitterUrl}  target="_blank">{ twitter }</a>
-      </div>
-    )
+    // return (
+    //   <div className="social">
+    //     <a href={this.props.contact.facebookUrl} target="_blank">{ facebook }</a>
+    //     <a href={this.props.contact.linkedinUrl} target="_blank">{ linkedin }</a>
+    //     <a href={this.props.contact.twitterUrl}  target="_blank">{ twitter }</a>
+    //   </div>
+    // )
   }
 
   renderEdit() {
@@ -79,7 +82,7 @@ class GeneralShow extends React.Component {
     )
   }
 
-  renderGeneralPicture() {
+  renderPicture() {
     return (
       <div className="picture">
         <img className="img-thumbnail" src={this.props.contact.pictureUrl} />
@@ -87,23 +90,30 @@ class GeneralShow extends React.Component {
     )
   }
 
-  renderGeneralOrganizations() {
-    return _.map(this.props.contact.organizations, (organization) => {
-      return organization.name
-    }).join(', ')
+  renderActivityText() {
+    if(this.props.contact.active)
+      return "actif"
+    else
+      return "inactif"
   }
 
-  renderGeneralFields() {
-    return _.map(this.props.contact.fields, (field) => {
-      return (
-        <li className="field" key={ field.id }>
-          <span className="label label-default">{ field.name }</span>
-        </li>
-      )
-    })
+  renderOrganizations() {
+    // return _.map(this.props.contact.organizations, (organization) => {
+    //   return organization.name
+    // }).join(', ')
   }
 
-  renderGeneralAddress() {
+  renderFields() {
+    // return _.map(this.props.contact.fields, (field) => {
+    //   return (
+    //     <li className="field" key={ field.id }>
+    //       <span className="label label-default">{ field.name }</span>
+    //     </li>
+    //   )
+    // })
+  }
+
+  renderAddress() {
     var address = () => {
       if(this.props.contact.address == '')
         return <em>non-renseignée</em>;
@@ -128,7 +138,7 @@ class GeneralShow extends React.Component {
     )
   }
 
-  renderGeneralPhone() {
+  renderPhone() {
     var phone = () => {
       if(this.props.contact.phone == '')
         return <em>non-renseigné</em>;
@@ -149,7 +159,7 @@ class GeneralShow extends React.Component {
     )
   }
 
-  renderGeneralEmail() {
+  renderEmail() {
     return (
       <div className="col-md-4">
         <h3>Email</h3>

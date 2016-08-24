@@ -12,6 +12,8 @@ module ContactIndexConcern
         indexes :id,     :index => 'not_analyzed'
         indexes :lab_id, :index => 'not_analyzed'
         indexes :name
+        indexes :first_name
+        indexes :last_name
         indexes :active, :index => 'not_analyzed'
         indexes :email
         indexes :phone
@@ -40,6 +42,8 @@ module ContactIndexConcern
       :picture_url  => picture_url,
 
       :name             => name,
+      :first_name       => first_name,
+      :last_name        => last_name,
       :address          => address,
       :address_street   => address_street,
       :address_zip_code => address_zip_code,

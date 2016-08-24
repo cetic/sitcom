@@ -21,14 +21,14 @@ class Contact extends React.Component {
     return this.props.contactsPath + '/' + this.props.id
   }
 
-  reloadFromBackend() {
+  reloadFromBackend(callback) {
     $.get(this.contactPath(), (data) => {
       var camelData = humps.camelizeKeys(data)
 
       this.setState({
         contact: camelData,
         loaded:  true
-      })
+      }, callback)
     });
   }
 
@@ -65,7 +65,9 @@ class Contact extends React.Component {
         return (
           <GeneralEdit contact={this.state.contact}
                        search={this.props.search}
-                       toggleEditMode={this.toggleEditMode.bind(this)} />
+                       contactPath={this.contactPath()}
+                       toggleEditMode={this.toggleEditMode.bind(this)}
+                       reloadFromBackend={this.reloadFromBackend.bind(this)} />
         );
       }
       else {
