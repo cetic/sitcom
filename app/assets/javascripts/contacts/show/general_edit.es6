@@ -168,10 +168,12 @@ class GeneralEdit extends React.Component {
   }
 
   renderFields() {
-    <SelectFilter itemIds={this.state.fieldIds.join(',')}
-                  optionsPath={this.props.fieldOptionsPath}
-                  updateValue={this.updateFieldIds.bind(this)}
-                  label="Fields" />
+    return (
+      <SelectFilter itemIds={this.state.fieldIds.join(',')}
+                    optionsPath={this.props.fieldOptionsPath}
+                    updateValue={this.updateFieldIds.bind(this)}
+                    label="Fields" />
+    )
   }
 
   renderAddress() {

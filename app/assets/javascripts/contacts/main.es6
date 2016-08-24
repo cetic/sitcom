@@ -183,9 +183,10 @@ class Main extends React.Component {
                  contactsPath={this.props.contactsPath}
                  search={this.props.location.search}
                  loadingImagePath={this.props.loadingImagePath}
+                 organizationOptionsPath={this.props.organizationOptionsPath}
+                 fieldOptionsPath={this.props.fieldOptionsPath}
                  eventOptionsPath={this.props.eventOptionsPath}
-                 projectOptionsPath={this.props.projectOptionsPath}
-                 organizationOptionsPath={this.props.organizationOptionsPath} />
+                 projectOptionsPath={this.props.projectOptionsPath} />
       )
     }
   }

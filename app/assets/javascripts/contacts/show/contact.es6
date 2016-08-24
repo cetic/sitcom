@@ -1,5 +1,7 @@
 import GeneralShow from './general_show.es6'
 import GeneralEdit from './general_edit.es6'
+import SocialShow  from './social_show.es6'
+import SocialEdit  from './social_edit.es6'
 import ItemsBlock  from './items_block.es6'
 
 class Contact extends React.Component {
@@ -7,9 +9,10 @@ class Contact extends React.Component {
     super(props);
 
     this.state = {
-      contact:  {},
-      loaded:   false,
-      editMode: false
+      contact:         {},
+      loaded:          false,
+      generalEditMode: false,
+      socialEditMode:  false
     };
   }
 
@@ -32,19 +35,27 @@ class Contact extends React.Component {
     });
   }
 
-  toggleEditMode() {
+  toggleGeneralEditMode() {
     this.setState({
-      editMode: !this. state.editMode
+      generalEditMode: !this.state.generalEditMode
     })
   }
+
+  toggleSocialEditMode() {
+    this.setState({
+      socialEditMode: !this.state.socialEditMode
+    })
+  }
+
 
   render() {
     return (
       <div className="contact">
         {this.renderLoading()}
         {this.renderGeneral()}
-        {this.renderProjectsBlock()}
-        {this.renderEventsBlock()}
+        {this.renderSocial()}
+        {this.renderProjects()}
+        {this.renderEvents()}
       </div>
     )
   }
@@ -61,14 +72,14 @@ class Contact extends React.Component {
 
   renderGeneral() {
     if(this.state.loaded) {
-      if(this.state.editMode) {
+      if(this.state.generalEditMode) {
         return (
           <GeneralEdit contact={this.state.contact}
                        search={this.props.search}
                        contactPath={this.contactPath()}
                        organizationOptionsPath={this.props.organizationOptionsPath}
                        fieldOptionsPath={this.props.fieldOptionsPath}
-                       toggleEditMode={this.toggleEditMode.bind(this)}
+                       toggleEditMode={this.toggleGeneralEditMode.bind(this)}
                        reloadFromBackend={this.reloadFromBackend.bind(this)} />
         );
       }
@@ -76,13 +87,32 @@ class Contact extends React.Component {
         return (
           <GeneralShow contact={this.state.contact}
                        search={this.props.search}
-                       toggleEditMode={this.toggleEditMode.bind(this)} />
+                       toggleEditMode={this.toggleGeneralEditMode.bind(this)} />
         )
       }
     }
   }
 
-  renderProjectsBlock() {
+  renderSocial() {
+    if(this.state.loaded) {
+      if(this.state.socialEditMode) {
+        return (
+          <SocialEdit contact={this.state.contact}
+                      contactPath={this.contactPath()}
+                      toggleEditMode={this.toggleSocialEditMode.bind(this)}
+                      reloadFromBackend={this.reloadFromBackend.bind(this)} />
+        )
+      }
+      else {
+        return (
+          <SocialShow contact={this.state.contact}
+                      toggleEditMode={this.toggleSocialEditMode.bind(this)}/ >
+        )
+      }
+    }
+  }
+
+  renderProjects() {
     if(this.state.loaded) {
       return (
         <ItemsBlock label="Projets"
@@ -98,7 +128,7 @@ class Contact extends React.Component {
     }
   }
 
-  renderEventsBlock() {
+  renderEvents() {
     if(this.state.loaded) {
       return (
         <ItemsBlock label="Evènements"

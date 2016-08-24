@@ -15,7 +15,6 @@ class GeneralShow extends React.Component {
         </Link>
 
         { this.renderActivity() }
-        { this.renderSocial() }
         { this.renderEdit() }
 
         <div className="row">
@@ -32,9 +31,9 @@ class GeneralShow extends React.Component {
             <div className="organizations">
               { this.renderOrganizations() }
             </div>
-            <div className="fields">
+            <ul className="fields">
               { this.renderFields() }
-            </div>
+            </ul>
           </div>
         </div>
 
@@ -57,20 +56,6 @@ class GeneralShow extends React.Component {
         </div>
       </div>
     )
-  }
-
-  renderSocial() {
-    // var facebook = this.props.contact.facebookUrl != '' ? <i className="fa fa-facebook-square"></i> : '';
-    // var linkedin = this.props.contact.linkedinUrl != '' ? <i className="fa fa-linkedin-square"></i> : '';
-    // var twitter  = this.props.contact.twitterUrl  != '' ? <i className="fa fa-twitter-square"></i>  : '';
-
-    // return (
-    //   <div className="social">
-    //     <a href={this.props.contact.facebookUrl} target="_blank">{ facebook }</a>
-    //     <a href={this.props.contact.linkedinUrl} target="_blank">{ linkedin }</a>
-    //     <a href={this.props.contact.twitterUrl}  target="_blank">{ twitter }</a>
-    //   </div>
-    // )
   }
 
   renderEdit() {

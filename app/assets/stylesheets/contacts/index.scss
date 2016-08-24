@@ -27,20 +27,7 @@
       }
     }
 
-    .social {
-      position: absolute;
-      right: 0px;
-      top: 16px;
-      width: 22px;
-      line-height: 16px;
-
-      .fa {
-        font-size: 20px;
-        color: #666666;
-      }
-    }
-
-    .fields {
+    ul.fields {
       height: 14px;
       list-style-type: none;
       padding-left: 0px;
@@ -66,7 +53,7 @@
       text-align: center;
     }
 
-    .contact {
+    .contact-item {
       position: relative;
       margin-bottom: 36px;
       background-color: white;
@@ -83,6 +70,19 @@
         img {
           width: 56px;
           height: 56px;
+        }
+      }
+
+      .social {
+        position: absolute;
+        right: 0px;
+        top: 16px;
+        width: 22px;
+        line-height: 16px;
+
+        .fa {
+          font-size: 20px;
+          color: #666666;
         }
       }
 
@@ -136,7 +136,7 @@
       top: -26px;
     }
 
-    .general {
+    .general, .items-block, .social {
       position: relative;
       margin-bottom: 36px;
       background-color: white;
@@ -156,7 +156,23 @@
         letter-spacing: 2.4px;
         z-index: 1;
       }
+    }
 
+    .general.edit, .social.edit {
+      .actions {
+        margin-top: 20px;
+        text-align: right;
+
+        button {
+          margin-left: 8px;
+          padding: 13px;
+          height: 43px;
+          letter-spacing: 3px;
+        }
+      }
+    }
+
+    .general {
       .picture {
         img {
           height: 130px;
@@ -208,30 +224,9 @@
           width: 130px;
         }
       }
-
-      .actions {
-        margin-top: 20px;
-        text-align: right;
-
-        button {
-          margin-left: 8px;
-          padding: 13px;
-          height: 43px;
-          letter-spacing: 3px;
-        }
-      }
     }
 
     .items-block {
-      position: relative;
-      margin-bottom: 36px;
-      background-color: white;
-      width: 700px;
-      left: -350px;
-      margin-left: 50%;
-      box-shadow: 0px 0px 10px #cccccc;
-      padding: 12px;
-
       .item {
         margin-bottom: 10px;
 
@@ -256,6 +251,20 @@
 
       .select {
         margin-top: 30px;
+      }
+    }
+
+    .social {
+      .facebook, .linkedin, .twitter {
+        i {
+          margin-right: 8px;
+        }
+      }
+    }
+
+    .social.edit {
+      input {
+        width: 300px;
       }
     }
   }

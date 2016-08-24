@@ -16,7 +16,6 @@ FactoryGirl.define do
     twitter_url  { rand(2) == 1 ? "http://twitter.com/#{Faker::Internet.user_name}"  : '' }
     linkedin_url { rand(2) == 1 ? "http://linkedin.com/#{Faker::Internet.user_name}" : '' }
     facebook_url { rand(2) == 1 ? "http://facebook.com/#{Faker::Internet.user_name}" : '' }
-    website_url  { rand(2) == 1 ? Faker::Internet.url : ''                         }
   end
 end
 
