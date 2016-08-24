@@ -182,7 +182,9 @@ class Main extends React.Component {
         <Contact id={this.props.params.id}
                  contactsPath={this.props.contactsPath}
                  search={this.props.location.search}
-                 loadingImagePath={this.props.loadingImagePath} />
+                 loadingImagePath={this.props.loadingImagePath}
+                 eventOptionsPath={this.props.eventOptionsPath}
+                 projectOptionsPath={this.props.projectOptionsPath} />
       )
     }
   }

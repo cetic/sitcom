@@ -1,25 +1,55 @@
+import Select from 'react-select'
+
 class ItemsBlock extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      options: []
+    };
+  }
+
+  componentDidMount() {
+    this.reloadOptionsFromBackend()
+  }
+
+  reloadOptionsFromBackend() {
+    $.get(this.props.optionsPath, (data) => {
+      var camelData = humps.camelizeKeys(data);
+
+      this.setState({
+        options: camelData
+      });
+    });
   }
 
   removeItem(item) {
     if(confirm(this.props.removeConfirmMessage)) {
-      var itemIds = this.props.contact[this.props.fieldName]
-
-      var params = {
-        _method: 'PUT',
-        contact: {}
-      };
-
-      params.contact[this.props.fieldName] = _.filter(itemIds, (itemId) => {
+      var itemIds = _.filter(this.props.contact[this.props.fieldName], (itemId) => {
         return itemId != item.id;
       });
 
-      $.post(this.props.contactPath, humps.decamelizeKeys(params), () => {
-        this.props.reloadFromBackend();
-      });
+      this.saveOnBackend(itemIds);
     }
+  }
+
+  addItem(option) {
+    this.saveOnBackend(
+      _.uniq(_.concat(this.props.contact[this.props.fieldName], option.value))
+    );
+  }
+
+  saveOnBackend(itemIds) {
+    var params = {
+      _method: 'PUT',
+      contact: {}
+    };
+
+    params.contact[this.props.fieldName] = itemIds;
+
+    $.post(this.props.contactPath, humps.decamelizeKeys(params), () => {
+      this.props.reloadFromBackend();
+    });
   }
 
   render() {
@@ -27,6 +57,7 @@ class ItemsBlock extends React.Component {
       <div className="items-block">
         <h3>{this.props.label} ({this.props.items.length})</h3>
         {this.renderItems()}
+        {this.renderSelect()}
       </div>
     );
   }
@@ -45,7 +76,7 @@ class ItemsBlock extends React.Component {
 
   renderItem(item) {
     return (
-      <div className="col-md-6" key={item.id}>
+      <div className="col-md-6 item" key={item.id}>
         <img className="img-thumbnail" src={item.previewPictureUrl} />
         <h4>{item.name}</h4>
 
@@ -63,10 +94,34 @@ class ItemsBlock extends React.Component {
   }
 
   renderDates(item) {
+    if(this.props.fieldName == 'projectIds') {
+      return (
+        <span>{item.startDate} &rarr; {item.endDate}</span>
+      );
+    }
+
+    if(this.props.fieldName == 'eventIds') {
+      return (
+        <span>{item.happensOn}</span>
+      );
+    }
+  }
+
+  renderSelect() {
+    var filteredOptions = _.reject(this.state.options, (option) => {
+      return _.includes(this.props.contact[this.props.fieldName], option.value);
+    })
+
     return (
-      <span>{item.startDate} &rarr; {item.endDate}</span>
+      <div className="select">
+        <Select multi={false}
+                options={filteredOptions}
+                placeholder="Ajouter..."
+                onChange={this.addItem.bind(this)} />
+      </div>
     );
   }
+
 }
 
 module.exports = ItemsBlock

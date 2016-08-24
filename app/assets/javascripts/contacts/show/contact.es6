@@ -89,7 +89,8 @@ class Contact extends React.Component {
                     reloadFromBackend={this.reloadFromBackend.bind(this)}
                     contact={this.state.contact}
                     contactPath={this.contactPath()}
-                    removeConfirmMessage="Délier ce projet du contact ?" />
+                    removeConfirmMessage="Délier ce projet du contact ?"
+                    optionsPath={this.props.projectOptionsPath} />
       );
     }
   }
@@ -103,7 +104,8 @@ class Contact extends React.Component {
                     reloadFromBackend={this.reloadFromBackend.bind(this)}
                     contact={this.state.contact}
                     contactPath={this.contactPath()}
-                    removeConfirmMessage="Délier cet évènement du contact ?" />
+                    removeConfirmMessage="Délier cet évènement du contact ?"
+                    optionsPath={this.props.projectOptionsPath} />
       );
     }
   }
