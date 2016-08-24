@@ -35,10 +35,28 @@ class Contact < ApplicationRecord
 
   # Methods
 
-  def index_dependent_rows
-    organizations.each { |row| row.__elasticsearch__.index_document }
-    events.each        { |row| row.__elasticsearch__.index_document }
-    projects.each      { |row| row.__elasticsearch__.index_document }
+  def index_dependent_rows(and_destroy = false)
+    saved_organization_ids = organization_ids
+    saved_event_ids        = event_ids
+    saved_project_ids      = project_ids
+
+    destroy! if and_destroy
+
+    Organization.where(id: saved_organization_ids).each do |row|
+      row.__elasticsearch__.index_document
+    end
+
+    Event.where(id: saved_event_ids).each do |row|
+      row.__elasticsearch__.index_document
+    end
+
+    Project.where(id: saved_project_ids).each do |row|
+      row.__elasticsearch__.index_document
+    end
+  end
+
+  def destroy_and_index_dependent_rows
+    index_dependent_rows(true)
   end
 
   def name

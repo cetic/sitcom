@@ -66,7 +66,7 @@ class OrganizationsController < ApplicationController
       format.json do
         @organization = @lab.organizations.find(params[:id])
 
-        if @organization.destroy
+        if @organization.destroy_and_index_dependent_rows
           render_json_success
         else
           render_json_errors(@organization)

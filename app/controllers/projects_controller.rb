@@ -66,7 +66,7 @@ class ProjectsController < ApplicationController
       format.json do
         @project = @lab.projects.find(params[:id])
 
-        if @project.destroy
+        if @project.destroy_and_index_dependent_rows
           render_json_success
         else
           render_json_errors(@project)

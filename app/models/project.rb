@@ -24,7 +24,17 @@ class Project < ApplicationRecord
 
   # Methods
 
-  def index_dependent_rows
-    contacts.each { |row| row.__elasticsearch__.index_document }
+  def index_dependent_rows(and_destroy = false)
+    saved_contact_ids = contact_ids
+
+    destroy! if and_destroy
+
+    Contact.where(id: saved_contact_ids).each do |row|
+      row.__elasticsearch__.index_document
+    end
+  end
+
+  def destroy_and_index_dependent_rows
+    index_dependent_rows(true)
   end
 end

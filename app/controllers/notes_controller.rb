@@ -43,7 +43,7 @@ class NotesController < ApplicationController
   def destroy
     respond_to do |format|
       format.json do
-        if @note.destroy
+        if @note.destroy_and_index_dependent_rows
           render_json_success
         else
           render_json_errors(@note)

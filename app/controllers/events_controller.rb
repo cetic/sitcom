@@ -66,7 +66,7 @@ class EventsController < ApplicationController
       format.json do
         @event = @lab.events.find(params[:id])
 
-        if @event.destroy
+        if @event.destroy_and_index_dependent_rows
           render_json_success
         else
           render_json_errors(@event)

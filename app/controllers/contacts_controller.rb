@@ -66,7 +66,7 @@ class ContactsController < ApplicationController
       format.json do
         @contact = @lab.contacts.find(params[:id])
 
-        if @contact.destroy
+        if @contact.destroy_and_index_dependent_rows
           render_json_success
         else
           render_json_errors(@contact)

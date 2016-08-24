@@ -42,7 +42,7 @@ class Admin::FieldsController < Admin::BaseController
   end
 
   def destroy
-    @field.destroy
+    @field.destroy_and_index_dependent_rows
     redirect_to admin_fields_path
   end
 
