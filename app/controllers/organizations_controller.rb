@@ -38,7 +38,7 @@ class OrganizationsController < ApplicationController
 
         if @organization.save
           @organization.index_dependent_rows
-          render_json_success
+          render_json_success({ :organization => @organization.as_indexed_json })
         else
           render_json_errors(@organization)
         end

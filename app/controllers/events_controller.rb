@@ -38,7 +38,7 @@ class EventsController < ApplicationController
 
         if @event.save
           @event.index_dependent_rows
-          render_json_success
+          render_json_success({ :event => @event.as_indexed_json })
         else
           render_json_errors(@event)
         end

@@ -1,5 +1,6 @@
 import Events         from './index/events.es6'
 import Event          from './show/event.es6'
+import NewItem        from '../shared/new_item.es6'
 import QuickSearch    from '../shared/quick_search.es6'
 import AdvancedSearch from './shared/advanced_search.es6'
 import ParamsService  from '../shared/params_service.es6'
@@ -13,9 +14,8 @@ class Main extends React.Component {
     ];
 
     this.state = {
-      events: [],
-      loaded:        false,
-
+      events:          [],
+      loaded:          false,
       infiniteLoaded:  true,
       infiniteEnabled: true,
     };
@@ -87,6 +87,10 @@ class Main extends React.Component {
     this.dUpdateUrl(newFilters);
   }
 
+  openNewEventModal() {
+    $('.new-event-modal').modal('show')
+  }
+
   render() {
     var advancedSearchFilters = _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
       return this.props.location.query[filterName];
@@ -104,12 +108,25 @@ class Main extends React.Component {
             <QuickSearch quickSearch={this.props.location.query.quickSearch}
                          updateQuickSearch={this.updateQuickSearch.bind(this)} />
 
+            { this.renderNewEventLink() }
+
             { this.renderEvent()  }
             { this.renderEvents() }
           </div>
         </div>
+
+        { this.renderNewEventModal() }
       </div>
     );
+  }
+
+  renderNewEventLink() {
+    return (
+      <button className="btn btn-primary new"
+              onClick={this.openNewEventModal.bind(this)}>
+        Nouvel évènement
+      </button>
+    )
   }
 
   renderEvents() {
@@ -136,6 +153,19 @@ class Main extends React.Component {
                       loadingImagePath={this.props.loadingImagePath} />
       )
     }
+  }
+
+  renderNewEventModal() {
+    return (
+      <NewItem reloadFromBackend={this.reloadFromBackend.bind(this)}
+               itemsPath={this.props.eventsPath}
+               router={this.props.router}
+               modalClassName="new-event-modal"
+               modalTitle="Nouvel évènement"
+               modelName="event"
+               fieldName="name"
+               fieldTitle="Nom" />
+    )
   }
 }
 

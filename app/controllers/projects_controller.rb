@@ -38,7 +38,7 @@ class ProjectsController < ApplicationController
 
         if @project.save
           @project.index_dependent_rows
-          render_json_success
+          render_json_success({ :project => @project.as_indexed_json })
         else
           render_json_errors(@project)
         end

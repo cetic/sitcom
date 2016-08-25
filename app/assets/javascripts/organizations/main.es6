@@ -1,5 +1,6 @@
 import Organizations  from './index/organizations.es6'
 import Organization   from './show/organization.es6'
+import NewItem        from '../shared/new_item.es6'
 import QuickSearch    from '../shared/quick_search.es6'
 import AdvancedSearch from './shared/advanced_search.es6'
 import ParamsService  from '../shared/params_service.es6'
@@ -13,9 +14,8 @@ class Main extends React.Component {
     ];
 
     this.state = {
-      organizations: [],
-      loaded:        false,
-
+      organizations:   [],
+      loaded:          false,
       infiniteLoaded:  true,
       infiniteEnabled: true,
     };
@@ -87,6 +87,10 @@ class Main extends React.Component {
     this.dUpdateUrl(newFilters);
   }
 
+  openNewOrganizationModal() {
+    $('.new-organization-modal').modal('show')
+  }
+
   render() {
     var advancedSearchFilters = _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
       return this.props.location.query[filterName];
@@ -104,12 +108,25 @@ class Main extends React.Component {
             <QuickSearch quickSearch={this.props.location.query.quickSearch}
                          updateQuickSearch={this.updateQuickSearch.bind(this)} />
 
+            { this.renderNewOrganizationLink() }
+
             { this.renderOrganization()  }
             { this.renderOrganizations() }
           </div>
         </div>
+
+        { this.renderNewOrganizationModal() }
       </div>
     );
+  }
+
+  renderNewOrganizationLink() {
+    return (
+      <button className="btn btn-primary new"
+              onClick={this.openNewOrganizationModal.bind(this)}>
+        Nouvelle organisation
+      </button>
+    )
   }
 
   renderOrganizations() {
@@ -136,6 +153,19 @@ class Main extends React.Component {
                       loadingImagePath={this.props.loadingImagePath} />
       )
     }
+  }
+
+  renderNewOrganizationModal() {
+    return (
+      <NewItem reloadFromBackend={this.reloadFromBackend.bind(this)}
+               itemsPath={this.props.contactsPath}
+               router={this.props.router}
+               modalClassName="new-organization-modal"
+               modalTitle="Nouvelle organisation"
+               modelName="organization"
+               fieldName="name"
+               fieldTitle="Nom" />
+    )
   }
 }
 

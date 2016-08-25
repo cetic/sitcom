@@ -1,5 +1,6 @@
 import Projects       from './index/projects.es6'
 import Project        from './show/project.es6'
+import NewItem        from '../shared/new_item.es6'
 import QuickSearch    from '../shared/quick_search.es6'
 import AdvancedSearch from './shared/advanced_search.es6'
 import ParamsService  from '../shared/params_service.es6'
@@ -13,9 +14,8 @@ class Main extends React.Component {
     ];
 
     this.state = {
-      projects: [],
-      loaded:        false,
-
+      projects:        [],
+      loaded:          false,
       infiniteLoaded:  true,
       infiniteEnabled: true,
     };
@@ -87,6 +87,10 @@ class Main extends React.Component {
     this.dUpdateUrl(newFilters);
   }
 
+  openNewProjectModal() {
+    $('.new-project-modal').modal('show')
+  }
+
   render() {
     var advancedSearchFilters = _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
       return this.props.location.query[filterName];
@@ -104,12 +108,25 @@ class Main extends React.Component {
             <QuickSearch quickSearch={this.props.location.query.quickSearch}
                          updateQuickSearch={this.updateQuickSearch.bind(this)} />
 
+            { this.renderNewProjectLink() }
+
             { this.renderProject()  }
             { this.renderProjects() }
           </div>
         </div>
+
+        { this.renderNewProjectModal() }
       </div>
     );
+  }
+
+  renderNewProjectLink() {
+    return (
+      <button className="btn btn-primary new"
+              onClick={this.openNewProjectModal.bind(this)}>
+        Nouveau projet
+      </button>
+    )
   }
 
   renderProjects() {
@@ -136,6 +153,19 @@ class Main extends React.Component {
                       loadingImagePath={this.props.loadingImagePath} />
       )
     }
+  }
+
+  renderNewProjectModal() {
+    return (
+      <NewItem reloadFromBackend={this.reloadFromBackend.bind(this)}
+               itemsPath={this.props.projectsPath}
+               router={this.props.router}
+               modalClassName="new-project-modal"
+               modalTitle="Nouveau projet"
+               modelName="project"
+               fieldName="name"
+               fieldTitle="Nom" />
+    )
   }
 }
 
