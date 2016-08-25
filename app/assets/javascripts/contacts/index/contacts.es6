@@ -58,7 +58,9 @@ class Contacts extends React.Component {
     else {
       return _.map(this.props.contacts, (contact) => {
         return (
-          <Contact key={contact.id} contact={contact} search={this.props.search} />
+          <Contact key={contact.id}
+                   contact={contact}
+                   search={this.props.search} />
         );
       });
     }

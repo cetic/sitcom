@@ -22,6 +22,8 @@ $secondary: #e17000; // not bootstrap
 @import 'shared/admin';
 @import 'shared/quick_search';
 @import 'shared/complete_search';
+@import 'shared/button_new';
+@import 'shared/modals';
 
 @import 'contacts/index';
 @import 'organizations/index';

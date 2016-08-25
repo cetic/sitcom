@@ -38,7 +38,7 @@ class ContactsController < ApplicationController
 
         if @contact.save
           @contact.index_dependent_rows
-          render_json_success
+          render_json_success({ :contact => @contact.as_indexed_json })
         else
           render_json_errors(@contact)
         end

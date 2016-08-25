@@ -34,10 +34,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def render_json_success
+  def render_json_success(params = {})
     render :json => {
       :success => true
-    }
+    }.merge(params)
   end
 
   def render_json_errors(object)
