@@ -5,8 +5,30 @@ class Contacts extends React.Component {
     super(props);
 
     this.state = {
-
+      infiniteScrollOffset: 200
     };
+  }
+
+  componentDidMount() {
+    this.bindInfiniteScroll();
+  }
+
+  componentWillMount() {
+    this.unbindInfiniteScroll();
+  }
+
+  bindInfiniteScroll() {
+    $(window).scroll(() => {
+      if(this.props.infiniteLoaded && this.props.infiniteEnabled && this.props.loaded) {
+        if($(window).scrollTop() + $(window).height() >= $(document).height() - this.state.infiniteScrollOffset) {
+          this.props.loadNextBatchFromBackend();
+        }
+      }
+    })
+  }
+
+  unbindInfiniteScroll() {
+    $(window).unbind('scroll');
   }
 
   render() {
