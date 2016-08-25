@@ -25,3 +25,4 @@ global.mergePropsRouteInProps = (props) => {
 global.ContactsRoutes      = require('./contacts/routes.es6')
 global.OrganizationsRoutes = require('./organizations/routes.es6')
 global.ProjectsRoutes      = require('./projects/routes.es6')
+global.EventsRoutes        = require('./events/routes.es6')
