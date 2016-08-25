@@ -172,7 +172,7 @@ class GeneralEdit extends React.Component {
       <SelectFilter itemIds={this.state.fieldIds.join(',')}
                     optionsPath={this.props.fieldOptionsPath}
                     updateValue={this.updateFieldIds.bind(this)}
-                    label="Fields" />
+                    label="Domaines d'expertise" />
     )
   }
 

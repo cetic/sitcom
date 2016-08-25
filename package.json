@@ -22,6 +22,7 @@
     "browserify-incremental": "^3.1.1",
     "jquery.scrollto": "^2.1.2",
     "react": "^15.3.0",
+    "react-dates": "^1.0.0",
     "react-dom": "^15.3.0",
     "react-router": "^2.6.1",
     "react-select": "1.0.0-beta14"

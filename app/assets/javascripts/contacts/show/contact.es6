@@ -20,6 +20,12 @@ class Contact extends React.Component {
     this.reloadFromBackend()
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.id != this.props.id) {
+      this.reloadFromBackend()
+    }
+  }
+
   contactPath() {
     return this.props.contactsPath + '/' + this.props.id
   }
@@ -106,7 +112,7 @@ class Contact extends React.Component {
       else {
         return (
           <SocialShow contact={this.state.contact}
-                      toggleEditMode={this.toggleSocialEditMode.bind(this)}/ >
+                      toggleEditMode={this.toggleSocialEditMode.bind(this)} />
         )
       }
     }
