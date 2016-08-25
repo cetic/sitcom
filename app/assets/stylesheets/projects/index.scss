@@ -1,12 +1,12 @@
-#organizations-index .container-organization,
-#organizations-show .container-organization {
+#projects-index .container-project,
+#projects-show .container-project {
   // common to index and show
-  .organizations, .organization {
+  .projects, .project {
 
   }
 
   // only index
-  .organizations {
+  .projects {
     margin-top: 40px;
 
     .loading {
@@ -19,7 +19,7 @@
       text-align: center;
     }
 
-    .organization {
+    .project {
       position: relative;
       margin-bottom: 36px;
       background-color: white;

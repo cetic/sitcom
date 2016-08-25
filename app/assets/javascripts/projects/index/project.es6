@@ -1,19 +1,18 @@
-class Organization extends React.Component {
+class Project extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-    };
+    this.state = {};
   }
 
   render() {
     return (
-      <div className="organization">
+      <div className="project">
         { this.renderPicture() }
 
         <div className="infos">
           <span className="name">
-            <Link to={'/' + this.props.organization.id + this.props.search}>{this.props.organization.name}</Link>
+            <Link to={'/' + this.props.project.id + this.props.search}>{this.props.project.name}</Link>
           </span>
 
           <span className="contacts">
@@ -29,17 +28,17 @@ class Organization extends React.Component {
   renderPicture() {
     return (
       <div className="picture">
-        <img className="img-thumbnail" src={this.props.organization.previewPictureUrl} />
+        <img className="img-thumbnail" src={this.props.project.previewPictureUrl} />
       </div>
     )
   }
 
   renderContacts() {
-    return _.map(this.props.organization.contacts, (contact) => {
+    return _.map(this.props.project.contacts, (contact) => {
       return contact.name
     }).join(', ')
   }
 
 }
 
-module.exports = Organization
+module.exports = Project

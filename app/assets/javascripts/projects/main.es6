@@ -1,5 +1,5 @@
-import Contacts       from './index/contacts.es6'
-import Contact        from './show/contact.es6'
+import Projects       from './index/projects.es6'
+import Project        from './show/project.es6'
 import QuickSearch    from '../shared/quick_search.es6'
 import AdvancedSearch from './shared/advanced_search.es6'
 import ParamsService  from '../shared/params_service.es6'
@@ -9,13 +9,12 @@ class Main extends React.Component {
     super(props);
 
     this.filterNames = [
-      'quickSearch', 'name', 'email', 'address', 'phone', 'active',
-      'organizationIds', 'fieldIds', 'eventIds', 'projectIds'
+      'quickSearch', 'name', 'description'
     ];
 
     this.state = {
-      contacts: [],
-      loaded:   false,
+      projects: [],
+      loaded:        false,
 
       infiniteLoaded:  true,
       infiniteEnabled: true,
@@ -54,21 +53,21 @@ class Main extends React.Component {
       offset: offset
     }));
 
-    $.get(this.props.contactsPath, params, (data) => {
+    $.get(this.props.projectsPath, params, (data) => {
       var camelData = humps.camelizeKeys(data);
 
       this.setState({
-        contacts:        offset == 0 ? camelData.contacts : this.state.contacts.concat(camelData.contacts),
+        projects:        offset == 0 ? camelData.projects : this.state.projects.concat(camelData.projects),
         loaded:          true,
         infiniteLoaded:  true,
-        infiniteEnabled: camelData.contacts.length == window.infiniteScrollStep // no more results
+        infiniteEnabled: camelData.projects.length == window.infiniteScrollStep // no more results
       });
     });
   }
 
   loadNextBatchFromBackend() {
     this.setState({ infiniteLoaded: false }, () => {
-      this.dReloadFromBackend(this.state.contacts.length);
+      this.dReloadFromBackend(this.state.projects.length);
     })
   }
 
@@ -94,55 +93,47 @@ class Main extends React.Component {
     }));
 
     return (
-      <div className="container-fluid container-contact">
+      <div className="container-fluid container-project">
         <div className="row">
           <div className="col-md-4 pull-right complete-search">
             <AdvancedSearch filters={advancedSearchFilters}
-                            updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)}
-                            organizationOptionsPath={this.props.organizationOptionsPath}
-                            fieldOptionsPath={this.props.fieldOptionsPath}
-                            eventOptionsPath={this.props.eventOptionsPath}
-                            projectOptionsPath={this.props.projectOptionsPath} />
+                            updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)} />
           </div>
 
           <div className="col-md-8">
             <QuickSearch quickSearch={this.props.location.query.quickSearch}
                          updateQuickSearch={this.updateQuickSearch.bind(this)} />
 
-            { this.renderContact()  }
-            { this.renderContacts() }
+            { this.renderProject()  }
+            { this.renderProjects() }
           </div>
         </div>
       </div>
     );
   }
 
-  renderContacts() {
+  renderProjects() {
     if(!this.props.params.id) {
       return (
-        <Contacts contacts={this.state.contacts}
-                  loaded={this.state.loaded}
-                  search={this.props.location.search}
-                  loadingImagePath={this.props.loadingImagePath}
-                  infiniteEnabled={this.state.infiniteEnabled}
-                  infiniteScrollOffset={this.state.infiniteScrollOffset}
-                  infiniteLoaded={this.state.infiniteLoaded}
-                  loadNextBatchFromBackend={this.loadNextBatchFromBackend.bind(this)} />
+        <Projects projects={this.state.projects}
+                       loaded={this.state.loaded}
+                       search={this.props.location.search}
+                       loadingImagePath={this.props.loadingImagePath}
+                       infiniteEnabled={this.state.infiniteEnabled}
+                       infiniteScrollOffset={this.state.infiniteScrollOffset}
+                       infiniteLoaded={this.state.infiniteLoaded}
+                       loadNextBatchFromBackend={this.loadNextBatchFromBackend.bind(this)} />
       )
     }
   }
 
-  renderContact() {
+  renderProject() {
     if(this.props.params.id) {
       return (
-        <Contact id={this.props.params.id}
-                 contactsPath={this.props.contactsPath}
-                 search={this.props.location.search}
-                 loadingImagePath={this.props.loadingImagePath}
-                 organizationOptionsPath={this.props.organizationOptionsPath}
-                 fieldOptionsPath={this.props.fieldOptionsPath}
-                 eventOptionsPath={this.props.eventOptionsPath}
-                 projectOptionsPath={this.props.projectOptionsPath} />
+        <Project id={this.props.params.id}
+                      projectsPath={this.props.projectsPath}
+                      search={this.props.location.search}
+                      loadingImagePath={this.props.loadingImagePath} />
       )
     }
   }
