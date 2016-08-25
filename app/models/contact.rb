@@ -33,6 +33,8 @@ class Contact < ApplicationRecord
   validates :first_name, :presence => { :message => "Le prénom est obligatoire."  }
   validates :last_name,  :presence => { :message => "Le nom de famille est obligatoire."  }
 
+  validates :first_name, :uniqueness => { :scope => :last_name, :message => 'Le nom indiqué existe déjà' }
+
   # Methods
 
   def index_dependent_rows(and_destroy = false)

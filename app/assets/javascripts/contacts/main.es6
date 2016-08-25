@@ -1,5 +1,6 @@
 import Contacts       from './index/contacts.es6'
 import Contact        from './show/contact.es6'
+import NewContact     from './shared/new_contact.es6'
 import QuickSearch    from '../shared/quick_search.es6'
 import AdvancedSearch from './shared/advanced_search.es6'
 import ParamsService  from '../shared/params_service.es6'
@@ -18,14 +19,11 @@ class Main extends React.Component {
       loaded:          false,
       infiniteLoaded:  true,
       infiniteEnabled: true,
-
-      newContactFirstName: '',
-      newContactLastName:  ''
     };
   }
 
   componentWillMount() {
-    this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 300);
+    this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 3000);
     this.dUpdateUrl         = _.debounce(this.updateUrl, 300);
   }
 
@@ -91,36 +89,7 @@ class Main extends React.Component {
   }
 
   openNewContactModal() {
-    $('.modal').modal('show')
-  }
-
-  updateNewContactFirstName(e) {
-    this.setState({ newContactFirstName: e.target.value })
-  }
-
-  updateNewContactLastName(e) {
-    this.setState({ newContactLastName: e.target.value })
-  }
-
-  backendCreateNewContactAndRedirect() {
-    var params = humps.decamelizeKeys({
-      contact: {
-        firstName: this.state.newContactFirstName,
-        lastName:  this.state.newContactLastName
-      }
-    });
-
-    $.post(this.props.contactsPath, params, (data) => {
-      var camelData = humps.camelizeKeys(data);
-
-      this.props.router.push(camelData.contact.id.toString())
-      this.reloadFromBackend()
-      $('.modal').modal('hide')
-      this.setState({
-        newContactFirstName: '',
-        newContactLastName:  ''
-      })
-    });
+    $('.new-contact-modal').modal('show')
   }
 
   render() {
@@ -144,7 +113,7 @@ class Main extends React.Component {
             <QuickSearch quickSearch={this.props.location.query.quickSearch}
                          updateQuickSearch={this.updateQuickSearch.bind(this)} />
 
-            { this.renderNewContact() }
+            { this.renderNewContactLink() }
 
             { this.renderContact()  }
             { this.renderContacts() }
@@ -156,7 +125,7 @@ class Main extends React.Component {
     );
   }
 
-  renderNewContact() {
+  renderNewContactLink() {
     return (
       <button className="btn btn-primary new"
               onClick={this.openNewContactModal.bind(this)}>
@@ -197,52 +166,9 @@ class Main extends React.Component {
 
   renderNewContactModal() {
     return (
-      <div className="modal fade" tabIndex="-1" role="dialog">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 className="modal-title">Nouveau contact</h4>
-            </div>
-            <div className="modal-body">
-              <div className="form-horizontal">
-                <div className="form-group">
-                  <label className="control-label col-md-4" htmlFor="first_name">
-                    Prénom
-                  </label>
-                  <div className="col-md-8">
-                    <input value={this.state.newContactFirstName}
-                           onChange={this.updateNewContactFirstName.bind(this)}
-                           className="form-control"
-                           required="required"
-                           type="text"
-                           id="first_name"/>
-                  </div>
-                </div>
-
-                <div className="form-group">
-                  <label className="control-label col-md-4" htmlFor="last_name">
-                    Nom
-                  </label>
-                  <div className="col-md-8">
-                    <input value={this.state.newContactLastName}
-                           onChange={this.updateNewContactLastName.bind(this)}
-                           className="form-control"
-                           required="required"
-                           type="text"
-                           id="last_name"/>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="modal-footer">
-              <button type="button" className="btn btn-default" data-dismiss="modal">Fermer</button>
-              <button type="button" className="btn btn-primary" onClick={this.backendCreateNewContactAndRedirect.bind(this)}>Créer</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <NewContact reloadFromBackend={this.reloadFromBackend.bind(this)}
+                  contactsPath={this.props.contactsPath}
+                  router={this.props.router} />
     )
   }
 }
