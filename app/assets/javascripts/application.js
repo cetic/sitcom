@@ -2,6 +2,8 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require moment-2.14.1
+//= require bootstrap-datepicker
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
 //= require select2
 //= require lodash
 //= require humps-0.5.1

@@ -1,3 +1,5 @@
+import DatePickerInput from '../../shared/datepicker_input.es6'
+
 class AdvancedSearch extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +19,18 @@ class AdvancedSearch extends React.Component {
     })
   }
 
+  updateHappensOnFrom(value) {
+    this.props.updateAdvancedSearchFilters({
+      happensOnFrom: value
+    });
+  }
+
+  updateHappensOnTo(value) {
+    this.props.updateAdvancedSearchFilters({
+      happensOnFrom: value
+    });
+  }
+
   render() {
     return (
       <div>
@@ -25,6 +39,7 @@ class AdvancedSearch extends React.Component {
 
         {this.renderNameFilter()}
         {this.renderDescriptionFilter()}
+        {this.renderHappensOnFilter()}
       </div>
     );
   }
@@ -49,6 +64,17 @@ class AdvancedSearch extends React.Component {
                id="organizations_description"
                value={this.state.description}
                onChange={this.updateTextFilter.bind(this, 'description')} />
+      </div>
+    );
+  }
+
+  renderHappensOnFilter() {
+    return (
+      <div>
+        <label htmlFor="organizations_description">Date (intervalle)</label><br />
+
+        <DatePickerInput onChange={this.updateHappensOnFrom.bind(this)} value="2015-02-02" />
+        <DatePickerInput onChange={this.updateHappensOnTo.bind(this)} />
       </div>
     );
   }

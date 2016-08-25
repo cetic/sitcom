@@ -4,10 +4,12 @@
   "private": true,
   "description": "SImple COmmunity Management",
   "license": "MIT",
-  "contributors": [{
+  "contributors": [
+    {
       "name": "Michael Hoste",
       "email": "michael.hoste@gmail.com"
-    }, {
+    },
+    {
       "name": "Aurélien Malisart",
       "email": "aurelien.malisart@gmail.com"
     }
