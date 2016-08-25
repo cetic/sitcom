@@ -2,6 +2,7 @@ import Contacts       from './index/contacts.es6'
 import Contact        from './show/contact.es6'
 import QuickSearch    from './shared/quick_search.es6'
 import AdvancedSearch from './shared/advanced_search.es6'
+import ParamsService  from '../shared/params_service.es6'
 
 class Main extends React.Component {
   constructor(props) {
@@ -72,49 +73,9 @@ class Main extends React.Component {
   }
 
   updateUrl(newValues) {
-    var query = _.assign({}, this.props.location.query, newValues);
-
-    if(_.trim(query.quickSearch).length == 0) {
-      delete query.quickSearch;
-    }
-
-    if(_.trim(query.name).length == 0) {
-      delete query.name;
-    }
-
-    if(_.trim(query.email).length == 0) {
-      delete query.email;
-    }
-
-    if(_.trim(query.address).length == 0) {
-      delete query.address;
-    }
-
-    if(_.trim(query.phone).length == 0) {
-      delete query.phone;
-    }
-
-    if(_.isUndefined(query.active)) {
-      delete query.active;
-    }
-
-    if(_.trim(query.organizationIds).length == 0) {
-      delete query.organizationIds;
-    }
-
-    if(_.trim(query.fieldIds).length == 0) {
-      delete query.fieldIds;
-    }
-
-    if(_.trim(query.eventIds).length == 0) {
-      delete query.eventIds;
-    }
-
-    if(_.trim(query.projectIds).length == 0) {
-      delete query.projectIds;
-    }
-
-    this.props.router.push('?' + $.param(query));
+    var query        = _.assign({}, this.props.location.query, newValues);
+    var paramsString = ParamsService.rejectEmptyParams($.param(query))
+    this.props.router.push('?' + paramsString);
   }
 
   updateQuickSearch(newQuickSearch) {

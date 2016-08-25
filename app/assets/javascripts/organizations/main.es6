@@ -71,25 +71,9 @@ class Main extends React.Component {
   }
 
   updateUrl(newValues) {
-    var query = _.assign({}, this.props.location.query, newValues);
-
-    if(_.trim(query.quickSearch).length == 0) {
-      delete query.quickSearch;
-    }
-
-    if(_.trim(query.name).length == 0) {
-      delete query.name;
-    }
-
-    if(_.trim(query.description).length == 0) {
-      delete query.description;
-    }
-
-    if(_.trim(query.websiteUrl).length == 0) {
-      delete query.websiteUrl;
-    }
-
-    this.props.router.push('?' + $.param(query));
+    var query        = _.assign({}, this.props.location.query, newValues);
+    var paramsString = ParamsService.rejectEmptyParams($.param(query))
+    this.props.router.push('?' + paramsString);
   }
 
   updateQuickSearch(newQuickSearch) {
