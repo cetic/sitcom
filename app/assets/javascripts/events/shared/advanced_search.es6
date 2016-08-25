@@ -1,4 +1,4 @@
-import DatePickerInput from '../../shared/datepicker_input.es6'
+import DatePicker from 'react-datepicker'
 
 class AdvancedSearch extends React.Component {
   constructor(props) {
@@ -6,7 +6,9 @@ class AdvancedSearch extends React.Component {
 
     this.state = {
       name:        this.props.filters.name        || '',
-      description: this.props.filters.description || ''
+      description: this.props.filters.description || '',
+      startDate:   moment(),
+      endDate:     moment()
     };
   }
 
@@ -19,16 +21,20 @@ class AdvancedSearch extends React.Component {
     })
   }
 
-  updateHappensOnFrom(value) {
-    this.props.updateAdvancedSearchFilters({
-      happensOnFrom: value
-    });
+  updateStartDate(date) {
+    // this.props.updateAdvancedSearchFilters({
+    //   happensOnFrom: value
+    // });
+
+    this.setState({ startDate: date })
   }
 
-  updateHappensOnTo(value) {
-    this.props.updateAdvancedSearchFilters({
-      happensOnFrom: value
-    });
+  updateEndDate(date) {
+    // this.props.updateAdvancedSearchFilters({
+    //   happensOnFrom: value
+    // });
+
+    this.setState({ endDate: date })
   }
 
   render() {
@@ -73,8 +79,19 @@ class AdvancedSearch extends React.Component {
       <div>
         <label htmlFor="organizations_description">Date (intervalle)</label><br />
 
-        <DatePickerInput onChange={this.updateHappensOnFrom.bind(this)} value="2015-02-02" />
-        <DatePickerInput onChange={this.updateHappensOnTo.bind(this)} />
+        <DatePicker
+            inline
+            showYearDropdown
+            selected={this.state.startDate}
+            locale='fr-be'
+            onChange={this.updateStartDate.bind(this)} />
+
+        <DatePicker
+            inline
+            showYearDropdown
+            selected={this.state.endDate}
+            locale='fr-be'
+            onChange={this.updateEndDate.bind(this)} />
       </div>
     );
   }
