@@ -12,11 +12,11 @@ class Main extends React.Component {
     ];
 
     this.state = {
-      organizations:        [],
-      loaded:               false,
-      infiniteLoaded:       true,
-      infiniteEnabled:      true,
-      infiniteScrollOffset: 200
+      organizations: [],
+      loaded:        false,
+
+      infiniteLoaded:  true,
+      infiniteEnabled: true,
     };
   }
 
@@ -27,7 +27,6 @@ class Main extends React.Component {
 
   componentDidMount() {
     this.reloadFromBackend();
-    this.bindInfiniteScroll();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -65,17 +64,9 @@ class Main extends React.Component {
     });
   }
 
-  bindInfiniteScroll() {
-    $(window).scroll(() => {
-      if(this.state.infiniteLoaded && this.state.infiniteEnabled && this.state.loaded) {
-        if($(window).scrollTop() + $(window).height() >= $(document).height() - this.state.infiniteScrollOffset) {
-          var offset = this.state.organizations.length;
-
-          this.setState({ infiniteLoaded: false }, () => {
-            this.dReloadFromBackend(offset);
-          })
-        }
-      }
+  loadNextBatchFromBackend() {
+    this.setState({ infiniteLoaded: false }, () => {
+      this.dReloadFromBackend(this.state.organizations.length);
     })
   }
 
@@ -142,7 +133,11 @@ class Main extends React.Component {
         <Organizations organizations={this.state.organizations}
                        loaded={this.state.loaded}
                        search={this.props.location.search}
-                       infiniteLoaded={this.state.infiniteLoaded} />
+                       loadingImagePath={this.props.loadingImagePath}
+                       infiniteEnabled={this.state.infiniteEnabled}
+                       infiniteScrollOffset={this.state.infiniteScrollOffset}
+                       infiniteLoaded={this.state.infiniteLoaded}
+                       loadNextBatchFromBackend={this.loadNextBatchFromBackend.bind(this)} />
       )
     }
   }
