@@ -14,7 +14,9 @@ class EventsController < ApplicationController
         }
       end
 
-      format.html
+      format.html do
+        render './shared/routes'
+      end
     end
   end
 
@@ -26,7 +28,7 @@ class EventsController < ApplicationController
       end
 
       format.html do
-        render 'index'
+        render './shared/routes'
       end
     end
   end
