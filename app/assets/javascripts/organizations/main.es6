@@ -74,7 +74,7 @@ class Main extends React.Component {
   updateUrl(newValues) {
     var query        = _.assign({}, this.props.location.query, newValues);
     var paramsString = ParamsService.rejectEmptyParams($.param(query))
-    this.props.router.push('?' + paramsString);
+    this.props.router.push('organizations?' + paramsString);
   }
 
   updateQuickSearch(newQuickSearch) {
