@@ -23,7 +23,7 @@ class Main extends React.Component {
   }
 
   componentWillMount() {
-    this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 3000);
+    this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 300);
     this.dUpdateUrl         = _.debounce(this.updateUrl, 300);
   }
 

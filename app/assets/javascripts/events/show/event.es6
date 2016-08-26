@@ -69,6 +69,7 @@ class Event extends React.Component {
       if(this.state.generalEditMode) {
         return (
           <GeneralEdit event={this.state.event}
+                       eventPath={this.eventPath()}
                        search={this.props.search}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)}
                        reloadFromBackend={this.reloadFromBackend.bind(this)} />

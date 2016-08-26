@@ -12,7 +12,7 @@ class Project extends React.Component {
 
         <div className="infos">
           <span className="name">
-            <Link to={'/' + this.props.project.id + this.props.search}>{this.props.project.name}</Link>
+            <Link to={'/projects/' + this.props.project.id + this.props.search}>{this.props.project.name}</Link>
           </span>
 
           <span className="dates">

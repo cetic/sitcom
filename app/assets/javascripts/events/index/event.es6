@@ -12,7 +12,7 @@ class Event extends React.Component {
 
         <div className="infos">
           <span className="name">
-            <Link to={'/' + this.props.event.id + this.props.search}>{this.props.event.name}</Link>
+            <Link to={'/events/' + this.props.event.id + this.props.search}>{this.props.event.name}</Link>
           </span>
 
           <span className="dates">

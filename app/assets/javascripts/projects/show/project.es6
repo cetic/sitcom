@@ -69,6 +69,7 @@ class Project extends React.Component {
       if(this.state.generalEditMode) {
         return (
           <GeneralEdit project={this.state.project}
+                       projectPath={this.projectPath()}
                        search={this.props.search}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)}
                        reloadFromBackend={this.reloadFromBackend.bind(this)} />

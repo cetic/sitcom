@@ -13,7 +13,7 @@ class Organization extends React.Component {
 
         <div className="infos">
           <span className="name">
-            <Link to={'/' + this.props.organization.id + this.props.search}>{this.props.organization.name}</Link>
+            <Link to={'/organizations/' + this.props.organization.id + this.props.search}>{this.props.organization.name}</Link>
           </span>
 
           <span className="contacts">

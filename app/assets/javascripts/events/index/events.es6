@@ -13,7 +13,7 @@ class Events extends React.Component {
     this.bindInfiniteScroll();
   }
 
-  componentWillMount() {
+  componentWillUnmount() {
     this.unbindInfiniteScroll();
   }
 

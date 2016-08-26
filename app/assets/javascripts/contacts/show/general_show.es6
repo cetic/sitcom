@@ -10,7 +10,7 @@ class GeneralShow extends React.Component {
   render() {
     return (
       <div className="general">
-        <Link to={'/' + this.props.search} className="back">
+        <Link to={'/contacts' + this.props.search} className="back">
           Retour
         </Link>
 
@@ -86,8 +86,12 @@ class GeneralShow extends React.Component {
 
   renderOrganizations() {
     return _.map(this.props.contact.organizations, (organization) => {
-      return organization.name
-    }).join(', ')
+      return (
+        <Link to={'/organizations/' + organization.id} key={organization.id}>
+          {organization.name}
+        </Link>
+      )
+    })
   }
 
   renderFields() {

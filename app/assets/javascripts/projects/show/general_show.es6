@@ -10,7 +10,7 @@ class GeneralShow extends React.Component {
   render() {
     return (
       <div className="general">
-        <Link to={'/' + this.props.search} className="back">
+        <Link to={'/projects' + this.props.search} className="back">
           Retour
         </Link>
 

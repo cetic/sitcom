@@ -1,5 +1,7 @@
-<%= react_component('ContactsRoutes', {
+<%= react_component('Routes', {
+  :lab_path                  => lab_path(@lab),
   :contacts_path             => lab_contacts_path(@lab),
+  :organizations_path        => lab_organizations_path(@lab),
   :organization_options_path => options_lab_organizations_path(@lab),
   :field_options_path        => options_lab_fields_path(@lab),
   :event_options_path        => options_lab_events_path(@lab),

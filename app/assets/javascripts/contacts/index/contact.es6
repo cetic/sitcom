@@ -15,7 +15,7 @@ class Contact extends React.Component {
 
         <div className="infos">
           <span className="name">
-            <Link to={'/' + this.props.contact.id + this.props.search}>{this.props.contact.name}</Link>
+            <Link to={'/contacts/' + this.props.contact.id + this.props.search}>{this.props.contact.name}</Link>
           </span>
 
           <span className="organizations">

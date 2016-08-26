@@ -24,6 +24,7 @@ class Organization extends React.Component {
    }
 
   organizationPath() {
+    console.log(this.props.organizationsPath)
     return this.props.organizationsPath + '/' + this.props.id
   }
 
@@ -69,6 +70,7 @@ class Organization extends React.Component {
       if(this.state.generalEditMode) {
         return (
           <GeneralEdit organization={this.state.organization}
+                       organizationPath={this.organizationPath()}
                        search={this.props.search}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)}
                        reloadFromBackend={this.reloadFromBackend.bind(this)} />

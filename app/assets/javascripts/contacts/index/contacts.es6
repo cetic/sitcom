@@ -13,7 +13,7 @@ class Contacts extends React.Component {
     this.bindInfiniteScroll();
   }
 
-  componentWillMount() {
+  componentWillUnmount() {
     this.unbindInfiniteScroll();
   }
 
