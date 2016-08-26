@@ -5,10 +5,11 @@ class AdvancedSearch extends React.Component {
     super(props);
 
     this.state = {
-      name:        this.props.filters.name        || '',
-      description: this.props.filters.description || '',
-      startDate:   moment(),
-      endDate:     moment()
+      name:         this.props.filters.name        || '',
+      description:  this.props.filters.description || '',
+      datesEnabled: false,
+      startDate:    moment(),
+      endDate:      moment()
     };
   }
 
@@ -22,19 +23,23 @@ class AdvancedSearch extends React.Component {
   }
 
   updateStartDate(date) {
-    // this.props.updateAdvancedSearchFilters({
-    //   happensOnFrom: value
-    // });
+    this.setState({ startDate: date }, this.updateDates)
 
-    this.setState({ startDate: date })
   }
 
   updateEndDate(date) {
-    // this.props.updateAdvancedSearchFilters({
-    //   happensOnFrom: value
-    // });
+    this.setState({ endDate: date }, this.updateDates)
+  }
 
-    this.setState({ endDate: date })
+  updateDatesEnabled() {
+    this.setState({ datesEnabled: !this.state.datesEnabled }, this.updateDates)
+  }
+
+  updateDates() {
+    this.props.updateAdvancedSearchFilters({
+      from: this.state.datesEnabled ? this.state.startDate.format('YYYY-MM-DD') : '',
+      to:   this.state.datesEnabled ? this.state.endDate.format('YYYY-MM-DD') : '',
+    })
   }
 
   render() {
@@ -75,23 +80,41 @@ class AdvancedSearch extends React.Component {
   }
 
   renderHappensOnFilter() {
+    var datePickerclassNames =  "datepickers"
+
+    if(!this.state.datesEnabled)
+      datePickerclassNames += " disabled"
+
     return (
       <div>
-        <label htmlFor="organizations_description">Date (intervalle)</label><br />
+        <label>Date (intervalle)</label><br />
 
-        <DatePicker
-            inline
-            showYearDropdown
-            selected={this.state.startDate}
-            locale='fr-be'
-            onChange={this.updateStartDate.bind(this)} />
+        <input type="checkbox" checked={this.state.datesEnabled}
+                               onChange={this.updateDatesEnabled.bind(this)}
+                               id="dates-enabled" />
+        <label htmlFor="dates-enabled">&nbsp;Activer</label>
 
-        <DatePicker
-            inline
-            showYearDropdown
-            selected={this.state.endDate}
-            locale='fr-be'
-            onChange={this.updateEndDate.bind(this)} />
+        <div className={datePickerclassNames}>
+          <DatePicker
+              inline
+              showYearDropdown
+              fixedHeight
+              selected={this.state.startDate}
+              startDate={this.state.startDate}
+              endDate={this.state.endDate}
+              locale='fr-be'
+              onChange={this.updateStartDate.bind(this)} />
+
+          <DatePicker
+              inline
+              showYearDropdown
+              fixedHeight
+              selected={this.state.endDate}
+              startDate={this.state.startDate}
+              endDate={this.state.endDate}
+              locale='fr-be'
+              onChange={this.updateEndDate.bind(this)} />
+        </div>
       </div>
     );
   }
