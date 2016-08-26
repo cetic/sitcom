@@ -1,0 +1,27 @@
+.items-block, .contacts-block {
+  .items, .contact {
+    margin-bottom: 10px;
+
+    .img-thumbnail {
+      height: 75px;
+      float: left;
+    }
+
+    .remove-icon {
+      cursor: pointer;
+      float: right;
+    }
+
+    h4 {
+      float: left;
+    }
+
+    .dates {
+      clear: left;
+    }
+  }
+
+  .select {
+    margin-top: 30px;
+  }
+}
