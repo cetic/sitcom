@@ -1,4 +1,4 @@
-import SelectFilter from '../shared/select_filter.es6'
+import ItemsSelect from '../../shared/items_select.es6'
 
 class GeneralEdit extends React.Component {
   constructor(props) {
@@ -181,7 +181,7 @@ class GeneralEdit extends React.Component {
 
   renderOrganizations() {
     return (
-      <SelectFilter itemIds={this.state.organizationIds.join(',')}
+      <ItemsSelect itemIds={this.state.organizationIds.join(',')}
                     optionsPath={this.props.organizationOptionsPath}
                     updateValue={this.updateOrganizationIds.bind(this)}
                     label="Organisations" />
@@ -190,7 +190,7 @@ class GeneralEdit extends React.Component {
 
   renderFields() {
     return (
-      <SelectFilter itemIds={this.state.fieldIds.join(',')}
+      <ItemsSelect itemIds={this.state.fieldIds.join(',')}
                     optionsPath={this.props.fieldOptionsPath}
                     updateValue={this.updateFieldIds.bind(this)}
                     label="Domaines d'expertise" />

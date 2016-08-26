@@ -1,6 +1,6 @@
 import Select from 'react-select'
 
-class SelectFilter extends React.Component {
+class ItemsSelect extends React.Component {
   constructor(props) {
     super(props);
 
@@ -85,4 +85,4 @@ class SelectFilter extends React.Component {
   }
 }
 
-module.exports = SelectFilter
+module.exports = ItemsSelect

@@ -1,4 +1,4 @@
-import SelectFilter from './select_filter.es6'
+import ItemsSelect from '../../shared/items_select.es6'
 
 class AdvancedSearch extends React.Component {
   constructor(props) {
@@ -75,22 +75,22 @@ class AdvancedSearch extends React.Component {
         {this.renderPhoneFilter()}
         {this.renderActiveInactiveFilter()}
 
-        <SelectFilter itemIds={this.props.filters.organizationIds}
+        <ItemsSelect itemIds={this.props.filters.organizationIds}
                       optionsPath={this.props.organizationOptionsPath}
                       updateValue={this.updateOrganizationIds.bind(this)}
                       label="Organisations" />
 
-        <SelectFilter itemIds={this.props.filters.fieldIds}
+        <ItemsSelect itemIds={this.props.filters.fieldIds}
                       optionsPath={this.props.fieldOptionsPath}
                       updateValue={this.updateFieldIds.bind(this)}
                       label="Domaines d'expertise" />
 
-        <SelectFilter itemIds={this.props.filters.eventIds}
+        <ItemsSelect itemIds={this.props.filters.eventIds}
                       optionsPath={this.props.eventOptionsPath}
                       updateValue={this.updateEventIds.bind(this)}
                       label="Evènements" />
 
-        <SelectFilter itemIds={this.props.filters.projectIds}
+        <ItemsSelect itemIds={this.props.filters.projectIds}
                       optionsPath={this.props.projectOptionsPath}
                       updateValue={this.updateProjectIds.bind(this)}
                       label="Projets" />
