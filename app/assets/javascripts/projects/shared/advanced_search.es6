@@ -1,3 +1,5 @@
+import DateRangeFilter from '../../shared/date_range_filter.es6'
+
 class AdvancedSearch extends React.Component {
   constructor(props) {
     super(props);
@@ -25,6 +27,9 @@ class AdvancedSearch extends React.Component {
 
         {this.renderNameFilter()}
         {this.renderDescriptionFilter()}
+
+        <DateRangeFilter filters={this.props.filters}
+                         updateAdvancedSearchFilters={this.props.updateAdvancedSearchFilters} />
       </div>
     );
   }
