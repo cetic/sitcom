@@ -116,6 +116,8 @@ class GeneralEdit extends React.Component {
         </Link>
 
         <div className="row">
+          { this.renderErrors() }
+
           <div className="col-md-3">
             { this.renderPicture() }
           </div>
