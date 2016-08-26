@@ -14,7 +14,8 @@ class GeneralEdit extends React.Component {
       phone:           this.props.contact.phone,
       email:           this.props.contact.email,
       organizationIds: this.props.contact.organizationIds,
-      fieldIds:        this.props.contact.fieldIds
+      fieldIds:        this.props.contact.fieldIds,
+      errors:          ''
     };
   }
 
@@ -36,7 +37,14 @@ class GeneralEdit extends React.Component {
     }
 
     $.post(this.props.contactPath, humps.decamelizeKeys(params), (data) => {
-      this.props.reloadFromBackend(this.props.toggleEditMode)
+      var camelData = humps.camelizeKeys(data);
+
+      if(!camelData.success) {
+        this.setState({ errors: camelData.errors })
+      }
+      else {
+        this.props.reloadFromBackend(this.props.toggleEditMode)
+      }
     });
   }
 
@@ -133,6 +141,17 @@ class GeneralEdit extends React.Component {
         { this.renderActions() }
       </div>
     );
+  }
+
+  renderErrors() {
+    if(this.state.errors.length) {
+      return (
+        <div className="alert alert-danger" role="alert">
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          { this.state.errors }
+        </div>
+      )
+    }
   }
 
   renderPicture() {
