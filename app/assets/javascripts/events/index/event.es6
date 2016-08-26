@@ -15,6 +15,10 @@ class Event extends React.Component {
             <Link to={'/' + this.props.event.id + this.props.search}>{this.props.event.name}</Link>
           </span>
 
+          <span className="dates">
+            { this.renderDate() }
+          </span>
+
           <span className="contacts">
             { this.renderContacts() }
           </span>
@@ -31,6 +35,14 @@ class Event extends React.Component {
         <img className="img-thumbnail" src={this.props.event.previewPictureUrl} />
       </div>
     )
+  }
+
+  renderDate() {
+    if(this.props.event.happensOn) {
+      return (
+        <div>{moment(this.props.event.happensOn).format('DD/MM/YYYY')}</div>
+      )
+    }
   }
 
   renderContacts() {

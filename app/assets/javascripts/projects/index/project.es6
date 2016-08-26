@@ -15,6 +15,10 @@ class Project extends React.Component {
             <Link to={'/' + this.props.project.id + this.props.search}>{this.props.project.name}</Link>
           </span>
 
+          <span className="dates">
+            { this.renderDates() }
+          </span>
+
           <span className="contacts">
             { this.renderContacts() }
           </span>
@@ -31,6 +35,17 @@ class Project extends React.Component {
         <img className="img-thumbnail" src={this.props.project.previewPictureUrl} />
       </div>
     )
+  }
+
+  renderDates() {
+    if(this.props.project.startDate || this.props.endDate) {
+      var startDateSpan = <span>{moment(this.props.project.startDate).format('DD/MM/YYYY')}</span>;
+      var endDateSpan   = <span>{moment(this.props.project.endDate  ).format('DD/MM/YYYY')}</span>;
+
+      return (
+        <div>{startDateSpan}&nbsp;&rarr;&nbsp;{endDateSpan}</div>
+      )
+    }
   }
 
   renderContacts() {
