@@ -12,6 +12,17 @@ class EventSearch < BaseSearch
       add_ids_search(options, field)
     end
 
+    if params['from'] && params['to']
+      options['query']['filtered']['filter']['and'] << {
+        'range' => {
+          'happens_on' => {
+            'gte' => params['from'],
+            'lte' => params['to']
+          }
+        }
+      }
+    end
+
     Event.search(options)
   end
 end

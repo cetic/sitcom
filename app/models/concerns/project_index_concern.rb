@@ -13,8 +13,8 @@ module ProjectIndexConcern
         indexes :lab_id,      :index => 'not_analyzed'
         indexes :name
         indexes :description
-        indexes :start_date
-        indexes :end_date
+        indexes :start_date,  :type => 'date'
+        indexes :end_date,    :type => 'date'
         indexes :contact_ids, :index => 'not_analyzed'
 
         indexes :sort_name, :analyzer => :sortable_string_analyzer

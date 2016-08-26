@@ -5,7 +5,7 @@ class DateRangeFilter extends React.Component {
     super(props);
 
     this.state = {
-      datesEnabled: false,
+      datesEnabled: this.props.filters.from || this.props.filters.to,
       startDate:    this.props.filters.from ? moment(this.props.filters.from, 'YYYY-MM-DD') : moment(),
       endDate:      this.props.filters.to   ? moment(this.props.filters.to,   'YYYY-MM-DD') : moment()
     };
@@ -37,7 +37,7 @@ class DateRangeFilter extends React.Component {
       datePickerclassNames += " disabled"
 
     return (
-      <div>
+      <div className="date-range-filter">
         <label>Date (intervalle)</label><br />
 
         <input type="checkbox" checked={this.state.datesEnabled}

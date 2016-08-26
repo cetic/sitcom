@@ -59,6 +59,43 @@ class ProjectSearch < BaseSearch
       end
     end
 
+    if params['from'] && params['to']
+      options['query']['filtered']['filter']['and'] << {
+        'or' => [
+          {
+            'range' => {
+              'start_date' => {
+                'gte' => params['from'],
+                'lte' => params['to']
+              }
+            }
+          },
+
+          {
+            'range' => {
+              'end_date' => {
+                'gte' => params['from'],
+                'lte' => params['to']
+              }
+            }
+          }
+        ]
+      }
+    end
+
+    # if params['from'] && params['to']
+    #   options['query']['filtered']['filter']['and'] << {
+    #     'range' => {
+    #       'start_date' => {
+    #         'gte' => params['from'],
+    #         'lte' => params['to']
+    #       }
+    #     }
+    #   }
+
+    #   #raise options['query']['filtered']['filter']['and'].last.to_s
+    # end
+
     Project.search(options)
   end
 end

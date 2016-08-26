@@ -12,7 +12,7 @@ module EventIndexConcern
         indexes :id,          :index => 'not_analyzed'
         indexes :lab_id,      :index => 'not_analyzed'
         indexes :name
-        indexes :happens_on
+        indexes :happens_on, :type => 'date'
         indexes :place
         indexes :description
         indexes :website_url
