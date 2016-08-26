@@ -136,7 +136,7 @@
       top: -26px;
     }
 
-    .general, .items-block, .social {
+    .general, .items-block, .contacts-block, .social {
       position: relative;
       margin-bottom: 36px;
       background-color: white;
@@ -226,8 +226,8 @@
       }
     }
 
-    .items-block {
-      .item {
+    .items-block, .contacts-block {
+      .items, .contact {
         margin-bottom: 10px;
 
         .img-thumbnail {

@@ -150,7 +150,8 @@ class Main extends React.Component {
         <Event id={this.props.params.id}
                       eventsPath={this.props.eventsPath}
                       search={this.props.location.search}
-                      loadingImagePath={this.props.loadingImagePath} />
+                      loadingImagePath={this.props.loadingImagePath}
+                      contactOptionsPath={this.props.contactOptionsPath} />
       )
     }
   }

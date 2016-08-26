@@ -82,7 +82,7 @@ class ProjectsController < ApplicationController
   protected
 
   def strong_params
-    params.require(:project).permit(:name)
+    params.require(:project).permit(:name, :description, :contact_ids => [])
   end
 
   private

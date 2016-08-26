@@ -75,6 +75,10 @@ class ContactsController < ApplicationController
     end
   end
 
+  def options
+    @contacts = @lab.contacts.order(:first_name, :last_name)
+  end
+
   protected
 
   def strong_params

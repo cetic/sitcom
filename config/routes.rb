@@ -34,6 +34,10 @@ Rails.application.routes.draw do
   resources :labs, :path => '', :only => [] do
     resources :contacts do
       resources :notes
+
+      collection do
+        get :options
+      end
     end
 
     resources :organizations do

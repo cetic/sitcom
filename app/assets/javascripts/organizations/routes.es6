@@ -21,7 +21,8 @@ class Routes extends React.Component {
       <Router history={this.browserHistory}>
         <Route path="/" component={MainWrapper}
                         organizationsPath={this.props.organizationsPath}
-                        loadingImagePath={this.props.loadingImagePath}>
+                        loadingImagePath={this.props.loadingImagePath}
+                        contactOptionsPath={this.props.contactOptionsPath}>
 
           <Route path=":id" component={MainWrapper} />
         </Route>

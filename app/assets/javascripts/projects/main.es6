@@ -150,7 +150,8 @@ class Main extends React.Component {
         <Project id={this.props.params.id}
                       projectsPath={this.props.projectsPath}
                       search={this.props.location.search}
-                      loadingImagePath={this.props.loadingImagePath} />
+                      loadingImagePath={this.props.loadingImagePath}
+                      contactOptionsPath={this.props.contactOptionsPath} />
       )
     }
   }

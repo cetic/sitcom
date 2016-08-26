@@ -1,5 +1,6 @@
-import GeneralShow from './general_show.es6'
-import GeneralEdit from './general_edit.es6'
+import GeneralShow   from './general_show.es6'
+import GeneralEdit   from './general_edit.es6'
+import ContactsBlock from '../../shared/contacts_block.es6'
 
 class Project extends React.Component {
   constructor(props) {
@@ -48,6 +49,7 @@ class Project extends React.Component {
       <div className="project">
         {this.renderLoading()}
         {this.renderGeneral()}
+        {this.renderContacts()}
       </div>
     )
   }
@@ -79,6 +81,18 @@ class Project extends React.Component {
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)} />
         )
       }
+    }
+  }
+
+  renderContacts() {
+    if(this.state.loaded) {
+      return (
+        <ContactsBlock parent={this.state.project}
+                       parentType="project"
+                       parentPath={this.projectPath()}
+                       optionsPath={this.props.contactOptionsPath}
+                       reloadFromBackend={this.reloadFromBackend.bind(this)} />
+      );
     }
   }
 

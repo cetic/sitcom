@@ -20,6 +20,7 @@ class GeneralShow extends React.Component {
           <div className="col-md-3">
             { this.renderPicture() }
           </div>
+
           <div className="col-md-8">
             <h1>
               { this.props.organization.name }

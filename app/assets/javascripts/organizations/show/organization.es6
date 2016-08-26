@@ -1,12 +1,13 @@
-import GeneralShow from './general_show.es6'
-import GeneralEdit from './general_edit.es6'
+import GeneralShow   from './general_show.es6'
+import GeneralEdit   from './general_edit.es6'
+import ContactsBlock from '../../shared/contacts_block.es6'
 
 class Organization extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      organization:         {},
+      organization:    {},
       loaded:          false,
       generalEditMode: false
     };
@@ -48,6 +49,7 @@ class Organization extends React.Component {
       <div className="organization">
         {this.renderLoading()}
         {this.renderGeneral()}
+        {this.renderContacts()}
       </div>
     )
   }
@@ -79,6 +81,18 @@ class Organization extends React.Component {
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)} />
         )
       }
+    }
+  }
+
+  renderContacts() {
+    if(this.state.loaded) {
+      return (
+        <ContactsBlock parent={this.state.organization}
+                       parentType="organization"
+                       parentPath={this.organizationPath()}
+                       optionsPath={this.props.contactOptionsPath}
+                       reloadFromBackend={this.reloadFromBackend.bind(this)} />
+      );
     }
   }
 

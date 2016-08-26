@@ -82,7 +82,7 @@ class EventsController < ApplicationController
   protected
 
   def strong_params
-    params.require(:event).permit(:name)
+    params.require(:event).permit(:name, :description, :contact_ids => [])
   end
 
   private

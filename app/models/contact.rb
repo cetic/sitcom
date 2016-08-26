@@ -73,10 +73,9 @@ class Contact < ApplicationRecord
   def picture_url
     if picture.present?
       picture.url
-    elsif email.present?
-      gravatar_url(:size => 130)
     else
-      # default url
+      txt = "#{first_name.first}#{last_name.first}"
+      "https://placeholdit.imgix.net/~text?txtsize=33&txt=#{txt}&w=130&h=130"
     end
   end
 end

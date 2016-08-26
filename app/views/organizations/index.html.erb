@@ -1,4 +1,5 @@
 <%= react_component('OrganizationsRoutes', {
-  :organizations_path => lab_organizations_path(@lab),
-  :loading_image_path => asset_path('loading.gif')
+  :organizations_path   => lab_organizations_path(@lab),
+  :contact_options_path => options_lab_contacts_path(@lab),
+  :loading_image_path   => asset_path('loading.gif')
 }) %>
