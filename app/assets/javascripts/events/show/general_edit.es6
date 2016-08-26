@@ -5,6 +5,7 @@ class GeneralEdit extends React.Component {
     this.state = {
       name:        this.props.event.name,
       description: this.props.event.description,
+      errors:      ''
     };
   }
 
@@ -18,7 +19,14 @@ class GeneralEdit extends React.Component {
     }
 
     $.post(this.props.eventPath, humps.decamelizeKeys(params), (data) => {
-      this.props.reloadFromBackend(this.props.toggleEditMode)
+      var camelData = humps.camelizeKeys(data);
+
+      if(!camelData.success) {
+        this.setState({ errors: camelData.errors })
+      }
+      else {
+        this.props.reloadFromBackend(this.props.toggleEditMode)
+      }
     });
   }
 
@@ -42,6 +50,10 @@ class GeneralEdit extends React.Component {
         </Link>
 
         <div className="row">
+          <div className="col-md-12">
+            { this.renderErrors() }
+          </div>
+
           <div className="col-md-3">
             { this.renderPicture() }
           </div>
@@ -60,6 +72,17 @@ class GeneralEdit extends React.Component {
         { this.renderActions() }
       </div>
     );
+  }
+
+  renderErrors() {
+    if(this.state.errors.length) {
+      return (
+        <div className="alert alert-danger" role="alert">
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          { this.state.errors }
+        </div>
+      )
+    }
   }
 
   renderPicture() {
