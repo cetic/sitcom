@@ -24,7 +24,6 @@ class Organization extends React.Component {
    }
 
   organizationPath() {
-    console.log(this.props.organizationsPath)
     return this.props.organizationsPath + '/' + this.props.id
   }
 

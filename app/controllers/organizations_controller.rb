@@ -90,7 +90,7 @@ class OrganizationsController < ApplicationController
 
   # Encapsulate new picture in "organization" (don't know how to make it in JS)
   def clean_params
-    params[:organization] = {}
+    params[:organization] ||= {}
     params[:organization][:picture] = params[:picture]
     params.delete(:picture)
   end

@@ -142,7 +142,8 @@ class GeneralEdit extends React.Component {
         <h3>Date de début</h3>
 
         <DateField value={this.state.startDate}
-                   onChange={this.updateStartDate.bind(this)} />
+                   onChange={this.updateStartDate.bind(this)}
+                   maxDate={this.state.endDate} />
       </div>
     )
   }
@@ -153,7 +154,8 @@ class GeneralEdit extends React.Component {
         <h3>Date de fin</h3>
 
         <DateField value={this.state.endDate}
-                   onChange={this.updateEndDate.bind(this)} />
+                   onChange={this.updateEndDate.bind(this)}
+                   minDate={this.state.startDate} />
       </div>
     )
   }

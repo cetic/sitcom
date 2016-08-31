@@ -86,7 +86,7 @@ class EventsController < ApplicationController
 
   # Encapsulate new picture in "event" (don't know how to make it in JS)
   def clean_params
-    params[:event] = {}
+    params[:event] ||= {}
     params[:event][:picture] = params[:picture]
     params.delete(:picture)
   end

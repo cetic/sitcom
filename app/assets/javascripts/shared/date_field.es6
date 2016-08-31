@@ -52,13 +52,18 @@ class DateField extends React.Component {
   }
 
   renderDatePicker() {
+    var minDate = this.props.minDate ? moment(this.props.minDate, 'YYYY-MM-DD') : undefined;
+    var maxDate = this.props.maxDate ? moment(this.props.maxDate, 'YYYY-MM-DD') : undefined;
+
     return (
       <DatePicker showYearDropdown
                   fixedHeight
                   ref="picker"
                   selected={this.state.value}
                   locale='fr-be'
-                  onChange={this.updateValue.bind(this)} />
+                  onChange={this.updateValue.bind(this)}
+                  minDate={minDate}
+                  maxDate={maxDate} />
     );
   }
 }
