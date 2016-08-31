@@ -1,6 +1,8 @@
 import DateRangeFilter from '../../shared/date_range_filter.es6'
+import ItemsSelect     from '../../shared/items_select.es6'
 
 class AdvancedSearch extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -19,6 +21,12 @@ class AdvancedSearch extends React.Component {
     })
   }
 
+  updateContactIds(value) {
+    this.props.updateAdvancedSearchFilters({
+      contactIds: value
+    });
+  }
+
   render() {
     return (
       <div>
@@ -27,9 +35,8 @@ class AdvancedSearch extends React.Component {
 
         {this.renderNameFilter()}
         {this.renderDescriptionFilter()}
-
-        <DateRangeFilter filters={this.props.filters}
-                         updateAdvancedSearchFilters={this.props.updateAdvancedSearchFilters} />
+        {this.renderDatesFilter()}
+        {this.renderContactsFilter()}
       </div>
     );
   }
@@ -57,6 +64,23 @@ class AdvancedSearch extends React.Component {
       </div>
     );
   }
+
+  renderDatesFilter() {
+    return (
+      <DateRangeFilter filters={this.props.filters}
+                       updateAdvancedSearchFilters={this.props.updateAdvancedSearchFilters} />
+    );
+  }
+
+  renderContactsFilter() {
+    return (
+      <ItemsSelect itemIds={this.props.filters.contactIds}
+                   optionsPath={this.props.contactOptionsPath}
+                   updateValue={this.updateContactIds.bind(this)}
+                   label="Contacts" />
+    );
+  }
+
 }
 
 module.exports = AdvancedSearch
