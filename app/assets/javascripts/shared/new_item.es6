@@ -42,7 +42,7 @@ class NewItem extends React.Component {
           this.setState({ errors: camelData.errors })
         }
         else {
-          this.props.router.push(camelData[this.props.modelName].id.toString())
+          this.props.router.push(`${this.props.modelName}s/${camelData[this.props.modelName].id}`)
           this.hideModal()
           this.setState({
             fieldValue: '',

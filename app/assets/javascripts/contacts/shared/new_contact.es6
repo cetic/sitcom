@@ -49,7 +49,7 @@ class NewContact extends React.Component {
           this.setState({ errors: camelData.errors })
         }
         else {
-          this.props.router.push(camelData.contact.id.toString())
+          this.props.router.push(`contacts/${camelData.contact.id}`)
           this.hideModal()
           this.setState({
             firstName: '',
