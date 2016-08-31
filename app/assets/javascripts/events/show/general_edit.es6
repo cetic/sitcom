@@ -1,3 +1,5 @@
+import DateField from '../../shared/date_field.es6'
+
 class GeneralEdit extends React.Component {
   constructor(props) {
     super(props);
@@ -7,6 +9,7 @@ class GeneralEdit extends React.Component {
       description: this.props.event.description,
       place:       this.props.event.place,
       websiteUrl:  this.props.event.websiteUrl,
+      happensOn:   this.props.event.happensOn,
       errors:      ''
     };
   }
@@ -18,7 +21,8 @@ class GeneralEdit extends React.Component {
         name:        this.state.name,
         description: this.state.description,
         place:       this.state.place,
-        websiteUrl:  this.state.websiteUrl
+        websiteUrl:  this.state.websiteUrl,
+        happensOn:   this.state.happensOn
       }
     }
 
@@ -58,6 +62,12 @@ class GeneralEdit extends React.Component {
     })
   }
 
+  updateHappensOn(v) {
+    this.setState({
+      happensOn: v
+    })
+  }
+
   render() {
     return (
       <div className="general edit">
@@ -85,6 +95,7 @@ class GeneralEdit extends React.Component {
           { this.renderDescription() }
           { this.renderPlace() }
           { this.renderWebsiteUrl() }
+          { this.renderHappensOn() }
         </div>
 
         { this.renderActions() }
@@ -156,6 +167,17 @@ class GeneralEdit extends React.Component {
                className="website-url"
                defaultValue={this.state.websiteUrl}
                onChange={this.updateWebsiteUrl.bind(this)} />
+      </div>
+    )
+  }
+
+  renderHappensOn() {
+    return (
+      <div className="col-md-4">
+        <h3>Date</h3>
+
+        <DateField value={this.state.happensOn}
+                   onChange={this.updateHappensOn.bind(this)} />
       </div>
     )
   }

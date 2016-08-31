@@ -1,3 +1,5 @@
+import DateField from '../../shared/date_field.es6'
+
 class GeneralEdit extends React.Component {
   constructor(props) {
     super(props);
@@ -5,6 +7,8 @@ class GeneralEdit extends React.Component {
     this.state = {
       name:        this.props.project.name,
       description: this.props.project.description,
+      startDate:   this.props.project.startDate,
+      endDate:     this.props.project.endDate,
       errors:      ''
     };
   }
@@ -15,6 +19,8 @@ class GeneralEdit extends React.Component {
       project: {
         name:        this.state.name,
         description: this.state.description,
+        startDate:   this.state.startDate,
+        endDate:     this.state.endDate
       }
     }
 
@@ -39,6 +45,18 @@ class GeneralEdit extends React.Component {
   updateDescription(e) {
     this.setState({
       description: e.target.value
+    })
+  }
+
+  updateStartDate(v) {
+    this.setState({
+      startDate: v
+    })
+  }
+
+  updateEndDate(v) {
+    this.setState({
+      endDate: v
     })
   }
 
@@ -67,6 +85,8 @@ class GeneralEdit extends React.Component {
 
         <div className="row row-project-infos">
           { this.renderDescription() }
+          { this.renderStartDate() }
+          { this.renderEndDate() }
         </div>
 
         { this.renderActions() }
@@ -112,6 +132,28 @@ class GeneralEdit extends React.Component {
         <textarea className="description"
                   defaultValue={this.state.description}
                   onChange={this.updateDescription.bind(this)} />
+      </div>
+    )
+  }
+
+  renderStartDate() {
+    return (
+      <div className="col-md-4">
+        <h3>Date de début</h3>
+
+        <DateField value={this.state.startDate}
+                   onChange={this.updateStartDate.bind(this)} />
+      </div>
+    )
+  }
+
+  renderEndDate() {
+    return (
+      <div className="col-md-4">
+        <h3>Date de fin</h3>
+
+        <DateField value={this.state.endDate}
+                   onChange={this.updateEndDate.bind(this)} />
       </div>
     )
   }
