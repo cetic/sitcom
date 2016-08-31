@@ -46,27 +46,25 @@ class DateRangeFilter extends React.Component {
         <label htmlFor="dates-enabled">&nbsp;Activer</label>
 
         <div className={datePickerclassNames}>
-          <DatePicker
-              inline
-              showYearDropdown
-              fixedHeight
-              selected={this.state.startDate}
-              startDate={this.state.startDate}
-              endDate={this.state.endDate}
-              maxDate={this.state.endDate}
-              locale='fr-be'
-              onChange={this.updateStartDate.bind(this)} />
+          <DatePicker inline
+                      showYearDropdown
+                      fixedHeight
+                      selected={this.state.startDate}
+                      startDate={this.state.startDate}
+                      endDate={this.state.endDate}
+                      maxDate={this.state.endDate}
+                      locale='fr-be'
+                      onChange={this.updateStartDate.bind(this)} />
 
-          <DatePicker
-              inline
-              showYearDropdown
-              fixedHeight
-              selected={this.state.endDate}
-              startDate={this.state.startDate}
-              endDate={this.state.endDate}
-              minDate={this.state.startDate}
-              locale='fr-be'
-              onChange={this.updateEndDate.bind(this)} />
+          <DatePicker inline
+                      showYearDropdown
+                      fixedHeight
+                      selected={this.state.endDate}
+                      startDate={this.state.startDate}
+                      endDate={this.state.endDate}
+                      minDate={this.state.startDate}
+                      locale='fr-be'
+                      onChange={this.updateEndDate.bind(this)} />
         </div>
       </div>
     );

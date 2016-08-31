@@ -7,6 +7,7 @@ class GeneralEdit extends React.Component {
     this.state = {
       firstName:       this.props.contact.firstName,
       lastName:        this.props.contact.lastName,
+      active:          this.props.contact.active,
       addressStreet:   this.props.contact.addressStreet,
       addressZipCode:  this.props.contact.addressZipCode,
       addressCity:     this.props.contact.addressCity,
@@ -25,6 +26,7 @@ class GeneralEdit extends React.Component {
       contact: {
         firstName:       this.state.firstName,
         lastName:        this.state.lastName,
+        active:          this.state.active,
         addressStreet:   this.state.addressStreet,
         addressZipCode:  this.state.addressZipCode,
         addressCity:     this.state.addressCity,
@@ -57,6 +59,12 @@ class GeneralEdit extends React.Component {
   updateLastName(e) {
     this.setState({
       lastName: e.target.value
+    })
+  }
+
+  toggleActive() {
+    this.setState({
+      active: !this.state.active
     })
   }
 
@@ -122,6 +130,7 @@ class GeneralEdit extends React.Component {
 
           <div className="col-md-3">
             { this.renderPicture() }
+            { this.renderActive() }
           </div>
           <div className="col-md-9">
             <h1>
@@ -162,6 +171,17 @@ class GeneralEdit extends React.Component {
     return (
       <div className="picture">
         <img className="img-thumbnail" src={this.props.contact.pictureUrl} />
+      </div>
+    )
+  }
+
+  renderActive() {
+    return (
+      <div className="active">
+        <label htmlFor="active">Actif</label>
+        <input type="checkbox" checked={this.state.active}
+                               onChange={this.toggleActive.bind(this)}
+                               id="active" />
       </div>
     )
   }
