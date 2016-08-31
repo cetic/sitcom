@@ -29,13 +29,24 @@ class SocialShow extends React.Component {
     )
   }
 
+  renderSocialInside(url) {
+    if(url == '') {
+      return <em>non-renseigné</em>;
+    }
+    else {
+      return (
+        <a href={ url } target="_blank">
+          { url }
+        </a>
+      )
+    }
+  }
+
   renderFacebook() {
     return (
       <div className="col-md-12 facebook">
         <i className="fa fa-facebook-square"></i>
-        <a href={ this.props.contact.facebookUrl } target="_blank">
-          { this.props.contact.facebookUrl }
-        </a>
+        { this.renderSocialInside(this.props.contact.facebookUrl) }
       </div>
     )
   }
@@ -44,9 +55,7 @@ class SocialShow extends React.Component {
     return (
       <div className="col-md-12 linkedin">
         <i className="fa fa-linkedin-square"></i>
-        <a href={ this.props.contact.linkedinUrl } target="_blank">
-          { this.props.contact.linkedinUrl }
-        </a>
+        { this.renderSocialInside(this.props.contact.linkedinUrl) }
       </div>
     )
   }
@@ -55,9 +64,7 @@ class SocialShow extends React.Component {
     return (
       <div className="col-md-12 twitter">
         <i className="fa fa-twitter-square"></i>
-        <a href={ this.props.contact.twitterUrl } target="_blank">
-          { this.props.contact.twitterUrl }
-        </a>
+        { this.renderSocialInside(this.props.contact.twitterUrl) }
       </div>
     )
   }
