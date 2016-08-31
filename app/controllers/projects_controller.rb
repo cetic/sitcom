@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
 
   before_action :find_lab
+  before_action :clean_params, :only => [:update] # for dropzone
 
   def index
     respond_to do |format|
@@ -81,7 +82,14 @@ class ProjectsController < ApplicationController
     @projects = @lab.projects.order(:name)
   end
 
-  protected
+  private
+
+  # Encapsulate new picture in "project" (don't know how to make it in JS)
+  def clean_params
+    params[:project] = {}
+    params[:project][:picture] = params[:picture]
+    params.delete(:picture)
+  end
 
   def strong_params
     params.require(:project).permit(
@@ -89,8 +97,6 @@ class ProjectsController < ApplicationController
       :contact_ids => []
     )
   end
-
-  private
 
   def find_lab
     @lab = current_user.labs.find_by_slug!(params[:lab_id])

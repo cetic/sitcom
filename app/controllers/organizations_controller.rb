@@ -1,6 +1,7 @@
 class OrganizationsController < ApplicationController
 
   before_action :find_lab
+  before_action :clean_params, :only => [:update] # for dropzone
 
   def index
     respond_to do |format|
@@ -85,7 +86,14 @@ class OrganizationsController < ApplicationController
     @statuses = @lab.organizations.pluck(:status).uniq.reject(&:blank?)
   end
 
-  protected
+  private
+
+  # Encapsulate new picture in "organization" (don't know how to make it in JS)
+  def clean_params
+    params[:organization] = {}
+    params[:organization][:picture] = params[:picture]
+    params.delete(:picture)
+  end
 
   def strong_params
     params.require(:organization).permit(
@@ -93,8 +101,6 @@ class OrganizationsController < ApplicationController
       :contact_ids => []
     )
   end
-
-  private
 
   def find_lab
     @lab = current_user.labs.find_by_slug!(params[:lab_id])

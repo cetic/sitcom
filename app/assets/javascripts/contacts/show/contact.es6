@@ -93,7 +93,8 @@ class Contact extends React.Component {
         return (
           <GeneralShow contact={this.state.contact}
                        search={this.props.search}
-                       toggleEditMode={this.toggleGeneralEditMode.bind(this)} />
+                       toggleEditMode={this.toggleGeneralEditMode.bind(this)}
+                       reloadFromBackend={this.reloadFromBackend.bind(this)} />
         )
       }
     }

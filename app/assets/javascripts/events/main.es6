@@ -134,13 +134,13 @@ class Main extends React.Component {
     if(!this.props.params.id) {
       return (
         <Events events={this.state.events}
-                       loaded={this.state.loaded}
-                       search={this.props.location.search}
-                       loadingImagePath={this.props.loadingImagePath}
-                       infiniteEnabled={this.state.infiniteEnabled}
-                       infiniteScrollOffset={this.state.infiniteScrollOffset}
-                       infiniteLoaded={this.state.infiniteLoaded}
-                       loadNextBatchFromBackend={this.loadNextBatchFromBackend.bind(this)} />
+                loaded={this.state.loaded}
+                search={this.props.location.search}
+                loadingImagePath={this.props.loadingImagePath}
+                infiniteEnabled={this.state.infiniteEnabled}
+                infiniteScrollOffset={this.state.infiniteScrollOffset}
+                infiniteLoaded={this.state.infiniteLoaded}
+                loadNextBatchFromBackend={this.loadNextBatchFromBackend.bind(this)} />
       )
     }
   }
@@ -149,10 +149,10 @@ class Main extends React.Component {
     if(this.props.params.id) {
       return (
         <Event id={this.props.params.id}
-                      eventsPath={this.props.eventsPath}
-                      search={this.props.location.search}
-                      loadingImagePath={this.props.loadingImagePath}
-                      contactOptionsPath={this.props.contactOptionsPath} />
+               eventsPath={this.props.eventsPath}
+               search={this.props.location.search}
+               loadingImagePath={this.props.loadingImagePath}
+               contactOptionsPath={this.props.contactOptionsPath} />
       )
     }
   }
