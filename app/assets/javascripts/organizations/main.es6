@@ -10,7 +10,8 @@ class Main extends React.Component {
     super(props);
 
     this.filterNames = [
-      'quickSearch', 'name', 'status', 'description', 'websiteUrl'
+      'quickSearch', 'name', 'status', 'description', 'websiteUrl',
+      'contactIds'
     ];
 
     this.state = {
@@ -103,6 +104,7 @@ class Main extends React.Component {
           <div className="col-md-4 pull-right complete-search">
             <AdvancedSearch filters={advancedSearchFilters}
                             updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)}
+                            contactOptionsPath={this.props.contactOptionsPath}
                             organizationStatusesOptionsPath={this.props.organizationStatusesOptionsPath} />
           </div>
 

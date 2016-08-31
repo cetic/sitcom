@@ -1,4 +1,5 @@
 import StatusSelect from './status_select.es6'
+import ItemsSelect  from '../../shared/items_select.es6'
 
 class AdvancedSearch extends React.Component {
   constructor(props) {
@@ -27,6 +28,12 @@ class AdvancedSearch extends React.Component {
     });
   }
 
+  updateContactIds(value) {
+    this.props.updateAdvancedSearchFilters({
+      contactIds: value
+    });
+  }
+
   render() {
     return (
       <div>
@@ -37,6 +44,7 @@ class AdvancedSearch extends React.Component {
         {this.renderStatusFilter()}
         {this.renderDescriptionFilter()}
         {this.renderWebsiteUrlFilter()}
+        {this.renderContactsFilter()}
       </div>
     );
   }
@@ -54,19 +62,9 @@ class AdvancedSearch extends React.Component {
   }
 
   renderStatusFilter() {
-
-    // <input type="text"
-    //        id="organizations_status"
-    //        value={this.state.status}
-    //        onChange={this.updateTextFilter.bind(this, 'status')} />
-
     return (
       <div>
         <label htmlFor="organizations_status">Statut</label><br />
-
-
-
-
 
         <StatusSelect optionsPath={this.props.organizationStatusesOptionsPath}
                       value={this.state.status}
@@ -96,6 +94,15 @@ class AdvancedSearch extends React.Component {
                value={this.state.websiteUrl}
                onChange={this.updateTextFilter.bind(this, 'websiteUrl')} />
       </div>
+    );
+  }
+
+  renderContactsFilter() {
+    return (
+      <ItemsSelect itemIds={this.props.filters.contactIds}
+                   optionsPath={this.props.contactOptionsPath}
+                   updateValue={this.updateContactIds.bind(this)}
+                   label="Contacts" />
     );
   }
 

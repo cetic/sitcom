@@ -74,26 +74,10 @@ class AdvancedSearch extends React.Component {
         {this.renderAddressFilter()}
         {this.renderPhoneFilter()}
         {this.renderActiveInactiveFilter()}
-
-        <ItemsSelect itemIds={this.props.filters.organizationIds}
-                      optionsPath={this.props.organizationOptionsPath}
-                      updateValue={this.updateOrganizationIds.bind(this)}
-                      label="Organisations" />
-
-        <ItemsSelect itemIds={this.props.filters.fieldIds}
-                      optionsPath={this.props.fieldOptionsPath}
-                      updateValue={this.updateFieldIds.bind(this)}
-                      label="Domaines d'expertise" />
-
-        <ItemsSelect itemIds={this.props.filters.eventIds}
-                      optionsPath={this.props.eventOptionsPath}
-                      updateValue={this.updateEventIds.bind(this)}
-                      label="Evènements" />
-
-        <ItemsSelect itemIds={this.props.filters.projectIds}
-                      optionsPath={this.props.projectOptionsPath}
-                      updateValue={this.updateProjectIds.bind(this)}
-                      label="Projets" />
+        {this.renderOrganizationsFilter()}
+        {this.renderFieldsFilter()}
+        {this.renderEventsFilter()}
+        {this.renderProjectsFilter()}
       </div>
     );
   }
@@ -181,6 +165,43 @@ class AdvancedSearch extends React.Component {
       </div>
     )
   }
+
+  renderOrganizationsFilter() {
+    return (
+      <ItemsSelect itemIds={this.props.filters.organizationIds}
+                   optionsPath={this.props.organizationOptionsPath}
+                   updateValue={this.updateOrganizationIds.bind(this)}
+                   label="Organisations" />
+    );
+  }
+
+  renderFieldsFilter() {
+    return (
+      <ItemsSelect itemIds={this.props.filters.fieldIds}
+                   optionsPath={this.props.fieldOptionsPath}
+                   updateValue={this.updateFieldIds.bind(this)}
+                   label="Domaines d'expertise" />
+    );
+  }
+
+  renderEventsFilter() {
+    return (
+      <ItemsSelect itemIds={this.props.filters.eventIds}
+                   optionsPath={this.props.eventOptionsPath}
+                   updateValue={this.updateEventIds.bind(this)}
+                   label="Evènements" />
+    );
+  }
+
+  renderProjectsFilter() {
+    return (
+      <ItemsSelect itemIds={this.props.filters.projectIds}
+                   optionsPath={this.props.projectOptionsPath}
+                   updateValue={this.updateProjectIds.bind(this)}
+                   label="Projets" />
+    );
+  }
+
 }
 
 module.exports = AdvancedSearch
