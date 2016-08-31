@@ -89,11 +89,14 @@ class GeneralShow extends React.Component {
   }
 
   renderOrganizations() {
-    return _.map(this.props.contact.organizations, (organization) => {
+    return _.map(this.props.contact.organizations, (organization, i) => {
       return (
-        <Link to={'/organizations/' + organization.id} key={organization.id}>
-          {organization.name}
-        </Link>
+        <span key={organization.id}>
+          <Link to={'/organizations/' + organization.id}>
+            {organization.name}
+          </Link>
+          { this.props.contact.organizations.length - 1 == i ? '' : ','}
+        </span>
       )
     })
   }

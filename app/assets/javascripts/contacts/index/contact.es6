@@ -72,9 +72,16 @@ class Contact extends React.Component {
   }
 
   renderOrganizations() {
-    return _.map(this.props.contact.organizations, (organization) => {
-      return organization.name
-    }).join(', ')
+    return _.map(this.props.contact.organizations, (organization, i) => {
+      return (
+        <span key={organization.id}>
+          <Link to={'/organizations/' + organization.id}>
+            { organization.name }
+          </Link>
+          { this.props.contact.organizations.length - 1 == i ? '' : ', '}
+        </span>
+      )
+    })
   }
 
   renderFieldsContainer() {
