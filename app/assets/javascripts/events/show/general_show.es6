@@ -1,3 +1,5 @@
+import EventDate from '../shared/event_date.es6'
+
 class GeneralShow extends React.Component {
   constructor(props) {
     super(props);
@@ -24,6 +26,8 @@ class GeneralShow extends React.Component {
             <h1>
               { this.props.event.name }
             </h1>
+
+            <EventDate event={this.props.event} />
           </div>
         </div>
 

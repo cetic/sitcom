@@ -1,3 +1,5 @@
+import ProjectDates from '../shared/project_dates.es6'
+
 class GeneralShow extends React.Component {
   constructor(props) {
     super(props);
@@ -24,6 +26,8 @@ class GeneralShow extends React.Component {
             <h1>
               { this.props.project.name }
             </h1>
+
+            <ProjectDates project={this.props.project} />
           </div>
         </div>
 

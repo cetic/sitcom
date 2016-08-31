@@ -1,3 +1,5 @@
+import ProjectDates from '../shared/project_dates.es6'
+
 class Project extends React.Component {
   constructor(props) {
     super(props);
@@ -16,7 +18,7 @@ class Project extends React.Component {
           </span>
 
           <span className="dates">
-            { this.renderDates() }
+            <ProjectDates project={this.props.project} />
           </span>
 
           <span className="contacts">
@@ -35,17 +37,6 @@ class Project extends React.Component {
         <img className="img-thumbnail" src={this.props.project.previewPictureUrl} />
       </div>
     )
-  }
-
-  renderDates() {
-    if(this.props.project.startDate || this.props.endDate) {
-      var startDateSpan = <span>{moment(this.props.project.startDate).format('DD/MM/YYYY')}</span>;
-      var endDateSpan   = <span>{moment(this.props.project.endDate  ).format('DD/MM/YYYY')}</span>;
-
-      return (
-        <div>{startDateSpan}&nbsp;&rarr;&nbsp;{endDateSpan}</div>
-      )
-    }
   }
 
   renderContacts() {

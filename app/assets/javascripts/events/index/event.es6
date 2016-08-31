@@ -1,3 +1,5 @@
+import EventDate from '../shared/event_date.es6'
+
 class Event extends React.Component {
   constructor(props) {
     super(props);
@@ -16,7 +18,7 @@ class Event extends React.Component {
           </span>
 
           <span className="dates">
-            { this.renderDate() }
+            <EventDate event={this.props.event} />
           </span>
 
           <span className="contacts">
@@ -35,14 +37,6 @@ class Event extends React.Component {
         <img className="img-thumbnail" src={this.props.event.previewPictureUrl} />
       </div>
     )
-  }
-
-  renderDate() {
-    if(this.props.event.happensOn) {
-      return (
-        <div>{moment(this.props.event.happensOn).format('DD/MM/YYYY')}</div>
-      )
-    }
   }
 
   renderContacts() {
