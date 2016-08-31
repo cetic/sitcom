@@ -98,6 +98,7 @@ class OrganizationsController < ApplicationController
   def strong_params
     params.require(:organization).permit(
       :name, :status, :description, :website_url,
+      :picture,
       :contact_ids => []
     )
   end

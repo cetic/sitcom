@@ -69,8 +69,8 @@ class Project extends React.Component {
       if(this.state.generalEditMode) {
         return (
           <GeneralEdit project={this.state.project}
-                       projectPath={this.projectPath()}
                        search={this.props.search}
+                       projectPath={this.projectPath()}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)}
                        reloadFromBackend={this.reloadFromBackend.bind(this)} />
         );
@@ -79,7 +79,9 @@ class Project extends React.Component {
         return (
           <GeneralShow project={this.state.project}
                        search={this.props.search}
-                       toggleEditMode={this.toggleGeneralEditMode.bind(this)} />
+                       projectPath={this.projectPath()}
+                       toggleEditMode={this.toggleGeneralEditMode.bind(this)}
+                       reloadFromBackend={this.reloadFromBackend.bind(this)} />
         )
       }
     }

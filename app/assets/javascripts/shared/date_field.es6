@@ -1,6 +1,6 @@
 import DatePicker from 'react-datepicker'
 
-export default class extends React.Component {
+class DateField extends React.Component {
 
   constructor(props) {
     super(props);
@@ -61,5 +61,6 @@ export default class extends React.Component {
                   onChange={this.updateValue.bind(this)} />
     );
   }
-
 }
+
+module.exports = DateField

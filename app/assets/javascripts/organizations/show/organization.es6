@@ -70,8 +70,8 @@ class Organization extends React.Component {
       if(this.state.generalEditMode) {
         return (
           <GeneralEdit organization={this.state.organization}
-                       organizationPath={this.organizationPath()}
                        search={this.props.search}
+                       organizationPath={this.organizationPath()}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)}
                        reloadFromBackend={this.reloadFromBackend.bind(this)} />
         );
@@ -80,7 +80,9 @@ class Organization extends React.Component {
         return (
           <GeneralShow organization={this.state.organization}
                        search={this.props.search}
-                       toggleEditMode={this.toggleGeneralEditMode.bind(this)} />
+                       organizationPath={this.organizationPath()}
+                       toggleEditMode={this.toggleGeneralEditMode.bind(this)}
+                       reloadFromBackend={this.reloadFromBackend.bind(this)} />
         )
       }
     }

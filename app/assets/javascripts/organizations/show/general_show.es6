@@ -1,3 +1,5 @@
+import CustomDropzone from '../../shared/custom_dropzone.es6'
+
 class GeneralShow extends React.Component {
   constructor(props) {
     super(props);
@@ -46,12 +48,13 @@ class GeneralShow extends React.Component {
 
   renderPicture() {
     return (
-      <div className="picture">
+      <CustomDropzone url={this.props.organizationPath}
+                      afterSuccess={this.props.reloadFromBackend}
+                      acceptedFiles="image/*">
         <img className="img-thumbnail" src={this.props.organization.pictureUrl} />
-      </div>
+      </CustomDropzone>
     )
   }
-
 }
 
 module.exports = GeneralShow

@@ -1,4 +1,4 @@
-import Dropzone from 'dropzone'
+import CustomDropzone from '../../shared/custom_dropzone.es6'
 
 class GeneralShow extends React.Component {
   constructor(props) {
@@ -7,35 +7,6 @@ class GeneralShow extends React.Component {
     this.state = {
 
     };
-  }
-
-  componentDidMount() {
-    var uploadPercentageSelector = $('.upload-percentage')
-    var uploadTextSelector       = $('.upload-text')
-
-    uploadPercentageSelector.hide()
-    uploadTextSelector.hide()
-
-    $(this.refs.dropzone).dropzone({
-      url:                   ".",
-      paramName:             'picture',
-      createImageThumbnails: false,
-      clickable:             true,
-      acceptedFiles:         "image/*",
-      method:                'put',
-      accept:                (file, done)      => { done() },
-      success:               (file, message)   => { uploadPercentageSelector.hide(); this.props.reloadFromBackend() },
-      error:                 (file, message)   => { console.log(message) },
-      uploadprogress:        (file, progress)  => { uploadPercentageSelector.text("Upload: " + progress.toFixed(0) + '%') },
-      drop:                  (event)           => { uploadTextSelector.hide(); uploadPercentageSelector.show(); },
-      addedfile:             (event)           => { uploadPercentageSelector.show() },
-      dragover:              (event)           => { uploadTextSelector.show() },
-      dragleave:             (event)           => { uploadTextSelector.hide() },
-      previewTemplate:       '<div id="preview-template" style="display: none;"></div>',
-      headers: {
-        "X-CSRF-Token" : $('meta[name="csrf-token"]').attr('content')
-      }
-    });
   }
 
   render() {
@@ -102,16 +73,11 @@ class GeneralShow extends React.Component {
 
   renderPicture() {
     return (
-      <div className="picture" ref="dropzone">
+      <CustomDropzone url={this.props.contactPath}
+                      afterSuccess={this.props.reloadFromBackend}
+                      acceptedFiles="image/*">
         <img className="img-thumbnail" src={this.props.contact.pictureUrl} />
-        <div className="upload-text">
-          Déposez l'image ici.
-        </div>
-
-        <div className="upload-percentage">
-          Upload en cours: 0%
-        </div>
-      </div>
+      </CustomDropzone>
     )
   }
 

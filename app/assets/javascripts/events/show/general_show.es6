@@ -1,4 +1,5 @@
-import EventDate from '../shared/event_date.es6'
+import EventDate      from '../shared/event_date.es6'
+import CustomDropzone from '../../shared/custom_dropzone.es6'
 
 class GeneralShow extends React.Component {
   constructor(props) {
@@ -49,12 +50,13 @@ class GeneralShow extends React.Component {
 
   renderPicture() {
     return (
-      <div className="picture">
+      <CustomDropzone url={this.props.eventPath}
+                      afterSuccess={this.props.reloadFromBackend}
+                      acceptedFiles="image/*">
         <img className="img-thumbnail" src={this.props.event.pictureUrl} />
-      </div>
+      </CustomDropzone>
     )
   }
-
 }
 
 module.exports = GeneralShow
