@@ -108,7 +108,7 @@ class GeneralEdit extends React.Component {
   renderPicture() {
     return (
       <div className="picture">
-        <img className="img-thumbnail" src={this.props.project.pictureUrl} />
+        <img className="img-thumbnail" src={this.props.project.previewPictureUrl} />
       </div>
     )
   }

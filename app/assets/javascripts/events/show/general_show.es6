@@ -53,7 +53,7 @@ class GeneralShow extends React.Component {
       <CustomDropzone url={this.props.eventPath}
                       afterSuccess={this.props.reloadFromBackend}
                       acceptedFiles="image/*">
-        <img className="img-thumbnail" src={this.props.event.pictureUrl} />
+        <img className="img-thumbnail" src={this.props.event.previewPictureUrl} />
       </CustomDropzone>
     )
   }

@@ -89,7 +89,7 @@ class ContactsBlock extends React.Component {
   renderItem(contact) {
     return (
       <div className="col-md-6 contact" key={contact.id}>
-        <img className="img-thumbnail" src={contact.pictureUrl} />
+        <img className="img-thumbnail" src={contact.previewPictureUrl} />
         <h4>
           <Link to={contact.scopedPath}>{contact.name}</Link>
         </h4>

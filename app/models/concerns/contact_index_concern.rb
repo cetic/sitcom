@@ -42,7 +42,9 @@ module ContactIndexConcern
       :twitter_url  => twitter_url,
       :linkedin_url => linkedin_url,
       :facebook_url => facebook_url,
-      :picture_url  => picture_url,
+
+      :picture_url         => picture_url,
+      :preview_picture_url => picture.url(:preview),
 
       :name             => name,
       :first_name       => first_name,
