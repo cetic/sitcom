@@ -151,13 +151,24 @@ class GeneralShow extends React.Component {
   }
 
   renderEmail() {
+    var email = () => {
+      if(this.props.contact.email == '')
+        return <em>non-renseigné</em>;
+      else
+        return (
+          <a title={this.props.contact.email}
+             href={ "mailto:" + this.props.contact.email }
+             target="_blank">
+            {this.props.contact.email}
+          </a>
+        )
+    }
+
     return (
       <div className="col-md-4">
         <h3>Email</h3>
 
-        <span title={this.props.contact.email}>
-          {this.props.contact.email}
-        </span>
+        { email() }
       </div>
     )
   }
