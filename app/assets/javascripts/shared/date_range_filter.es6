@@ -53,6 +53,7 @@ class DateRangeFilter extends React.Component {
               selected={this.state.startDate}
               startDate={this.state.startDate}
               endDate={this.state.endDate}
+              maxDate={this.state.endDate}
               locale='fr-be'
               onChange={this.updateStartDate.bind(this)} />
 
@@ -63,6 +64,7 @@ class DateRangeFilter extends React.Component {
               selected={this.state.endDate}
               startDate={this.state.startDate}
               endDate={this.state.endDate}
+              minDate={this.state.startDate}
               locale='fr-be'
               onChange={this.updateEndDate.bind(this)} />
         </div>
