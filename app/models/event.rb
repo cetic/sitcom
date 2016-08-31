@@ -41,4 +41,12 @@ class Event < ApplicationRecord
   def destroy_and_index_dependent_rows
     index_dependent_rows(true)
   end
+
+  def path
+    Rails.application.routes.url_helpers.lab_event_path(lab, self)
+  end
+
+  def scoped_path
+    "#{self.class.name.parameterize.pluralize}/#{id}"
+  end
 end

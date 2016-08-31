@@ -68,6 +68,14 @@ class Contact < ApplicationRecord
     [ first_name, last_name ].join(' ')
   end
 
+  def path
+    Rails.application.routes.url_helpers.lab_contact_path(lab, self)
+  end
+
+  def scoped_path
+    "#{self.class.name.parameterize.pluralize}/#{id}"
+  end
+
   def address(html = false)
     separator = html ? '<br />' : "\n"
     [address_street, address_zip_code, address_city, address_country].reject(&:blank?).join(separator)

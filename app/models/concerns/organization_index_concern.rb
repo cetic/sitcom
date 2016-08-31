@@ -26,6 +26,9 @@ module OrganizationIndexConcern
     fields = {
       :id          => id,
       :lab_id      => lab_id,
+      :path        => path,
+      :scoped_path => scoped_path,
+
       :name        => name,
       :status      => status,
       :description => description,

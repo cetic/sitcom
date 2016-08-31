@@ -90,7 +90,9 @@ class ContactsBlock extends React.Component {
     return (
       <div className="col-md-6 contact" key={contact.id}>
         <img className="img-thumbnail" src={contact.pictureUrl} />
-        <h4>{contact.name}</h4>
+        <h4>
+          <Link to={contact.scopedPath}>{contact.name}</Link>
+        </h4>
 
         <i className="fa fa-times remove-icon"
            onClick={this.removeContact.bind(this, contact)}>

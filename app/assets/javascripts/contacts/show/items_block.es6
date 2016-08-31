@@ -87,11 +87,13 @@ class ItemsBlock extends React.Component {
     return (
       <div className="col-md-6 item" key={item.id}>
         <img className="img-thumbnail" src={item.previewPictureUrl} />
-        <h4>{item.name}</h4>
+        <h4>
+          <Link to={item.scopedPath}>{item.name}</Link>
+        </h4>
 
         <i className="fa fa-times remove-icon"
            onClick={this.removeItem.bind(this, item)}></i>
-           <br />
+        <br />
 
         {this.renderDates(item)}
 

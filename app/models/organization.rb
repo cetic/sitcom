@@ -42,4 +42,11 @@ class Organization < ApplicationRecord
     index_dependent_rows(true)
   end
 
+  def path
+    Rails.application.routes.url_helpers.lab_organization_path(lab, self)
+  end
+
+  def scoped_path
+    "#{self.class.name.parameterize.pluralize}/#{id}"
+  end
 end

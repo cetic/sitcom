@@ -24,8 +24,10 @@ module ProjectIndexConcern
 
   def as_indexed_json(options = {})
     fields = {
-      :id     => id,
-      :lab_id => lab_id,
+      :id          => id,
+      :lab_id      => lab_id,
+      :path        => path,
+      :scoped_path => scoped_path,
 
       :name                => name,
       :description         => description,
