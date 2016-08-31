@@ -5,6 +5,8 @@ class GeneralEdit extends React.Component {
     this.state = {
       name:        this.props.event.name,
       description: this.props.event.description,
+      place:       this.props.event.place,
+      websiteUrl:  this.props.event.websiteUrl,
       errors:      ''
     };
   }
@@ -15,6 +17,8 @@ class GeneralEdit extends React.Component {
       event: {
         name:        this.state.name,
         description: this.state.description,
+        place:       this.state.place,
+        websiteUrl:  this.state.websiteUrl
       }
     }
 
@@ -39,6 +43,18 @@ class GeneralEdit extends React.Component {
   updateDescription(e) {
     this.setState({
       description: e.target.value
+    })
+  }
+
+  updatePlace(e) {
+    this.setState({
+      place: e.target.value
+    })
+  }
+
+  updateWebsiteUrl(e) {
+    this.setState({
+      websiteUrl: e.target.value
     })
   }
 
@@ -67,6 +83,8 @@ class GeneralEdit extends React.Component {
 
         <div className="row row-event-infos">
           { this.renderDescription() }
+          { this.renderPlace() }
+          { this.renderWebsiteUrl() }
         </div>
 
         { this.renderActions() }
@@ -112,6 +130,32 @@ class GeneralEdit extends React.Component {
         <textarea className="description"
                   defaultValue={this.state.description}
                   onChange={this.updateDescription.bind(this)} />
+      </div>
+    )
+  }
+
+  renderPlace() {
+    return (
+      <div className="col-md-4">
+        <h3>Lieu</h3>
+
+        <input type="text"
+               className="place"
+               defaultValue={this.state.place}
+               onChange={this.updatePlace.bind(this)} />
+      </div>
+    )
+  }
+
+  renderWebsiteUrl() {
+    return (
+      <div className="col-md-4">
+        <h3>Site Web</h3>
+
+        <input type="text"
+               className="website-url"
+               defaultValue={this.state.websiteUrl}
+               onChange={this.updateWebsiteUrl.bind(this)} />
       </div>
     )
   }
