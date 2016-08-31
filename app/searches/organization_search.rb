@@ -4,7 +4,7 @@ class OrganizationSearch < BaseSearch
 
     add_quick_search(options, [ 'name', 'status', 'description', 'website_url' ])
 
-    [ 'name', 'description', 'website_url' ].each do |field|
+    [ 'name', 'status', 'description', 'website_url' ].each do |field|
       add_string_search(options, field)
     end
 

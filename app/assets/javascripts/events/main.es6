@@ -10,7 +10,7 @@ class Main extends React.Component {
     super(props);
 
     this.filterNames = [
-      'quickSearch', 'name', 'description', 'from', 'to'
+      'quickSearch', 'name', 'place', 'description', 'from', 'to'
     ];
 
     this.state = {

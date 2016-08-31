@@ -7,6 +7,7 @@ class AdvancedSearch extends React.Component {
     this.state = {
       name:         this.props.filters.name        || '',
       description:  this.props.filters.description || '',
+      place:        this.props.filters.place       || '',
     };
   }
 
@@ -26,10 +27,9 @@ class AdvancedSearch extends React.Component {
         <h4>Général</h4>
 
         {this.renderNameFilter()}
+        {this.renderPlaceFilter()}
         {this.renderDescriptionFilter()}
-
-        <DateRangeFilter filters={this.props.filters}
-                         updateAdvancedSearchFilters={this.props.updateAdvancedSearchFilters} />
+        {this.renderHappensOnFilter()}
       </div>
     );
   }
@@ -37,21 +37,40 @@ class AdvancedSearch extends React.Component {
   renderNameFilter() {
     return (
       <div>
-        <label htmlFor="organizations_name">Nom</label><br />
+        <label htmlFor="events_name">Nom</label><br />
         <input type="text"
-               id="organizations_name"
+               id="events_name"
                value={this.state.name}
                onChange={this.updateTextFilter.bind(this, 'name')} />
       </div>
     );
   }
 
+  renderPlaceFilter() {
+    return (
+      <div>
+        <label htmlFor="events_place">Lieu</label><br />
+        <input type="text"
+               id="events_place"
+               value={this.state.place}
+               onChange={this.updateTextFilter.bind(this, 'place')} />
+      </div>
+    );
+  }
+
+  renderHappensOnFilter() {
+    return (
+      <DateRangeFilter filters={this.props.filters}
+                       updateAdvancedSearchFilters={this.props.updateAdvancedSearchFilters} />
+    );
+  }
+
   renderDescriptionFilter() {
     return (
       <div>
-        <label htmlFor="organizations_description">Description</label><br />
+        <label htmlFor="events_description">Description</label><br />
         <input type="text"
-               id="organizations_description"
+               id="events_description"
                value={this.state.description}
                onChange={this.updateTextFilter.bind(this, 'description')} />
       </div>

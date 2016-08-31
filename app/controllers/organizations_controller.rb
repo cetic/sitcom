@@ -81,6 +81,10 @@ class OrganizationsController < ApplicationController
     @organizations = @lab.organizations.order(:name)
   end
 
+  def status_options
+    @statuses = @lab.organizations.pluck(:status).uniq.reject(&:blank?)
+  end
+
   protected
 
   def strong_params

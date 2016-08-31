@@ -37,9 +37,9 @@ class AdvancedSearch extends React.Component {
   renderNameFilter() {
     return (
       <div>
-        <label htmlFor="organizations_name">Nom</label><br />
+        <label htmlFor="projects_name">Nom</label><br />
         <input type="text"
-               id="organizations_name"
+               id="projects_name"
                value={this.state.name}
                onChange={this.updateTextFilter.bind(this, 'name')} />
       </div>
@@ -49,9 +49,9 @@ class AdvancedSearch extends React.Component {
   renderDescriptionFilter() {
     return (
       <div>
-        <label htmlFor="organizations_description">Description</label><br />
+        <label htmlFor="projects_description">Description</label><br />
         <input type="text"
-               id="organizations_description"
+               id="projects_description"
                value={this.state.description}
                onChange={this.updateTextFilter.bind(this, 'description')} />
       </div>

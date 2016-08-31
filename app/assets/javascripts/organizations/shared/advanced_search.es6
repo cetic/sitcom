@@ -1,9 +1,12 @@
+import StatusSelect from './status_select.es6'
+
 class AdvancedSearch extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       name:        this.props.filters.name        || '',
+      status:      this.props.filters.status      || '',
       description: this.props.filters.description || '',
       websiteUrl:  this.props.filters.websiteUrl  || ''
     };
@@ -18,6 +21,12 @@ class AdvancedSearch extends React.Component {
     })
   }
 
+  updateStatusFilter(value) {
+    this.props.updateAdvancedSearchFilters({
+      status: value
+    });
+  }
+
   render() {
     return (
       <div>
@@ -25,6 +34,7 @@ class AdvancedSearch extends React.Component {
         <h4>Général</h4>
 
         {this.renderNameFilter()}
+        {this.renderStatusFilter()}
         {this.renderDescriptionFilter()}
         {this.renderWebsiteUrlFilter()}
       </div>
@@ -39,6 +49,28 @@ class AdvancedSearch extends React.Component {
                id="organizations_name"
                value={this.state.name}
                onChange={this.updateTextFilter.bind(this, 'name')} />
+      </div>
+    );
+  }
+
+  renderStatusFilter() {
+
+    // <input type="text"
+    //        id="organizations_status"
+    //        value={this.state.status}
+    //        onChange={this.updateTextFilter.bind(this, 'status')} />
+
+    return (
+      <div>
+        <label htmlFor="organizations_status">Statut</label><br />
+
+
+
+
+
+        <StatusSelect optionsPath={this.props.organizationStatusesOptionsPath}
+                      value={this.state.status}
+                      updateValue={this.updateStatusFilter.bind(this)} />
       </div>
     );
   }

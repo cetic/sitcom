@@ -45,6 +45,7 @@ Rails.application.routes.draw do
 
       collection do
         get :options
+        get :status_options
       end
     end
 

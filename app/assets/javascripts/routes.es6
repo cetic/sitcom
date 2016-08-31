@@ -39,13 +39,16 @@ class Routes extends React.Component {
                                 eventOptionsPath={this.props.eventOptionsPath}
                                 projectOptionsPath={this.props.projectOptionsPath}
                                 loadingImagePath={this.props.loadingImagePath}>
+
           <Route path=":id" component={ContactsWrapper} />
         </Route>
 
         <Route path="/organizations" component={OrganizationsWrapper}
                                      organizationsPath={this.props.organizationsPath}
                                      contactOptionsPath={this.props.contactOptionsPath}
-                                     loadingImagePath={this.props.loadingImagePath}>
+                                     loadingImagePath={this.props.loadingImagePath}
+                                     organizationStatusesOptionsPath={this.props.organizationStatusesOptionsPath}>
+
           <Route path=":id" component={OrganizationsWrapper} />
         </Route>
 
@@ -53,6 +56,7 @@ class Routes extends React.Component {
                                 projectsPath={this.props.projectsPath}
                                 contactOptionsPath={this.props.contactOptionsPath}
                                 loadingImagePath={this.props.loadingImagePath}>
+
           <Route path=":id" component={ProjectsWrapper} />
         </Route>
 
@@ -60,6 +64,7 @@ class Routes extends React.Component {
                               eventsPath={this.props.eventsPath}
                               contactOptionsPath={this.props.contactOptionsPath}
                               loadingImagePath={this.props.loadingImagePath}>
+
           <Route path=":id" component={EventsWrapper} />
         </Route>
       </Router>
