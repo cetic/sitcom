@@ -13,4 +13,4 @@ class EventDate extends React.Component {
   }
 }
 
-export default EventDate;
+module.exports = EventDate;

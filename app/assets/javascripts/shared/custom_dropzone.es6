@@ -56,4 +56,4 @@ class CustomDropzone extends React.Component {
   }
 }
 
-export default CustomDropzone
+module.exports = CustomDropzone

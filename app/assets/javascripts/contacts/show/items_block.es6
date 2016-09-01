@@ -135,4 +135,4 @@ class ItemsBlock extends React.Component {
 
 }
 
-export default ItemsBlock
+module.exports = ItemsBlock

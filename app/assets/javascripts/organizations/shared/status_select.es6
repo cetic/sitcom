@@ -60,4 +60,4 @@ class StatusSelect extends React.Component {
   }
 }
 
-export default StatusSelect
+module.exports = StatusSelect

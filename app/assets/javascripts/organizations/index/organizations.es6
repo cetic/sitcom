@@ -75,4 +75,4 @@ class Organizations extends React.Component {
   }
 }
 
-export default Organizations
+module.exports = Organizations

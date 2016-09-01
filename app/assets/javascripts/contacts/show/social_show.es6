@@ -70,4 +70,4 @@ class SocialShow extends React.Component {
   }
 }
 
-export default SocialShow
+module.exports = SocialShow

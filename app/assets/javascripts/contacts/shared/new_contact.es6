@@ -128,4 +128,4 @@ class NewContact extends React.Component {
   }
 }
 
-export default NewContact
+module.exports = NewContact

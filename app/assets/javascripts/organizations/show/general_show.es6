@@ -57,4 +57,4 @@ class GeneralShow extends React.Component {
   }
 }
 
-export default GeneralShow
+module.exports = GeneralShow

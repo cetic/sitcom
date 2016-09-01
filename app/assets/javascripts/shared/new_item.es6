@@ -106,4 +106,4 @@ class NewItem extends React.Component {
   }
 }
 
-export default NewItem
+module.exports = NewItem

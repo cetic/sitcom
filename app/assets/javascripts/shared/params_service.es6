@@ -6,4 +6,4 @@ class ParamsService {
   }
 }
 
-export default ParamsService
+module.exports = ParamsService

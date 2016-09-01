@@ -83,4 +83,4 @@ class ItemsSelect extends React.Component {
   }
 }
 
-export default ItemsSelect
+module.exports = ItemsSelect

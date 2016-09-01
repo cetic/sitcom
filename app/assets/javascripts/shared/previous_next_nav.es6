@@ -58,4 +58,4 @@ class PreviousNextNav extends React.Component {
 
 }
 
-export default PreviousNextNav
+module.exports = PreviousNextNav
