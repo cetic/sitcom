@@ -153,7 +153,8 @@ class Main extends React.Component {
                       organizationsPath={this.props.organizationsPath}
                       search={this.props.location.search}
                       loadingImagePath={this.props.loadingImagePath}
-                      contactOptionsPath={this.props.contactOptionsPath} />
+                      contactOptionsPath={this.props.contactOptionsPath}
+                      reloadIndexFromBackend={this.reloadFromBackend.bind(this)} />
       )
     }
   }

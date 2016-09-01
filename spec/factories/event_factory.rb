@@ -7,6 +7,5 @@ FactoryGirl.define do
     place              { Faker::Address.city }
     description        { Faker::Lorem.sentence }
     website_url        { "http://www.#{name}.com" }
-    remote_picture_url { Faker::Placeholdit.image }
   end
 end

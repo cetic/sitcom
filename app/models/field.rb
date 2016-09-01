@@ -17,21 +17,19 @@ class Field < ApplicationRecord
   validates :name, :presence   => { :message => "Le nom est obligatoire."  },
                    :uniqueness => { :message => "Ce nom est déjà utilisé.", :scope => :parent_id }
 
+  # Callbacks
+
+  after_commit on: [:create, :update] do
+    contacts.import
+  end
+
+  around_destroy do
+    saved_contact_ids = contacts.pluck(:id)
+    yield
+    Contact.where(:id => saved_contact_ids).import
+  end
+
   # Methods
-
-  def index_dependent_rows(and_destroy = false)
-    saved_contact_ids = contact_ids
-
-    destroy! if and_destroy
-
-    Contact.where(id: saved_contact_ids).each do |row|
-      row.__elasticsearch__.index_document
-    end
-  end
-
-  def destroy_and_index_dependent_rows
-    index_dependent_rows(true)
-  end
 
   def as_indexed_json(options = {})
     {

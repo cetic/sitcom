@@ -40,7 +40,6 @@ class OrganizationsController < ApplicationController
         @organization = @lab.organizations.new(strong_params)
 
         if @organization.save
-          @organization.index_dependent_rows
           render_json_success({ :organization => @organization.as_indexed_json })
         else
           render_json_errors(@organization)
@@ -55,7 +54,6 @@ class OrganizationsController < ApplicationController
         @organization = @lab.organizations.find(params[:id])
 
         if @organization.update_attributes(strong_params)
-          @organization.index_dependent_rows
           render_json_success
         else
           render_json_errors(@organization)
@@ -69,7 +67,7 @@ class OrganizationsController < ApplicationController
       format.json do
         @organization = @lab.organizations.find(params[:id])
 
-        if @organization.destroy_and_index_dependent_rows
+        if @organization.destroy
           render_json_success
         else
           render_json_errors(@organization)

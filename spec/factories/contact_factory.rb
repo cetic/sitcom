@@ -11,7 +11,7 @@ FactoryGirl.define do
     address_country    { Faker::Address.country }
     phone              { Faker::PhoneNumber.phone_number }
     active             { rand(2) == 1 }
-    remote_picture_url { rand(5) == 1 ? Faker::Avatar.image : '' }
+    remote_picture_url { rand(5) == 1 ? Faker::Avatar.image : '' } # some pictures instead of placeholders (default)
 
     twitter_url  { rand(2) == 1 ? "http://twitter.com/#{Faker::Internet.user_name}"  : '' }
     linkedin_url { rand(2) == 1 ? "http://linkedin.com/#{Faker::Internet.user_name}" : '' }

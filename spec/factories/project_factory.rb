@@ -6,6 +6,5 @@ FactoryGirl.define do
     description        { Faker::Lorem.sentence }
     start_date         { Faker::Time.between(DateTime.now - 3.months, DateTime.now + 3.months) }
     end_date           { Faker::Time.between(start_date, start_date + 2.weeks) }
-    remote_picture_url { Faker::Placeholdit.image }
   end
 end

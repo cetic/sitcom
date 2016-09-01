@@ -40,30 +40,6 @@ class Contact < ApplicationRecord
 
   # Methods
 
-  def index_dependent_rows(and_destroy = false)
-    saved_organization_ids = organization_ids
-    saved_event_ids        = event_ids
-    saved_project_ids      = project_ids
-
-    destroy! if and_destroy
-
-    Organization.where(id: saved_organization_ids).each do |row|
-      row.__elasticsearch__.index_document
-    end
-
-    Event.where(id: saved_event_ids).each do |row|
-      row.__elasticsearch__.index_document
-    end
-
-    Project.where(id: saved_project_ids).each do |row|
-      row.__elasticsearch__.index_document
-    end
-  end
-
-  def destroy_and_index_dependent_rows
-    index_dependent_rows(true)
-  end
-
   def name
     [ first_name, last_name ].join(' ')
   end
@@ -81,12 +57,12 @@ class Contact < ApplicationRecord
     [address_street, address_zip_code, address_city, address_country].reject(&:blank?).join(separator)
   end
 
-  def picture_url
+  def picture_url(size = nil)
     if picture.present?
-      picture.url
+      size ? picture.url(size) : picture.url
     else
       txt = "#{first_name.first}#{last_name.first}"
-      "https://placeholdit.imgix.net/~text?txtsize=33&txt=#{txt}&w=130&h=130"
+      "https://placeholdit.imgix.net/~text?txtsize=68&txt=#{txt}&w=200&h=200"
     end
   end
 end

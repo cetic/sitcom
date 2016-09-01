@@ -70,7 +70,8 @@ class Event extends React.Component {
                        search={this.props.search}
                        eventPath={this.eventPath()}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)}
-                       reloadFromBackend={this.reloadFromBackend.bind(this)} />
+                       reloadFromBackend={this.reloadFromBackend.bind(this)}
+                       reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
         );
       }
       else {
@@ -92,7 +93,8 @@ class Event extends React.Component {
                        parentType="event"
                        parentPath={this.eventPath()}
                        optionsPath={this.props.contactOptionsPath}
-                       reloadFromBackend={this.reloadFromBackend.bind(this)} />
+                       reloadFromBackend={this.reloadFromBackend.bind(this)}
+                       reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
       );
     }
   }

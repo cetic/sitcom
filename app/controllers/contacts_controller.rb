@@ -40,7 +40,6 @@ class ContactsController < ApplicationController
         @contact = @lab.contacts.new(strong_params)
 
         if @contact.save
-          @contact.index_dependent_rows
           render_json_success({ :contact => @contact.as_indexed_json })
         else
           render_json_errors(@contact)
@@ -55,7 +54,6 @@ class ContactsController < ApplicationController
         @contact = @lab.contacts.find(params[:id])
 
         if @contact.update_attributes(strong_params)
-          @contact.index_dependent_rows
           render_json_success
         else
           render_json_errors(@contact)
@@ -69,7 +67,7 @@ class ContactsController < ApplicationController
       format.json do
         @contact = @lab.contacts.find(params[:id])
 
-        if @contact.destroy_and_index_dependent_rows
+        if @contact.destroy
           render_json_success
         else
           render_json_errors(@contact)

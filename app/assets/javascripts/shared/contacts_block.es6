@@ -46,7 +46,9 @@ class ContactsBlock extends React.Component {
     params[this.props.parentType].contactIds = contactIds;
 
     http.put(this.props.parentPath, params, () => {
-      this.props.reloadFromBackend();
+      this.props.reloadFromBackend(() => {
+        setTimeout(this.props.reloadIndexFromBackend, 1500)
+      })
     });
   }
 

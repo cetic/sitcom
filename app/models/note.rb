@@ -17,21 +17,19 @@ class Note < ApplicationRecord
 
   validates :text, :presence => { :message => 'Le texte est obligaroire.' }
 
+  # Callbacks
+
+  after_commit on: [:create, :update] do
+    notable.__elasticsearch__.index_document
+  end
+
+  around_destroy do
+    saved_notable_id = notable_id
+    yield
+    notable.__elasticsearch__.index_document
+  end
+
   # Methods
-
-  def index_dependent_rows(and_destroy = false)
-    saved_contact_ids = [contact_id]
-
-    destroy! if and_destroy
-
-    Contact.where(id: saved_contact_ids).each do |row|
-      row.__elasticsearch__.index_document
-    end
-  end
-
-  def destroy_and_index_dependent_rows
-    index_dependent_rows(true)
-  end
 
   def as_indexed_json(options = {})
     {

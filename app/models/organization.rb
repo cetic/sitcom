@@ -28,25 +28,20 @@ class Organization < ApplicationRecord
 
   # Methods
 
-  def index_dependent_rows(and_destroy = false)
-    saved_contact_ids = contact_ids
-
-    destroy! if and_destroy
-
-    Contact.where(id: saved_contact_ids).each do |row|
-      row.__elasticsearch__.index_document
-    end
-  end
-
-  def destroy_and_index_dependent_rows
-    index_dependent_rows(true)
-  end
-
   def path
     Rails.application.routes.url_helpers.lab_organization_path(lab, self)
   end
 
   def scoped_path
     "#{self.class.name.parameterize.pluralize}/#{id}"
+  end
+
+  def picture_url(size = nil)
+    if picture.present?
+      size ? picture.url(size) : picture.url
+    else
+      txt = "#{name.first}"
+      "https://placeholdit.imgix.net/~text?txtsize=68&txt=#{txt}&w=200&h=200"
+    end
   end
 end

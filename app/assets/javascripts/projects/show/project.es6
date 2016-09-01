@@ -70,7 +70,8 @@ class Project extends React.Component {
                        search={this.props.search}
                        projectPath={this.projectPath()}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)}
-                       reloadFromBackend={this.reloadFromBackend.bind(this)} />
+                       reloadFromBackend={this.reloadFromBackend.bind(this)}
+                       reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
         );
       }
       else {
@@ -92,7 +93,8 @@ class Project extends React.Component {
                        parentType="project"
                        parentPath={this.projectPath()}
                        optionsPath={this.props.contactOptionsPath}
-                       reloadFromBackend={this.reloadFromBackend.bind(this)} />
+                       reloadFromBackend={this.reloadFromBackend.bind(this)}
+                       reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
       );
     }
   }

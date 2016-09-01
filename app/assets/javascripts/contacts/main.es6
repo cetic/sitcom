@@ -164,8 +164,9 @@ class Main extends React.Component {
                  projectOptionsPath={this.props.projectOptionsPath}
                  contacts={this.state.contacts}
                  router={this.props.router}
+                 infiniteEnabled={this.state.infiniteEnabled}
                  loadNextBatchFromBackend={this.loadNextBatchFromBackend.bind(this)}
-                 infiniteEnabled={this.state.infiniteEnabled} />
+                 reloadIndexFromBackend={this.reloadFromBackend.bind(this)} />
       )
     }
   }

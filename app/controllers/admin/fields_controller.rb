@@ -19,7 +19,6 @@ class Admin::FieldsController < Admin::BaseController
     @field = Field.new(strong_params)
 
     if @field.save
-      @field.index_dependent_rows
       redirect_to admin_fields_path
     else
       set_flash_now_errors(@field)
@@ -33,7 +32,6 @@ class Admin::FieldsController < Admin::BaseController
 
   def update
     if @field.update(strong_params)
-      @field.index_dependent_rows
       redirect_to admin_fields_path
     else
       set_flash_now_errors(@field)
@@ -42,7 +40,7 @@ class Admin::FieldsController < Admin::BaseController
   end
 
   def destroy
-    @field.destroy_and_index_dependent_rows
+    @field.destroy
     redirect_to admin_fields_path
   end
 

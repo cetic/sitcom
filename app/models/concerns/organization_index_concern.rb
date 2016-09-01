@@ -20,6 +20,22 @@ module OrganizationIndexConcern
         indexes :sort_name, :analyzer => :sortable_string_analyzer
       end
     end
+
+    after_commit on: [:create, :update] do
+      __elasticsearch__.index_document
+
+      contacts.import
+    end
+
+    around_destroy do
+      saved_contact_ids = contacts.pluck(:id)
+
+      yield
+
+      __elasticsearch__.delete_document
+
+      Contact.where(:id => saved_contact_ids).import
+    end
   end
 
   def as_indexed_json(options = {})
@@ -34,8 +50,8 @@ module OrganizationIndexConcern
       :description => description,
       :website_url => website_url,
 
-      :picture_url         => picture.url,
-      :preview_picture_url => picture.url(:preview),
+      :picture_url         => picture_url,
+      :preview_picture_url => picture_url(:preview),
 
       :contact_ids => contact_ids,
 

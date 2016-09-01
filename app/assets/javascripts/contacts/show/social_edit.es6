@@ -19,7 +19,10 @@ class SocialEdit extends React.Component {
     }
 
     http.put(this.props.contactPath, params, (data) => {
-      this.props.reloadFromBackend(this.props.toggleEditMode)
+      this.props.reloadFromBackend(() => {
+        this.props.toggleEditMode()
+        setTimeout(this.props.reloadIndexFromBackend, 1500)
+      })
     });
   }
 

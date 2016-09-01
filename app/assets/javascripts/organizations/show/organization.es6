@@ -70,7 +70,8 @@ class Organization extends React.Component {
                        search={this.props.search}
                        organizationPath={this.organizationPath()}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)}
-                       reloadFromBackend={this.reloadFromBackend.bind(this)} />
+                       reloadFromBackend={this.reloadFromBackend.bind(this)}
+                       reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
         );
       }
       else {
@@ -92,7 +93,8 @@ class Organization extends React.Component {
                        parentType="organization"
                        parentPath={this.organizationPath()}
                        optionsPath={this.props.contactOptionsPath}
-                       reloadFromBackend={this.reloadFromBackend.bind(this)} />
+                       reloadFromBackend={this.reloadFromBackend.bind(this)}
+                       reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
       );
     }
   }

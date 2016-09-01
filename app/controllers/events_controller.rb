@@ -40,7 +40,6 @@ class EventsController < ApplicationController
         @event = @lab.events.new(strong_params)
 
         if @event.save
-          @event.index_dependent_rows
           render_json_success({ :event => @event.as_indexed_json })
         else
           render_json_errors(@event)
@@ -55,7 +54,6 @@ class EventsController < ApplicationController
         @event = @lab.events.find(params[:id])
 
         if @event.update_attributes(strong_params)
-          @event.index_dependent_rows
           render_json_success
         else
           render_json_errors(@event)
@@ -69,7 +67,7 @@ class EventsController < ApplicationController
       format.json do
         @event = @lab.events.find(params[:id])
 
-        if @event.destroy_and_index_dependent_rows
+        if @event.destroy
           render_json_success
         else
           render_json_errors(@event)

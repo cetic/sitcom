@@ -94,7 +94,8 @@ class Contact extends React.Component {
                        organizationOptionsPath={this.props.organizationOptionsPath}
                        fieldOptionsPath={this.props.fieldOptionsPath}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)}
-                       reloadFromBackend={this.reloadFromBackend.bind(this)} />
+                       reloadFromBackend={this.reloadFromBackend.bind(this)}
+                       reloadIndexFromBackend={this.props.reloadIndexFromBackend}  />
         );
       }
       else {
@@ -117,7 +118,8 @@ class Contact extends React.Component {
           <SocialEdit contact={this.state.contact}
                       contactPath={this.contactPath()}
                       toggleEditMode={this.toggleSocialEditMode.bind(this)}
-                      reloadFromBackend={this.reloadFromBackend.bind(this)} />
+                      reloadFromBackend={this.reloadFromBackend.bind(this)}
+                      reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
         )
       }
       else {
@@ -135,12 +137,13 @@ class Contact extends React.Component {
         <ItemsBlock label="Projets"
                     fieldName="projectIds"
                     items={this.state.contact.projects}
-                    reloadFromBackend={this.reloadFromBackend.bind(this)}
                     contact={this.state.contact}
                     contactPath={this.contactPath()}
                     removeConfirmMessage="Délier ce projet du contact ?"
                     emptyMessage="Aucun projet."
-                    optionsPath={this.props.projectOptionsPath} />
+                    optionsPath={this.props.projectOptionsPath}
+                    reloadFromBackend={this.reloadFromBackend.bind(this)}
+                    reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
       );
     }
   }
@@ -151,12 +154,13 @@ class Contact extends React.Component {
         <ItemsBlock label="Evènements"
                     fieldName="eventIds"
                     items={this.state.contact.events}
-                    reloadFromBackend={this.reloadFromBackend.bind(this)}
                     contact={this.state.contact}
                     contactPath={this.contactPath()}
                     removeConfirmMessage="Délier cet évènement du contact ?"
                     emptyMessage="Aucun évènement."
-                    optionsPath={this.props.projectOptionsPath} />
+                    optionsPath={this.props.projectOptionsPath}
+                    reloadFromBackend={this.reloadFromBackend.bind(this)}
+                    reloadIndexFromBackend={this.props.reloadIndexFromBackend}  />
       );
     }
   }

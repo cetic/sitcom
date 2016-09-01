@@ -3,7 +3,6 @@ module ContactIndexConcern
 
   included do
     include Elasticsearch::Model
-    include Elasticsearch::Model::Callbacks
 
     index_name "sitcom-#{Rails.env}-contacts"
 
@@ -26,6 +25,28 @@ module ContactIndexConcern
         indexes :sort_name, :analyzer => :sortable_string_analyzer
       end
     end
+
+    after_commit on: [:create, :update] do
+      __elasticsearch__.index_document
+
+      organizations.import
+      projects.import
+      events.import
+    end
+
+    around_destroy do
+      saved_organization_ids = organizations.pluck(:id)
+      saved_event_ids        = events.pluck(:id)
+      saved_project_ids      = projects.pluck(:id)
+
+      yield
+
+      __elasticsearch__.delete_document
+
+      Organization.where(:id => saved_organization_ids).import
+      Project.where(:id => saved_project_ids).import
+      Event.where(:id => saved_event_ids).import
+    end
   end
 
   def as_indexed_json(options = {})
@@ -44,7 +65,7 @@ module ContactIndexConcern
       :facebook_url => facebook_url,
 
       :picture_url         => picture_url,
-      :preview_picture_url => picture.url(:preview),
+      :preview_picture_url => picture_url(:preview),
 
       :name             => name,
       :first_name       => first_name,

@@ -40,7 +40,6 @@ class ProjectsController < ApplicationController
         @project = @lab.projects.new(strong_params)
 
         if @project.save
-          @project.index_dependent_rows
           render_json_success({ :project => @project.as_indexed_json })
         else
           render_json_errors(@project)
@@ -55,7 +54,6 @@ class ProjectsController < ApplicationController
         @project = @lab.projects.find(params[:id])
 
         if @project.update_attributes(strong_params)
-          @project.index_dependent_rows
           render_json_success
         else
           render_json_errors(@project)
@@ -69,7 +67,7 @@ class ProjectsController < ApplicationController
       format.json do
         @project = @lab.projects.find(params[:id])
 
-        if @project.destroy_and_index_dependent_rows
+        if @project.destroy
           render_json_success
         else
           render_json_errors(@project)

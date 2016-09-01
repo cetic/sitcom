@@ -42,7 +42,10 @@ class GeneralEdit extends React.Component {
         this.setState({ errors: data.errors })
       }
       else {
-        this.props.reloadFromBackend(this.props.toggleEditMode)
+        this.props.reloadFromBackend(() => {
+          this.props.toggleEditMode()
+          setTimeout(this.props.reloadIndexFromBackend, 1500)
+        })
       }
     });
   }
