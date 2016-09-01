@@ -1,9 +1,10 @@
-import Contacts       from './index/contacts.es6'
-import Contact        from './show/contact.es6'
-import NewContact     from './shared/new_contact.es6'
-import QuickSearch    from '../shared/quick_search.es6'
-import AdvancedSearch from './shared/advanced_search.es6'
-import ParamsService  from '../shared/params_service.es6'
+import Contacts               from './index/contacts.es6'
+import Contact                from './show/contact.es6'
+import NewContact             from './shared/new_contact.es6'
+import QuickSearch            from '../shared/quick_search.es6'
+import AdvancedSearch         from './shared/advanced_search.es6'
+import ParamsService          from '../shared/params_service.es6'
+import PreviousNextNavService from '../shared/previous_next_nav_service.es6'
 
 class Main extends React.Component {
   constructor(props) {
@@ -92,44 +93,33 @@ class Main extends React.Component {
   }
 
   getCurrentIndex() {
-    return _.findIndex(this.state.contacts, (contact) => {
-      return contact.id == parseInt(this.props.params.id);
-    });
+    return PreviousNextNavService.getCurrentIndex(
+      this.state.contacts,
+      this.props.params.id
+    )
   }
 
   gotoNext() {
-    var index = this.getCurrentIndex()
-
-    var pushNext = () => {
-      if(index + 1 < this.state.contacts.length) {
-        this.props.router.push(`contacts/${this.state.contacts[index + 1].id}`)
-      } else {
-        this.props.router.push(`contacts/${this.state.contacts[0].id}`)
-      }
-    }
-
-    if(index == this.state.contacts.length - 1) {
-      if(this.state.infiniteEnabled) {
-        this.loadNextBatchFromBackend(() => {
-          pushNext()
-        })
-      }
-    }
-    else {
-      pushNext()
-    }
+    return PreviousNextNavService.gotoNext(
+      this.state.contacts,
+      this.props.params.id,
+      this.props.router
+    )
   }
 
   gotoPrevious() {
-    var index = this.getCurrentIndex()
-
-    if(index > 1) {
-      this.props.router.push(`contacts/${this.state.contacts[index - 1].id}`)
-    }
+    return PreviousNextNavService.gotoPrevious(
+      this.state.contacts,
+      this.props.params.id,
+      this.props.router
+    )
   }
 
   hasPrevious() {
-    return this.getCurrentIndex() > 1
+    return PreviousNextNavService.hasPrevious(
+      this.state.contacts,
+      this.props.params.id
+    )
   }
 
   render() {
