@@ -19,11 +19,14 @@ class Note < ApplicationRecord
 
   # Callbacks
 
-  after_commit on: [:create, :update] do
+  after_commit   :after_commit_callback, on: [:create, :update]
+  around_destroy :around_destroy_callback
+
+  def after_commit_callback
     notable.__elasticsearch__.index_document
   end
 
-  around_destroy do
+  def around_destroy_callback
     saved_notable_id = notable_id
     yield
     notable.__elasticsearch__.index_document

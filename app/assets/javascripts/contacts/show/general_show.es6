@@ -1,12 +1,24 @@
 import CustomDropzone from '../../shared/custom_dropzone.es6'
 
 class GeneralShow extends React.Component {
+
   constructor(props) {
     super(props);
 
     this.state = {
 
     };
+  }
+
+  destroyContact() {
+    if(confirm("Supprimer ce contact ?")) {
+      http.delete(this.props.contactPath, {}, (data) => {
+        if(data.success) {
+          this.props.router.replace('contacts')
+          setTimeout(this.props.reloadIndexFromBackend, 1500)
+        }
+      });
+    }
   }
 
   render() {
@@ -18,6 +30,7 @@ class GeneralShow extends React.Component {
 
         { this.renderActivity() }
         { this.renderEdit() }
+        { this.renderDestroy() }
 
         <div className="row">
           <div className="col-md-3">
@@ -67,6 +80,15 @@ class GeneralShow extends React.Component {
       <button className="btn btn-secondary btn-edit"
               onClick={this.props.toggleEditMode}>
         Modifier
+      </button>
+    )
+  }
+
+  renderDestroy() {
+    return(
+      <button className="btn btn-secondary btn-edit"
+              onClick={this.destroyContact.bind(this)}>
+        Supprimer
       </button>
     )
   }

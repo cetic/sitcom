@@ -9,6 +9,17 @@ class GeneralShow extends React.Component {
     };
   }
 
+  destroyOrganization() {
+    if(confirm("Supprimer cette organisation ?")) {
+      http.delete(this.props.organizationPath, {}, (data) => {
+        if(data.success) {
+          this.props.router.replace('organizations')
+          setTimeout(this.props.reloadIndexFromBackend, 1500)
+        }
+      });
+    }
+  }
+
   render() {
     return (
       <div className="general">
@@ -17,6 +28,7 @@ class GeneralShow extends React.Component {
         </Link>
 
         { this.renderEdit() }
+        { this.renderDestroy() }
 
         <div className="row">
           <div className="col-md-3">
@@ -42,6 +54,15 @@ class GeneralShow extends React.Component {
       <button className="btn btn-secondary btn-edit"
               onClick={this.props.toggleEditMode}>
         Modifier
+      </button>
+    )
+  }
+
+  renderDestroy() {
+    return(
+      <button className="btn btn-secondary btn-edit"
+              onClick={this.destroyOrganization.bind(this)}>
+        Supprimer
       </button>
     )
   }

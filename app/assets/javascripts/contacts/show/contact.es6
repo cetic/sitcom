@@ -103,9 +103,11 @@ class Contact extends React.Component {
           <GeneralShow contact={this.state.contact}
                        search={this.props.search}
                        contactPath={this.contactPath()}
+                       infiniteEnabled={this.props.infiniteEnabled}
+                       router={this.props.router}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)}
                        reloadFromBackend={this.reloadFromBackend.bind(this)}
-                       infiniteEnabled={this.props.infiniteEnabled} />
+                       reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
         )
       }
     }

@@ -66,8 +66,6 @@ class Main extends React.Component {
     }
 
   loadNextBatchFromBackend(callback) {
-    console.log('loadNextBatchFromBackend')
-
     this.setState({ infiniteLoaded: false }, () => {
       this.dReloadFromBackend(this.state.contacts.length, callback);
     })

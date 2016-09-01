@@ -3,7 +3,6 @@ module OrganizationIndexConcern
 
   included do
     include Elasticsearch::Model
-    include Elasticsearch::Model::Callbacks
 
     index_name "sitcom-#{Rails.env}-organizations"
 
@@ -21,21 +20,23 @@ module OrganizationIndexConcern
       end
     end
 
-    after_commit on: [:create, :update] do
-      __elasticsearch__.index_document
+    after_commit   :after_commit_callback, on: [:create, :update]
+    around_destroy :around_destroy_callback
+  end
 
-      contacts.import
-    end
+  def after_commit_callback
+    __elasticsearch__.index_document
+    contacts.import
+  end
 
-    around_destroy do
-      saved_contact_ids = contacts.pluck(:id)
+  def around_destroy_callback
+    saved_contact_ids = contacts.pluck(:id)
 
-      yield
+    yield
 
-      __elasticsearch__.delete_document
+    __elasticsearch__.delete_document
 
-      Contact.where(:id => saved_contact_ids).import
-    end
+    Contact.where(:id => saved_contact_ids).import
   end
 
   def as_indexed_json(options = {})

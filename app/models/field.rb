@@ -19,11 +19,14 @@ class Field < ApplicationRecord
 
   # Callbacks
 
-  after_commit on: [:create, :update] do
+  after_commit   :after_commit_callback, on: [:create, :update]
+  around_destroy :around_destroy_callback
+
+  def after_commit_callback
     contacts.import
   end
 
-  around_destroy do
+  def around_destroy_callback
     saved_contact_ids = contacts.pluck(:id)
     yield
     Contact.where(:id => saved_contact_ids).import

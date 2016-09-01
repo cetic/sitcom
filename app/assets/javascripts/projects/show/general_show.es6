@@ -10,6 +10,17 @@ class GeneralShow extends React.Component {
     };
   }
 
+  destroyProject() {
+    if(confirm("Supprimer ce projet ?")) {
+      http.delete(this.props.projectPath, {}, (data) => {
+        if(data.success) {
+          this.props.router.replace('projects')
+          setTimeout(this.props.reloadIndexFromBackend, 1500)
+        }
+      });
+    }
+  }
+
   render() {
     return (
       <div className="general">
@@ -18,6 +29,7 @@ class GeneralShow extends React.Component {
         </Link>
 
         { this.renderEdit() }
+        { this.renderDestroy() }
 
         <div className="row">
           <div className="col-md-3">
@@ -44,6 +56,15 @@ class GeneralShow extends React.Component {
       <button className="btn btn-secondary btn-edit"
               onClick={this.props.toggleEditMode}>
         Modifier
+      </button>
+    )
+  }
+
+  renderDestroy() {
+    return(
+      <button className="btn btn-secondary btn-edit"
+              onClick={this.destroyProject.bind(this)}>
+        Supprimer
       </button>
     )
   }
