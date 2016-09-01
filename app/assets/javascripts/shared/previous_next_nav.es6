@@ -1,29 +1,21 @@
 class PreviousNextNav extends React.Component {
 
-  getCurrentIndex() {
-    return _.findIndex(this.props.items, (item) => {
-      return item.id == parseInt(this.props.currentItemId);
-    });
-  }
-
   gotoNext() {
-    var index = this.getCurrentIndex()
-
-    if(index == this.props.items.length - 1) {
+    if(this.props.currentItemId == this.props.items.length - 1) {
       if(this.props.infiniteEnabled) {
         this.props.loadNextBatchFromBackend(() => {
-          this.pushNext(index)
+          this.pushNext(this.props.currentItemId)
         })
       }
     }
     else {
-      this.pushNext(index)
+      this.pushNext(this.props.currentItemId)
     }
   }
 
-  pushNext(index) {
-    if(index + 1 < this.props.items.length) {
-      this.props.router.push(`contacts/${this.props.items[index + 1].id}`)
+  pushNext() {
+    if(this.props.currentItemId + 1 < this.props.items.length) {
+      this.props.router.push(`contacts/${this.props.items[this.props.currentItemId + 1].id}`)
     } else {
       this.props.router.push(`contacts/${this.props.items[0].id}`)
     }
@@ -34,15 +26,13 @@ class PreviousNextNav extends React.Component {
   }
 
   gotoPrevious() {
-    var index = this.getCurrentIndex()
-
-    if(index > 1) {
-      this.props.router.push(`contacts/${this.props.items[index - 1].id}`)
+    if(this.props.currentItemId > 1) {
+      this.props.router.push(`contacts/${this.props.items[this.props.currentItemId - 1].id}`)
     }
   }
 
   hasPrevious() {
-    return this.getCurrentIndex(this.props.items, this.props.currentItemId) > 1
+    return this.props.currentItemIndex > 1
   }
 
   render() {

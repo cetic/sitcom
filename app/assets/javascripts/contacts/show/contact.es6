@@ -57,7 +57,6 @@ class Contact extends React.Component {
     return (
       <div className="contact">
         {this.renderLoading()}
-        {this.renderPreviousNextNav()}
         {this.renderGeneral()}
         {this.renderSocial()}
         {this.renderProjects()}
@@ -76,14 +75,14 @@ class Contact extends React.Component {
     }
   }
 
-  renderPreviousNextNav() {
-    return (
-      <PreviousNextNav items={this.props.contacts}
-                       currentItemId={this.props.id}
-                       router={this.props.router}
-                       loadNextBatchFromBackend={this.props.loadNextBatchFromBackend} />
-    )
-  }
+  // renderPreviousNextNav() {
+  //   return (
+  //     <PreviousNextNav items={this.props.contacts}
+  //                      currentItemIndex={this.props.indexxxx}
+  //                      router={this.props.router}
+  //                      loadNextBatchFromBackend={this.props.loadNextBatchFromBackend} />
+  //   )
+  // }
 
   renderGeneral() {
     if(this.state.loaded) {
