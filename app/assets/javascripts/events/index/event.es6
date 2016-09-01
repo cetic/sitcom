@@ -21,6 +21,10 @@ class Event extends React.Component {
             <EventDate event={this.props.event} />
           </span>
 
+          <span className="place">
+            {this.props.event.place}
+          </span>
+
           <span className="contacts">
             { this.renderContacts() }
           </span>

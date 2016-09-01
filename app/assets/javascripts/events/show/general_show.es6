@@ -29,6 +29,8 @@ class GeneralShow extends React.Component {
             </h1>
 
             <EventDate event={this.props.event} />
+
+            {this.props.event.place}
           </div>
         </div>
 

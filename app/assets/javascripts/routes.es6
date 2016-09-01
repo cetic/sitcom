@@ -27,6 +27,8 @@ class Routes extends React.Component {
     this.browserHistory = useRouterHistory(createHistory)({
       basename: this.props.labPath
     });
+
+    global.browserHistory = this.browserHistory;
   }
 
   render() {
@@ -72,4 +74,4 @@ class Routes extends React.Component {
   }
 }
 
-module.exports = Routes
+export default Routes
