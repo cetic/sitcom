@@ -1,5 +1,4 @@
-export default class extends React.Component {
-
+class EventDate extends React.Component {
   render() {
     if(this.props.event.happensOn) {
       return (
@@ -12,5 +11,6 @@ export default class extends React.Component {
       );
     }
   }
-
 }
+
+module.exports = EventDate;

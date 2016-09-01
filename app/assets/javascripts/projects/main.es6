@@ -51,18 +51,16 @@ class Main extends React.Component {
   }
 
   reloadFromBackend(offset = 0) {
-    var params = humps.decamelizeKeys(_.assign({}, this.buildFilterParams(), {
+    var params = _.assign({}, this.buildFilterParams(), {
       offset: offset
-    }));
+    });
 
-    $.get(this.props.projectsPath, params, (data) => {
-      var camelData = humps.camelizeKeys(data);
-
+    http.get(this.props.projectsPath, params, (data) => {
       this.setState({
-        projects:        offset == 0 ? camelData.projects : this.state.projects.concat(camelData.projects),
+        projects:        offset == 0 ? data.projects : this.state.projects.concat(data.projects),
         loaded:          true,
         infiniteLoaded:  true,
-        infiniteEnabled: camelData.projects.length == window.infiniteScrollStep // no more results
+        infiniteEnabled: data.projects.length == window.infiniteScrollStep // no more results
       });
     });
   }

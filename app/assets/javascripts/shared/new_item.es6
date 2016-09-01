@@ -33,16 +33,13 @@ class NewItem extends React.Component {
       var params = {}
       params[this.props.modelName] = {}
       params[this.props.modelName][this.props.fieldName] = this.state.fieldValue
-      params = humps.decamelizeKeys(params);
 
-      $.post(this.props.itemsPath, params, (data) => {
-        var camelData = humps.camelizeKeys(data);
-
-        if(!camelData.success) {
-          this.setState({ errors: camelData.errors })
+      http.post(this.props.itemsPath, params, (data) => {
+        if(!data.success) {
+          this.setState({ errors: data.errors })
         }
         else {
-          this.props.router.push(`${this.props.modelName}s/${camelData[this.props.modelName].id}`)
+          this.props.router.push(`${this.props.modelName}s/${data[this.props.modelName].id}`)
           this.hideModal()
           this.setState({
             fieldValue: '',

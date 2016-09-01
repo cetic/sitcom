@@ -31,11 +31,9 @@ class Contact extends React.Component {
   }
 
   reloadFromBackend(callback) {
-    $.get(this.contactPath(), (data) => {
-      var camelData = humps.camelizeKeys(data)
-
+    http.get(this.contactPath(), {}, (data) => {
       this.setState({
-        contact: camelData,
+        contact: data,
         loaded:  true
       }, callback)
     });

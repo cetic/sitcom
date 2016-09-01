@@ -11,7 +11,6 @@ class SocialEdit extends React.Component {
 
   backendUpdateContact() {
     var params = {
-      _method: 'PUT',
       contact: {
         facebookUrl: this.state.facebookUrl,
         linkedinUrl: this.state.linkedinUrl,
@@ -19,7 +18,7 @@ class SocialEdit extends React.Component {
       }
     }
 
-    $.post(this.props.contactPath, humps.decamelizeKeys(params), (data) => {
+    http.put(this.props.contactPath, params, (data) => {
       this.props.reloadFromBackend(this.props.toggleEditMode)
     });
   }

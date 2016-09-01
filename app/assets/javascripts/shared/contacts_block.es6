@@ -14,11 +14,9 @@ class ContactsBlock extends React.Component {
   }
 
   reloadOptionsFromBackend() {
-    $.get(this.props.optionsPath, (data) => {
-      var camelData = humps.camelizeKeys(data);
-
+    http.get(this.props.optionsPath, {}, (data) => {
       this.setState({
-        options: camelData
+        options: data
       });
     });
   }
@@ -40,17 +38,14 @@ class ContactsBlock extends React.Component {
   }
 
   saveOnBackend(contactIds) {
-    var params = {
-      _method: 'PUT',
-    };
-
     // [''] is a way for the rails server to keep the empty array
     var contactIds = contactIds.length ? contactIds : [''];
 
+    var params = {};
     params[this.props.parentType]            = {};
     params[this.props.parentType].contactIds = contactIds;
 
-    $.post(this.props.parentPath, humps.decamelizeKeys(params), () => {
+    http.put(this.props.parentPath, params, () => {
       this.props.reloadFromBackend();
     });
   }
@@ -115,7 +110,6 @@ class ContactsBlock extends React.Component {
       </div>
     );
   }
-
 }
 
 module.exports = ContactsBlock

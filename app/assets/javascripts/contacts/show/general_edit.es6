@@ -22,7 +22,6 @@ class GeneralEdit extends React.Component {
 
   backendUpdateContact() {
     var params = {
-      _method: 'PUT',
       contact: {
         firstName:       this.state.firstName,
         lastName:        this.state.lastName,
@@ -38,11 +37,9 @@ class GeneralEdit extends React.Component {
       }
     }
 
-    $.post(this.props.contactPath, humps.decamelizeKeys(params), (data) => {
-      var camelData = humps.camelizeKeys(data);
-
-      if(!camelData.success) {
-        this.setState({ errors: camelData.errors })
+    http.put(this.props.contactPath, params, (data) => {
+      if(!data.success) {
+        this.setState({ errors: data.errors })
       }
       else {
         this.props.reloadFromBackend(this.props.toggleEditMode)

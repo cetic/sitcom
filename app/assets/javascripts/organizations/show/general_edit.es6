@@ -12,7 +12,6 @@ class GeneralEdit extends React.Component {
 
   backendUpdateOrganization() {
     var params = {
-      _method: 'PUT',
       organization: {
         name:        this.state.name,
         description: this.state.description,
@@ -20,11 +19,9 @@ class GeneralEdit extends React.Component {
       }
     }
 
-    $.post(this.props.organizationPath, humps.decamelizeKeys(params), (data) => {
-      var camelData = humps.camelizeKeys(data);
-
-      if(!camelData.success) {
-        this.setState({ errors: camelData.errors })
+    http.put(this.props.organizationPath, params, (data) => {
+      if(!data.success) {
+        this.setState({ errors: data.errors })
       }
       else {
         this.props.reloadFromBackend(this.props.toggleEditMode)

@@ -1,4 +1,4 @@
-import DateField from '../../shared/date_field.es6'
+import DateField   from '../../shared/date_field.es6'
 
 class GeneralEdit extends React.Component {
   constructor(props) {
@@ -15,7 +15,6 @@ class GeneralEdit extends React.Component {
 
   backendUpdateOrganization() {
     var params = {
-      _method: 'PUT',
       project: {
         name:        this.state.name,
         description: this.state.description,
@@ -24,11 +23,9 @@ class GeneralEdit extends React.Component {
       }
     }
 
-    $.post(this.props.projectPath, humps.decamelizeKeys(params), (data) => {
-      var camelData = humps.camelizeKeys(data);
-
-      if(!camelData.success) {
-        this.setState({ errors: camelData.errors })
+    http.put(this.props.projectPath, params, (data) => {
+      if(!data.success) {
+        this.setState({ errors: data.errors })
       }
       else {
         this.props.reloadFromBackend(this.props.toggleEditMode)

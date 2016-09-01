@@ -28,11 +28,9 @@ class Event extends React.Component {
   }
 
   reloadFromBackend(callback) {
-    $.get(this.eventPath(), (data) => {
-      var camelData = humps.camelizeKeys(data)
-
+    http.get(this.eventPath(), {}, (data) => {
       this.setState({
-        event: camelData,
+        event:   data,
         loaded:  true
       }, callback)
     });

@@ -48,7 +48,6 @@ class Event extends React.Component {
       return contact.name
     }).join(', ')
   }
-
 }
 
 module.exports = Event

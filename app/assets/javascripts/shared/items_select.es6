@@ -15,11 +15,9 @@ class ItemsSelect extends React.Component {
   }
 
   reloadOptionsFromBackend() {
-    $.get(this.props.optionsPath, (data) => {
-      var camelData = humps.camelizeKeys(data);
-
+    http.get(this.props.optionsPath, {}, (data) => {
       this.setState({
-        options: camelData
+        options: data
       });
     });
   }

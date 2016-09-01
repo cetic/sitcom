@@ -28,11 +28,9 @@ class Organization extends React.Component {
   }
 
   reloadFromBackend(callback) {
-    $.get(this.organizationPath(), (data) => {
-      var camelData = humps.camelizeKeys(data)
-
+    http.get(this.organizationPath(), {}, (data) => {
       this.setState({
-        organization: camelData,
+        organization: data,
         loaded:  true
       }, callback)
     });

@@ -28,11 +28,9 @@ class Project extends React.Component {
   }
 
   reloadFromBackend(callback) {
-    $.get(this.projectPath(), (data) => {
-      var camelData = humps.camelizeKeys(data)
-
+    http.get(this.projectPath(), {}, (data) => {
       this.setState({
-        project: camelData,
+        project: data,
         loaded:  true
       }, callback)
     });

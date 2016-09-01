@@ -35,21 +35,19 @@ class NewContact extends React.Component {
     e.preventDefault();
 
     if(this.state.firstName != '' && this.state.lastName != '') {
-      var params = humps.decamelizeKeys({
+      var params = {
         contact: {
           firstName: this.state.firstName,
           lastName:  this.state.lastName
         }
-      });
+      };
 
-      $.post(this.props.contactsPath, params, (data) => {
-        var camelData = humps.camelizeKeys(data);
-
-        if(!camelData.success) {
-          this.setState({ errors: camelData.errors })
+      http.post(this.props.contactsPath, params, (data) => {
+        if(!data.success) {
+          this.setState({ errors: data.errors })
         }
         else {
-          this.props.router.push(`contacts/${camelData.contact.id}`)
+          this.props.router.push(`contacts/${data.contact.id}`)
           this.hideModal()
           this.setState({
             firstName: '',

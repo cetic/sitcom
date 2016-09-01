@@ -1,6 +1,6 @@
 import Select from 'react-select'
 
-export default class extends React.Component {
+class StatusSelect extends React.Component {
   constructor(props) {
     super(props);
 
@@ -15,11 +15,9 @@ export default class extends React.Component {
   }
 
   reloadOptionsFromBackend() {
-    $.get(this.props.optionsPath, (data) => {
-      var camelData = humps.camelizeKeys(data);
-
+    http.get(this.props.optionsPath, {}, (data) => {
       this.setState({
-        options: camelData
+        options: data
       });
     });
   }
@@ -61,3 +59,5 @@ export default class extends React.Component {
     }
   }
 }
+
+module.exports = StatusSelect
