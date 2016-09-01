@@ -199,4 +199,4 @@ class GeneralEdit extends React.Component {
   }
 }
 
-module.exports = GeneralEdit
+export default GeneralEdit

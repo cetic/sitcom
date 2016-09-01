@@ -108,4 +108,4 @@ class SocialEdit extends React.Component {
   }
 }
 
-module.exports = SocialEdit
+export default SocialEdit

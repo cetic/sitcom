@@ -1,10 +1,9 @@
-import Contacts               from './index/contacts.es6'
-import Contact                from './show/contact.es6'
-import NewContact             from './shared/new_contact.es6'
-import QuickSearch            from '../shared/quick_search.es6'
-import AdvancedSearch         from './shared/advanced_search.es6'
-import ParamsService          from '../shared/params_service.es6'
-import PreviousNextNavService from '../shared/previous_next_nav_service.es6'
+import Contacts       from './index/contacts.es6'
+import Contact        from './show/contact.es6'
+import NewContact     from './shared/new_contact.es6'
+import QuickSearch    from '../shared/quick_search.es6'
+import AdvancedSearch from './shared/advanced_search.es6'
+import ParamsService  from '../shared/params_service.es6'
 
 class Main extends React.Component {
   constructor(props) {
@@ -180,4 +179,4 @@ class Main extends React.Component {
   }
 }
 
-module.exports = Main
+export default Main

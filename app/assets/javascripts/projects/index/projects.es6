@@ -75,4 +75,4 @@ class Projects extends React.Component {
   }
 }
 
-module.exports = Projects
+export default Projects

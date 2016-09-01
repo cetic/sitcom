@@ -75,4 +75,4 @@ class Events extends React.Component {
   }
 }
 
-module.exports = Events
+export default Events

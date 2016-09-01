@@ -97,4 +97,4 @@ class AdvancedSearch extends React.Component {
 
 }
 
-module.exports = AdvancedSearch
+export default AdvancedSearch

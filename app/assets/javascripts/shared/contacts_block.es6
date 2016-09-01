@@ -114,4 +114,4 @@ class ContactsBlock extends React.Component {
   }
 }
 
-module.exports = ContactsBlock
+export default ContactsBlock

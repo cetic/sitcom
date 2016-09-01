@@ -71,4 +71,4 @@ class DateRangeFilter extends React.Component {
   }
 }
 
-module.exports = DateRangeFilter
+export default DateRangeFilter

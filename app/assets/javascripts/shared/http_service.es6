@@ -30,4 +30,4 @@ class HttpService {
   }
 }
 
-module.exports = HttpService;
+export default HttpService;

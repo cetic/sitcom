@@ -42,4 +42,4 @@ class Organization extends React.Component {
 
 }
 
-module.exports = Organization
+export default Organization

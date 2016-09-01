@@ -77,4 +77,4 @@ class Contacts extends React.Component {
   }
 }
 
-module.exports = Contacts
+export default Contacts

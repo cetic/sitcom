@@ -68,4 +68,4 @@ class DateField extends React.Component {
   }
 }
 
-module.exports = DateField
+export default DateField

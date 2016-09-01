@@ -44,4 +44,4 @@ class QuickSearch extends React.Component {
   }
 }
 
-module.exports = QuickSearch
+export default QuickSearch
