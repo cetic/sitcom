@@ -78,9 +78,10 @@ class Contact extends React.Component {
 
   renderPreviousNextNav() {
     return (
-      <PreviousNextNav gotoPrevious={this.props.gotoPrevious}
-                       gotoNext={this.props.gotoNext}
-                       hasPrevious={this.props.hasPrevious} />
+      <PreviousNextNav items={this.props.contacts}
+                       currentItemId={this.props.id}
+                       router={this.props.router}
+                       loadNextBatchFromBackend={this.props.loadNextBatchFromBackend} />
     )
   }
 
@@ -103,7 +104,8 @@ class Contact extends React.Component {
                        search={this.props.search}
                        contactPath={this.contactPath()}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)}
-                       reloadFromBackend={this.reloadFromBackend.bind(this)} />
+                       reloadFromBackend={this.reloadFromBackend.bind(this)}
+                       infiniteEnabled={this.props.infiniteEnabled} />
         )
       }
     }

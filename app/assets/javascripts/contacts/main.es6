@@ -67,6 +67,8 @@ class Main extends React.Component {
     }
 
   loadNextBatchFromBackend(callback) {
+    console.log('loadNextBatchFromBackend')
+
     this.setState({ infiniteLoaded: false }, () => {
       this.dReloadFromBackend(this.state.contacts.length, callback);
     })
@@ -90,36 +92,6 @@ class Main extends React.Component {
 
   openNewContactModal() {
     $('.new-contact-modal').modal('show');
-  }
-
-  getCurrentIndex() {
-    return PreviousNextNavService.getCurrentIndex(
-      this.state.contacts,
-      this.props.params.id
-    )
-  }
-
-  gotoNext() {
-    return PreviousNextNavService.gotoNext(
-      this.state.contacts,
-      this.props.params.id,
-      this.props.router
-    )
-  }
-
-  gotoPrevious() {
-    return PreviousNextNavService.gotoPrevious(
-      this.state.contacts,
-      this.props.params.id,
-      this.props.router
-    )
-  }
-
-  hasPrevious() {
-    return PreviousNextNavService.hasPrevious(
-      this.state.contacts,
-      this.props.params.id
-    )
   }
 
   render() {
@@ -190,9 +162,10 @@ class Main extends React.Component {
                  fieldOptionsPath={this.props.fieldOptionsPath}
                  eventOptionsPath={this.props.eventOptionsPath}
                  projectOptionsPath={this.props.projectOptionsPath}
-                 gotoNext={this.gotoNext.bind(this)}
-                 gotoPrevious={this.gotoPrevious.bind(this)}
-                 hasPrevious={this.hasPrevious()} />
+                 contacts={this.state.contacts}
+                 router={this.props.router}
+                 loadNextBatchFromBackend={this.loadNextBatchFromBackend.bind(this)}
+                 infiniteEnabled={this.state.infiniteEnabled} />
       )
     }
   }
