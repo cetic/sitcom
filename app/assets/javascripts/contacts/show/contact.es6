@@ -10,6 +10,7 @@ class Contact extends React.Component {
     super(props);
 
     this.state = {
+      notFound:        false,
       contact:         {},
       loaded:          false,
       generalEditMode: false,
@@ -32,12 +33,16 @@ class Contact extends React.Component {
   }
 
   reloadFromBackend(callback) {
+    var notFoundCallback = () => {
+      this.setState({ notFound: true })
+    }
+
     http.get(this.contactPath(), {}, (data) => {
       this.setState({
         contact: data,
         loaded:  true
       }, callback)
-    });
+    }, notFoundCallback);
   }
 
   toggleGeneralEditMode() {
@@ -54,15 +59,24 @@ class Contact extends React.Component {
 
 
   render() {
-    return (
-      <div className="contact">
-        {this.renderLoading()}
-        {this.renderGeneral()}
-        {this.renderSocial()}
-        {this.renderProjects()}
-        {this.renderEvents()}
-      </div>
-    )
+    if(this.state.notFound) {
+      return (
+        <div className="alert alert-danger">
+          Ce contact n'existe pas/plus.
+        </div>
+      )
+    }
+    else {
+      return (
+        <div className="contact">
+          {this.renderLoading()}
+          {this.renderGeneral()}
+          {this.renderSocial()}
+          {this.renderProjects()}
+          {this.renderEvents()}
+        </div>
+      )
+    }
   }
 
   renderLoading() {
