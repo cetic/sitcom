@@ -1,8 +1,9 @@
-import GeneralShow from './general_show.es6'
-import GeneralEdit from './general_edit.es6'
-import SocialShow  from './social_show.es6'
-import SocialEdit  from './social_edit.es6'
-import ItemsBlock  from './items_block.es6'
+import GeneralShow     from './general_show.es6'
+import GeneralEdit     from './general_edit.es6'
+import SocialShow      from './social_show.es6'
+import SocialEdit      from './social_edit.es6'
+import ItemsBlock      from './items_block.es6'
+import PreviousNextNav from '../../shared/previous_next_nav.es6'
 
 class Contact extends React.Component {
   constructor(props) {
@@ -56,6 +57,7 @@ class Contact extends React.Component {
     return (
       <div className="contact">
         {this.renderLoading()}
+        {this.renderPreviousNextNav()}
         {this.renderGeneral()}
         {this.renderSocial()}
         {this.renderProjects()}
@@ -72,6 +74,14 @@ class Contact extends React.Component {
         </div>
       )
     }
+  }
+
+  renderPreviousNextNav() {
+    return (
+      <PreviousNextNav gotoPrevious={this.props.gotoPrevious}
+                       gotoNext={this.props.gotoNext}
+                       hasPrevious={this.props.hasPrevious} />
+    )
   }
 
   renderGeneral() {

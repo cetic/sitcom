@@ -50,24 +50,24 @@ class Main extends React.Component {
     }));
   }
 
-  reloadFromBackend(offset = 0) {
-    var params = _.assign({}, this.buildFilterParams(), {
-      offset: offset
-    });
-
-    http.get(this.props.contactsPath, params, (data) => {
-      this.setState({
-        contacts:        offset == 0 ? data.contacts : this.state.contacts.concat(data.contacts),
-        loaded:          true,
-        infiniteLoaded:  true,
-        infiniteEnabled: data.contacts.length == window.infiniteScrollStep // no more results
+  reloadFromBackend(offset = 0, callback) {
+      var params = _.assign({}, this.buildFilterParams(), {
+        offset: offset
       });
-    });
-  }
 
-  loadNextBatchFromBackend() {
+      http.get(this.props.contactsPath, params, (data) => {
+        this.setState({
+          contacts:        offset == 0 ? data.contacts : this.state.contacts.concat(data.contacts),
+          loaded:          true,
+          infiniteLoaded:  true,
+          infiniteEnabled: data.contacts.length == window.infiniteScrollStep // no more results
+        }, callback);
+      });
+    }
+
+  loadNextBatchFromBackend(callback) {
     this.setState({ infiniteLoaded: false }, () => {
-      this.dReloadFromBackend(this.state.contacts.length);
+      this.dReloadFromBackend(this.state.contacts.length, callback);
     })
   }
 
@@ -88,7 +88,48 @@ class Main extends React.Component {
   }
 
   openNewContactModal() {
-    $('.new-contact-modal').modal('show')
+    $('.new-contact-modal').modal('show');
+  }
+
+  getCurrentIndex() {
+    return _.findIndex(this.state.contacts, (contact) => {
+      return contact.id == parseInt(this.props.params.id);
+    });
+  }
+
+  gotoNext() {
+    var index = this.getCurrentIndex()
+
+    var pushNext = () => {
+      if(index + 1 < this.state.contacts.length) {
+        this.props.router.push(`contacts/${this.state.contacts[index + 1].id}`)
+      } else {
+        this.props.router.push(`contacts/${this.state.contacts[0].id}`)
+      }
+    }
+
+    if(index == this.state.contacts.length - 1) {
+      if(this.state.infiniteEnabled) {
+        this.loadNextBatchFromBackend(() => {
+          pushNext()
+        })
+      }
+    }
+    else {
+      pushNext()
+    }
+  }
+
+  gotoPrevious() {
+    var index = this.getCurrentIndex()
+
+    if(index > 1) {
+      this.props.router.push(`contacts/${this.state.contacts[index - 1].id}`)
+    }
+  }
+
+  hasPrevious() {
+    return this.getCurrentIndex() > 1
   }
 
   render() {
@@ -158,7 +199,10 @@ class Main extends React.Component {
                  organizationOptionsPath={this.props.organizationOptionsPath}
                  fieldOptionsPath={this.props.fieldOptionsPath}
                  eventOptionsPath={this.props.eventOptionsPath}
-                 projectOptionsPath={this.props.projectOptionsPath} />
+                 projectOptionsPath={this.props.projectOptionsPath}
+                 gotoNext={this.gotoNext.bind(this)}
+                 gotoPrevious={this.gotoPrevious.bind(this)}
+                 hasPrevious={this.hasPrevious()} />
       )
     }
   }
