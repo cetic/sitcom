@@ -21,12 +21,14 @@
     "browserify": "^13.1.0",
     "browserify-incremental": "^3.1.1",
     "dropzone": "^4.3.0",
+    "envify": "^3.4.1",
     "humps": "^1.1.0",
     "jquery.scrollto": "^2.1.2",
     "moment": "^2.14.1",
     "react": "^15.3.0",
     "react-datepicker": "^0.29.0",
     "react-dom": "^15.3.0",
+    "react-infinite": "^0.9.2",
     "react-router": "^2.6.1",
     "react-select": "1.0.0-beta14"
   }

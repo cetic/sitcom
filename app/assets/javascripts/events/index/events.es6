@@ -1,46 +1,22 @@
-import Event from './event.es6'
+import Event    from './event.es6'
+import Infinite from 'react-infinite'
 
 class Events extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      infiniteScrollOffset: 200
-    };
-  }
-
-  componentDidMount() {
-    this.bindInfiniteScroll();
-  }
-
-  componentWillUnmount() {
-    this.unbindInfiniteScroll();
-  }
-
-  bindInfiniteScroll() {
-    $(window).scroll(() => {
-      if(this.props.infiniteLoaded && this.props.infiniteEnabled && this.props.loaded) {
-        if($(window).scrollTop() + $(window).height() >= $(document).height() - this.state.infiniteScrollOffset) {
-          this.props.loadNextBatchFromBackend();
-        }
-      }
-    })
-  }
-
-  unbindInfiniteScroll() {
-    $(window).unbind('scroll');
+    this.state = {};
   }
 
   render() {
     return (
       <div className="events">
-        { this.renderEvents() }
-        { this.renderInfiniteLoading() }
+        { this.renderEventsContainer() }
       </div>
     )
   }
 
-  renderEvents() {
+  renderEventsContainer() {
     if(!this.props.loaded) {
       return (
         <div className="loading">
@@ -56,22 +32,23 @@ class Events extends React.Component {
       )
     }
     else {
-      return _.map(this.props.events, (event) => {
-        return (
-          <Event key={event.id} event={event} search={this.props.search} />
-        );
-      });
+      return (
+        <Infinite useWindowAsScrollContainer
+                  elementHeight={116}>
+          { this.renderEvents() }
+        </Infinite>
+      )
     }
   }
 
-  renderInfiniteLoading() {
-    if(!this.props.infiniteLoaded && this.props.loaded) {
+  renderEvents() {
+    return _.map(this.props.events, (event) => {
       return (
-        <div className="loading">
-          <img src={this.props.loadingImagePath}/>
-        </div>
+        <Event key={event.id}
+               event={event}
+               search={this.props.search} />
       );
-    }
+    });
   }
 }
 

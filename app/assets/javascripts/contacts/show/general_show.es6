@@ -1,7 +1,6 @@
 import CustomDropzone from '../../shared/custom_dropzone.es6'
 
 class GeneralShow extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -86,9 +85,9 @@ class GeneralShow extends React.Component {
 
   renderDestroy() {
     return(
-      <button className="btn btn-secondary btn-edit"
+      <button className="btn btn-secondary btn-delete"
               onClick={this.destroyContact.bind(this)}>
-        Supprimer
+        &times;
       </button>
     )
   }

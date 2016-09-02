@@ -15,10 +15,8 @@ class Main extends React.Component {
     ];
 
     this.state = {
-      contacts:        [],
-      loaded:          false,
-      infiniteLoaded:  true,
-      infiniteEnabled: true,
+      contacts: [],
+      loaded:   false,
     };
   }
 
@@ -50,25 +48,17 @@ class Main extends React.Component {
     }));
   }
 
-  reloadFromBackend(offset = 0, callback) {
-      var params = _.assign({}, this.buildFilterParams(), {
-        offset: offset
-      });
+  reloadFromBackend(offset = 0) {
+    var params = _.assign({}, this.buildFilterParams(), {
+      offset: offset
+    });
 
-      http.get(this.props.contactsPath, params, (data) => {
-        this.setState({
-          contacts:        offset == 0 ? data.contacts : this.state.contacts.concat(data.contacts),
-          loaded:          true,
-          infiniteLoaded:  true,
-          infiniteEnabled: data.contacts.length == window.infiniteScrollStep // no more results
-        }, callback);
+    http.get(this.props.contactsPath, params, (data) => {
+      this.setState({
+        contacts: offset == 0 ? data.contacts : this.state.contacts.concat(data.contacts),
+        loaded:   true,
       });
-    }
-
-  loadNextBatchFromBackend(callback) {
-    this.setState({ infiniteLoaded: false }, () => {
-      this.dReloadFromBackend(this.state.contacts.length, callback);
-    })
+    });
   }
 
   updateUrl(newValues) {
@@ -108,7 +98,7 @@ class Main extends React.Component {
                             projectOptionsPath={this.props.projectOptionsPath} />
           </div>
 
-          <div className="col-md-8">
+          <div className="col-md-8 col-contacts">
             <QuickSearch quickSearch={this.props.location.query.quickSearch}
                          updateQuickSearch={this.updateQuickSearch.bind(this)} />
 
@@ -139,11 +129,7 @@ class Main extends React.Component {
         <Contacts contacts={this.state.contacts}
                   loaded={this.state.loaded}
                   search={this.props.location.search}
-                  loadingImagePath={this.props.loadingImagePath}
-                  infiniteEnabled={this.state.infiniteEnabled}
-                  infiniteScrollOffset={this.state.infiniteScrollOffset}
-                  infiniteLoaded={this.state.infiniteLoaded}
-                  loadNextBatchFromBackend={this.loadNextBatchFromBackend.bind(this)} />
+                  loadingImagePath={this.props.loadingImagePath} />
       )
     }
   }
@@ -161,8 +147,6 @@ class Main extends React.Component {
                  projectOptionsPath={this.props.projectOptionsPath}
                  contacts={this.state.contacts}
                  router={this.props.router}
-                 infiniteEnabled={this.state.infiniteEnabled}
-                 loadNextBatchFromBackend={this.loadNextBatchFromBackend.bind(this)}
                  reloadIndexFromBackend={this.reloadFromBackend.bind(this)} />
       )
     }

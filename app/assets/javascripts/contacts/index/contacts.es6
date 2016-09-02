@@ -1,46 +1,22 @@
-import Contact from './contact.es6'
+import Contact  from './contact.es6'
+import Infinite from 'react-infinite'
 
 class Contacts extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      infiniteScrollOffset: 200
-    };
-  }
-
-  componentDidMount() {
-    this.bindInfiniteScroll();
-  }
-
-  componentWillUnmount() {
-    this.unbindInfiniteScroll();
-  }
-
-  bindInfiniteScroll() {
-    $(window).scroll(() => {
-      if(this.props.infiniteLoaded && this.props.infiniteEnabled && this.props.loaded) {
-        if($(window).scrollTop() + $(window).height() >= $(document).height() - this.state.infiniteScrollOffset) {
-          this.props.loadNextBatchFromBackend();
-        }
-      }
-    })
-  }
-
-  unbindInfiniteScroll() {
-    $(window).unbind('scroll');
+    this.state = {};
   }
 
   render() {
     return (
       <div className="contacts">
-        { this.renderContacts() }
-        { this.renderInfiniteLoading() }
+        { this.renderContactsContainer() }
       </div>
     )
   }
 
-  renderContacts() {
+  renderContactsContainer() {
     if(!this.props.loaded) {
       return (
         <div className="loading">
@@ -56,24 +32,23 @@ class Contacts extends React.Component {
       )
     }
     else {
-      return _.map(this.props.contacts, (contact) => {
-        return (
-          <Contact key={contact.id}
-                   contact={contact}
-                   search={this.props.search} />
-        );
-      });
+      return (
+        <Infinite useWindowAsScrollContainer
+                  elementHeight={116}>
+          { this.renderContacts() }
+        </Infinite>
+      )
     }
   }
 
-  renderInfiniteLoading() {
-    if(!this.props.infiniteLoaded && this.props.loaded) {
+  renderContacts() {
+    return _.map(this.props.contacts, (contact) => {
       return (
-        <div className="loading">
-          <img src={this.props.loadingImagePath}/>
-        </div>
+        <Contact key={contact.id}
+                 contact={contact}
+                 search={this.props.search} />
       );
-    }
+    });
   }
 }
 

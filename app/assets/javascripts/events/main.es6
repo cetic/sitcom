@@ -15,10 +15,8 @@ class Main extends React.Component {
     ];
 
     this.state = {
-      events:          [],
-      loaded:          false,
-      infiniteLoaded:  true,
-      infiniteEnabled: true,
+      events: [],
+      loaded: false
     };
   }
 
@@ -57,18 +55,10 @@ class Main extends React.Component {
 
     http.get(this.props.eventsPath, params, (data) => {
       this.setState({
-        events:          offset == 0 ? data.events : this.state.events.concat(data.events),
-        loaded:          true,
-        infiniteLoaded:  true,
-        infiniteEnabled: data.events.length == window.infiniteScrollStep // no more results
+        events: offset == 0 ? data.events : this.state.events.concat(data.events),
+        loaded: true,
       });
     });
-  }
-
-  loadNextBatchFromBackend() {
-    this.setState({ infiniteLoaded: false }, () => {
-      this.dReloadFromBackend(this.state.events.length);
-    })
   }
 
   updateUrl(newValues) {
@@ -105,7 +95,7 @@ class Main extends React.Component {
                             updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)} />
           </div>
 
-          <div className="col-md-8">
+          <div className="col-md-8 col-events">
             <QuickSearch quickSearch={this.props.location.query.quickSearch}
                          updateQuickSearch={this.updateQuickSearch.bind(this)} />
 
@@ -136,11 +126,7 @@ class Main extends React.Component {
         <Events events={this.state.events}
                 loaded={this.state.loaded}
                 search={this.props.location.search}
-                loadingImagePath={this.props.loadingImagePath}
-                infiniteEnabled={this.state.infiniteEnabled}
-                infiniteScrollOffset={this.state.infiniteScrollOffset}
-                infiniteLoaded={this.state.infiniteLoaded}
-                loadNextBatchFromBackend={this.loadNextBatchFromBackend.bind(this)} />
+                loadingImagePath={this.props.loadingImagePath} />
       )
     }
   }

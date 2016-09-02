@@ -15,10 +15,8 @@ class Main extends React.Component {
     ];
 
     this.state = {
-      projects:        [],
-      loaded:          false,
-      infiniteLoaded:  true,
-      infiniteEnabled: true,
+      projects: [],
+      loaded:   false,
     };
   }
 
@@ -57,18 +55,10 @@ class Main extends React.Component {
 
     http.get(this.props.projectsPath, params, (data) => {
       this.setState({
-        projects:        offset == 0 ? data.projects : this.state.projects.concat(data.projects),
-        loaded:          true,
-        infiniteLoaded:  true,
-        infiniteEnabled: data.projects.length == window.infiniteScrollStep // no more results
+        projects: offset == 0 ? data.projects : this.state.projects.concat(data.projects),
+        loaded:   true,
       });
     });
-  }
-
-  loadNextBatchFromBackend() {
-    this.setState({ infiniteLoaded: false }, () => {
-      this.dReloadFromBackend(this.state.projects.length);
-    })
   }
 
   updateUrl(newValues) {
@@ -105,7 +95,7 @@ class Main extends React.Component {
                             updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)} />
           </div>
 
-          <div className="col-md-8">
+          <div className="col-md-8 col-projects">
             <QuickSearch quickSearch={this.props.location.query.quickSearch}
                          updateQuickSearch={this.updateQuickSearch.bind(this)} />
 
@@ -136,11 +126,7 @@ class Main extends React.Component {
         <Projects projects={this.state.projects}
                   loaded={this.state.loaded}
                   search={this.props.location.search}
-                  loadingImagePath={this.props.loadingImagePath}
-                  infiniteEnabled={this.state.infiniteEnabled}
-                  infiniteScrollOffset={this.state.infiniteScrollOffset}
-                  infiniteLoaded={this.state.infiniteLoaded}
-                  loadNextBatchFromBackend={this.loadNextBatchFromBackend.bind(this)} />
+                  loadingImagePath={this.props.loadingImagePath} />
       )
     }
   }

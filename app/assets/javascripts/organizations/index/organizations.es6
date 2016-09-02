@@ -1,46 +1,22 @@
 import Organization from './organization.es6'
+import Infinite     from 'react-infinite'
 
 class Organizations extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      infiniteScrollOffset: 200
-    };
-  }
-
-  componentDidMount() {
-    this.bindInfiniteScroll();
-  }
-
-  componentWillUnmount() {
-    this.unbindInfiniteScroll();
-  }
-
-  bindInfiniteScroll() {
-    $(window).scroll(() => {
-      if(this.props.infiniteLoaded && this.props.infiniteEnabled && this.props.loaded) {
-        if($(window).scrollTop() + $(window).height() >= $(document).height() - this.state.infiniteScrollOffset) {
-          this.props.loadNextBatchFromBackend();
-        }
-      }
-    })
-  }
-
-  unbindInfiniteScroll() {
-    $(window).unbind('scroll');
+    this.state = {};
   }
 
   render() {
     return (
       <div className="organizations">
-        { this.renderOrganizations() }
-        { this.renderInfiniteLoading() }
+        { this.renderOrganizationsContainer() }
       </div>
     )
   }
 
-  renderOrganizations() {
+  renderOrganizationsContainer() {
     if(!this.props.loaded) {
       return (
         <div className="loading">
@@ -56,22 +32,23 @@ class Organizations extends React.Component {
       )
     }
     else {
-      return _.map(this.props.organizations, (organization) => {
-        return (
-          <Organization key={organization.id} organization={organization} search={this.props.search} />
-        );
-      });
+      return (
+        <Infinite useWindowAsScrollContainer
+                  elementHeight={116}>
+          { this.renderOrganizations() }
+        </Infinite>
+      )
     }
   }
 
-  renderInfiniteLoading() {
-    if(!this.props.infiniteLoaded && this.props.loaded) {
+  renderOrganizations() {
+    return _.map(this.props.organizations, (organization) => {
       return (
-        <div className="loading">
-          <img src={this.props.loadingImagePath}/>
-        </div>
+        <Organization key={organization.id}
+                      organization={organization}
+                      search={this.props.search} />
       );
-    }
+    });
   }
 }
 

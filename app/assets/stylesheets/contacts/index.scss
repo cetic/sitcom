@@ -1,4 +1,9 @@
 .container-contact {
+  .col-contacts {
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+
   // common to index and show
   .contacts, .contact {
     .activity {
@@ -54,11 +59,9 @@
 
     .contact-item {
       position: relative;
+      height: 80px;
       margin-bottom: 36px;
       background-color: white;
-      width: 700px;
-      left: -350px;
-      margin-left: 50%;
       box-shadow: 0px 0px 10px #cccccc;
 
       .picture {
@@ -145,15 +148,19 @@
       box-shadow: 0px 0px 10px #cccccc;
       padding: 12px;
 
-      .btn-edit {
+      .btn-edit, .btn-delete {
         position: absolute;
-        right: 18px;
+        right: 40px;
         top: 15px;
         padding: 8px;
         height: auto;
         font-size: 10px;
         letter-spacing: 2.4px;
         z-index: 1;
+      }
+
+      .btn-delete {
+        right: 10px
       }
     }
 

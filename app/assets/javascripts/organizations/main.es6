@@ -15,10 +15,8 @@ class Main extends React.Component {
     ];
 
     this.state = {
-      organizations:   [],
-      loaded:          false,
-      infiniteLoaded:  true,
-      infiniteEnabled: true,
+      organizations: [],
+      loaded:        false,
     };
   }
 
@@ -57,18 +55,10 @@ class Main extends React.Component {
 
     http.get(this.props.organizationsPath, params, (data) => {
       this.setState({
-        organizations:   offset == 0 ? data.organizations : this.state.organizations.concat(data.organizations),
-        loaded:          true,
-        infiniteLoaded:  true,
-        infiniteEnabled: data.organizations.length == window.infiniteScrollStep // no more results
+        organizations: offset == 0 ? data.organizations : this.state.organizations.concat(data.organizations),
+        loaded:        true,
       });
     });
-  }
-
-  loadNextBatchFromBackend() {
-    this.setState({ infiniteLoaded: false }, () => {
-      this.dReloadFromBackend(this.state.organizations.length);
-    })
   }
 
   updateUrl(newValues) {
@@ -106,7 +96,7 @@ class Main extends React.Component {
                             organizationStatusesOptionsPath={this.props.organizationStatusesOptionsPath} />
           </div>
 
-          <div className="col-md-8">
+          <div className="col-md-8 col-organizations">
             <QuickSearch quickSearch={this.props.location.query.quickSearch}
                          updateQuickSearch={this.updateQuickSearch.bind(this)} />
 
@@ -137,11 +127,7 @@ class Main extends React.Component {
         <Organizations organizations={this.state.organizations}
                        loaded={this.state.loaded}
                        search={this.props.location.search}
-                       loadingImagePath={this.props.loadingImagePath}
-                       infiniteEnabled={this.state.infiniteEnabled}
-                       infiniteScrollOffset={this.state.infiniteScrollOffset}
-                       infiniteLoaded={this.state.infiniteLoaded}
-                       loadNextBatchFromBackend={this.loadNextBatchFromBackend.bind(this)} />
+                       loadingImagePath={this.props.loadingImagePath} />
       )
     }
   }

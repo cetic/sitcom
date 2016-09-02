@@ -1,5 +1,5 @@
 class BaseSearch
-  STEP           = 30
+  STEP           = 10000
   MAX_EXPANSIONS = 2147483647 # 2^31 - 1 (max value for ElasticSearch)
 
   attr_reader :params
