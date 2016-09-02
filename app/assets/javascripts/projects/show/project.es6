@@ -7,6 +7,7 @@ class Project extends React.Component {
     super(props);
 
     this.state = {
+      notFound:        false,
       project:         {},
       loaded:          false,
       generalEditMode: false
@@ -28,12 +29,16 @@ class Project extends React.Component {
   }
 
   reloadFromBackend(callback) {
+    var notFoundCallback = () => {
+      this.setState({ notFound: true })
+    }
+
     http.get(this.projectPath(), {}, (data) => {
       this.setState({
         project: data,
         loaded:  true
       }, callback)
-    });
+    }, notFoundCallback);
   }
 
   toggleGeneralEditMode() {
@@ -43,13 +48,22 @@ class Project extends React.Component {
   }
 
   render() {
-    return (
-      <div className="project">
-        {this.renderLoading()}
-        {this.renderGeneral()}
-        {this.renderContacts()}
-      </div>
-    )
+    if(this.state.notFound) {
+      return (
+        <div className="alert alert-danger">
+          Ce projet n'existe pas/plus.
+        </div>
+      )
+    }
+    else {
+      return (
+        <div className="project">
+          {this.renderLoading()}
+          {this.renderGeneral()}
+          {this.renderContacts()}
+        </div>
+      )
+    }
   }
 
   renderLoading() {

@@ -7,7 +7,8 @@ class Event extends React.Component {
     super(props);
 
     this.state = {
-      event:         {},
+      notFound:        false,
+      event:           {},
       loaded:          false,
       generalEditMode: false
     };
@@ -28,12 +29,16 @@ class Event extends React.Component {
   }
 
   reloadFromBackend(callback) {
+    var notFoundCallback = () => {
+      this.setState({ notFound: true })
+    }
+
     http.get(this.eventPath(), {}, (data) => {
       this.setState({
         event:   data,
         loaded:  true
       }, callback)
-    });
+    }, notFoundCallback);
   }
 
   toggleGeneralEditMode() {
@@ -43,13 +48,22 @@ class Event extends React.Component {
   }
 
   render() {
-    return (
-      <div className="event">
-        {this.renderLoading()}
-        {this.renderGeneral()}
-        {this.renderContacts()}
-      </div>
-    )
+    if(this.state.notFound) {
+      return (
+        <div className="alert alert-danger">
+          Cet évènement n'existe pas/plus.
+        </div>
+      )
+    }
+    else {
+      return (
+        <div className="event">
+          {this.renderLoading()}
+          {this.renderGeneral()}
+          {this.renderContacts()}
+        </div>
+      )
+    }
   }
 
   renderLoading() {

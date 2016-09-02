@@ -7,6 +7,7 @@ class Organization extends React.Component {
     super(props);
 
     this.state = {
+      notFound:        false,
       organization:    {},
       loaded:          false,
       generalEditMode: false
@@ -28,12 +29,16 @@ class Organization extends React.Component {
   }
 
   reloadFromBackend(callback) {
+    var notFoundCallback = () => {
+      this.setState({ notFound: true })
+    }
+
     http.get(this.organizationPath(), {}, (data) => {
       this.setState({
         organization: data,
         loaded:  true
       }, callback)
-    });
+    }, notFoundCallback);
   }
 
   toggleGeneralEditMode() {
@@ -43,13 +48,22 @@ class Organization extends React.Component {
   }
 
   render() {
-    return (
-      <div className="organization">
-        {this.renderLoading()}
-        {this.renderGeneral()}
-        {this.renderContacts()}
-      </div>
-    )
+    if(this.state.notFound) {
+      return (
+        <div className="alert alert-danger">
+          Cette organisation n'existe pas/plus.
+        </div>
+      )
+    }
+    else {
+      return (
+        <div className="organization">
+          {this.renderLoading()}
+          {this.renderGeneral()}
+          {this.renderContacts()}
+        </div>
+      )
+    }
   }
 
   renderLoading() {
