@@ -34,7 +34,7 @@
     }
   }
 
-  .projects {
+  .labs {
     position: absolute;
     //width: 100%;
     width: calc(100% - 138px);
@@ -45,7 +45,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
-    .project {
+    .lab {
       padding-bottom: 8px;
       padding-top: 13px;
       padding-bottom: 7px;
@@ -84,6 +84,10 @@
       padding-bottom: 10px;
       padding-left: 20px;
       padding-right: 20px;
+    }
+
+    li.selected > a {
+      font-weight: bold;
     }
   }
 
@@ -133,8 +137,8 @@
 //       }
 //     }
 
-//     .projects {
-//       .project {
+//     .labs {
+//       .lab {
 //         padding-top: 39px;
 //         padding-bottom: 37px;
 

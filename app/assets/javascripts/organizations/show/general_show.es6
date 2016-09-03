@@ -60,9 +60,9 @@ class GeneralShow extends React.Component {
 
   renderDestroy() {
     return(
-      <button className="btn btn-secondary btn-edit"
+      <button className="btn btn-secondary btn-delete"
               onClick={this.destroyOrganization.bind(this)}>
-        Supprimer
+        &times;
       </button>
     )
   }

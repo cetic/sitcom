@@ -26,7 +26,8 @@ class Main extends React.Component {
   }
 
   componentDidMount() {
-    this.reloadFromBackend();
+    this.reloadFromBackend()
+    this.selectHeaderMenu()
     $('.quick-search input').focus()
   }
 
@@ -34,6 +35,11 @@ class Main extends React.Component {
     if(this.filtersHaveChanged(prevProps)) {
       this.reloadFromBackend();
     }
+  }
+
+  selectHeaderMenu() {
+    $('.nav.sections li').removeClass('selected')
+    $('.nav.sections li.contacts').addClass('selected')
   }
 
   filtersHaveChanged(prevProps) {

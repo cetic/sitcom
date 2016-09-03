@@ -29,8 +29,8 @@
             </li>
           </ul>
         <% else %>
-          <div class="projects">
-            <div class="project">
+          <div class="labs">
+            <div class="lab">
               <% if @lab %>
                 <h1><%= @lab.name %></h1>
 
@@ -45,16 +45,16 @@
 
           <% if @lab %>
             <ul class="nav navbar-nav sections">
-              <li>
+              <li class="contacts">
                 <a href="<%= lab_contacts_path(@lab) %>">Contacts</a>
               </li>
-              <li>
+              <li class="organizations">
                 <a href="<%= lab_organizations_path(@lab) %>">Organisations</a>
               </li>
-              <li>
+              <li class="projects">
                 <a href="<%= lab_projects_path(@lab) %>">Projets</a>
               </li>
-              <li>
+              <li class="events">
                 <a href="<%= lab_events_path(@lab) %>">Evènements</a>
               </li>
             </ul>
