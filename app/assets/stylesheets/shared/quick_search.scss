@@ -1,17 +1,32 @@
 .quick-search {
-  position: relative;
-  margin-top: 20px;
-  width: 45%;
-  margin-left: 20%;
+  background-color: #0144a4;
+  height: 40px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+
+  .title {
+    float: left;
+    width: 122px;
+    padding: 13px;
+    padding-left: 17px;
+    color: #ded8ff;
+    text-transform: uppercase;
+    font-size: 11px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
   input {
     padding-left: 30px;
+    width: 320px;
+    margin-left: 11px;
+    height: 28px;
+    margin-top: 6px;
   }
 
   .glyphicon-search {
     position: absolute;
-    top: 10px;
-    left: 8px;
+    top: 13px;
+    left: 131px;
     color: #aaaaaa;
   }
 

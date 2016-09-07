@@ -101,7 +101,8 @@ class Main extends React.Component {
           </div>
 
           <div className="col-md-8 col-projects">
-            <QuickSearch quickSearch={this.props.location.query.quickSearch}
+            <QuickSearch title="Projets"
+                         quickSearch={this.props.location.query.quickSearch}
                          updateQuickSearch={this.updateQuickSearch.bind(this)} />
 
             { this.renderNewProjectLink() }

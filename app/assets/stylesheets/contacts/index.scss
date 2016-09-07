@@ -1,7 +1,6 @@
 .container-contact {
   .col-contacts {
-    padding-left: 120px;
-    padding-right: 120px;
+
   }
 
   // common to index and show
@@ -46,6 +45,8 @@
   // only index
   .contacts {
     margin-top: 40px;
+    padding-left: 100px;
+    padding-right: 100px;
 
     .loading {
       text-align: center;

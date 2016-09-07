@@ -27,11 +27,15 @@ class QuickSearch extends React.Component {
 
   render() {
     return (
-      <div className="quick-search">
+      <div className="quick-search row">
+        <span className="title">
+          { this.props.title }
+        </span>
+
         <input ref="search"
                type="search"
                className="form-control"
-               placeholder="Filtrer"
+               placeholder="Recherche rapide"
                value={this.state.search}
                onChange={this.updateQuickSearch.bind(this)} />
         <i className="glyphicon glyphicon-search"></i>
