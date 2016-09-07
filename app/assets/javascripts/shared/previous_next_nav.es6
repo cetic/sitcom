@@ -38,39 +38,29 @@ class PreviousNextNav extends React.Component {
   }
 
   gotoPrevious() {
-    if(this.props.currentItemId > 1) {
+    if(this.state.currentItemIndex > 0) {
       this.pushItemAtIndex(this.state.currentItemIndex - 1)
     }
     else {
-      this.pushItemAtIndex(this.props.items.length)
+      this.pushItemAtIndex(this.props.items.length - 1)
     }
   }
 
   pushItemAtIndex(index) {
+    console.log(index)
+
     var path = this.props.items[index].scopedPath + this.props.search
     this.props.router.push(path)
   }
 
-  hasNext() {
-    return true
-  }
-
-  hasPrevious() {
-    return true
-  }
-
   render() {
-    if(this.hasPrevious()) {
-      var previousLink = (
-        <a href="javascript:;" onClick={this.gotoPrevious.bind(this)}>Précédent</a>
-      )
-    }
+    var previousLink = (
+      <a href="javascript:;" onClick={this.gotoPrevious.bind(this)}>Précédent</a>
+    )
 
-    if(this.hasNext()) {
-      var nextLink = (
-        <a href="javascript:;" onClick={this.gotoNext.bind(this)}>Suivant</a>
-      )
-    }
+    var nextLink = (
+      <a href="javascript:;" onClick={this.gotoNext.bind(this)}>Suivant</a>
+    )
 
     return (
       <div>
