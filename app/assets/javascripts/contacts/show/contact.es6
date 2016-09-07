@@ -1,9 +1,10 @@
-import GeneralShow     from './general_show.es6'
-import GeneralEdit     from './general_edit.es6'
-import SocialShow      from './social_show.es6'
-import SocialEdit      from './social_edit.es6'
-import ItemsBlock      from './items_block.es6'
-import PreviousNextNav from '../../shared/previous_next_nav.es6'
+import GeneralShow        from './general_show.es6'
+import GeneralEdit        from './general_edit.es6'
+import SocialShow         from './social_show.es6'
+import SocialEdit         from './social_edit.es6'
+import OrganizationsBlock from '../../shared/organizations_block.es6'
+import ItemsBlock         from './items_block.es6'
+import PreviousNextNav    from '../../shared/previous_next_nav.es6'
 
 class Contact extends React.Component {
   constructor(props) {
@@ -69,11 +70,12 @@ class Contact extends React.Component {
     else {
       return (
         <div className="contact">
-          {this.renderLoading()}
-          {this.renderGeneral()}
-          {this.renderSocial()}
-          {this.renderProjects()}
-          {this.renderEvents()}
+          { this.renderLoading() }
+          { this.renderGeneral() }
+          { this.renderSocial() }
+          { this.renderOrganizations() }
+          { this.renderProjects() }
+          { this.renderEvents() }
         </div>
       )
     }
@@ -105,7 +107,6 @@ class Contact extends React.Component {
           <GeneralEdit contact={this.state.contact}
                        search={this.props.search}
                        contactPath={this.contactPath()}
-                       organizationOptionsPath={this.props.organizationOptionsPath}
                        fieldOptionsPath={this.props.fieldOptionsPath}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)}
                        reloadFromBackend={this.reloadFromBackend.bind(this)}
@@ -143,6 +144,19 @@ class Contact extends React.Component {
                       toggleEditMode={this.toggleSocialEditMode.bind(this)} />
         )
       }
+    }
+  }
+
+  renderOrganizations() {
+    if(this.state.loaded) {
+      return (
+        <OrganizationsBlock parent={this.state.contact}
+                            parentType="contact"
+                            parentPath={this.contactPath()}
+                            optionsPath={this.props.organizationOptionsPath}
+                            reloadFromBackend={this.reloadFromBackend.bind(this)}
+                            reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
+      );
     }
   }
 

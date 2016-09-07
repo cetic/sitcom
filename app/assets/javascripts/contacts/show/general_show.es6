@@ -43,10 +43,6 @@ class GeneralShow extends React.Component {
               { this.renderActivityText() }
             </div>
 
-            <div className="organizations">
-              { this.renderOrganizations() }
-            </div>
-
             <ul className="fields">
               { this.renderFields() }
             </ul>
@@ -107,19 +103,6 @@ class GeneralShow extends React.Component {
     //   return "actif"
     // else
     //   return "inactif"
-  }
-
-  renderOrganizations() {
-    return _.map(this.props.contact.organizations, (organization, i) => {
-      return (
-        <span key={organization.id}>
-          <Link to={'/organizations/' + organization.id}>
-            {organization.name}
-          </Link>
-          { this.props.contact.organizations.length - 1 == i ? '' : ','}
-        </span>
-      )
-    })
   }
 
   renderFields() {

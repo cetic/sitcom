@@ -14,7 +14,6 @@ class GeneralEdit extends React.Component {
       addressCountry:  this.props.contact.addressCountry,
       phone:           this.props.contact.phone,
       email:           this.props.contact.email,
-      organizationIds: this.props.contact.organizationIds,
       fieldIds:        this.props.contact.fieldIds,
       errors:          ''
     };
@@ -32,7 +31,6 @@ class GeneralEdit extends React.Component {
         addressCountry:  this.state.addressCountry,
         phone:           this.state.phone,
         email:           this.state.email,
-        organizationIds: this.state.organizationIds,
         fieldIds:        this.state.fieldIds
       }
     }
@@ -104,12 +102,6 @@ class GeneralEdit extends React.Component {
     })
   }
 
-  updateOrganizationIds(value) {
-    this.setState({
-      organizationIds: value.split(',')
-    });
-  }
-
   updateFieldIds(value) {
     this.setState({
       fieldIds: value.split(',')
@@ -136,9 +128,6 @@ class GeneralEdit extends React.Component {
             <h1>
               { this.renderName() }
             </h1>
-            <div className="organizations">
-              { this.renderOrganizations() }
-            </div>
             <div className="fields">
               { this.renderFields() }
             </div>
@@ -198,15 +187,6 @@ class GeneralEdit extends React.Component {
                defaultValue={this.state.lastName}
                onChange={this.updateLastName.bind(this)} />
       </div>
-    )
-  }
-
-  renderOrganizations() {
-    return (
-      <ItemsSelect itemIds={this.state.organizationIds.join(',')}
-                    optionsPath={this.props.organizationOptionsPath}
-                    updateValue={this.updateOrganizationIds.bind(this)}
-                    label="Organisations" />
     )
   }
 
