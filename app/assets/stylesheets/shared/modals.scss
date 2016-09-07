@@ -8,4 +8,12 @@
     padding-bottom: 12px;
     padding-top: 26px;
   }
+
+  .modal-footer .btn + .btn {
+    margin-left: 12px;
+  }
+}
+
+.modal-backdrop.in {
+  opacity: 0.85;
 }

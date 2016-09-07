@@ -7,6 +7,10 @@ class QuickSearch extends React.Component {
     };
   }
 
+  componentDidMount() {
+    $(this.refs.search).focus()
+  }
+
   updateQuickSearch(e) {
     var search = e.target.value
 
@@ -24,7 +28,8 @@ class QuickSearch extends React.Component {
   render() {
     return (
       <div className="quick-search">
-        <input type="search"
+        <input ref="search"
+               type="search"
                className="form-control"
                placeholder="Filtrer"
                value={this.state.search}

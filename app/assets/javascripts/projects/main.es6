@@ -28,7 +28,6 @@ class Main extends React.Component {
   componentDidMount() {
     this.reloadFromBackend();
     this.selectHeaderMenu()
-    $('.quick-search input').focus()
   }
 
   componentDidUpdate(prevProps, prevState) {

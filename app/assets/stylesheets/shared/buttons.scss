@@ -1,0 +1,62 @@
+.btn {
+  color: rgb(255,255,255);
+  background-color: rgb(25,118,210);
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+  font-size: 15px;
+  line-height: 48px;
+  padding: 0 24px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: box-shadow .6s cubic-bezier(.25,.8,.25, 1), background-color .6s cubic-bezier(.25,.8,.25, 1);
+  border: 0px;
+}
+
+.btn:hover {
+  background-color: #347ec8;
+}
+
+.btn:active, .btn:focus, .btn:active:focus {
+  background-color: rgb(45, 99, 177);
+  outline: 0px;
+  outline-offset: 0px;
+//  box-shadow: none;
+}
+
+.btn-primary {
+
+}
+
+.btn-default {
+  color: rgb(33,33,33);
+  background-color: rgb(250,250,250);
+}
+
+.btn-default:hover {
+  background-color: #f1f1f1;
+}
+
+.btn-default:active, .btn-default:focus, .btn-default:active:focus {
+  background-color: white;
+}
+
+.btn-xs {
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+  height: inherit;
+  letter-spacing: 0px;
+}
+
+.btn.new {
+  position: absolute;
+  margin-left: 51%;
+  top: 22px;
+  padding: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  height: 31px;
+  line-height: 20px;
+  letter-spacing: 1px;
+  font-size: 10px;
+}

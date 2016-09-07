@@ -13,8 +13,9 @@
     margin-top: 50px;
     margin-bottom: 32px;
     opacity: 0.92;
-    background-color:white;
-    padding: 15px 0px
+    background-color: white;
+    padding: 15px 0px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.3);
   }
 
   h1 {
@@ -102,7 +103,6 @@
 #devise-sessions-new,
 #labs-index {
   .logo-container {
-    margin-top: 36px;
     text-align: center;
 
     img {
