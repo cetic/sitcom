@@ -1,7 +1,12 @@
 .complete-search {
+  position: fixed;
+  right: 0px;
+  top: 56px;
+  z-index: 0;
   height: inherit;
   padding-bottom: 20px;
   background-color: white;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 
   h3 {
     font-size: 14px;

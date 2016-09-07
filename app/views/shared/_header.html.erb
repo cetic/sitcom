@@ -2,17 +2,35 @@
   <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
       <div class="row">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="<%= @lab ? lab_contacts_path(@lab) : root_path %>">
-            <%= image_tag('logo.svg', :height => 100) %>
-          </a>
-        </div>
+
+        <% if @lab %>
+          <div class="navbar-header">
+            <a class="navbar-brand" href="<%= @lab ? lab_contacts_path(@lab) : root_path %>">
+              <%= @lab.name %>
+            </a>
+          </div>
+
+          <ul class="nav navbar-nav sections">
+            <li class="contacts">
+              <a href="<%= lab_contacts_path(@lab) %>">Contacts</a>
+            </li>
+            <li class="organizations">
+              <a href="<%= lab_organizations_path(@lab) %>">Organisations</a>
+            </li>
+            <li class="projects">
+              <a href="<%= lab_projects_path(@lab) %>">Projets</a>
+            </li>
+            <li class="events">
+              <a href="<%= lab_events_path(@lab) %>">Evènements</a>
+            </li>
+          </ul>
+        <% end %>
 
         <% if admin_page? %>
-          <div class="projects">
-            <div class="project">
-              <h1>Administration</h1>
-            </div>
+          <div class="navbar-header">
+            <a class="navbar-brand" href="<%= root_path %>">
+              Administration
+            </a>
           </div>
 
           <ul class="nav navbar-nav sections">
@@ -28,38 +46,21 @@
               <a href="<%= admin_fields_path %>">Domaines</a>
             </li>
           </ul>
-        <% else %>
-          <div class="labs">
-            <div class="lab">
-              <% if @lab %>
-                <h1><%= @lab.name %></h1>
-
-                <%= link_to profile_current_lab_path, :method => :delete do %>
-                  <i class="fa fa-caret-down"></i>
-                <% end %>
-              <% else %>
-                <h1>&nbsp;</h1>
-              <% end %>
-            </div>
-          </div>
-
-          <% if @lab %>
-            <ul class="nav navbar-nav sections">
-              <li class="contacts">
-                <a href="<%= lab_contacts_path(@lab) %>">Contacts</a>
-              </li>
-              <li class="organizations">
-                <a href="<%= lab_organizations_path(@lab) %>">Organisations</a>
-              </li>
-              <li class="projects">
-                <a href="<%= lab_projects_path(@lab) %>">Projets</a>
-              </li>
-              <li class="events">
-                <a href="<%= lab_events_path(@lab) %>">Evènements</a>
-              </li>
-            </ul>
-          <% end %>
         <% end %>
+
+<!--         <div class="labs">
+          <div class="lab">
+            <% if @lab %>
+              <h1><%= @lab.name %></h1>
+
+              <%= link_to profile_current_lab_path, :method => :delete do %>
+                <i class="fa fa-caret-down"></i>
+              <% end %>
+            <% else %>
+              <h1>&nbsp;</h1>
+            <% end %>
+          </div>
+        </div> -->
 
         <%= render 'shared/header_user' %>
       </div>

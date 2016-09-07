@@ -1,122 +1,78 @@
+body  {
+  padding-top: 60px;
+}
+
 .navbar {
-  background-color: white;
-  height: 105px;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 1;
+  background-color: rgb(25,118,210);
+  color: white;
+  height: 56px;
+  min-height: 56px;
+  padding: 0 16px;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);
+  border: 0px;
+  border-radius: 0px;
   margin-bottom: 0px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
   .navbar-header {
-    float: left;
-    width: 138px;
-    padding-bottom: 3px;
+    margin-right: 40px;
 
     .navbar-brand {
-      height: 100px;
-      padding-right: 0px;
-      padding-left: 30px;
-      padding-top: 2px;
-
-      img {
-        height: 100px;
-        width: 100px;
-      }
-
-      strong {
-        font-size: 26px;
-        color: #6A6A6A;
-        letter-spacing: 0.5px;
-        vertical-align: -5px;
-        margin-left: 10px;
-
-        em {
-          color: $brand-primary;
-          font-style: normal;
-        }
-      }
-    }
-  }
-
-  .labs {
-    position: absolute;
-    //width: 100%;
-    width: calc(100% - 138px);
-    left: 50%;
-    margin-left: calc(-50% + 138px);
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
-    .lab {
-      padding-bottom: 8px;
-      padding-top: 13px;
-      padding-bottom: 7px;
-      background-color: $brand-primary;
-
-      h1 {
-        display: inline;
-        text-transform: uppercase;
-        font-size: 30px;
-        color: white;
-        font-weight: 300;
-        letter-spacing: 3px;
-        margin-top: 0px;
-        margin-bottom: 0px;
-        line-height: inherit;
-      }
-
-      .fa {
-        margin-left: 6px;
-        vertical-align: -1px;
-        font-size: 30px;
-        color: white;
-        letter-spacing: 3px;
-      }
+      height: inherit;
+      text-transform: uppercase;
+      color: white;
+      font-weight: 400;
+      font-size: 18px;
+      padding-top: 19px;
+      padding-bottom: 17px;
     }
   }
 
   ul.nav.sections {
-    width: calc(100% - 138px);
-    margin-top: 62px;
-    border-top: 1px solid $brand-primary;
-    border-left: 1px solid #e2e2e2;
-
     li > a {
-      padding-top: 10px;
-      padding-bottom: 10px;
-      padding-left: 20px;
-      padding-right: 20px;
+      text-transform: uppercase;
+      color: white;
+      font-weight: 400;
+      font-size: 14px;
+      padding-top: 18px;
+      padding-bottom: 18px;
+      transition: box-shadow .4s cubic-bezier(.25,.8,.25, 1), background-color .4s cubic-bezier(.25,.8,.25, 1);
+    }
+
+    li > a:hover {
+      background-color: rgba(158,158,158,0.2);
+    }
+
+    li > a:active, li > a:focus {
+      background-color: rgb(45, 99, 177);
     }
 
     li.selected > a {
-      font-weight: bold;
+      background-color: rgba(158,158,158,0.2);
     }
   }
 
   .user {
-    position: absolute;
-    display: block;
-    top: 0px;
-    right: 0px;
-    font-size: 14px;
-
     .dropdown {
-      > a {
-        color: whitesmoke;
-      }
-
       .divider {
         margin-top: 0px;
         margin-bottom: 0px;
       }
     }
 
-    li > a {
-      padding-top: 9px;
-      padding-bottom: 9px;
-    }
-
-    img {
-      margin-right: 7px;
-      vertical-align: -17px;
+    li.dropdown > a {
+      text-transform: uppercase;
+      color: white;
+      font-weight: 400;
+      font-size: 14px;
+      padding-top: 18px;
+      padding-bottom: 18px;
+      transition: box-shadow .4s cubic-bezier(.25,.8,.25, 1), background-color .4s cubic-bezier(.25,.8,.25, 1);
     }
 
     .fa {
@@ -124,38 +80,3 @@
     }
   }
 }
-
-// @media (max-width: $screen-md-max) {
-//   .navbar {
-//     .navbar-header {
-//       .navbar-brand {
-//         strong {
-//           font-size: 28px;
-//           padding: 21px;
-//           letter-spacing: 0px;
-//         }
-//       }
-//     }
-
-//     .labs {
-//       .lab {
-//         padding-top: 39px;
-//         padding-bottom: 37px;
-
-//         h1 {
-//           font-size: 20px;
-//         }
-
-//         .fa {
-//           font-size: 20px;
-//         }
-//       }
-//     }
-
-//     .user {
-//       padding-top: 43px;
-//       padding-bottom: 39px;
-//       font-size: 16px;
-//     }
-//   }
-// }
