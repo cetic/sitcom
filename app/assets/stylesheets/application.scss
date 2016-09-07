@@ -27,11 +27,12 @@ $secondary: #e17000; // not bootstrap
 @import 'shared/date_range_filter';
 @import 'shared/date_field';
 @import 'shared/items_block';
+@import 'shared/items';
 
-@import 'contacts/index';
-@import 'organizations/index';
-@import 'projects/index';
-@import 'events/index';
+@import 'contacts/all';
+@import 'organizations/all';
+@import 'projects/all';
+@import 'events/all';
 
 @import 'admin/form';
 

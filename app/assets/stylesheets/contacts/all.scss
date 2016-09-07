@@ -1,0 +1,27 @@
+.items.contacts {
+  .activity {
+    position: absolute;
+    top: 4px;
+    right: 2px;
+    width: 12px;
+    height: 12px;
+    padding: 2px;
+    border: 1px solid #e0e0e0;
+    background-color: white;
+    @include border-radius(50%);
+
+    .activity-inside {
+      width: 6px;
+      height: 6px;
+      background-color: white;
+      @include border-radius(50%);
+    }
+  }
+
+  .activity.active {
+    .activity-inside {
+      background-color: $brand-primary-dark;
+    }
+  }
+
+}

@@ -10,7 +10,7 @@ class Organizations extends React.Component {
 
   render() {
     return (
-      <div className="organizations">
+      <div className="organizations items">
         { this.renderOrganizationsContainer() }
       </div>
     )

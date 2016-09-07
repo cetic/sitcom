@@ -1,0 +1,113 @@
+.items {
+  margin-top: 32px;
+  padding-left: 80px;
+  padding-right: 80px;
+
+  .loading {
+    text-align: center;
+    margin-top: -4px;
+    margin-bottom: 22px;
+  }
+
+  .blank-slate {
+    margin-top: 2px;
+    text-align: center;
+  }
+
+  .item {
+    position: relative;
+    height: 60px;
+    margin-bottom: 24px;
+    background-color: white;
+
+    .picture {
+      float: left;
+      margin-left: 6px;
+      margin-top: 5px;
+      margin-right: 8px;
+
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 0px;
+        padding: 0px;
+      }
+    }
+
+    .infos {
+      padding-top: 5px;
+
+      .name {
+        font-size: 22px;
+
+        a {
+          color: #999999;
+        }
+      }
+
+      .organizations {
+        font-size: 10px;
+        margin-left: 6px;
+
+        a {
+          color: #adadad;
+          font-weight: 400;
+        }
+      }
+    }
+
+    .fields {
+      list-style-type: none;
+      padding-left: 0px;
+      margin-top: -4px;
+
+      .field {
+        float: left;
+        margin-right: 4px;
+
+        .label {
+          background-color: #8cafd2;
+        }
+      }
+    }
+
+    .social {
+      position: absolute;
+      right: 5px;
+      text-align: right;
+      top: 35px;
+      width: 70px;
+      line-height: 16px;
+
+      .fa {
+        font-size: 20px;
+        color: #666666;
+        margin-left: 4px
+      }
+    }
+
+    .events-and-projects {
+      display: none;
+      margin-left: 48px;
+      margin-top: 4px;
+
+      .events, .projects {
+        float: left;
+        border: 1px solid #cccccc;
+        font-size: 10px;
+        margin-right: 4px;
+        padding: .2em .6em .3em;
+        font-size: 75%;
+        margin-bottom: 4px;
+      }
+    }
+
+    box-shadow: 0px 0px 10px #dddddd;
+    transition: box-shadow .4s cubic-bezier(.25,.8,.25, 1), background-color .4s cubic-bezier(.25,.8,.25, 1);
+  }
+
+  .item:hover {
+    box-shadow: 0px 0px 20px #a8b9ca;
+    transition: box-shadow .4s cubic-bezier(.25,.8,.25, 1), background-color .4s cubic-bezier(.25,.8,.25, 1);
+  }
+}

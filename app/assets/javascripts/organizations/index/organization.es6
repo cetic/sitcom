@@ -8,7 +8,7 @@ class Organization extends React.Component {
 
   render() {
     return (
-      <div className="organization">
+      <div className="organization item">
         { this.renderPicture() }
 
         <div className="infos">

@@ -10,7 +10,7 @@ class Events extends React.Component {
 
   render() {
     return (
-      <div className="events">
+      <div className="events items">
         { this.renderEventsContainer() }
       </div>
     )

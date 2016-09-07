@@ -9,7 +9,7 @@ class Project extends React.Component {
 
   render() {
     return (
-      <div className="project">
+      <div className="project item">
         { this.renderPicture() }
 
         <div className="infos">

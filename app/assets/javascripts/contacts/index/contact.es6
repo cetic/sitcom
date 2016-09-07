@@ -8,7 +8,7 @@ class Contact extends React.Component {
 
   render() {
     return (
-      <div className="contact-item">
+      <div className="contact item">
         { this.renderPicture() }
         { this.renderActivity() }
         { this.renderSocial() }
@@ -21,9 +21,9 @@ class Contact extends React.Component {
           <span className="organizations">
             { this.renderOrganizations() }
           </span>
-        </div>
 
-        { this.renderFieldsContainer() }
+          { this.renderFieldsContainer() }
+        </div>
 
         <div style={{ clear: 'both' }}></div>
 

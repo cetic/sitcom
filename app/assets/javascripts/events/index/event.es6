@@ -9,7 +9,7 @@ class Event extends React.Component {
 
   render() {
     return (
-      <div className="event">
+      <div className="event item">
         { this.renderPicture() }
 
         <div className="infos">

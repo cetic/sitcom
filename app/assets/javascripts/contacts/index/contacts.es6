@@ -10,7 +10,7 @@ class Contacts extends React.Component {
 
   render() {
     return (
-      <div className="contacts">
+      <div className="contacts items">
         { this.renderContactsContainer() }
       </div>
     )
@@ -34,7 +34,7 @@ class Contacts extends React.Component {
     else {
       return (
         <Infinite useWindowAsScrollContainer
-                  elementHeight={116}>
+                  elementHeight={84}>
           { this.renderContacts() }
         </Infinite>
       )
