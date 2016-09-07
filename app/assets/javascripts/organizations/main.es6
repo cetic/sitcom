@@ -141,11 +141,13 @@ class Main extends React.Component {
     if(this.props.params.id) {
       return (
         <Organization id={this.props.params.id}
+                      loaded={this.state.loaded}
                       organizationsPath={this.props.organizationsPath}
                       search={this.props.location.search}
                       loadingImagePath={this.props.loadingImagePath}
                       contactOptionsPath={this.props.contactOptionsPath}
                       reloadIndexFromBackend={this.reloadFromBackend.bind(this)}
+                      organizations={this.state.organizations}
                       router={this.props.router} />
       )
     }

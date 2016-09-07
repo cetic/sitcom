@@ -1,6 +1,7 @@
-import GeneralShow   from './general_show.es6'
-import GeneralEdit   from './general_edit.es6'
-import ContactsBlock from '../../shared/contacts_block.es6'
+import GeneralShow     from './general_show.es6'
+import GeneralEdit     from './general_edit.es6'
+import ContactsBlock   from '../../shared/contacts_block.es6'
+import PreviousNextNav from '../../shared/previous_next_nav.es6'
 
 class Organization extends React.Component {
   constructor(props) {
@@ -59,6 +60,7 @@ class Organization extends React.Component {
       return (
         <div className="organization">
           {this.renderLoading()}
+          {this.renderPreviousNextNav()}
           {this.renderGeneral()}
           {this.renderContacts()}
         </div>
@@ -72,6 +74,17 @@ class Organization extends React.Component {
         <div className="loading">
           <img src={this.props.loadingImagePath}/>
         </div>
+      )
+    }
+  }
+
+  renderPreviousNextNav() {
+    if(this.props.loaded) {
+      return (
+        <PreviousNextNav items={this.props.organizations}
+                         currentItemId={this.props.id}
+                         router={this.props.router}
+                         search={this.props.search} />
       )
     }
   }

@@ -140,11 +140,13 @@ class Main extends React.Component {
     if(this.props.params.id) {
       return (
         <Project id={this.props.params.id}
+                 loaded={this.state.loaded}
                  projectsPath={this.props.projectsPath}
                  search={this.props.location.search}
                  loadingImagePath={this.props.loadingImagePath}
                  contactOptionsPath={this.props.contactOptionsPath}
                  reloadIndexFromBackend={this.reloadFromBackend.bind(this)}
+                 projects={this.state.projects}
                  router={this.props.router} />
       )
     }

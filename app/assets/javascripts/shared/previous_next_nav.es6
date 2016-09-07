@@ -47,8 +47,6 @@ class PreviousNextNav extends React.Component {
   }
 
   pushItemAtIndex(index) {
-    console.log(index)
-
     var path = this.props.items[index].scopedPath + this.props.search
     this.props.router.push(path)
   }
