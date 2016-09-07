@@ -1,38 +1,62 @@
 class PreviousNextNav extends React.Component {
 
-  gotoNext() {
-    if(this.props.currentItemId == this.props.items.length - 1) {
-      if(this.props.infiniteEnabled) {
-        this.props.loadNextBatchFromBackend(() => {
-          this.pushNext(this.props.currentItemId)
-        })
-      }
-    }
-    else {
-      this.pushNext(this.props.currentItemId)
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currentItemIndex: -1
     }
   }
 
-  pushNext() {
-    if(this.props.currentItemId + 1 < this.props.items.length) {
-      this.props.router.push(`contacts/${this.props.items[this.props.currentItemId + 1].id}`)
-    } else {
-      this.props.router.push(`contacts/${this.props.items[0].id}`)
+  componentDidMount() {
+    this.setCurrentItemIndex()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.currentItemId != this.props.currentItemId) {
+      this.setCurrentItemIndex()
     }
+  }
+
+  setCurrentItemIndex() {
+    var index = _.findIndex(this.props.items, (item) => {
+      return item.id == parseInt(this.props.currentItemId)
+    })
+
+    this.setState({
+      currentItemIndex: index
+    })
+  }
+
+  gotoNext() {
+    if(this.state.currentItemIndex == this.props.items.length - 1) {
+      this.pushItemAtIndex(0)
+    }
+    else {
+      this.pushItemAtIndex(this.state.currentItemIndex + 1)
+    }
+  }
+
+  gotoPrevious() {
+    if(this.props.currentItemId > 1) {
+      this.pushItemAtIndex(this.state.currentItemIndex - 1)
+    }
+    else {
+      this.pushItemAtIndex(this.props.items.length)
+    }
+  }
+
+  pushItemAtIndex(index) {
+    var path = this.props.items[index].scopedPath + this.props.search
+    this.props.router.push(path)
   }
 
   hasNext() {
     return true
   }
 
-  gotoPrevious() {
-    if(this.props.currentItemId > 1) {
-      this.props.router.push(`contacts/${this.props.items[this.props.currentItemId - 1].id}`)
-    }
-  }
-
   hasPrevious() {
-    return this.props.currentItemIndex > 1
+    return true
   }
 
   render() {
@@ -51,8 +75,17 @@ class PreviousNextNav extends React.Component {
     return (
       <div>
         {previousLink}
+        &nbsp;&nbsp;
+        {this.renderFraction()}
+        &nbsp;&nbsp;
         {nextLink}
       </div>
+    )
+  }
+
+  renderFraction() {
+    return (
+      <span>{this.state.currentItemIndex + 1} / {this.props.items.length}</span>
     )
   }
 

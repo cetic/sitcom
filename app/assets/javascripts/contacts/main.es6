@@ -143,6 +143,7 @@ class Main extends React.Component {
     if(this.props.params.id) {
       return (
         <Contact id={this.props.params.id}
+                 loaded={this.state.loaded}
                  contactsPath={this.props.contactsPath}
                  search={this.props.location.search}
                  loadingImagePath={this.props.loadingImagePath}
