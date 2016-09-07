@@ -4,20 +4,26 @@
       <%= current_user.name %> <i class="fa fa-caret-down"></i>
     </a>
     <ul class="dropdown-menu">
+
+      <% if current_user.admin? %>
+        <li>
+          <a href="<%= admin_root_path %>">
+            Administration
+          </a>
+        </li>
+      <% end %>
+
+      <li>
+        <%= link_to profile_current_lab_path, :method => :delete do %>
+          Changer de lab
+        <% end %>
+      </li>
+
       <li>
         <a href="<%= edit_profile_password_path %>">
           Modifier le mot de passe
         </a>
       </li>
-
-      <% if current_user.admin? %>
-        <li class="divider"></li>
-        <li>
-          <a href="<%= admin_root_path %>">
-            Admin
-          </a>
-        </li>
-      <% end %>
 
       <li class="divider"></li>
 
