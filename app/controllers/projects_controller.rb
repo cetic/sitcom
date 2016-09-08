@@ -6,13 +6,17 @@ class ProjectsController < ApplicationController
   def index
     respond_to do |format|
       format.json do
-        projects = ProjectSearch.new(params.merge({
-          :lab_id => @lab.id
-        })).run
+        if PermissionsService.new(current_user, @lab).can_read?('projects')
+          projects = ProjectSearch.new(params.merge({
+            :lab_id => @lab.id
+          })).run
 
-        render :json => {
-          :projects => projects
-        }
+          render :json => {
+            :projects => projects
+          }
+        else
+          render_permission_error
+        end
       end
 
       format.html do
@@ -24,8 +28,12 @@ class ProjectsController < ApplicationController
   def show
     respond_to do |format|
       format.json do
-        @project = @lab.projects.find(params[:id])
-        render :json => @project.as_indexed_json
+        if PermissionsService.new(current_user, @lab).can_read?('projects')
+          @project = @lab.projects.find(params[:id])
+          render :json => @project.as_indexed_json
+        else
+          render_permission_error
+        end
       end
 
       format.html do
@@ -35,44 +43,56 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    respond_to do |format|
-      format.json do
-        @project = @lab.projects.new(strong_params)
+    if PermissionsService.new(current_user, @lab).can_write?('projects')
+      respond_to do |format|
+        format.json do
+          @project = @lab.projects.new(strong_params)
 
-        if @project.save
-          render_json_success({ :project => @project.as_indexed_json })
-        else
-          render_json_errors(@project)
+          if @project.save
+            render_json_success({ :project => @project.as_indexed_json })
+          else
+            render_json_errors(@project)
+          end
         end
       end
+    else
+      render_permission_error
     end
   end
 
   def update
-    respond_to do |format|
-      format.json do
-        @project = @lab.projects.find(params[:id])
+    if PermissionsService.new(current_user, @lab).can_write?('projects')
+      respond_to do |format|
+        format.json do
+          @project = @lab.projects.find(params[:id])
 
-        if @project.update_attributes(strong_params)
-          render_json_success
-        else
-          render_json_errors(@project)
+          if @project.update_attributes(strong_params)
+            render_json_success
+          else
+            render_json_errors(@project)
+          end
         end
       end
+    else
+      render_permission_error
     end
   end
 
   def destroy
-    respond_to do |format|
-      format.json do
-        @project = @lab.projects.find(params[:id])
+    if PermissionsService.new(current_user, @lab).can_write?('projects')
+      respond_to do |format|
+        format.json do
+          @project = @lab.projects.find(params[:id])
 
-        if @project.destroy
-          render_json_success
-        else
-          render_json_errors(@project)
+          if @project.destroy
+            render_json_success
+          else
+            render_json_errors(@project)
+          end
         end
       end
+    else
+      render_permission_error
     end
   end
 

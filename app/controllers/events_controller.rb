@@ -6,13 +6,17 @@ class EventsController < ApplicationController
   def index
     respond_to do |format|
       format.json do
-        events = EventSearch.new(params.merge({
-          :lab_id => @lab.id
-        })).run
+        if PermissionsService.new(current_user, @lab).can_read?('events')
+          events = EventSearch.new(params.merge({
+            :lab_id => @lab.id
+          })).run
 
-        render :json => {
-          :events => events
-        }
+          render :json => {
+            :events => events
+          }
+        else
+          render_permission_error
+        end
       end
 
       format.html do
@@ -24,8 +28,12 @@ class EventsController < ApplicationController
   def show
     respond_to do |format|
       format.json do
-        @event = @lab.events.find(params[:id])
-        render :json => @event.as_indexed_json
+        if PermissionsService.new(current_user, @lab).can_read?('events')
+          @event = @lab.events.find(params[:id])
+          render :json => @event.as_indexed_json
+        else
+          render_permission_error
+        end
       end
 
       format.html do
@@ -35,44 +43,56 @@ class EventsController < ApplicationController
   end
 
   def create
-    respond_to do |format|
-      format.json do
-        @event = @lab.events.new(strong_params)
+    if PermissionsService.new(current_user, @lab).can_write?('events')
+      respond_to do |format|
+        format.json do
+          @event = @lab.events.new(strong_params)
 
-        if @event.save
-          render_json_success({ :event => @event.as_indexed_json })
-        else
-          render_json_errors(@event)
+          if @event.save
+            render_json_success({ :event => @event.as_indexed_json })
+          else
+            render_json_errors(@event)
+          end
         end
       end
+    else
+      render_permission_error
     end
   end
 
   def update
-    respond_to do |format|
-      format.json do
-        @event = @lab.events.find(params[:id])
+    if PermissionsService.new(current_user, @lab).can_write?('events')
+      respond_to do |format|
+        format.json do
+          @event = @lab.events.find(params[:id])
 
-        if @event.update_attributes(strong_params)
-          render_json_success
-        else
-          render_json_errors(@event)
+          if @event.update_attributes(strong_params)
+            render_json_success
+          else
+            render_json_errors(@event)
+          end
         end
       end
+    else
+      render_permission_error
     end
   end
 
   def destroy
-    respond_to do |format|
-      format.json do
-        @event = @lab.events.find(params[:id])
+    if PermissionsService.new(current_user, @lab).can_write?('events')
+      respond_to do |format|
+        format.json do
+          @event = @lab.events.find(params[:id])
 
-        if @event.destroy
-          render_json_success
-        else
-          render_json_errors(@event)
+          if @event.destroy
+            render_json_success
+          else
+            render_json_errors(@event)
+          end
         end
       end
+    else
+      render_permission_error
     end
   end
 

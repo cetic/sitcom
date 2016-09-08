@@ -30,6 +30,11 @@ class User < ApplicationRecord
 
   # Methods
 
+  def permissions_for_lab(lab)
+    lab_user_link = lab_user_links.where(lab_id: lab.id).first
+    lab_user_link.try(:permissions)
+  end
+
   # Class Methods
 
   # Private Methods

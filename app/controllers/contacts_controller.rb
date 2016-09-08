@@ -6,13 +6,17 @@ class ContactsController < ApplicationController
   def index
     respond_to do |format|
       format.json do
-        contacts = ContactSearch.new(params.merge({
-          :lab_id => @lab.id
-        })).run
+        if PermissionsService.new(current_user, @lab).can_read?('contacts')
+          contacts = ContactSearch.new(params.merge({
+            :lab_id => @lab.id
+          })).run
 
-        render :json => {
-          :contacts => contacts
-        }
+          render :json => {
+            :contacts => contacts
+          }
+        else
+          render_permission_error
+        end
       end
 
       format.html do
@@ -24,8 +28,12 @@ class ContactsController < ApplicationController
   def show
     respond_to do |format|
       format.json do
-        @contact = @lab.contacts.find(params[:id])
-        render :json => @contact.as_indexed_json
+        if PermissionsService.new(current_user, @lab).can_read?('contacts')
+          @contact = @lab.contacts.find(params[:id])
+          render :json => @contact.as_indexed_json
+        else
+          render_permission_error
+        end
       end
 
       format.html do
@@ -35,44 +43,56 @@ class ContactsController < ApplicationController
   end
 
   def create
-    respond_to do |format|
-      format.json do
-        @contact = @lab.contacts.new(strong_params)
+    if PermissionsService.new(current_user, @lab).can_write?('contacts')
+      respond_to do |format|
+        format.json do
+          @contact = @lab.contacts.new(strong_params)
 
-        if @contact.save
-          render_json_success({ :contact => @contact.as_indexed_json })
-        else
-          render_json_errors(@contact)
+          if @contact.save
+            render_json_success({ :contact => @contact.as_indexed_json })
+          else
+            render_json_errors(@contact)
+          end
         end
       end
+    else
+      render_permission_error
     end
   end
 
   def update
-    respond_to do |format|
-      format.json do
-        @contact = @lab.contacts.find(params[:id])
+    if PermissionsService.new(current_user, @lab).can_write?('contacts')
+      respond_to do |format|
+        format.json do
+          @contact = @lab.contacts.find(params[:id])
 
-        if @contact.update_attributes(strong_params)
-          render_json_success
-        else
-          render_json_errors(@contact)
+          if @contact.update_attributes(strong_params)
+            render_json_success
+          else
+            render_json_errors(@contact)
+          end
         end
       end
+    else
+      render_permission_error
     end
   end
 
   def destroy
-    respond_to do |format|
-      format.json do
-        @contact = @lab.contacts.find(params[:id])
+    if PermissionsService.new(current_user, @lab).can_write?('contacts')
+      respond_to do |format|
+        format.json do
+          @contact = @lab.contacts.find(params[:id])
 
-        if @contact.destroy
-          render_json_success
-        else
-          render_json_errors(@contact)
+          if @contact.destroy
+            render_json_success
+          else
+            render_json_errors(@contact)
+          end
         end
       end
+    else
+      render_permission_error
     end
   end
 
