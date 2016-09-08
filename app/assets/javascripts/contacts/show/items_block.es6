@@ -83,6 +83,13 @@ class ItemsBlock extends React.Component {
   }
 
   renderItem(item) {
+    if(this.props.canWrite) {
+      var removeIcon = (
+        <i className="fa fa-times remove-icon"
+           onClick={this.removeItem.bind(this, item)}></i>
+      )
+    }
+
     return (
       <div className="col-md-6 item" key={item.id}>
         <img className="img-thumbnail" src={item.previewPictureUrl} />
@@ -90,8 +97,7 @@ class ItemsBlock extends React.Component {
           <Link to={item.scopedPath}>{item.name}</Link>
         </h4>
 
-        <i className="fa fa-times remove-icon"
-           onClick={this.removeItem.bind(this, item)}></i>
+        {removeIcon}
         <br />
 
         {this.renderDates(item)}
@@ -119,18 +125,20 @@ class ItemsBlock extends React.Component {
   }
 
   renderSelect() {
-    var filteredOptions = _.reject(this.state.options, (option) => {
-      return _.includes(this.props.contact[this.props.fieldName], option.value);
-    })
+    if(this.props.canWrite) {
+      var filteredOptions = _.reject(this.state.options, (option) => {
+        return _.includes(this.props.contact[this.props.fieldName], option.value);
+      })
 
-    return (
-      <div className="select">
-        <Select multi={false}
-                options={filteredOptions}
-                placeholder="Ajouter..."
-                onChange={this.addItem.bind(this)} />
-      </div>
-    );
+      return (
+        <div className="select">
+          <Select multi={false}
+                  options={filteredOptions}
+                  placeholder="Ajouter..."
+                  onChange={this.addItem.bind(this)} />
+        </div>
+      );
+    }
   }
 
 }

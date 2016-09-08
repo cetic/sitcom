@@ -133,12 +133,14 @@ class Main extends React.Component {
   }
 
   renderNewOrganizationLink() {
-    return (
-      <button className="btn btn-primary new"
-              onClick={this.openNewOrganizationModal.bind(this)}>
-        Nouvelle organisation
-      </button>
-    )
+    if(this.props.permissions.canWriteOrganizations) {
+      return (
+        <button className="btn btn-primary new"
+                onClick={this.openNewOrganizationModal.bind(this)}>
+          Nouvelle organisation
+        </button>
+      )
+    }
   }
 
   renderOrganizations() {

@@ -21,12 +21,14 @@ class SocialShow extends React.Component {
   }
 
   renderEdit() {
-    return(
-      <button className="btn btn-secondary btn-edit"
-              onClick={this.props.toggleEditMode}>
-        Modifier
-      </button>
-    )
+    if(this.props.permissions.canWriteContacts) {
+      return(
+        <button className="btn btn-secondary btn-edit"
+                onClick={this.props.toggleEditMode}>
+          Modifier
+        </button>
+      )
+    }
   }
 
   renderSocialInside(url) {

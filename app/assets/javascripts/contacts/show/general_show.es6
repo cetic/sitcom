@@ -71,21 +71,25 @@ class GeneralShow extends React.Component {
   }
 
   renderEdit() {
-    return(
-      <button className="btn btn-secondary btn-edit"
-              onClick={this.props.toggleEditMode}>
-        Modifier
-      </button>
-    )
+    if(this.props.permissions.canWriteContacts) {
+      return(
+        <button className="btn btn-secondary btn-edit"
+                onClick={this.props.toggleEditMode}>
+          Modifier
+        </button>
+      )
+    }
   }
 
   renderDestroy() {
-    return(
-      <button className="btn btn-secondary btn-delete"
-              onClick={this.destroyContact.bind(this)}>
-        &times;
-      </button>
-    )
+    if(this.props.permissions.canWriteContacts) {
+      return(
+        <button className="btn btn-secondary btn-delete"
+                onClick={this.destroyContact.bind(this)}>
+          &times;
+        </button>
+      )
+    }
   }
 
   renderPicture() {

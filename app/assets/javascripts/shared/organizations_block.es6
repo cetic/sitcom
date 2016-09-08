@@ -84,6 +84,14 @@ class OrganizationsBlock extends React.Component {
   }
 
   renderItem(organization) {
+    if(this.props.canWrite) {
+      var removeIcon = (
+        <i className="fa fa-times remove-icon"
+          onClick={this.removeOrganization.bind(this, organization)}>
+        </i>
+      )
+    }
+
     return (
       <div className="col-md-6 organization" key={organization.id}>
         <img className="img-thumbnail" src={organization.previewPictureUrl} />
@@ -91,26 +99,26 @@ class OrganizationsBlock extends React.Component {
           <Link to={organization.scopedPath}>{organization.name}</Link>
         </h4>
 
-        <i className="fa fa-times remove-icon"
-           onClick={this.removeOrganization.bind(this, organization)}>
-        </i>
+        {removeIcon}
       </div>
     )
   }
 
   renderSelect() {
-    var filteredOptions = _.reject(this.state.options, (option) => {
-      return _.includes(this.props.parent.organizationIds, option.value);
-    })
+    if(this.props.canWrite) {
+      var filteredOptions = _.reject(this.state.options, (option) => {
+        return _.includes(this.props.parent.organizationIds, option.value);
+      })
 
-    return (
-      <div className="select">
-        <Select multi={false}
-                options={filteredOptions}
-                placeholder="Ajouter..."
-                onChange={this.addOrganization.bind(this)} />
-      </div>
-    );
+      return (
+        <div className="select">
+          <Select multi={false}
+                  options={filteredOptions}
+                  placeholder="Ajouter..."
+                  onChange={this.addOrganization.bind(this)} />
+        </div>
+      );
+    }
   }
 }
 

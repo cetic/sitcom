@@ -119,6 +119,7 @@ class Contact extends React.Component {
       else {
         return (
           <GeneralShow contact={this.state.contact}
+                       permissions={this.props.permissions}
                        search={this.props.search}
                        contactPath={this.contactPath()}
                        router={this.props.router}
@@ -144,7 +145,8 @@ class Contact extends React.Component {
       else {
         return (
           <SocialShow contact={this.state.contact}
-                      toggleEditMode={this.toggleSocialEditMode.bind(this)} />
+                      toggleEditMode={this.toggleSocialEditMode.bind(this)}
+                      permissions={this.props.permissions} />
         )
       }
     }
@@ -158,7 +160,8 @@ class Contact extends React.Component {
                             parentPath={this.contactPath()}
                             optionsPath={this.props.organizationOptionsPath}
                             reloadFromBackend={this.reloadFromBackend.bind(this)}
-                            reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
+                            reloadIndexFromBackend={this.props.reloadIndexFromBackend}
+                            canWrite={this.props.permissions.canWriteContacts} />
       );
     }
   }
@@ -175,7 +178,8 @@ class Contact extends React.Component {
                     emptyMessage="Aucun projet."
                     optionsPath={this.props.projectOptionsPath}
                     reloadFromBackend={this.reloadFromBackend.bind(this)}
-                    reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
+                    reloadIndexFromBackend={this.props.reloadIndexFromBackend}
+                    canWrite={this.props.permissions.canWriteContacts} />
       );
     }
   }
@@ -192,7 +196,8 @@ class Contact extends React.Component {
                     emptyMessage="Aucun évènement."
                     optionsPath={this.props.projectOptionsPath}
                     reloadFromBackend={this.reloadFromBackend.bind(this)}
-                    reloadIndexFromBackend={this.props.reloadIndexFromBackend}  />
+                    reloadIndexFromBackend={this.props.reloadIndexFromBackend}
+                    canWrite={this.props.permissions.canWriteContacts}  />
       );
     }
   }

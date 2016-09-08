@@ -148,7 +148,8 @@ class Main extends React.Component {
   renderContacts() {
     if(!this.props.params.id) {
       return (
-        <Contacts contacts={this.state.contacts}
+        <Contacts permissions={this.props.permissions}
+                  contacts={this.state.contacts}
                   loaded={this.state.loaded}
                   search={this.props.location.search}
                   loadingImagePath={this.props.loadingImagePath} />
@@ -160,6 +161,7 @@ class Main extends React.Component {
     if(this.props.params.id) {
       return (
         <Contact id={this.props.params.id}
+                 permissions={this.props.permissions}
                  loaded={this.state.loaded}
                  contactsPath={this.props.contactsPath}
                  search={this.props.location.search}

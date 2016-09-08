@@ -132,12 +132,14 @@ class Main extends React.Component {
   }
 
   renderNewEventLink() {
-    return (
-      <button className="btn btn-primary new"
-              onClick={this.openNewEventModal.bind(this)}>
-        Nouvel évènement
-      </button>
-    )
+    if(this.props.permissions.canWriteEvents) {
+      return (
+        <button className="btn btn-primary new"
+                onClick={this.openNewEventModal.bind(this)}>
+          Nouvel évènement
+        </button>
+      )
+    }
   }
 
   renderEvents() {

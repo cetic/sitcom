@@ -132,12 +132,14 @@ class Main extends React.Component {
   }
 
   renderNewProjectLink() {
-    return (
-      <button className="btn btn-primary new"
-              onClick={this.openNewProjectModal.bind(this)}>
-        Nouveau projet
-      </button>
-    )
+    if(this.props.permissions.canWriteProjects) {
+      return (
+        <button className="btn btn-primary new"
+                onClick={this.openNewProjectModal.bind(this)}>
+          Nouveau projet
+        </button>
+      )
+    }
   }
 
   renderProjects() {
