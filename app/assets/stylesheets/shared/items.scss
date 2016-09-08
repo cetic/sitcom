@@ -19,6 +19,8 @@
     height: 60px;
     margin-bottom: 24px;
     background-color: white;
+    box-shadow: 0px 0px 10px #dddddd;
+    transition: box-shadow .4s cubic-bezier(.25,.8,.25, 1), background-color .4s cubic-bezier(.25,.8,.25, 1);
 
     .picture {
       float: left;
@@ -34,6 +36,31 @@
       }
     }
 
+    .activity {
+      position: absolute;
+      top: 4px;
+      right: 2px;
+      width: 12px;
+      height: 12px;
+      padding: 2px;
+      border: 1px solid #e0e0e0;
+      background-color: white;
+      @include border-radius(50%);
+
+      .activity-inside {
+        width: 6px;
+        height: 6px;
+        background-color: white;
+        @include border-radius(50%);
+      }
+    }
+
+    .activity.active {
+      .activity-inside {
+        background-color: $brand-primary-dark;
+      }
+    }
+
     .infos {
       padding-top: 5px;
 
@@ -45,7 +72,7 @@
         }
       }
 
-      .organizations {
+      .links {
         font-size: 10px;
         margin-left: 6px;
 
@@ -54,19 +81,34 @@
           font-weight: 400;
         }
       }
-    }
 
-    .fields {
-      list-style-type: none;
-      padding-left: 0px;
-      margin-top: -4px;
+      .associations {
+        .association {
+          border: 1px solid #cccccc;
+          font-size: 8px;
+          margin-left: 8px;
+          padding: 2px 4px;
+          vertical-align: 2px;
+        }
 
-      .field {
-        float: left;
-        margin-right: 4px;
+        .association:hover {
+          background-color: #f5f5f5;
+          text-decoration: none;
+        }
+      }
 
-        .label {
-          background-color: #8cafd2;
+      .fields {
+        list-style-type: none;
+        padding-left: 0px;
+        margin-top: -4px;
+
+        .field {
+          float: left;
+          margin-right: 4px;
+
+          .label {
+            background-color: #8cafd2;
+          }
         }
       }
     }
@@ -85,25 +127,6 @@
         margin-left: 4px
       }
     }
-
-    .events-and-projects {
-      display: none;
-      margin-left: 48px;
-      margin-top: 4px;
-
-      .events, .projects {
-        float: left;
-        border: 1px solid #cccccc;
-        font-size: 10px;
-        margin-right: 4px;
-        padding: .2em .6em .3em;
-        font-size: 75%;
-        margin-bottom: 4px;
-      }
-    }
-
-    box-shadow: 0px 0px 10px #dddddd;
-    transition: box-shadow .4s cubic-bezier(.25,.8,.25, 1), background-color .4s cubic-bezier(.25,.8,.25, 1);
   }
 
   .item:hover {

@@ -17,12 +17,12 @@ class Project extends React.Component {
             <Link to={'/projects/' + this.props.project.id + this.props.search}>{this.props.project.name}</Link>
           </span>
 
-          <span className="dates">
-            <ProjectDates project={this.props.project} />
+          <span className="associations">
+            { this.renderContacts() }
           </span>
 
-          <span className="contacts">
-            { this.renderContacts() }
+          <span className="dates">
+            <ProjectDates project={this.props.project} />
           </span>
         </div>
 
@@ -40,11 +40,17 @@ class Project extends React.Component {
   }
 
   renderContacts() {
-    return _.map(this.props.project.contacts, (contact) => {
-      return contact.name
-    }).join(', ')
-  }
+    var l = this.props.project.contacts.length
 
+    if(l) {
+      return (
+        <a className="association contacts"
+           href="javascript:;">
+          { l } { l == 1 ? 'participant' : 'participants' }
+        </a>
+      )
+    }
+  }
 }
 
 module.exports = Project

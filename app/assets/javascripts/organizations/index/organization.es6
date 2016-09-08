@@ -16,7 +16,7 @@ class Organization extends React.Component {
             <Link to={'/organizations/' + this.props.organization.id + this.props.search}>{this.props.organization.name}</Link>
           </span>
 
-          <span className="contacts">
+          <span className="links">
             { this.renderContacts() }
           </span>
         </div>
@@ -35,11 +35,17 @@ class Organization extends React.Component {
   }
 
   renderContacts() {
-    return _.map(this.props.organization.contacts, (contact) => {
-      return contact.name
-    }).join(', ')
+    return _.map(this.props.organization.contacts, (contact, i) => {
+      return (
+        <span key={contact.id}>
+          <Link to={'/contacts/' + contact.id}>
+            { contact.name }
+          </Link>
+          { this.props.organization.contacts.length - 1 == i ? '' : ', '}
+        </span>
+      )
+    })
   }
-
 }
 
 module.exports = Organization

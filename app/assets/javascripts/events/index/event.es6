@@ -17,16 +17,18 @@ class Event extends React.Component {
             <Link to={'/events/' + this.props.event.id + this.props.search}>{this.props.event.name}</Link>
           </span>
 
-          <span className="dates">
+          <span className="associations">
+            { this.renderContacts() }
+          </span>
+
+          <br/>
+
+          <span className="date">
             <EventDate event={this.props.event} />
           </span>
 
           <span className="place">
             {this.props.event.place}
-          </span>
-
-          <span className="contacts">
-            { this.renderContacts() }
           </span>
         </div>
 
@@ -44,9 +46,16 @@ class Event extends React.Component {
   }
 
   renderContacts() {
-    return _.map(this.props.event.contacts, (contact) => {
-      return contact.name
-    }).join(', ')
+    var l = this.props.event.contacts.length
+
+    if(l) {
+      return (
+        <a className="association contacts"
+           href="javascript:;">
+          { l } { l == 1 ? 'participant' : 'participants' }
+        </a>
+      )
+    }
   }
 }
 

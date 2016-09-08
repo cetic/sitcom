@@ -18,18 +18,16 @@ class Contact extends React.Component {
             <Link to={'/contacts/' + this.props.contact.id + this.props.search}>{this.props.contact.name}</Link>
           </span>
 
-          <span className="organizations">
+          <span className="links">
             { this.renderOrganizations() }
           </span>
 
+          <span className="associations">
+            { this.renderEvents() }
+            { this.renderProjects() }
+          </span>
+
           { this.renderFieldsContainer() }
-        </div>
-
-        <div style={{ clear: 'both' }}></div>
-
-        <div className="events-and-projects">
-          { this.renderEvents() }
-          { this.renderProjects() }
         </div>
 
         <div style={{ clear: 'both' }}></div>
@@ -104,19 +102,29 @@ class Contact extends React.Component {
   }
 
   renderEvents() {
-    return (
-      <div className="events">
-        { this.props.contact.events.length } événements <i className="fa fa-caret-down"></i>
-      </div>
-    )
+    var l = this.props.contact.events.length
+
+    if(l) {
+      return (
+        <a className="association events"
+           href="javascript:;">
+          { l } { l == 1 ? 'évènement' : 'évènements' }
+        </a>
+      )
+    }
   }
 
   renderProjects() {
-    return (
-      <div className="projects">
-        { this.props.contact.projects.length } projets <i className="fa fa-caret-down"></i>
-      </div>
-    )
+    var l = this.props.contact.projects.length
+
+    if(l) {
+      return (
+        <a className="association projects"
+           href="javascript:;">
+          { l } { l == 1 ? 'projet' : 'projets' }
+        </a>
+      )
+    }
   }
 }
 
