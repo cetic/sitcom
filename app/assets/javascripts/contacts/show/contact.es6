@@ -4,6 +4,7 @@ import SocialShow         from './social_show.es6'
 import SocialEdit         from './social_edit.es6'
 import OrganizationsBlock from '../../shared/organizations_block.es6'
 import ItemsBlock         from './items_block.es6'
+import NotesBlock         from '../../shared/notes_block.es6'
 import PreviousNextNav    from '../../shared/previous_next_nav.es6'
 
 class Contact extends React.Component {
@@ -74,6 +75,7 @@ class Contact extends React.Component {
           { this.renderPreviousNextNav() }
           { this.renderGeneral() }
           { this.renderSocial() }
+          { this.renderNotes() }
           { this.renderOrganizations() }
           { this.renderProjects() }
           { this.renderEvents() }
@@ -200,6 +202,13 @@ class Contact extends React.Component {
                     canWrite={this.props.permissions.canWriteContacts}  />
       );
     }
+  }
+
+  renderNotes() {
+    return (
+      <NotesBlock contact={this.state.contact}
+                  notes={this.state.contact.notes} />
+    )
   }
 }
 
