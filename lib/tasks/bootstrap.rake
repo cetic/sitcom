@@ -9,6 +9,7 @@ namespace :app do
     aurels  = User.find_by_email('aurelien@phonoid.com')
     michael = User.find_by_email('michael.hoste@gmail.com')
     nicolas = User.find_by_email('nicolas.devos@cetic.be')
+    jules   = User.find_by_email('jules.verne@hotmail.com')
 
     # Labs
 
@@ -23,6 +24,8 @@ namespace :app do
 
     nicolas.labs << gastro
     nicolas.labs << health
+
+    jules.labs << gastro
 
     # Contacts & Organizations
 

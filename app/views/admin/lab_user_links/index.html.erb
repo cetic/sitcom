@@ -1,0 +1,48 @@
+<div class="container container-main">
+  <div class="row">
+    <div class="panel col-md-6 col-md-offset-3">
+      <ol class="breadcrumb">
+        <li><%= link_to 'Utilisateurs', admin_users_path %></li>
+        <li><%= @user.name %></li>
+        <li class="active">Droits d'accès</li>
+      </ol>
+
+      <%= render 'shared/flash' %>
+
+      <%= form_tag(update_many_admin_user_lab_user_links_path(@user), :class => 'form-horizontal', :method => :put) do %>
+
+        <% @lab_user_links.each do |lab_user_link| %>
+          <fieldset>
+            <legend><%= lab_user_link.lab.name %></legend>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <td></td>
+                  <td class="center">Lecture</td>
+                  <td class="center">Ecriture</td>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% PermissionsService::MODULES.each do |item_key, item_name| %>
+                  <tr>
+                    <td><%= item_name %></td>
+
+                    <td class="center"><%= check_box_tag "lab_user_links[#{lab_user_link.id}][can_read_#{item_key}]",  '1', lab_user_link.send("can_read_#{item_key}?".to_sym) %></td>
+                    <td class="center"><%= check_box_tag "lab_user_links[#{lab_user_link.id}][can_write_#{item_key}]", '1', lab_user_link.send("can_write_#{item_key}?".to_sym) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </fieldset>
+        <% end %>
+
+        <div class="actions">
+          <%= link_to 'Annuler', admin_users_path, :class => 'btn btn-default' %>
+          <%= submit_tag 'Enregistrer', :class => 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
