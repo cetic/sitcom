@@ -108,7 +108,7 @@ class Contact extends React.Component {
       return (
         <a className="association events"
            href="javascript:;">
-          { l } { l == 1 ? 'évènement' : 'évènements' }
+          <em>{ l }</em> { l == 1 ? 'évènement' : 'évènements' }
         </a>
       )
     }
@@ -121,7 +121,7 @@ class Contact extends React.Component {
       return (
         <a className="association projects"
            href="javascript:;">
-          { l } { l == 1 ? 'projet' : 'projets' }
+          <em>{ l }</em> { l == 1 ? 'projet' : 'projets' }
         </a>
       )
     }

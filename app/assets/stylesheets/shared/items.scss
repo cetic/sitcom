@@ -90,11 +90,25 @@
           padding: 2px 4px;
           vertical-align: 2px;
           color: #999999;
+          transition: background-color .6s cubic-bezier(.25,.8,.25, 1);
+
+          em {
+            font-style: normal;
+            transition: color .6s cubic-bezier(.25,.8,.25, 1);
+          }
         }
 
         .association:hover {
           background-color: #f5f5f5;
           text-decoration: none;
+          transition: background-color .6s cubic-bezier(.25,.8,.25, 1);
+
+          em {
+            color: #1976d2;
+            font-weight: 400;
+            font-style: normal;
+            transition: color .6s cubic-bezier(.25,.8,.25, 1);
+          }
         }
       }
 

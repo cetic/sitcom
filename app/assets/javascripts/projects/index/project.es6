@@ -46,7 +46,7 @@ class Project extends React.Component {
       return (
         <a className="association contacts"
            href="javascript:;">
-          { l } { l == 1 ? 'participant' : 'participants' }
+          <em>{ l }</em> { l == 1 ? 'participant' : 'participants' }
         </a>
       )
     }
