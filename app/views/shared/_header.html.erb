@@ -3,7 +3,27 @@
     <div class="container-fluid">
       <div class="row">
 
-        <% if @lab %>
+        <% if admin_page? %>
+          <div class="navbar-header">
+            <a class="navbar-brand" href="<%= root_path %>">
+              Administration
+            </a>
+          </div>
+
+          <ul class="nav navbar-nav sections">
+            <li class="<%= params[:controller] == 'admin/users' ? 'selected' : '' %>">
+              <a href="<%= admin_users_path %>">Utilisateurs</a>
+            </li>
+
+            <li class="<%= params[:controller] == 'admin/labs' ? 'selected' : '' %>">
+              <a href="<%= admin_labs_path %>">Labs</a>
+            </li>
+
+            <li class="<%= params[:controller] == 'admin/fields' ? 'selected' : '' %>">
+              <a href="<%= admin_fields_path %>">Domaines</a>
+            </li>
+          </ul>
+        <% elsif @lab %>
           <div class="navbar-header">
             <a class="navbar-brand" href="<%= @lab ? lab_contacts_path(@lab) : root_path %>">
               <%= @lab.name %>
@@ -22,28 +42,6 @@
             </li>
             <li class="events">
               <a href="<%= lab_events_path(@lab) %>">Évènements</a>
-            </li>
-          </ul>
-        <% end %>
-
-        <% if admin_page? %>
-          <div class="navbar-header">
-            <a class="navbar-brand" href="<%= root_path %>">
-              Administration
-            </a>
-          </div>
-
-          <ul class="nav navbar-nav sections">
-            <li>
-              <a href="<%= admin_users_path %>">Utilisateurs</a>
-            </li>
-
-            <li>
-              <a href="<%= admin_labs_path %>">Labs</a>
-            </li>
-
-            <li>
-              <a href="<%= admin_fields_path %>">Domaines</a>
             </li>
           </ul>
         <% end %>

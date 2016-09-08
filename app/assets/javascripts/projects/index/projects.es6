@@ -10,7 +10,7 @@ class Projects extends React.Component {
 
   render() {
     return (
-      <div className="projects">
+      <div className="projects items">
         { this.renderProjectsContainer() }
       </div>
     )
@@ -34,7 +34,7 @@ class Projects extends React.Component {
     else {
       return (
         <Infinite useWindowAsScrollContainer
-                  elementHeight={116}>
+                  elementHeight={84}>
           { this.renderProjects() }
         </Infinite>
       )

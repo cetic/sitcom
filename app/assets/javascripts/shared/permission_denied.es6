@@ -10,7 +10,8 @@ class PermissionDenied extends React.Component {
         <div className="row">
           <div className="panel col-md-6 col-md-offset-3">
             <p>Vous n'avez pas accès à cette page.</p>
-            <a href="javascript:;" className="btn btn-xs" onClick={this.goBack.bind(this)}>Retour</a>
+            <p><small>Veuillez contacter un administrateur de votre lab si vous pensez que ce n'est pas normal.</small></p>
+            <p><a href="javascript:;" onClick={this.goBack.bind(this)}>Retour</a></p>
           </div>
         </div>
       </div>

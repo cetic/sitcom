@@ -73,12 +73,16 @@ class Main extends React.Component {
   }
 
   updateQuickSearch(newQuickSearch) {
+    this.setState({ loaded: false })
+
     this.dUpdateUrl({
       quickSearch: newQuickSearch
     });
   }
 
   updateAdvancedSearchFilters(newFilters) {
+    this.setState({ loaded: false })
+
     this.dUpdateUrl(newFilters);
   }
 
@@ -103,6 +107,8 @@ class Main extends React.Component {
 
           <div className="col-md-8 col-organizations">
             <QuickSearch title="Organisations"
+                         loaded={this.state.loaded}
+                         results={this.state.organizations.length}
                          quickSearch={this.props.location.query.quickSearch}
                          updateQuickSearch={this.updateQuickSearch.bind(this)} />
 

@@ -52,13 +52,13 @@ class Project extends React.Component {
     if(this.state.notFound) {
       return (
         <div className="alert alert-danger">
-          Ce projet n'existe pas/plus.
+          Ce projet n'existe pas.
         </div>
       )
     }
     else {
       return (
-        <div className="project">
+        <div className="show project">
           {this.renderLoading()}
           {this.renderPreviousNextNav()}
           {this.renderGeneral()}

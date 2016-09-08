@@ -63,13 +63,13 @@ class Contact extends React.Component {
     if(this.state.notFound) {
       return (
         <div className="alert alert-danger">
-          Ce contact n'existe pas/plus.
+          Ce contact n'existe pas.
         </div>
       )
     }
     else {
       return (
-        <div className="contact">
+        <div className="show contact">
           { this.renderLoading() }
           { this.renderPreviousNextNav() }
           { this.renderGeneral() }

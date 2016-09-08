@@ -1,0 +1,136 @@
+.items {
+  margin-top: 32px;
+  padding-left: 80px;
+  padding-right: 80px;
+
+  .loading {
+    text-align: center;
+    margin-top: -4px;
+    margin-bottom: 22px;
+  }
+
+  .blank-slate {
+    margin-top: 2px;
+    text-align: center;
+  }
+
+  .item {
+    position: relative;
+    height: 60px;
+    margin-bottom: 24px;
+    background-color: white;
+    box-shadow: 0px 0px 10px #dddddd;
+    transition: box-shadow .4s cubic-bezier(.25,.8,.25, 1), background-color .4s cubic-bezier(.25,.8,.25, 1);
+
+    .picture {
+      float: left;
+      margin-left: 6px;
+      margin-top: 5px;
+      margin-right: 8px;
+
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 0px;
+        padding: 0px;
+      }
+    }
+
+    .activity {
+      position: absolute;
+      top: 4px;
+      right: 2px;
+      width: 12px;
+      height: 12px;
+      padding: 2px;
+      border: 1px solid #e0e0e0;
+      background-color: white;
+      @include border-radius(50%);
+
+      .activity-inside {
+        width: 6px;
+        height: 6px;
+        background-color: white;
+        @include border-radius(50%);
+      }
+    }
+
+    .activity.active {
+      .activity-inside {
+        background-color: $brand-primary-dark;
+      }
+    }
+
+    .infos {
+      padding-top: 5px;
+
+      .name {
+        font-size: 22px;
+
+        a {
+          color: #999999;
+        }
+      }
+
+      .links {
+        font-size: 10px;
+        margin-left: 6px;
+
+        a {
+          color: #adadad;
+          font-weight: 400;
+        }
+      }
+
+      .associations {
+        .association {
+          border: 1px solid #cccccc;
+          font-size: 8px;
+          margin-left: 8px;
+          padding: 2px 4px;
+          vertical-align: 2px;
+        }
+
+        .association:hover {
+          background-color: #f5f5f5;
+          text-decoration: none;
+        }
+      }
+
+      .fields {
+        list-style-type: none;
+        padding-left: 0px;
+        margin-top: -4px;
+
+        .field {
+          float: left;
+          margin-right: 4px;
+
+          .label {
+            background-color: #8cafd2;
+          }
+        }
+      }
+    }
+
+    .social {
+      position: absolute;
+      right: 5px;
+      text-align: right;
+      top: 35px;
+      width: 70px;
+      line-height: 16px;
+
+      .fa {
+        font-size: 20px;
+        color: #666666;
+        margin-left: 4px
+      }
+    }
+  }
+
+  .item:hover {
+    box-shadow: 0px 0px 20px #a8b9ca;
+    transition: box-shadow .4s cubic-bezier(.25,.8,.25, 1), background-color .4s cubic-bezier(.25,.8,.25, 1);
+  }
+}

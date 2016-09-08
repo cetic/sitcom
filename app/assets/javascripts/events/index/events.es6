@@ -10,7 +10,7 @@ class Events extends React.Component {
 
   render() {
     return (
-      <div className="events">
+      <div className="events items">
         { this.renderEventsContainer() }
       </div>
     )
@@ -34,7 +34,7 @@ class Events extends React.Component {
     else {
       return (
         <Infinite useWindowAsScrollContainer
-                  elementHeight={116}>
+                  elementHeight={84}>
           { this.renderEvents() }
         </Infinite>
       )

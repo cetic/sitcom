@@ -1,0 +1,23 @@
+.items.events {
+  .item {
+    .date {
+      display: block;
+      width: 64px;
+      float: left;
+      font-size: 11px;
+      color: #444444;
+
+      > div {
+        display: inline;
+      }
+    }
+
+    .place {
+      display: block;
+      float: left;
+      margin-left: 4px;
+      font-size: 12px;
+      margin-top: -1px;
+    }
+  }
+}

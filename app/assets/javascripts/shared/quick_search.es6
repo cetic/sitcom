@@ -25,6 +25,11 @@ class QuickSearch extends React.Component {
     })
   }
 
+  singularItemName() {
+    var singularItemName = this.props.title.substring(0, this.props.title.length - 1);
+    return singularItemName.toLowerCase()
+  }
+
   render() {
     return (
       <div className="quick-search row">
@@ -39,7 +44,8 @@ class QuickSearch extends React.Component {
                value={this.state.search}
                onChange={this.updateQuickSearch.bind(this)} />
         <i className="glyphicon glyphicon-search"></i>
-        {this.renderResetIcon()}
+        { this.renderResetIcon() }
+        { this.renderResults() }
       </div>
     )
   }
@@ -49,6 +55,25 @@ class QuickSearch extends React.Component {
       return (
         <i className="fa fa-times" onClick={this.resetQuickSearch.bind(this)}></i>
       );
+    }
+  }
+
+  renderResults() {
+    if(this.props.results != 0 && this.props.loaded) {
+      if(this.state.search == '') {
+        return (
+          <span className="results">
+            { this.props.results == 1 ? this.props.results + ' ' + this.singularItemName() : this.props.results + ' ' + this.singularItemName() + 's' }
+          </span>
+        )
+      }
+      else {
+        return (
+          <span className="results">
+            { this.props.results == 1 ? this.props.results + ' résultat trouvé' : this.props.results + ' résultats trouvés' }
+          </span>
+        )
+      }
     }
   }
 }
