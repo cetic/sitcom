@@ -84,6 +84,14 @@ class ContactsBlock extends React.Component {
   }
 
   renderItem(contact) {
+    if(this.props.canWrite) {
+      var removeIcon = (
+        <i className="fa fa-times remove-icon"
+           onClick={this.removeContact.bind(this, contact)}>
+        </i>
+      )
+    }
+
     return (
       <div className="col-md-6 contact" key={contact.id}>
         <img className="img-thumbnail" src={contact.previewPictureUrl} />
@@ -91,26 +99,26 @@ class ContactsBlock extends React.Component {
           <Link to={contact.scopedPath}>{contact.name}</Link>
         </h4>
 
-        <i className="fa fa-times remove-icon"
-           onClick={this.removeContact.bind(this, contact)}>
-        </i>
+        {removeIcon}
       </div>
     )
   }
 
   renderSelect() {
-    var filteredOptions = _.reject(this.state.options, (option) => {
-      return _.includes(this.props.parent.contactIds, option.value);
-    })
+    if(this.props.canWrite) {
+      var filteredOptions = _.reject(this.state.options, (option) => {
+        return _.includes(this.props.parent.contactIds, option.value);
+      })
 
-    return (
-      <div className="select">
-        <Select multi={false}
-                options={filteredOptions}
-                placeholder="Ajouter..."
-                onChange={this.addContact.bind(this)} />
-      </div>
-    );
+      return (
+        <div className="select">
+          <Select multi={false}
+                  options={filteredOptions}
+                  placeholder="Ajouter..."
+                  onChange={this.addContact.bind(this)} />
+        </div>
+      );
+    }
   }
 }
 

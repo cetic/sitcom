@@ -157,6 +157,7 @@ class Main extends React.Component {
     if(this.props.params.id) {
       return (
         <Project id={this.props.params.id}
+                 permissions={this.props.permissions}
                  loaded={this.state.loaded}
                  projectsPath={this.props.projectsPath}
                  search={this.props.location.search}

@@ -157,6 +157,7 @@ class Main extends React.Component {
     if(this.props.params.id) {
       return (
         <Event id={this.props.params.id}
+               permissions={this.props.permissions}
                loaded={this.state.loaded}
                eventsPath={this.props.eventsPath}
                search={this.props.location.search}

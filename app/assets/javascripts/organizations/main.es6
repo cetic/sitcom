@@ -158,6 +158,7 @@ class Main extends React.Component {
     if(this.props.params.id) {
       return (
         <Organization id={this.props.params.id}
+                      permissions={this.props.permissions}
                       loaded={this.state.loaded}
                       organizationsPath={this.props.organizationsPath}
                       search={this.props.location.search}
