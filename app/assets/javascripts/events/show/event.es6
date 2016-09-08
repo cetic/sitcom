@@ -52,13 +52,13 @@ class Event extends React.Component {
     if(this.state.notFound) {
       return (
         <div className="alert alert-danger">
-          Cet évènement n'existe pas/plus.
+          Cet évènement n'existe pas.
         </div>
       )
     }
     else {
       return (
-        <div className="event">
+        <div className="show event">
           {this.renderLoading()}
           {this.renderPreviousNextNav()}
           {this.renderGeneral()}

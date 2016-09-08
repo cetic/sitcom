@@ -52,13 +52,13 @@ class Organization extends React.Component {
     if(this.state.notFound) {
       return (
         <div className="alert alert-danger">
-          Cette organisation n'existe pas/plus.
+          Cette organisation n'existe pas.
         </div>
       )
     }
     else {
       return (
-        <div className="organization">
+        <div className="show organization">
           {this.renderLoading()}
           {this.renderPreviousNextNav()}
           {this.renderGeneral()}

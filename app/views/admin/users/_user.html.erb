@@ -13,9 +13,6 @@
 
   <td class="actions">
     <%= link_to fa('edit'), edit_admin_user_path(user), :class => 'btn btn-xs btn-default' %>
-
-    <% unless user.id == current_user.id %>
-      <%= link_to fa('remove'), admin_user_path(user), :class => 'btn btn-xs btn-danger', :data => { :confirm => "Supprimer cet utilisateur ?" }, :method => :delete %>
-    <% end %>
+    <%= link_to fa('remove'), admin_user_path(user), :class => "btn btn-xs btn-danger #{user.id == current_user.id ? 'not-visible' : ''}", :data => { :confirm => "Supprimer cet utilisateur ?" }, :method => :delete %>
   </td>
 </tr>
