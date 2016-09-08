@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160812122144) do
+ActiveRecord::Schema.define(version: 20160908082015) do
 
   create_table "contact_event_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "contact_id"
@@ -92,8 +92,16 @@ ActiveRecord::Schema.define(version: 20160812122144) do
   create_table "lab_user_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "lab_id"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "can_read_contacts",       default: true
+    t.boolean  "can_write_contacts",      default: false
+    t.boolean  "can_read_organizations",  default: true
+    t.boolean  "can_write_organizations", default: false
+    t.boolean  "can_read_projects",       default: true
+    t.boolean  "can_write_projects",      default: false
+    t.boolean  "can_read_events",         default: true
+    t.boolean  "can_write_events",        default: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.index ["lab_id"], name: "index_lab_user_links_on_lab_id", using: :btree
     t.index ["user_id"], name: "index_lab_user_links_on_user_id", using: :btree
   end
