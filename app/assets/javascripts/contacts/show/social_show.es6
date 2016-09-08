@@ -9,12 +9,15 @@ class SocialShow extends React.Component {
 
   render() {
     return (
-      <div className="social">
+      <div className="social show">
         <div className="row">
+          <div className="col-md-12">
+            { this.renderFacebook() }
+            { this.renderLinkedin() }
+            { this.renderTwitter() }
+          </div>
+
           { this.renderEdit() }
-          { this.renderFacebook() }
-          { this.renderLinkedin() }
-          { this.renderTwitter() }
         </div>
       </div>
     );
@@ -23,7 +26,7 @@ class SocialShow extends React.Component {
   renderEdit() {
     if(this.props.permissions.canWriteContacts) {
       return(
-        <button className="btn btn-secondary btn-edit"
+        <button className="btn btn-primary btn-edit"
                 onClick={this.props.toggleEditMode}>
           Modifier
         </button>
@@ -46,7 +49,7 @@ class SocialShow extends React.Component {
 
   renderFacebook() {
     return (
-      <div className="col-md-12 facebook">
+      <div className="facebook">
         <i className="fa fa-facebook-square"></i>
         { this.renderSocialInside(this.props.contact.facebookUrl) }
       </div>
@@ -55,7 +58,7 @@ class SocialShow extends React.Component {
 
   renderLinkedin() {
     return (
-      <div className="col-md-12 linkedin">
+      <div className="linkedin">
         <i className="fa fa-linkedin-square"></i>
         { this.renderSocialInside(this.props.contact.linkedinUrl) }
       </div>
@@ -64,7 +67,7 @@ class SocialShow extends React.Component {
 
   renderTwitter() {
     return (
-      <div className="col-md-12 twitter">
+      <div className="twitter">
         <i className="fa fa-twitter-square"></i>
         { this.renderSocialInside(this.props.contact.twitterUrl) }
       </div>

@@ -48,19 +48,25 @@ class SocialEdit extends React.Component {
     return (
       <div className="social edit">
         <div className="row">
-          { this.renderFacebook() }
-          { this.renderLinkedin() }
-          { this.renderTwitter() }
+          <div className="col-md-12">
+            { this.renderFacebook() }
+            { this.renderLinkedin() }
+            { this.renderTwitter() }
+          </div>
         </div>
 
-        { this.renderActions() }
+        <div className="row">
+          <div className="col-md-12">
+            { this.renderActions() }
+          </div>
+        </div>
       </div>
     );
   }
 
   renderFacebook() {
     return (
-      <div className="col-md-12 facebook">
+      <div className="facebook">
         <i className="fa fa-facebook-square"></i>
         <input type="text"
                defaultValue={this.state.facebookUrl}
@@ -71,7 +77,7 @@ class SocialEdit extends React.Component {
 
   renderLinkedin() {
     return (
-      <div className="col-md-12 linkedin">
+      <div className="linkedin">
         <i className="fa fa-linkedin-square"></i>
         <input type="text"
                defaultValue={this.state.linkedinUrl}
@@ -82,7 +88,7 @@ class SocialEdit extends React.Component {
 
   renderTwitter() {
     return (
-      <div className="col-md-12 twitter">
+      <div className="twitter">
         <i className="fa fa-twitter-square"></i>
         <input type="text"
                defaultValue={this.state.twitterUrl}
@@ -94,12 +100,12 @@ class SocialEdit extends React.Component {
   renderActions() {
     return (
       <div className="actions">
-        <button className="btn btn-secondary"
+        <button className="btn btn-default"
                 onClick={this.props.toggleEditMode}>
           Annuler
         </button>
 
-        <button className="btn btn-secondary"
+        <button className="btn btn-primary"
                 onClick={this.backendUpdateContact.bind(this)}>
           Enregistrer
         </button>

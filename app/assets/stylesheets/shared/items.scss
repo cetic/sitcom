@@ -57,7 +57,7 @@
 
     .activity.active {
       .activity-inside {
-        background-color: $brand-primary-dark;
+       background-color: #777777;
       }
     }
 
@@ -89,6 +89,7 @@
           margin-left: 8px;
           padding: 2px 4px;
           vertical-align: 2px;
+          color: #999999;
         }
 
         .association:hover {

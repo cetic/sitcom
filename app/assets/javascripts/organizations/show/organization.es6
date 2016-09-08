@@ -58,7 +58,7 @@ class Organization extends React.Component {
     }
     else {
       return (
-        <div className="show organization">
+        <div className="item-show organization">
           {this.renderLoading()}
           {this.renderPreviousNextNav()}
           {this.renderGeneral()}

@@ -27,21 +27,19 @@ class GeneralShow extends React.Component {
           Retour
         </Link>
 
-        { this.renderActivity() }
-        { this.renderEdit() }
-        { this.renderDestroy() }
-
         <div className="row">
           <div className="col-md-3">
             { this.renderPicture() }
           </div>
 
           <div className="col-md-8">
-            <h1>{ this.props.contact.name }</h1>
+            <h1>
+              { this.props.contact.name }
 
-            <div className="activity-text">
-              { this.renderActivityText() }
-            </div>
+              <span className="activity-text">
+                { this.renderActivityText() }
+              </span>
+            </h1>
 
             <ul className="fields">
               { this.renderFields() }
@@ -54,18 +52,31 @@ class GeneralShow extends React.Component {
           { this.renderPhone() }
           { this.renderEmail() }
         </div>
+
+        { this.renderButtons() }
       </div>
     );
   }
 
-  renderActivity() {
-    var activityClass = 'activity'
-    activityClass     += this.props.contact.active ? ' active' : ''
-
+  renderButtons() {
     return (
-      <div className={activityClass}>
-        <div className="activity-inside">&nbsp;
-        </div>
+      <div className="btn-group">
+        <button type="button"
+                className="btn btn-primary"
+                onClick={this.props.toggleEditMode}>
+          Modifier
+        </button>
+        <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span className="caret"></span>
+        </button>
+        <ul className="dropdown-menu">
+          <li>
+            <a href="javascript:;"
+               onClick={this.destroyContact.bind(this)}>
+              Supprimer
+            </a>
+          </li>
+        </ul>
       </div>
     )
   }
@@ -103,10 +114,10 @@ class GeneralShow extends React.Component {
   }
 
   renderActivityText() {
-    // if(this.props.contact.active)
-    //   return "actif"
-    // else
-    //   return "inactif"
+    if(this.props.contact.active)
+      return "actif"
+    else
+      return "inactif"
   }
 
   renderFields() {

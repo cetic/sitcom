@@ -1,0 +1,28 @@
+.previous-next {
+  position: absolute;
+  top: 86px;
+  right: 35px;
+  width: 60px;
+  text-align: center;
+  font-size: 10px;
+
+  hr {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-right: 22px;
+    margin-left: 22px;
+    border-top: 1px solid #cccccc;
+  }
+
+  .fa {
+    font-size: 30px;
+    color: #cccccc;
+    transition: color .6s cubic-bezier(.25,.8,.25, 1);
+    cursor: pointer;
+  }
+
+  .fa:hover {
+    color: #1976d2;
+    transition: color .6s cubic-bezier(.25,.8,.25, 1);
+  }
+}

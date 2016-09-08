@@ -58,7 +58,7 @@ class Event extends React.Component {
     }
     else {
       return (
-        <div className="show event">
+        <div className="item-show event">
           {this.renderLoading()}
           {this.renderPreviousNextNav()}
           {this.renderGeneral()}

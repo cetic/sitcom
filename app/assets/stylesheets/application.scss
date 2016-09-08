@@ -3,10 +3,7 @@
  *= require_self
  */
 
-$brand-primary: #aaaaaa;  // #3db7e4
-$brand-primary-dark: darken($brand-primary, 12%);
-
-$secondary: #e17000; // not bootstrap
+$brand-primary: #1976d2;
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
@@ -30,6 +27,7 @@ $secondary: #e17000; // not bootstrap
 @import 'shared/permission_denied';
 @import 'shared/items';
 @import 'shared/show';
+@import 'shared/previous_next';
 
 @import 'contacts/all';
 @import 'organizations/all';

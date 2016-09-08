@@ -1,5 +1,5 @@
-.show {
-  margin-top: 32px;
+.item-show {
+  margin-top: 52px;
   padding-left: 80px;
   padding-right: 80px;
 
@@ -11,41 +11,22 @@
   .back {
     position: absolute;
     top: -26px;
+    color: #aaaaaa;
   }
 
-  .general, .items-block, .contacts-block, .social {
+  .general, .social, .items-block, .contacts-block, .organizations-block {
     position: relative;
     margin-bottom: 36px;
     background-color: white;
     box-shadow: 0px 0px 10px #cccccc;
     padding: 12px;
 
-    .btn-edit, .btn-delete {
-      position: absolute;
-      right: 40px;
-      top: 15px;
-      padding: 8px;
-      height: auto;
-      font-size: 10px;
-      letter-spacing: 2.4px;
-      z-index: 1;
-    }
-
-    .btn-delete {
-      right: 10px
-    }
-  }
-
-  .general.edit, .social.edit {
     .actions {
       margin-top: 20px;
       text-align: right;
 
-      button {
-        margin-left: 8px;
-        padding: 13px;
-        height: 43px;
-        letter-spacing: 3px;
+      .btn {
+        margin-left: 12px;
       }
     }
   }
@@ -56,8 +37,54 @@
       margin-bottom: 0px;
     }
 
-    .row-event-infos {
+    .activity-text {
       font-size: 12px;
+      color: #888888;
+      margin-left: 6px
+    }
+
+    .btn-group {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+
+      .btn:not(.dropdown-toggle) {
+        line-height: 38px;
+        padding: 0px 19px;
+      }
+
+      .btn.dropdown-toggle {
+        line-height: 38px;
+      }
+
+      .btn.dropdown-toggle:focus, .btn.dropdown-toggle:active {
+        background-color: #2d63b1;
+      }
+    }
+
+    .fields {
+      list-style-type: none;
+      padding-left: 0px;
+      margin-top: -4px;
+
+      .field {
+        float: left;
+        margin-right: 4px;
+
+        .label {
+          background-color: #8cafd2;
+        }
+      }
+    }
+
+    .row-contact-infos {
+      font-size: 13px;
+      margin-left: -10px;
+      margin-right: -10px;
+
+      h3 {
+        font-size: 16px;
+      }
 
       .col-md-4 {
         white-space: nowrap;
@@ -69,7 +96,66 @@
 
   .general.edit {
     .name {
-      width: 48%;
+      input {
+        width: 49%;
+      }
+
+      input:last-child {
+        margin-left: 2%;
+      }
+    }
+
+    label {
+      margin-top: 12px;
+      margin-bottom: 2px;
+    }
+
+    input[type='checkbox'] {
+      margin-left: 8px;
+    }
+
+    .row-contact-infos {
+      .address {
+        .zip-code {
+          width: 50px;
+        }
+
+        .city {
+          width: 140px;
+        }
+
+        .country, .street {
+          width: 190px;
+        }
+      }
+
+      input {
+        width: 76%;
+      }
+    }
+  }
+
+  .social {
+    .fa {
+      margin-left: 4px;
+      margin-right: 6px;
+    }
+  }
+
+  .social.show {
+    .btn {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      line-height: 38px;
+      padding: 0px 19px;
+    }
+  }
+
+  .social.edit {
+    input {
+      width: 60%;
+      margin-bottom: 6px;
     }
   }
 }

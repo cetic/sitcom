@@ -69,7 +69,7 @@ class Contact extends React.Component {
     }
     else {
       return (
-        <div className="show contact">
+        <div className="item-show contact">
           { this.renderLoading() }
           { this.renderPreviousNextNav() }
           { this.renderGeneral() }
