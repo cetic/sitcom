@@ -140,7 +140,11 @@ class GeneralEdit extends React.Component {
           { this.renderEmail() }
         </div>
 
-        { this.renderActions() }
+        <div className="row">
+          <div className="col-md-12">
+            { this.renderActions() }
+          </div>
+        </div>
       </div>
     );
   }
@@ -257,12 +261,12 @@ class GeneralEdit extends React.Component {
   renderActions() {
     return (
       <div className="actions">
-        <button className="btn btn-secondary"
+        <button className="btn btn-default"
                 onClick={this.props.toggleEditMode}>
           Annuler
         </button>
 
-        <button className="btn btn-secondary"
+        <button className="btn btn-primary"
                 onClick={this.backendUpdateContact.bind(this)}>
           Enregistrer
         </button>

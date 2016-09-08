@@ -58,7 +58,7 @@ class Project extends React.Component {
     }
     else {
       return (
-        <div className="show project">
+        <div className="item-show project">
           {this.renderLoading()}
           {this.renderPreviousNextNav()}
           {this.renderGeneral()}

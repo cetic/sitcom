@@ -53,19 +53,23 @@ class PreviousNextNav extends React.Component {
 
   render() {
     var previousLink = (
-      <a href="javascript:;" onClick={this.gotoPrevious.bind(this)}>Précédent</a>
+      <a href="javascript:;" onClick={this.gotoPrevious.bind(this)}>
+        <i className="fa fa-caret-up"></i>
+      </a>
     )
 
     var nextLink = (
-      <a href="javascript:;" onClick={this.gotoNext.bind(this)}>Suivant</a>
+      <a href="javascript:;" onClick={this.gotoNext.bind(this)}>
+        <i className="fa fa-caret-down"></i>
+      </a>
     )
 
     return (
-      <div>
+      <div className="previous-next">
         {previousLink}
-        &nbsp;&nbsp;
+        <br/>
         {this.renderFraction()}
-        &nbsp;&nbsp;
+        <br/>
         {nextLink}
       </div>
     )
@@ -73,7 +77,11 @@ class PreviousNextNav extends React.Component {
 
   renderFraction() {
     return (
-      <span>{this.state.currentItemIndex + 1} / {this.props.items.length}</span>
+      <span>
+        {this.state.currentItemIndex + 1}
+        <hr/>
+        {this.props.items.length}
+      </span>
     )
   }
 
