@@ -29,8 +29,8 @@
                   <tr>
                     <td><%= item_name %></td>
 
-                    <td class="center"><%= check_box_tag "lab_user_links[#{lab_user_link.id}][can_read_#{item_key}]",  '1', lab_user_link.send("can_read_#{item_key}?".to_sym) %></td>
-                    <td class="center"><%= check_box_tag "lab_user_links[#{lab_user_link.id}][can_write_#{item_key}]", '1', lab_user_link.send("can_write_#{item_key}?".to_sym) %></td>
+                    <td class="center"><%= check_box_tag "lab_user_links[#{lab_user_link.id}][can_read_#{item_key}]",  '1', lab_user_link.send("can_read_#{item_key}?".to_sym),  :class => "#{item_key}-read" %></td>
+                    <td class="center"><%= check_box_tag "lab_user_links[#{lab_user_link.id}][can_write_#{item_key}]", '1', lab_user_link.send("can_write_#{item_key}?".to_sym), :class => "#{item_key}-write" %></td>
                   </tr>
                 <% end %>
               </tbody>
