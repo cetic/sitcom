@@ -183,7 +183,7 @@ class Contact extends React.Component {
   renderEvents() {
     if(this.state.loaded) {
       return (
-        <ItemsBlock label="Evènements"
+        <ItemsBlock label="Évènements"
                     fieldName="eventIds"
                     items={this.state.contact.events}
                     contact={this.state.contact}
