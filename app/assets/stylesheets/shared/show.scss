@@ -77,6 +77,10 @@
       }
     }
 
+    .description {
+      margin-top: 8px;
+    }
+
     .row-contact-infos {
       font-size: 13px;
       margin-left: -10px;
@@ -103,6 +107,11 @@
       input:last-child {
         margin-left: 2%;
       }
+
+      input.full {
+        width: 100%;
+        margin-left: 0px;
+      }
     }
 
     label {
@@ -112,6 +121,31 @@
 
     input[type='checkbox'] {
       margin-left: 8px;
+    }
+
+    .website {
+      label {
+        margin-top: 12px;
+      }
+
+      input {
+        display: block;
+        width: 300px;
+      }
+    }
+
+    .description {
+      label {
+        margin-top: 2px;
+        margin-bottom: 0px;
+      }
+
+      textarea {
+        width: 100%;
+        margin-top: 2px;
+        display: block;
+        height: 100px;
+      }
     }
 
     .row-contact-infos {

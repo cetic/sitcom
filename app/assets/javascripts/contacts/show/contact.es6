@@ -58,7 +58,6 @@ class Contact extends React.Component {
     })
   }
 
-
   render() {
     if(this.state.notFound) {
       return (

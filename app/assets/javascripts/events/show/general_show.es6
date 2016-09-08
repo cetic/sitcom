@@ -28,9 +28,6 @@ class GeneralShow extends React.Component {
           Retour
         </Link>
 
-        { this.renderEdit() }
-        { this.renderDestroy() }
-
         <div className="row">
           <div className="col-md-3">
             { this.renderPicture() }
@@ -43,31 +40,38 @@ class GeneralShow extends React.Component {
             <EventDate event={this.props.event} />
 
             {this.props.event.place}
+
+            <div className="description">
+              {this.props.event.description}
+            </div>
           </div>
         </div>
 
-        <div className="row row-contact-infos">
-          {this.props.event.description}
-        </div>
+        { this.renderButtons() }
       </div>
     );
   }
 
-  renderEdit() {
-    return(
-      <button className="btn btn-secondary btn-edit"
-              onClick={this.props.toggleEditMode}>
-        Modifier
-      </button>
-    )
-  }
-
-  renderDestroy() {
-    return(
-      <button className="btn btn-secondary btn-delete"
-              onClick={this.destroyEvent.bind(this)}>
-        &times;
-      </button>
+  renderButtons() {
+    return (
+      <div className="btn-group">
+        <button type="button"
+                className="btn btn-primary"
+                onClick={this.props.toggleEditMode}>
+          Modifier
+        </button>
+        <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span className="caret"></span>
+        </button>
+        <ul className="dropdown-menu">
+          <li>
+            <a href="javascript:;"
+               onClick={this.destroyEvent.bind(this)}>
+              Supprimer
+            </a>
+          </li>
+        </ul>
+      </div>
     )
   }
 
