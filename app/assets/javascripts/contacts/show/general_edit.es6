@@ -122,7 +122,6 @@ class GeneralEdit extends React.Component {
 
           <div className="col-md-3">
             { this.renderPicture() }
-            { this.renderActive() }
           </div>
           <div className="col-md-9">
             <h1>
@@ -131,6 +130,7 @@ class GeneralEdit extends React.Component {
             <div className="fields">
               { this.renderFields() }
             </div>
+            { this.renderActive() }
           </div>
         </div>
 
@@ -211,20 +211,24 @@ class GeneralEdit extends React.Component {
         <div className="address">
           <input type="text"
                  className="street"
+                 placeholder="Rue"
                  defaultValue={this.state.addressStreet}
                  onChange={this.updateAddressStreet.bind(this)} />
           <br/>
           <input type="text"
                  className="zip-code"
+                 placeholder="Code postal"
                  defaultValue={this.state.addressZipCode}
                  onChange={this.updateAddressZipCode.bind(this)} />
           <input type="text"
                  className="city"
+                 placeholder="Ville"
                  defaultValue={this.state.addressCity}
                  onChange={this.updateAddressCity.bind(this)} />
           <br/>
           <input type="text"
                  className="country"
+                 placeholder="Pays"
                  defaultValue={this.state.addressCountry}
                  onChange={this.updateAddressCountry.bind(this)} />
         </div>
