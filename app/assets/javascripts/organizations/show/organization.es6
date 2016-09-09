@@ -79,7 +79,7 @@ class Organization extends React.Component {
   }
 
   renderPreviousNextNav() {
-    if(this.props.loaded) {
+    if(this.props.loaded && !this.state.generalEditMode) {
       return (
         <PreviousNextNav items={this.props.organizations}
                          currentItemId={this.props.id}

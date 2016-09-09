@@ -79,7 +79,7 @@ class Event extends React.Component {
   }
 
   renderPreviousNextNav() {
-    if(this.props.loaded) {
+    if(this.props.loaded && !this.state.generalEditMode) {
       return (
         <PreviousNextNav items={this.props.events}
                          currentItemId={this.props.id}

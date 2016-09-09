@@ -92,7 +92,7 @@ class Contact extends React.Component {
   }
 
   renderPreviousNextNav() {
-    if(this.props.loaded) {
+    if(this.props.loaded && !this.state.generalEditMode && !this.state.socialEditMode) {
       return (
         <PreviousNextNav items={this.props.contacts}
                          currentItemId={this.props.id}

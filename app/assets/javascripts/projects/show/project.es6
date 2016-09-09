@@ -79,7 +79,7 @@ class Project extends React.Component {
   }
 
   renderPreviousNextNav() {
-    if(this.props.loaded) {
+    if(this.props.loaded && !this.state.generalEditMode) {
       return (
         <PreviousNextNav items={this.props.projects}
                          currentItemId={this.props.id}
