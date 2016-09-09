@@ -94,4 +94,45 @@ class BaseSearch
       end
     end
   end
+
+  def add_notes_search(options)
+    options['query']['filtered']['filter']['and'] << {
+
+      'nested' => {
+        'path' => 'notes',
+
+        'query' => {
+          'bool' => {
+            'must' => [
+              {
+                'multi_match' => {
+                  'query'          => params[:notes],
+                  'fields'         => ['notes.text'],
+                  'type'           => 'phrase',
+                  'max_expansions' => MAX_EXPANSIONS
+                }
+              },
+
+              {
+                'or' => [
+                  {
+                    'term' => { 'notes.privacy' => 'public' }
+                  },
+
+                  {
+                    'and' => [
+                      {
+                        'term' => { 'notes.privacy' => 'private' },
+                        'term' => { 'notes.user_id' => user.id   }
+                      },
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  end
 end

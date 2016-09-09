@@ -17,6 +17,8 @@ module EventIndexConcern
         indexes :website_url
         indexes :contact_ids, :index => 'not_analyzed'
 
+        indexes :notes, :type => 'nested'
+
         indexes :sort_name, :analyzer => :sortable_string_analyzer
       end
     end

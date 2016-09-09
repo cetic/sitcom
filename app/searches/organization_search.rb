@@ -12,6 +12,10 @@ class OrganizationSearch < BaseSearch
       add_ids_search(options, field)
     end
 
+    if params[:notes]
+      add_notes_search(options)
+    end
+
     Organization.search(options)
   end
 end

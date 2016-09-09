@@ -83,18 +83,9 @@ class ProjectSearch < BaseSearch
       }
     end
 
-    # if params['from'] && params['to']
-    #   options['query']['filtered']['filter']['and'] << {
-    #     'range' => {
-    #       'start_date' => {
-    #         'gte' => params['from'],
-    #         'lte' => params['to']
-    #       }
-    #     }
-    #   }
-
-    #   #raise options['query']['filtered']['filter']['and'].last.to_s
-    # end
+    if params[:notes]
+      add_notes_search(options)
+    end
 
     Project.search(options)
   end

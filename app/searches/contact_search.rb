@@ -21,53 +21,7 @@ class ContactSearch < BaseSearch
     end
 
     if params[:notes]
-      options['query']['filtered']['filter']['and'] << {
-
-        'nested' => {
-          'path' => 'notes',
-
-          'query' => {
-            'bool' => {
-              'must' => [
-                {
-                  'multi_match' => {
-                    'query'          => params[:notes],
-                    'fields'         => ['notes.text'],
-                    'type'           => 'phrase',
-                    'max_expansions' => MAX_EXPANSIONS
-                  }
-                },
-
-                {
-                  'or' => [
-                    {
-                      'term' => {
-                        'notes.privacy' => 'public'
-                      }
-                    },
-
-                    {
-                      'and' => [
-                        {
-                          'term' => {
-                            'notes.privacy' => 'private'
-                          },
-
-                          'term' => {
-                            'notes.user_id' => user.id
-                          }
-                        },
-                      ]
-                    }
-                  ]
-                }
-
-
-              ]
-            }
-          }
-        }
-      }
+      add_notes_search(options)
     end
 
     Contact.search(options)

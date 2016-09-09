@@ -23,6 +23,10 @@ class EventSearch < BaseSearch
       }
     end
 
+    if params[:notes]
+      add_notes_search(options)
+    end
+
     Event.search(options)
   end
 end
