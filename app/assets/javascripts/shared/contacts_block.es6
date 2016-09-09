@@ -54,8 +54,13 @@ class ContactsBlock extends React.Component {
 
   render() {
     return (
-      <div className="contacts-block">
-        <h3>Contacts ({this.props.parent.contacts.length})</h3>
+      <div className="associations-block contacts-block">
+        <div className="row">
+          <div className="col-md-12">
+            <h3>Contacts ({this.props.parent.contacts.length})</h3>
+          </div>
+        </div>
+
         {this.renderContacts()}
         {this.renderSelect()}
       </div>
@@ -84,24 +89,28 @@ class ContactsBlock extends React.Component {
   }
 
   renderItem(contact) {
+    return (
+      <div className="col-md-6 association contact" key={contact.id}>
+        <div className="association-inside">
+          <img className="img-thumbnail" src={contact.previewPictureUrl} />
+          <h4>
+            <Link to={contact.scopedPath}>{contact.name}</Link>
+          </h4>
+
+          {this.renderRemoveIcon()}
+        </div>
+      </div>
+    )
+  }
+
+  renderRemoveIcon() {
     if(this.props.canWrite) {
-      var removeIcon = (
+      return (
         <i className="fa fa-times remove-icon"
            onClick={this.removeContact.bind(this, contact)}>
         </i>
       )
     }
-
-    return (
-      <div className="col-md-6 contact" key={contact.id}>
-        <img className="img-thumbnail" src={contact.previewPictureUrl} />
-        <h4>
-          <Link to={contact.scopedPath}>{contact.name}</Link>
-        </h4>
-
-        {removeIcon}
-      </div>
-    )
   }
 
   renderSelect() {

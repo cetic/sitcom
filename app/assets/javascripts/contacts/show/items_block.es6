@@ -53,8 +53,13 @@ class ItemsBlock extends React.Component {
 
   render() {
     return (
-      <div className="items-block">
-        <h3>{this.props.label} ({this.props.items.length})</h3>
+      <div className="associations-block items-block">
+        <div className="row">
+          <div className="col-md-12">
+            <h3>{this.props.label} ({this.props.items.length})</h3>
+          </div>
+        </div>
+
         {this.renderItems()}
         {this.renderSelect()}
       </div>
@@ -83,31 +88,33 @@ class ItemsBlock extends React.Component {
   }
 
   renderItem(item) {
+    return (
+      <div className="col-md-6 association item" key={item.id}>
+        <div className="association-inside">
+          <img className="img-thumbnail" src={item.previewPictureUrl} />
+          <h4>
+            <Link to={item.scopedPath}>{item.name}</Link>
+          </h4>
+
+          {this.renderRemoveIcon()}
+          {this.renderDates(item)}
+
+          <div className="members">
+            <i className="fa fa-group"></i>
+            {item.contactIds.length}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  renderRemoveIcon() {
     if(this.props.canWrite) {
-      var removeIcon = (
+      return (
         <i className="fa fa-times remove-icon"
            onClick={this.removeItem.bind(this, item)}></i>
       )
     }
-
-    return (
-      <div className="col-md-6 item" key={item.id}>
-        <img className="img-thumbnail" src={item.previewPictureUrl} />
-        <h4>
-          <Link to={item.scopedPath}>{item.name}</Link>
-        </h4>
-
-        {removeIcon}
-        <br />
-
-        {this.renderDates(item)}
-
-        <span>
-          <i className="fa fa-group"></i>
-          {item.contactIds.length}
-        </span>
-      </div>
-    )
   }
 
   renderDates(item) {
@@ -140,7 +147,6 @@ class ItemsBlock extends React.Component {
       );
     }
   }
-
 }
 
 module.exports = ItemsBlock

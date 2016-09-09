@@ -54,8 +54,13 @@ class OrganizationsBlock extends React.Component {
 
   render() {
     return (
-      <div className="organizations-block">
-        <h3>Organizations ({this.props.parent.organizations.length})</h3>
+      <div className="associations-block organizations-block">
+        <div className="row">
+          <div className="col-md-12">
+            <h3>Organizations ({this.props.parent.organizations.length})</h3>
+          </div>
+        </div>
+
         {this.renderOrganizations()}
         {this.renderSelect()}
       </div>
@@ -84,24 +89,28 @@ class OrganizationsBlock extends React.Component {
   }
 
   renderItem(organization) {
+    return (
+      <div className="col-md-6 association organization" key={organization.id}>
+        <div className="association-inside">
+          <img className="img-thumbnail" src={organization.previewPictureUrl} />
+          <h4>
+            <Link to={organization.scopedPath}>{organization.name}</Link>
+          </h4>
+
+          {this.renderRemoveIcon()}
+        </div>
+      </div>
+    )
+  }
+
+  renderRemoveIcon() {
     if(this.props.canWrite) {
-      var removeIcon = (
+      return (
         <i className="fa fa-times remove-icon"
           onClick={this.removeOrganization.bind(this, organization)}>
         </i>
       )
     }
-
-    return (
-      <div className="col-md-6 organization" key={organization.id}>
-        <img className="img-thumbnail" src={organization.previewPictureUrl} />
-        <h4>
-          <Link to={organization.scopedPath}>{organization.name}</Link>
-        </h4>
-
-        {removeIcon}
-      </div>
-    )
   }
 
   renderSelect() {

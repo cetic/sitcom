@@ -63,7 +63,7 @@ class GeneralEdit extends React.Component {
   render() {
     return (
       <div className="general edit">
-        <Link to={'/' + this.props.search} className="back">
+        <Link to={'/projects' + this.props.search} className="back">
           Retour
         </Link>
 
@@ -117,7 +117,7 @@ class GeneralEdit extends React.Component {
     return (
       <div className="name">
         <input type="text"
-               className="name"
+               className="name full"
                defaultValue={this.state.name}
                onChange={this.updateName.bind(this)} />
       </div>
@@ -163,12 +163,12 @@ class GeneralEdit extends React.Component {
   renderActions() {
     return (
       <div className="actions">
-        <button className="btn btn-secondary"
+        <button className="btn btn-default"
                 onClick={this.props.toggleEditMode}>
           Annuler
         </button>
 
-        <button className="btn btn-secondary"
+        <button className="btn btn-primary"
                 onClick={this.backendUpdateOrganization.bind(this)}>
           Enregistrer
         </button>

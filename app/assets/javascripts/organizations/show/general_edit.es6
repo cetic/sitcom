@@ -53,7 +53,7 @@ class GeneralEdit extends React.Component {
   render() {
     return (
       <div className="general edit">
-        <Link to={'/' + this.props.search} className="back">
+        <Link to={'/organizations' + this.props.search} className="back">
           Retour
         </Link>
 
@@ -70,12 +70,10 @@ class GeneralEdit extends React.Component {
             <h1>
               { this.renderName() }
             </h1>
-          </div>
-        </div>
 
-        <div className="row row-organization-infos">
-          { this.renderDescription() }
-          { this.renderWebsiteUrl() }
+            { this.renderWebsite() }
+            { this.renderDescription() }
+          </div>
         </div>
 
         { this.renderActions() }
@@ -106,7 +104,7 @@ class GeneralEdit extends React.Component {
     return (
       <div className="name">
         <input type="text"
-               className="name"
+               className="name full"
                defaultValue={this.state.name}
                onChange={this.updateName.bind(this)} />
       </div>
@@ -115,8 +113,8 @@ class GeneralEdit extends React.Component {
 
   renderDescription() {
     return (
-      <div className="col-md-4">
-        <h3>Description</h3>
+      <div className="description">
+        <label>Description</label>
 
         <textarea className="description"
                   defaultValue={this.state.description}
@@ -125,10 +123,10 @@ class GeneralEdit extends React.Component {
     )
   }
 
-  renderWebsiteUrl() {
+  renderWebsite() {
     return (
-      <div className="col-md-4">
-        <h3>Site Web</h3>
+      <div className="website">
+        <label>Site Web</label>
 
         <input type="text"
                className="website-url"
@@ -141,12 +139,12 @@ class GeneralEdit extends React.Component {
   renderActions() {
     return (
       <div className="actions">
-        <button className="btn btn-secondary"
+        <button className="btn btn-default"
                 onClick={this.props.toggleEditMode}>
           Annuler
         </button>
 
-        <button className="btn btn-secondary"
+        <button className="btn btn-primary"
                 onClick={this.backendUpdateOrganization.bind(this)}>
           Enregistrer
         </button>

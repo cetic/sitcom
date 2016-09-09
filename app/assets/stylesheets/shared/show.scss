@@ -77,6 +77,10 @@
       }
     }
 
+    .description {
+      margin-top: 8px;
+    }
+
     .row-contact-infos {
       font-size: 13px;
       margin-left: -10px;
@@ -103,6 +107,11 @@
       input:last-child {
         margin-left: 2%;
       }
+
+      input.full {
+        width: 100%;
+        margin-left: 0px;
+      }
     }
 
     label {
@@ -112,6 +121,31 @@
 
     input[type='checkbox'] {
       margin-left: 8px;
+    }
+
+    .website {
+      label {
+        margin-top: 12px;
+      }
+
+      input {
+        display: block;
+        width: 300px;
+      }
+    }
+
+    .description {
+      label {
+        margin-top: 2px;
+        margin-bottom: 0px;
+      }
+
+      textarea {
+        width: 100%;
+        margin-top: 2px;
+        display: block;
+        height: 100px;
+      }
     }
 
     .row-contact-infos {
@@ -156,6 +190,80 @@
     input {
       width: 60%;
       margin-bottom: 6px;
+    }
+  }
+
+  .associations-block {
+    h3 {
+      margin-bottom: 14px;
+      margin-top: 4px;
+    }
+
+    .association {
+      margin-bottom: 4px;
+
+      .association-inside {
+        position: relative;
+        overflow: hidden;
+        box-shadow: none;
+        transition: box-shadow .8s cubic-bezier(.25,.8,.25, 1);
+
+        .img-thumbnail {
+          height: 75px;
+          float: left;
+          margin: 6px;
+          margin-right: 12px;
+        }
+
+        h4 {
+          margin-top: 15px;
+          margin-bottom: 1px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .dates {
+          font-size: 11px;
+          color: #444444;
+        }
+
+        .members {
+          font-size: 12px;
+          margin-top: 2px;
+
+          .fa {
+            font-size: 10px;
+            margin-right: 4px;
+            vertical-align: 1px;
+            color: #666666;
+          }
+        }
+
+        i.remove-icon {
+          position: absolute;
+          right: 6px;
+          top: 6px;
+          color: #aaaaaa;
+          cursor: pointer;
+          opacity: 0.0;
+          transition: opacity .8s cubic-bezier(.25,.8,.25, 1);
+        }
+      }
+
+      .association-inside:hover {
+        box-shadow: 0px 0px 10px #dddddd;
+        transition: box-shadow .8s cubic-bezier(.25,.8,.25, 1);
+
+        i.remove-icon {
+          opacity: 1.0;
+          transition: opacity .8s cubic-bezier(.25,.8,.25, 1);
+        }
+      }
+    }
+
+    .select {
+      margin-top: 16px;
     }
   }
 }

@@ -27,9 +27,6 @@ class GeneralShow extends React.Component {
           Retour
         </Link>
 
-        { this.renderEdit() }
-        { this.renderDestroy() }
-
         <div className="row">
           <div className="col-md-3">
             { this.renderPicture() }
@@ -39,34 +36,54 @@ class GeneralShow extends React.Component {
             <h1>
               { this.props.organization.name }
             </h1>
+
+            { this.renderWebsite() }
+
+            <div className="description">
+              {this.props.organization.description}
+            </div>
           </div>
         </div>
 
-        <div className="row row-contact-infos">
-          {this.props.organization.description}
-        </div>
+        { this.renderButtons() }
       </div>
     );
   }
 
-  renderEdit() {
-    if(this.props.permissions.canWriteOrganizations) {
-      return(
-        <button className="btn btn-secondary btn-edit"
-                onClick={this.props.toggleEditMode}>
-          Modifier
-        </button>
+  renderWebsite() {
+    if(this.props.organization.websiteUrl != '') {
+      return (
+        <div className="website">
+          <a href={this.props.organization.websiteUrl}
+             target="_blank">
+            { this.props.organization.websiteUrl }
+          </a>
+        </div>
       )
     }
   }
 
-  renderDestroy() {
+  renderButtons() {
     if(this.props.permissions.canWriteOrganizations) {
-      return(
-        <button className="btn btn-secondary btn-delete"
-                onClick={this.destroyOrganization.bind(this)}>
-          &times;
-        </button>
+      return (
+        <div className="btn-group">
+          <button type="button"
+                  className="btn btn-primary"
+                  onClick={this.props.toggleEditMode}>
+            Modifier
+          </button>
+          <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span className="caret"></span>
+          </button>
+          <ul className="dropdown-menu">
+            <li>
+              <a href="javascript:;"
+                 onClick={this.destroyOrganization.bind(this)}>
+                Supprimer
+              </a>
+            </li>
+          </ul>
+        </div>
       )
     }
   }

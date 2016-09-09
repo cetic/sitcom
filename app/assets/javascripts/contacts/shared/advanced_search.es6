@@ -189,7 +189,7 @@ class AdvancedSearch extends React.Component {
       <ItemsSelect itemIds={this.props.filters.eventIds}
                    optionsPath={this.props.eventOptionsPath}
                    updateValue={this.updateEventIds.bind(this)}
-                   label="Evènements" />
+                   label="Évènements" />
     );
   }
 
