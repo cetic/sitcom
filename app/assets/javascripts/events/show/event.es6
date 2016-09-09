@@ -104,6 +104,7 @@ class Event extends React.Component {
       else {
         return (
           <GeneralShow event={this.state.event}
+                       permissions={this.props.permissions}
                        search={this.props.search}
                        eventPath={this.eventPath()}
                        router={this.props.router}
@@ -123,7 +124,8 @@ class Event extends React.Component {
                        parentPath={this.eventPath()}
                        optionsPath={this.props.contactOptionsPath}
                        reloadFromBackend={this.reloadFromBackend.bind(this)}
-                       reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
+                       reloadIndexFromBackend={this.props.reloadIndexFromBackend}
+                       canWrite={this.props.permissions.canWriteEvents} />
       );
     }
   }

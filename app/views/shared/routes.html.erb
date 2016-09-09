@@ -1,4 +1,5 @@
 <%= react_component('Routes', {
+  :permissions                        => current_user.permissions_for_lab(@lab),
   :lab_path                           => lab_path(@lab),
   :contacts_path                      => lab_contacts_path(@lab),
   :organizations_path                 => lab_organizations_path(@lab),

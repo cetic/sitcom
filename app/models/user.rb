@@ -10,7 +10,8 @@ class User < ApplicationRecord
   # Associations
 
   has_many :lab_user_links, :dependent => :destroy
-  has_many :labs, :through => :lab_user_links
+  has_many :labs,           :through   => :lab_user_links
+  has_many :notes,          :dependent => :nullify
 
   # Validations
 
@@ -29,6 +30,11 @@ class User < ApplicationRecord
   # Callbacks
 
   # Methods
+
+  def permissions_for_lab(lab)
+    lab_user_link = lab_user_links.where(lab_id: lab.id).first
+    lab_user_link.try(:permissions)
+  end
 
   # Class Methods
 

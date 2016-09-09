@@ -6,13 +6,17 @@ class OrganizationsController < ApplicationController
   def index
     respond_to do |format|
       format.json do
-        organizations = OrganizationSearch.new(params.merge({
-          :lab_id => @lab.id
-        })).run
+        if PermissionsService.new(current_user, @lab).can_read?('organizations')
+          organizations = OrganizationSearch.new(current_user, params.merge({
+            :lab_id => @lab.id
+          })).run
 
-        render :json => {
-          :organizations => organizations
-        }
+          render :json => {
+            :organizations => organizations
+          }
+        else
+          render_permission_error
+        end
       end
 
       format.html do
@@ -24,8 +28,12 @@ class OrganizationsController < ApplicationController
   def show
     respond_to do |format|
       format.json do
-        @organization = @lab.organizations.find(params[:id])
-        render :json => @organization.as_indexed_json
+        if PermissionsService.new(current_user, @lab).can_read?('organizations')
+          @organization = @lab.organizations.find(params[:id])
+          render :json => BaseSearch.reject_private_notes_from_result(@organization.as_indexed_json)
+        else
+          render_permission_error
+        end
       end
 
       format.html do
@@ -35,44 +43,56 @@ class OrganizationsController < ApplicationController
   end
 
   def create
-    respond_to do |format|
-      format.json do
-        @organization = @lab.organizations.new(strong_params)
+    if PermissionsService.new(current_user, @lab).can_write?('organizations')
+      respond_to do |format|
+        format.json do
+          @organization = @lab.organizations.new(strong_params)
 
-        if @organization.save
-          render_json_success({ :organization => @organization.as_indexed_json })
-        else
-          render_json_errors(@organization)
+          if @organization.save
+            render_json_success({ :organization => @organization.as_indexed_json })
+          else
+            render_json_errors(@organization)
+          end
         end
       end
+    else
+      render_permission_error
     end
   end
 
   def update
-    respond_to do |format|
-      format.json do
-        @organization = @lab.organizations.find(params[:id])
+    if PermissionsService.new(current_user, @lab).can_write?('organizations')
+      respond_to do |format|
+        format.json do
+          @organization = @lab.organizations.find(params[:id])
 
-        if @organization.update_attributes(strong_params)
-          render_json_success
-        else
-          render_json_errors(@organization)
+          if @organization.update_attributes(strong_params)
+            render_json_success
+          else
+            render_json_errors(@organization)
+          end
         end
       end
+    else
+      render_permission_error
     end
   end
 
   def destroy
-    respond_to do |format|
-      format.json do
-        @organization = @lab.organizations.find(params[:id])
+    if PermissionsService.new(current_user, @lab).can_write?('organizations')
+      respond_to do |format|
+        format.json do
+          @organization = @lab.organizations.find(params[:id])
 
-        if @organization.destroy
-          render_json_success
-        else
-          render_json_errors(@organization)
+          if @organization.destroy
+            render_json_success
+          else
+            render_json_errors(@organization)
+          end
         end
       end
+    else
+      render_permission_error
     end
   end
 

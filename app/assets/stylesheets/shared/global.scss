@@ -17,3 +17,18 @@ body {
 textarea {
   border: 1px solid #dfdfdf;
 }
+
+td.center,
+th.center {
+  text-align: center;
+}
+
+td.number,
+th.number {
+  text-align: right;
+}
+
+td.actions,
+th.actions {
+  text-align: right;
+}

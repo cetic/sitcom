@@ -1,9 +1,10 @@
-import Events         from './index/events.es6'
-import Event          from './show/event.es6'
-import NewItem        from '../shared/new_item.es6'
-import QuickSearch    from '../shared/quick_search.es6'
-import AdvancedSearch from './shared/advanced_search.es6'
-import ParamsService  from '../shared/params_service.es6'
+import Events           from './index/events.es6'
+import Event            from './show/event.es6'
+import NewItem          from '../shared/new_item.es6'
+import QuickSearch      from '../shared/quick_search.es6'
+import AdvancedSearch   from './shared/advanced_search.es6'
+import ParamsService    from '../shared/params_service.es6'
+import PermissionDenied from '../shared/permission_denied.es6'
 
 class Main extends React.Component {
   constructor(props) {
@@ -91,45 +92,54 @@ class Main extends React.Component {
   }
 
   render() {
-    var advancedSearchFilters = _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
-      return this.props.location.query[filterName];
-    }));
+    if(this.props.permissions.canReadEvents) {
+      var advancedSearchFilters = _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
+        return this.props.location.query[filterName];
+      }));
 
-    return (
-      <div className="container-fluid container-event">
-        <div className="row">
-          <div className="col-md-4 pull-right complete-search">
-            <AdvancedSearch filters={advancedSearchFilters}
-                            contactOptionsPath={this.props.contactOptionsPath}
-                            updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)} />
+      return (
+        <div className="container-fluid container-event">
+          <div className="row">
+            <div className="col-md-4 pull-right complete-search">
+              <AdvancedSearch filters={advancedSearchFilters}
+                              contactOptionsPath={this.props.contactOptionsPath}
+                              updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)} />
+            </div>
+
+            <div className="col-md-8 col-events">
+              <QuickSearch title="Évènements"
+                           loaded={this.state.loaded}
+                           results={this.state.events.length}
+                           quickSearch={this.props.location.query.quickSearch}
+                           updateQuickSearch={this.updateQuickSearch.bind(this)} />
+
+              { this.renderNewEventLink() }
+
+              { this.renderEvent()  }
+              { this.renderEvents() }
+            </div>
           </div>
 
-          <div className="col-md-8 col-events">
-            <QuickSearch title="Évènements"
-                         loaded={this.state.loaded}
-                         results={this.state.events.length}
-                         quickSearch={this.props.location.query.quickSearch}
-                         updateQuickSearch={this.updateQuickSearch.bind(this)} />
-
-            { this.renderNewEventLink() }
-
-            { this.renderEvent()  }
-            { this.renderEvents() }
-          </div>
+          { this.renderNewEventModal() }
         </div>
-
-        { this.renderNewEventModal() }
-      </div>
-    );
+      );
+    }
+    else {
+      return (
+        <PermissionDenied />
+      )
+    }
   }
 
   renderNewEventLink() {
-    return (
-      <button className="btn btn-primary new"
-              onClick={this.openNewEventModal.bind(this)}>
-        Nouvel évènement
-      </button>
-    )
+    if(this.props.permissions.canWriteEvents) {
+      return (
+        <button className="btn btn-primary new"
+                onClick={this.openNewEventModal.bind(this)}>
+          Nouvel évènement
+        </button>
+      )
+    }
   }
 
   renderEvents() {
@@ -147,6 +157,7 @@ class Main extends React.Component {
     if(this.props.params.id) {
       return (
         <Event id={this.props.params.id}
+               permissions={this.props.permissions}
                loaded={this.state.loaded}
                eventsPath={this.props.eventsPath}
                search={this.props.location.search}

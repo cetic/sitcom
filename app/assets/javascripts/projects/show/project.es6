@@ -105,6 +105,7 @@ class Project extends React.Component {
       else {
         return (
           <GeneralShow project={this.state.project}
+                       permissions={this.props.permissions}
                        search={this.props.search}
                        projectPath={this.projectPath()}
                        router={this.props.router}
@@ -123,7 +124,8 @@ class Project extends React.Component {
                        parentPath={this.projectPath()}
                        optionsPath={this.props.contactOptionsPath}
                        reloadFromBackend={this.reloadFromBackend.bind(this)}
-                       reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
+                       reloadIndexFromBackend={this.props.reloadIndexFromBackend}
+                       canWrite={this.props.permissions.canWriteProjects} />
       );
     }
   }

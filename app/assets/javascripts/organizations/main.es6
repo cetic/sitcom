@@ -1,9 +1,10 @@
-import Organizations  from './index/organizations.es6'
-import Organization   from './show/organization.es6'
-import NewItem        from '../shared/new_item.es6'
-import QuickSearch    from '../shared/quick_search.es6'
-import AdvancedSearch from './shared/advanced_search.es6'
-import ParamsService  from '../shared/params_service.es6'
+import Organizations    from './index/organizations.es6'
+import Organization     from './show/organization.es6'
+import NewItem          from '../shared/new_item.es6'
+import QuickSearch      from '../shared/quick_search.es6'
+import AdvancedSearch   from './shared/advanced_search.es6'
+import ParamsService    from '../shared/params_service.es6'
+import PermissionDenied from '../shared/permission_denied.es6'
 
 class Main extends React.Component {
   constructor(props) {
@@ -91,46 +92,55 @@ class Main extends React.Component {
   }
 
   render() {
-    var advancedSearchFilters = _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
-      return this.props.location.query[filterName];
-    }));
+    if(this.props.permissions.canReadOrganizations) {
+      var advancedSearchFilters = _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
+        return this.props.location.query[filterName];
+      }));
 
-    return (
-      <div className="container-fluid container-organization">
-        <div className="row">
-          <div className="col-md-4 pull-right complete-search">
-            <AdvancedSearch filters={advancedSearchFilters}
-                            updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)}
-                            contactOptionsPath={this.props.contactOptionsPath}
-                            organizationStatusesOptionsPath={this.props.organizationStatusesOptionsPath} />
+      return (
+        <div className="container-fluid container-organization">
+          <div className="row">
+            <div className="col-md-4 pull-right complete-search">
+              <AdvancedSearch filters={advancedSearchFilters}
+                              updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)}
+                              contactOptionsPath={this.props.contactOptionsPath}
+                              organizationStatusesOptionsPath={this.props.organizationStatusesOptionsPath} />
+            </div>
+
+            <div className="col-md-8 col-organizations">
+              <QuickSearch title="Organisations"
+                           loaded={this.state.loaded}
+                           results={this.state.organizations.length}
+                           quickSearch={this.props.location.query.quickSearch}
+                           updateQuickSearch={this.updateQuickSearch.bind(this)} />
+
+              { this.renderNewOrganizationLink() }
+
+              { this.renderOrganization()  }
+              { this.renderOrganizations() }
+            </div>
           </div>
 
-          <div className="col-md-8 col-organizations">
-            <QuickSearch title="Organisations"
-                         loaded={this.state.loaded}
-                         results={this.state.organizations.length}
-                         quickSearch={this.props.location.query.quickSearch}
-                         updateQuickSearch={this.updateQuickSearch.bind(this)} />
-
-            { this.renderNewOrganizationLink() }
-
-            { this.renderOrganization()  }
-            { this.renderOrganizations() }
-          </div>
+          { this.renderNewOrganizationModal() }
         </div>
-
-        { this.renderNewOrganizationModal() }
-      </div>
-    );
+      );
+    }
+    else {
+      return (
+        <PermissionDenied />
+      )
+    }
   }
 
   renderNewOrganizationLink() {
-    return (
-      <button className="btn btn-primary new"
-              onClick={this.openNewOrganizationModal.bind(this)}>
-        Nouvelle organisation
-      </button>
-    )
+    if(this.props.permissions.canWriteOrganizations) {
+      return (
+        <button className="btn btn-primary new"
+                onClick={this.openNewOrganizationModal.bind(this)}>
+          Nouvelle organisation
+        </button>
+      )
+    }
   }
 
   renderOrganizations() {
@@ -148,6 +158,7 @@ class Main extends React.Component {
     if(this.props.params.id) {
       return (
         <Organization id={this.props.params.id}
+                      permissions={this.props.permissions}
                       loaded={this.state.loaded}
                       organizationsPath={this.props.organizationsPath}
                       search={this.props.location.search}

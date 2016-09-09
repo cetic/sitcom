@@ -57,26 +57,28 @@ class GeneralShow extends React.Component {
   }
 
   renderButtons() {
-    return (
-      <div className="btn-group">
-        <button type="button"
-                className="btn btn-primary"
-                onClick={this.props.toggleEditMode}>
-          Modifier
-        </button>
-        <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span className="caret"></span>
-        </button>
-        <ul className="dropdown-menu">
-          <li>
-            <a href="javascript:;"
-               onClick={this.destroyEvent.bind(this)}>
-              Supprimer
-            </a>
-          </li>
-        </ul>
-      </div>
-    )
+    if(this.props.permissions.canWriteEvents) {
+      return (
+        <div className="btn-group">
+          <button type="button"
+                  className="btn btn-primary"
+                  onClick={this.props.toggleEditMode}>
+            Modifier
+          </button>
+          <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span className="caret"></span>
+          </button>
+          <ul className="dropdown-menu">
+            <li>
+              <a href="javascript:;"
+                 onClick={this.destroyEvent.bind(this)}>
+                Supprimer
+              </a>
+            </li>
+          </ul>
+        </div>
+      )
+    }
   }
 
   renderPicture() {

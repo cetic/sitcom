@@ -105,6 +105,7 @@ class Organization extends React.Component {
       else {
         return (
           <GeneralShow organization={this.state.organization}
+                       permissions={this.props.permissions}
                        search={this.props.search}
                        organizationPath={this.organizationPath()}
                        router={this.props.router}
@@ -123,7 +124,8 @@ class Organization extends React.Component {
                        parentPath={this.organizationPath()}
                        optionsPath={this.props.contactOptionsPath}
                        reloadFromBackend={this.reloadFromBackend.bind(this)}
-                       reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
+                       reloadIndexFromBackend={this.props.reloadIndexFromBackend}
+                       canWrite={this.props.permissions.canWriteOrganizations} />
       );
     }
   }

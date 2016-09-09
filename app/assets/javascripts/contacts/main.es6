@@ -1,9 +1,10 @@
-import Contacts       from './index/contacts.es6'
-import Contact        from './show/contact.es6'
-import NewContact     from './shared/new_contact.es6'
-import QuickSearch    from '../shared/quick_search.es6'
-import AdvancedSearch from './shared/advanced_search.es6'
-import ParamsService  from '../shared/params_service.es6'
+import Contacts         from './index/contacts.es6'
+import Contact          from './show/contact.es6'
+import NewContact       from './shared/new_contact.es6'
+import QuickSearch      from '../shared/quick_search.es6'
+import AdvancedSearch   from './shared/advanced_search.es6'
+import ParamsService    from '../shared/params_service.es6'
+import PermissionDenied from '../shared/permission_denied.es6'
 
 class Main extends React.Component {
   constructor(props) {
@@ -91,54 +92,64 @@ class Main extends React.Component {
   }
 
   render() {
-    var advancedSearchFilters = _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
-      return this.props.location.query[filterName];
-    }));
+    if(this.props.permissions.canReadContacts) {
+      var advancedSearchFilters = _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
+        return this.props.location.query[filterName];
+      }));
 
-    return (
-      <div className="container-fluid container-contact">
-        <div className="row">
-          <div className="col-md-4 pull-right complete-search">
-            <AdvancedSearch filters={advancedSearchFilters}
-                            updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)}
-                            organizationOptionsPath={this.props.organizationOptionsPath}
-                            fieldOptionsPath={this.props.fieldOptionsPath}
-                            eventOptionsPath={this.props.eventOptionsPath}
-                            projectOptionsPath={this.props.projectOptionsPath} />
+      return (
+        <div className="container-fluid container-contact">
+          <div className="row">
+            <div className="col-md-4 pull-right complete-search">
+              <AdvancedSearch filters={advancedSearchFilters}
+                              updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)}
+                              organizationOptionsPath={this.props.organizationOptionsPath}
+                              fieldOptionsPath={this.props.fieldOptionsPath}
+                              eventOptionsPath={this.props.eventOptionsPath}
+                              projectOptionsPath={this.props.projectOptionsPath} />
+            </div>
+
+            <div className="col-md-8 col-contacts">
+              <QuickSearch title="Contacts"
+                           loaded={this.state.loaded}
+                           results={this.state.contacts.length}
+                           quickSearch={this.props.location.query.quickSearch}
+                           updateQuickSearch={this.updateQuickSearch.bind(this)} />
+
+              { this.renderNewContactLink() }
+
+              { this.renderContact()  }
+              { this.renderContacts() }
+            </div>
           </div>
 
-          <div className="col-md-8 col-contacts">
-            <QuickSearch title="Contacts"
-                         loaded={this.state.loaded}
-                         results={this.state.contacts.length}
-                         quickSearch={this.props.location.query.quickSearch}
-                         updateQuickSearch={this.updateQuickSearch.bind(this)} />
-
-            { this.renderNewContactLink() }
-
-            { this.renderContact()  }
-            { this.renderContacts() }
-          </div>
+          { this.renderNewContactModal() }
         </div>
-
-        { this.renderNewContactModal() }
-      </div>
-    );
+      );
+    }
+    else {
+      return (
+        <PermissionDenied />
+      )
+    }
   }
 
   renderNewContactLink() {
-    return (
-      <button className="btn btn-primary new"
-              onClick={this.openNewContactModal.bind(this)}>
-        Nouveau contact
-      </button>
-    )
+    if(this.props.permissions.canWriteContacts) {
+      return (
+        <button className="btn btn-primary new"
+                onClick={this.openNewContactModal.bind(this)}>
+          Nouveau contact
+        </button>
+      )
+    }
   }
 
   renderContacts() {
     if(!this.props.params.id) {
       return (
-        <Contacts contacts={this.state.contacts}
+        <Contacts permissions={this.props.permissions}
+                  contacts={this.state.contacts}
                   loaded={this.state.loaded}
                   search={this.props.location.search}
                   loadingImagePath={this.props.loadingImagePath} />
@@ -150,6 +161,7 @@ class Main extends React.Component {
     if(this.props.params.id) {
       return (
         <Contact id={this.props.params.id}
+                 permissions={this.props.permissions}
                  loaded={this.state.loaded}
                  contactsPath={this.props.contactsPath}
                  search={this.props.location.search}

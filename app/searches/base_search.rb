@@ -2,14 +2,32 @@ class BaseSearch
   STEP           = 10000
   MAX_EXPANSIONS = 2147483647 # 2^31 - 1 (max value for ElasticSearch)
 
-  attr_reader :params
+  attr_reader :params, :user
 
-  def initialize(params)
+  def initialize(user, params)
+    @user   = user
     @params = params
   end
 
   def run
-    run_step.results.collect(&:_source)
+    results = run_step.results.collect(&:_source)
+    self.class.reject_private_notes_from_collection(results, user)
+  end
+
+  def self.reject_private_notes_from_collection(results, user)
+    results.collect do |result|
+      reject_private_notes_from_result(result, user)
+    end
+  end
+
+  def self.reject_private_notes_from_result(result, user)
+    notes = result['notes'].select do |note|
+      note['privacy'] == 'public' || note['user_id'] == user.id
+    end
+
+    result.merge({
+      'notes' => notes
+    })
   end
 
   private

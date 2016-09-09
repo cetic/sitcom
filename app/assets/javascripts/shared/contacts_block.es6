@@ -97,27 +97,37 @@ class ContactsBlock extends React.Component {
             <Link to={contact.scopedPath}>{contact.name}</Link>
           </h4>
 
-          <i className="fa fa-times remove-icon"
-             onClick={this.removeContact.bind(this, contact)}>
-          </i>
+          {this.renderRemoveIcon(item)}
         </div>
       </div>
     )
   }
 
-  renderSelect() {
-    var filteredOptions = _.reject(this.state.options, (option) => {
-      return _.includes(this.props.parent.contactIds, option.value);
-    })
+  renderRemoveIcon(item) {
+    if(this.props.canWrite) {
+      return (
+        <i className="fa fa-times remove-icon"
+           onClick={this.removeContact.bind(this, contact)}>
+        </i>
+      )
+    }
+  }
 
-    return (
-      <div className="select">
-        <Select multi={false}
-                options={filteredOptions}
-                placeholder="Ajouter..."
-                onChange={this.addContact.bind(this)} />
-      </div>
-    );
+  renderSelect() {
+    if(this.props.canWrite) {
+      var filteredOptions = _.reject(this.state.options, (option) => {
+        return _.includes(this.props.parent.contactIds, option.value);
+      })
+
+      return (
+        <div className="select">
+          <Select multi={false}
+                  options={filteredOptions}
+                  placeholder="Ajouter..."
+                  onChange={this.addContact.bind(this)} />
+        </div>
+      );
+    }
   }
 }
 

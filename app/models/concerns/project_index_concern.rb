@@ -61,12 +61,12 @@ module ProjectIndexConcern
     }
 
     if options[:simple]
-      fields
+      ActiveSupport::HashWithIndifferentAccess.new(fields)
     else
-      fields.merge({
+      ActiveSupport::HashWithIndifferentAccess.new(fields.merge({
         :contacts => contacts_as_indexed_json,
         :notes    => notes_as_indexed_json
-      })
+      }))
     end
   end
 

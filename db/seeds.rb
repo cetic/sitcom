@@ -23,3 +23,11 @@ nicolas = User.create!({
   :password_confirmation => 'testtest42',
   :admin                 => true
 })
+
+jules = User.create!({
+  :name                  => 'Jules Verne',
+  :email                 => 'jules.verne@hotmail.com',
+  :password              => 'testtest42',
+  :password_confirmation => 'testtest42',
+  :admin                 => false
+})

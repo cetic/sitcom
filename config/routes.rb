@@ -7,7 +7,14 @@ Rails.application.routes.draw do
   # Admin
 
   namespace :admin do
-    resources :users
+    resources :users do
+      resources :lab_user_links do
+        collection do
+          put :update_many
+        end
+      end
+    end
+
     resources :labs
 
     resources :fields do

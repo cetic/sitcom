@@ -6,6 +6,7 @@
 #admin-users-edit,
 #admin-users-create,
 #admin-users-update,
+#admin-lab_user_links-index,
 #admin-fields-new,
 #admin-fields-edit,
 #admin-fields-create,
@@ -28,5 +29,9 @@
     .btn {
       margin-left: 6px;
     }
+  }
+
+  td.center {
+    text-align: center;
   }
 }

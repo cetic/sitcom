@@ -47,6 +47,21 @@ class ApplicationController < ActionController::Base
     }
   end
 
+  def render_permission_error
+    respond_to do |format|
+      format.html do
+        render :text => 'permission error'
+      end
+
+      format.json do
+        render :json => {
+          :success => false,
+          :errors  => ['permission error']
+        }
+      end
+    end
+  end
+
   def admin_page?
     params[:controller].split('/').first == 'admin'
   end

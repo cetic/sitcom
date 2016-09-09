@@ -7,11 +7,13 @@ class Note < ApplicationRecord
   # Enums
 
   enumerize :privacy, :in      => [ :public, :private ],
-                      :default => :private
+                      :default => :private,
+                      :scope   => true
 
   # Association
 
   belongs_to :notable, :polymorphic => true
+  belongs_to :user,    :required    => false
 
   # Validations
 
@@ -34,12 +36,18 @@ class Note < ApplicationRecord
 
   # Methods
 
+  def path
+    "/#{notable.lab.slug}/#{notable_type.pluralize.underscore}/#{self.notable.id}/notes/#{self.id}"
+  end
+
   def as_indexed_json(options = {})
-    {
+    ActiveSupport::HashWithIndifferentAccess.new({
       :id      => id,
+      :user_id => user_id,
       :text    => text,
       :privacy => privacy,
-    }
+      :path    => path
+    })
   end
 
 end
