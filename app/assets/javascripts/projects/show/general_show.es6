@@ -37,11 +37,15 @@ class GeneralShow extends React.Component {
               { this.props.project.name }
             </h1>
 
+            <div className="dates">
+              <ProjectDates project={this.props.project} />
+            </div>
+
+            <div style={{ clear: 'both' }}></div>
+
             <div className="description">
               {this.props.project.description}
             </div>
-
-            <ProjectDates project={this.props.project} />
           </div>
         </div>
 

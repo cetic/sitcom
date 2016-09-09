@@ -88,14 +88,15 @@ class GeneralEdit extends React.Component {
             <h1>
               { this.renderName() }
             </h1>
-          </div>
-        </div>
 
-        <div className="row row-event-infos">
-          { this.renderDescription() }
-          { this.renderPlace() }
-          { this.renderWebsiteUrl() }
-          { this.renderHappensOn() }
+            { this.renderHappensOn() }
+            { this.renderPlace() }
+
+            <div style={{ clear: 'both' }}></div>
+
+            { this.renderWebsite() }
+            { this.renderDescription() }
+          </div>
         </div>
 
         { this.renderActions() }
@@ -135,8 +136,8 @@ class GeneralEdit extends React.Component {
 
   renderDescription() {
     return (
-      <div className="col-md-4">
-        <h3>Description</h3>
+      <div className="description">
+        <label>Description</label>
 
         <textarea className="description"
                   defaultValue={this.state.description}
@@ -147,8 +148,8 @@ class GeneralEdit extends React.Component {
 
   renderPlace() {
     return (
-      <div className="col-md-4">
-        <h3>Lieu</h3>
+      <div className="place">
+        <label>Lieu</label>
 
         <input type="text"
                className="place"
@@ -158,10 +159,10 @@ class GeneralEdit extends React.Component {
     )
   }
 
-  renderWebsiteUrl() {
+  renderWebsite() {
     return (
-      <div className="col-md-4">
-        <h3>Site Web</h3>
+      <div className="website">
+        <label>Site Web</label>
 
         <input type="text"
                className="website-url"
@@ -173,8 +174,8 @@ class GeneralEdit extends React.Component {
 
   renderHappensOn() {
     return (
-      <div className="col-md-4">
-        <h3>Date</h3>
+      <div className="dates">
+        <label>Date</label>
 
         <DateField value={this.state.happensOn}
                    onChange={this.updateHappensOn.bind(this)} />

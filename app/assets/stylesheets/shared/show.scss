@@ -77,6 +77,17 @@
       }
     }
 
+    .dates {
+      font-size: 12px;
+      font-weight: 400;
+      float: left;
+      margin-right: 10px;
+    }
+
+    .place {
+      font-size: 12px;
+    }
+
     .description {
       margin-top: 8px;
     }
@@ -145,6 +156,35 @@
         margin-top: 2px;
         display: block;
         height: 100px;
+      }
+    }
+
+    .dates {
+      float: left;
+      margin-right: 20px;
+      font-size: 14px;
+    }
+
+    .place {
+      font-size: 14px;
+
+      input {
+        display: block;
+      }
+    }
+
+    .dates, .start-date, .end-date {
+      float: left;
+      margin-right: 20px;
+
+      .date-field > a {
+        font-size: 12px;
+        vertical-align: -2px;
+      }
+
+      .date-field a.reset-value {
+        top: 5px;
+        left: 135px;
       }
     }
 

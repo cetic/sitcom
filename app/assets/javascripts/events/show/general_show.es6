@@ -37,9 +37,13 @@ class GeneralShow extends React.Component {
               { this.props.event.name }
             </h1>
 
-            <EventDate event={this.props.event} />
+            <div className="dates">
+              <EventDate event={this.props.event} />
+            </div>
 
-            {this.props.event.place}
+            <div className="place">
+              {this.props.event.place}
+            </div>
 
             <div className="description">
               {this.props.event.description}

@@ -80,13 +80,14 @@ class GeneralEdit extends React.Component {
             <h1>
               { this.renderName() }
             </h1>
-          </div>
-        </div>
 
-        <div className="row row-project-infos">
-          { this.renderDescription() }
-          { this.renderStartDate() }
-          { this.renderEndDate() }
+            { this.renderStartDate() }
+            { this.renderEndDate() }
+
+            <div style={{ clear: 'both' }}></div>
+
+            { this.renderDescription() }
+          </div>
         </div>
 
         { this.renderActions() }
@@ -126,8 +127,8 @@ class GeneralEdit extends React.Component {
 
   renderDescription() {
     return (
-      <div className="col-md-4">
-        <h3>Description</h3>
+      <div className="description">
+        <label>Description</label>
 
         <textarea className="description"
                   defaultValue={this.state.description}
@@ -138,8 +139,8 @@ class GeneralEdit extends React.Component {
 
   renderStartDate() {
     return (
-      <div className="col-md-4">
-        <h3>Date de début</h3>
+      <div className="start-date">
+        <label>Date de début</label>
 
         <DateField value={this.state.startDate}
                    onChange={this.updateStartDate.bind(this)}
@@ -150,8 +151,8 @@ class GeneralEdit extends React.Component {
 
   renderEndDate() {
     return (
-      <div className="col-md-4">
-        <h3>Date de fin</h3>
+      <div className="end-date">
+        <label>Date de fin</label>
 
         <DateField value={this.state.endDate}
                    onChange={this.updateEndDate.bind(this)}
