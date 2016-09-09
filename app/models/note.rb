@@ -7,7 +7,8 @@ class Note < ApplicationRecord
   # Enums
 
   enumerize :privacy, :in      => [ :public, :private ],
-                      :default => :private
+                      :default => :private,
+                      :scope   => true
 
   # Association
 
@@ -40,12 +41,13 @@ class Note < ApplicationRecord
   end
 
   def as_indexed_json(options = {})
-    {
+    ActiveSupport::HashWithIndifferentAccess.new({
       :id      => id,
+      :user_id => user_id,
       :text    => text,
       :privacy => privacy,
       :path    => path
-    }
+    })
   end
 
 end

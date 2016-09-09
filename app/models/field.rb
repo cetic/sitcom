@@ -35,11 +35,11 @@ class Field < ApplicationRecord
   # Methods
 
   def as_indexed_json(options = {})
-    {
+    ActiveSupport::HashWithIndifferentAccess.new({
       :id        => id,
       :parent_id => parent_id,
       :name      => name
-    }
+    })
   end
 
   # Class Methods

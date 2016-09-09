@@ -7,7 +7,7 @@ class OrganizationsController < ApplicationController
     respond_to do |format|
       format.json do
         if PermissionsService.new(current_user, @lab).can_read?('organizations')
-          organizations = OrganizationSearch.new(params.merge({
+          organizations = OrganizationSearch.new(current_user, params.merge({
             :lab_id => @lab.id
           })).run
 
@@ -30,7 +30,7 @@ class OrganizationsController < ApplicationController
       format.json do
         if PermissionsService.new(current_user, @lab).can_read?('organizations')
           @organization = @lab.organizations.find(params[:id])
-          render :json => @organization.as_indexed_json
+          render :json => BaseSearch.reject_private_notes_from_result(@organization.as_indexed_json)
         else
           render_permission_error
         end

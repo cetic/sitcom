@@ -7,7 +7,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.json do
         if PermissionsService.new(current_user, @lab).can_read?('events')
-          events = EventSearch.new(params.merge({
+          events = EventSearch.new(current_user, params.merge({
             :lab_id => @lab.id
           })).run
 
@@ -30,7 +30,7 @@ class EventsController < ApplicationController
       format.json do
         if PermissionsService.new(current_user, @lab).can_read?('events')
           @event = @lab.events.find(params[:id])
-          render :json => @event.as_indexed_json
+          render :json => BaseSearch.reject_private_notes_from_result(@event.as_indexed_json)
         else
           render_permission_error
         end

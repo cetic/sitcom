@@ -87,15 +87,15 @@ module ContactIndexConcern
     }
 
     if options[:simple]
-      fields
+      ActiveSupport::HashWithIndifferentAccess.new(fields)
     else
-      fields.merge({
+      ActiveSupport::HashWithIndifferentAccess.new(fields.merge({
         :organizations => organizations_as_indexed_json,
         :fields        => fields_as_indexed_json,
         :events        => events_as_indexed_json,
         :projects      => projects_as_indexed_json,
         :notes         => notes_as_indexed_json,
-      })
+      }))
     end
   end
 

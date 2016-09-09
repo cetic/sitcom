@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.json do
         if PermissionsService.new(current_user, @lab).can_read?('projects')
-          projects = ProjectSearch.new(params.merge({
+          projects = ProjectSearch.new(current_user, params.merge({
             :lab_id => @lab.id
           })).run
 
@@ -30,7 +30,7 @@ class ProjectsController < ApplicationController
       format.json do
         if PermissionsService.new(current_user, @lab).can_read?('projects')
           @project = @lab.projects.find(params[:id])
-          render :json => @project.as_indexed_json
+          render :json => BaseSearch.reject_private_notes_from_result(@project.as_indexed_json)
         else
           render_permission_error
         end
