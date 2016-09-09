@@ -205,8 +205,7 @@ class Contact extends React.Component {
 
   renderNotes() {
     return (
-      <NotesBlock contact={this.state.contact}
-                  notes={this.state.contact.notes} />
+      <NotesBlock notable={this.state.contact} />
     )
   }
 }

@@ -10,7 +10,8 @@ class User < ApplicationRecord
   # Associations
 
   has_many :lab_user_links, :dependent => :destroy
-  has_many :labs, :through => :lab_user_links
+  has_many :labs,           :through   => :lab_user_links
+  has_many :notes,          :dependent => :nullify
 
   # Validations
 

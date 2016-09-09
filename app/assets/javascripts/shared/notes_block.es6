@@ -10,11 +10,11 @@ class NotesBlock extends React.Component {
   }
 
   render() {
-    var publicNotes = _.filter(this.props.notes, (note) => {
+    var publicNotes = _.filter(this.props.notable.notes, (note) => {
       return note.privacy == 'public'
     })
 
-    var privateNotes = _.filter(this.props.notes, (note) => {
+    var privateNotes = _.filter(this.props.notable.notes, (note) => {
       return note.privacy == 'private'
     })
 
@@ -22,11 +22,17 @@ class NotesBlock extends React.Component {
       <div className="notes-block">
         <div className="row">
           <div className="col-md-6">
-            <NotesColumn label="Notes publiques" notes={publicNotes}  privacy="public" />
+            <NotesColumn label="Notes publiques"
+                         notable={this.props.notable}
+                         notes={publicNotes}
+                         privacy="public" />
           </div>
 
           <div className="col-md-6">
-            <NotesColumn label="Notes privées"   notes={privateNotes} privacy="private" />
+            <NotesColumn label="Notes privées"
+                         notable={this.props.notable}
+                         notes={privateNotes}
+                         privacy="private" />
           </div>
         </div>
       </div>

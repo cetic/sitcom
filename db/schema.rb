@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908082015) do
+ActiveRecord::Schema.define(version: 20160909085725) do
 
   create_table "contact_event_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "contact_id"
@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(version: 20160908082015) do
   end
 
   create_table "notes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "user_id"
     t.integer  "notable_id"
     t.string   "notable_type"
     t.text     "text",         limit: 65535
@@ -121,6 +122,7 @@ ActiveRecord::Schema.define(version: 20160908082015) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.index ["notable_id"], name: "index_notes_on_notable_id", using: :btree
+    t.index ["user_id"], name: "index_notes_on_user_id", using: :btree
   end
 
   create_table "organizations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
@@ -179,6 +181,7 @@ ActiveRecord::Schema.define(version: 20160908082015) do
   add_foreign_key "fields", "fields", column: "parent_id"
   add_foreign_key "lab_user_links", "labs"
   add_foreign_key "lab_user_links", "users"
+  add_foreign_key "notes", "users"
   add_foreign_key "organizations", "labs"
   add_foreign_key "projects", "labs"
 end
