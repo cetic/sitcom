@@ -12,7 +12,7 @@ class Main extends React.Component {
 
     this.filterNames = [
       'quickSearch', 'name', 'status', 'description', 'websiteUrl',
-      'contactIds'
+      'contactIds', 'notes'
     ];
 
     this.state = {

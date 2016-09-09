@@ -10,6 +10,7 @@ class AdvancedSearch extends React.Component {
       name:         this.props.filters.name        || '',
       description:  this.props.filters.description || '',
       place:        this.props.filters.place       || '',
+      notes:        this.props.filters.notes       || ''
     };
   }
 
@@ -37,6 +38,7 @@ class AdvancedSearch extends React.Component {
         {this.renderNameFilter()}
         {this.renderPlaceFilter()}
         {this.renderDescriptionFilter()}
+        {this.renderNotesFilter()}
         {this.renderHappensOnFilter()}
         {this.renderContactsFilter()}
       </div>
@@ -82,6 +84,18 @@ class AdvancedSearch extends React.Component {
                id="events_description"
                value={this.state.description}
                onChange={this.updateTextFilter.bind(this, 'description')} />
+      </div>
+    );
+  }
+
+  renderNotesFilter() {
+    return (
+      <div>
+        <label htmlFor="events_notes">Notes</label><br />
+        <input type="text"
+               id="events_notes"
+               value={this.state.notes}
+               onChange={this.updateTextFilter.bind(this, 'notes')} />
       </div>
     );
   }

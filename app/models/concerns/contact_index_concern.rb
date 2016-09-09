@@ -22,6 +22,8 @@ module ContactIndexConcern
         indexes :projects_ids,     :index => 'not_analyzed'
         indexes :events_ids,       :index => 'not_analyzed'
 
+        indexes :notes, :type => 'nested'
+
         indexes :sort_name, :analyzer => :sortable_string_analyzer
       end
     end

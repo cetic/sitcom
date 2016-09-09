@@ -8,7 +8,8 @@ class AdvancedSearch extends React.Component {
 
     this.state = {
       name:        this.props.filters.name        || '',
-      description: this.props.filters.description || ''
+      description: this.props.filters.description || '',
+      notes:       this.props.filters.notes       || '',
     };
   }
 
@@ -35,6 +36,7 @@ class AdvancedSearch extends React.Component {
 
         {this.renderNameFilter()}
         {this.renderDescriptionFilter()}
+        {this.renderNotesFilter()}
         {this.renderDatesFilter()}
         {this.renderContactsFilter()}
       </div>
@@ -61,6 +63,18 @@ class AdvancedSearch extends React.Component {
                id="projects_description"
                value={this.state.description}
                onChange={this.updateTextFilter.bind(this, 'description')} />
+      </div>
+    );
+  }
+
+  renderNotesFilter() {
+    return (
+      <div>
+        <label htmlFor="projects_notes">Notes</label><br />
+        <input type="text"
+               id="projects_notes"
+               value={this.state.notes}
+               onChange={this.updateTextFilter.bind(this, 'notes')} />
       </div>
     );
   }

@@ -9,7 +9,8 @@ class AdvancedSearch extends React.Component {
       name:        this.props.filters.name        || '',
       status:      this.props.filters.status      || '',
       description: this.props.filters.description || '',
-      websiteUrl:  this.props.filters.websiteUrl  || ''
+      websiteUrl:  this.props.filters.websiteUrl  || '',
+      notes:       this.props.filters.notes       || ''
     };
   }
 
@@ -44,6 +45,7 @@ class AdvancedSearch extends React.Component {
         {this.renderStatusFilter()}
         {this.renderDescriptionFilter()}
         {this.renderWebsiteUrlFilter()}
+        {this.renderNotesFilter()}
         {this.renderContactsFilter()}
       </div>
     );
@@ -93,6 +95,18 @@ class AdvancedSearch extends React.Component {
                id="organizations_website_url"
                value={this.state.websiteUrl}
                onChange={this.updateTextFilter.bind(this, 'websiteUrl')} />
+      </div>
+    );
+  }
+
+  renderNotesFilter() {
+    return (
+      <div>
+        <label htmlFor="organizations_notes">Notes</label><br />
+        <input type="text"
+               id="organizations_notes"
+               value={this.state.notes}
+               onChange={this.updateTextFilter.bind(this, 'notes')} />
       </div>
     );
   }

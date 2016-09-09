@@ -18,6 +18,7 @@ class AdvancedSearch extends React.Component {
       email:   this.props.filters.email  || '',
       address: this.props.filters.address|| '',
       phone:   this.props.filters.phone  || '',
+      notes:   this.props.filters.notes  || '',
       active:  activeFilter
     };
   }
@@ -73,6 +74,7 @@ class AdvancedSearch extends React.Component {
         {this.renderEmailFilter()}
         {this.renderAddressFilter()}
         {this.renderPhoneFilter()}
+        {this.renderNotesFilter()}
         {this.renderActiveInactiveFilter()}
         {this.renderOrganizationsFilter()}
         {this.renderFieldsFilter()}
@@ -126,6 +128,18 @@ class AdvancedSearch extends React.Component {
                id="contacts_phone"
                value={this.state.phone}
                onChange={this.updateTextFilter.bind(this, 'phone')} />
+      </div>
+    );
+  }
+
+  renderNotesFilter() {
+    return (
+      <div>
+        <label htmlFor="contacts_notes">Notes</label><br />
+        <input type="text"
+               id="contacts_notes"
+               value={this.state.notes}
+               onChange={this.updateTextFilter.bind(this, 'notes')} />
       </div>
     );
   }
