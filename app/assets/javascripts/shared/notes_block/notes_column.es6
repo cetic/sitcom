@@ -10,16 +10,6 @@ class NotesColumn extends React.Component {
     };
   }
 
-  removeNote(noteId) {
-    if(confirm("Supprimer définitivement cette note ?")) {
-      http.delete(`${this.props.notable.path}/notes/${noteId}`, {}, (data) => {
-        if(data.success) {
-          this.props.reloadFromBackend()
-        }
-      })
-    }
-  }
-
   render() {
     return (
       <div className="notes-column">
@@ -36,7 +26,6 @@ class NotesColumn extends React.Component {
       return (
         <Note key={note.id}
               note={note}
-              removeNote={this.removeNote.bind(this, note.id)}
               reloadFromBackend={this.props.reloadFromBackend} />
       )
     })

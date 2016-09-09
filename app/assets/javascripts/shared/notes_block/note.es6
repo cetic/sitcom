@@ -14,8 +14,14 @@ class Note extends React.Component {
     })
   }
 
-  remove() {
-    this.props.removeNote()
+  remove(e) {
+    if(confirm("Supprimer définitivement cette note ?")) {
+      http.delete(`${this.props.note.path}`, {}, (data) => {
+        if(data.success) {
+          this.props.reloadFromBackend()
+        }
+      })
+    }
   }
 
   edit() {
