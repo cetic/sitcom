@@ -35,11 +35,16 @@ class Note < ApplicationRecord
 
   # Methods
 
+  def path
+    "/#{notable.lab.slug}/#{notable_type.pluralize.underscore}/#{self.notable.id}/notes/#{self.id}"
+  end
+
   def as_indexed_json(options = {})
     {
       :id      => id,
       :text    => text,
       :privacy => privacy,
+      :path    => path
     }
   end
 

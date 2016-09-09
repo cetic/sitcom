@@ -25,14 +25,16 @@ class NotesBlock extends React.Component {
             <NotesColumn label="Notes publiques"
                          notable={this.props.notable}
                          notes={publicNotes}
-                         privacy="public" />
+                         privacy="public"
+                         reloadFromBackend={this.props.reloadFromBackend} />
           </div>
 
           <div className="col-md-6">
             <NotesColumn label="Notes privées"
                          notable={this.props.notable}
                          notes={privateNotes}
-                         privacy="private" />
+                         privacy="private"
+                         reloadFromBackend={this.props.reloadFromBackend} />
           </div>
         </div>
       </div>

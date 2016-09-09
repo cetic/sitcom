@@ -8,6 +8,7 @@ class NotesController < ApplicationController
     respond_to do |format|
       format.json do
         @notes = @notable.notes
+        render :json => @notes.map(&:as_indexed_json)
       end
     end
   end
@@ -15,7 +16,8 @@ class NotesController < ApplicationController
   def create
     respond_to do |format|
       format.json do
-        @note = @notable.notes.new(strong_params)
+        @note      = @notable.notes.new(strong_params)
+        @note.user = current_user
 
         if @note.save
           render_json_success
@@ -71,4 +73,11 @@ class NotesController < ApplicationController
     @note = @notable.notes.find(params[:id])
   end
 
+  def strong_params
+    if params[:action] == 'create'
+      params.require(:note).permit(:text, :privacy)
+    else
+      params.require(:note).permit(:text)
+    end
+  end
 end

@@ -205,7 +205,8 @@ class Contact extends React.Component {
 
   renderNotes() {
     return (
-      <NotesBlock notable={this.state.contact} />
+      <NotesBlock notable={this.state.contact}
+                  reloadFromBackend={this.reloadFromBackend.bind(this)} />
     )
   }
 }

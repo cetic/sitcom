@@ -22,6 +22,22 @@ class NewNote extends React.Component {
     })
   }
 
+  save() {
+    var params = {
+      note: {
+        text:    this.state.newNoteText,
+        privacy: this.props.privacy
+      }
+    }
+
+    http.post(`${this.props.notable.path}/notes`, params, (data) => {
+      if(data.success) {
+        this.props.reloadFromBackend()
+        this.cancel()
+      }
+    })
+  }
+
   updateNewNoteText(e) {
     this.setState({
       newNoteText: e.target.value
@@ -40,7 +56,7 @@ class NewNote extends React.Component {
   renderOpenLink() {
     if(!this.state.open) {
       return (
-        <a href="javascript:;" onClick={this.open.bind(this)}>New note</a>
+        <a href="javascript:;" onClick={this.open.bind(this)}>Nouvelle note</a>
       )
     }
   }
@@ -49,9 +65,15 @@ class NewNote extends React.Component {
     if(this.state.open) {
       return (
         <form>
-          <textarea value={this.state.newNoteText} onChange={this.updateNewNoteText.bind(this)} />
+          <textarea value={this.state.newNoteText}
+                    onChange={this.updateNewNoteText.bind(this)} />
 
-          <a href="javascript:;" onClick={this.cancel.bind(this)}>Cancel</a>
+          <a href="javascript:;"
+             onClick={this.cancel.bind(this)}>Annuler</a>
+
+          <a href="javascript:;"
+             onClick={this.save.bind(this)}
+             className="btn btn-primary">Ajouter</a>
         </form>
       )
     }
