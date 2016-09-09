@@ -87,21 +87,23 @@ class Note extends React.Component {
   }
 
   renderButtons() {
-    return (
-      <div>
-        <a href="javascript:;"
-           className="btn btn-xs"
-           onClick={this.edit.bind(this)}>
-          <i className="fa fa-edit"></i>
-        </a>
+    if(this.props.canWrite) {
+      return (
+        <div>
+          <a href="javascript:;"
+             className="btn btn-xs"
+             onClick={this.edit.bind(this)}>
+            <i className="fa fa-edit"></i>
+          </a>
 
-        <a href="javascript:;"
-           className="btn btn-xs"
-           onClick={this.remove.bind(this)}>
-          <i className="fa fa-times"></i>
-        </a>
-      </div>
-    )
+          <a href="javascript:;"
+             className="btn btn-xs"
+             onClick={this.remove.bind(this)}>
+            <i className="fa fa-times"></i>
+          </a>
+        </div>
+      )
+    }
   }
 
 }

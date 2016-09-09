@@ -135,7 +135,8 @@ class Project extends React.Component {
   renderNotes() {
     return (
       <NotesBlock notable={this.state.project}
-                  reloadFromBackend={this.reloadFromBackend.bind(this)} />
+                  reloadFromBackend={this.reloadFromBackend.bind(this)}
+                  canWrite={this.props.permissions.canWriteProjects} />
     )
   }
 

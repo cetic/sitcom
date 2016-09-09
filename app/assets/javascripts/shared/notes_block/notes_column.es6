@@ -3,13 +3,6 @@ import NewNote from './new_note.es6'
 
 class NotesColumn extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-    };
-  }
-
   render() {
     return (
       <div className="notes-column">
@@ -26,17 +19,20 @@ class NotesColumn extends React.Component {
       return (
         <Note key={note.id}
               note={note}
-              reloadFromBackend={this.props.reloadFromBackend} />
+              reloadFromBackend={this.props.reloadFromBackend}
+              canWrite={this.props.canWrite} />
       )
     })
   }
 
   renderNewNote() {
-    return (
-      <NewNote notable={this.props.notable}
-               privacy={this.props.privacy}
-               reloadFromBackend={this.props.reloadFromBackend} />
-    )
+    if(this.props.canWrite) {
+      return (
+        <NewNote notable={this.props.notable}
+                 privacy={this.props.privacy}
+                 reloadFromBackend={this.props.reloadFromBackend} />
+      )
+    }
   }
 
 }

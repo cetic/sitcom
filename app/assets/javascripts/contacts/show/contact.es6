@@ -206,7 +206,8 @@ class Contact extends React.Component {
   renderNotes() {
     return (
       <NotesBlock notable={this.state.contact}
-                  reloadFromBackend={this.reloadFromBackend.bind(this)} />
+                  reloadFromBackend={this.reloadFromBackend.bind(this)}
+                  canWrite={this.props.permissions.canWriteContacts} />
     )
   }
 }
