@@ -81,7 +81,9 @@ class ItemsBlock extends React.Component {
     else {
       return (
         <div className="row">
-          {this.props.emptyMessage}
+          <div className="col-md-12">
+            {this.props.emptyMessage}
+          </div>
         </div>
       )
     }
@@ -91,7 +93,7 @@ class ItemsBlock extends React.Component {
     return (
       <div className="col-md-6 association item" key={item.id}>
         <div className="association-inside">
-          <img className="img-thumbnail" src={item.previewPictureUrl} />
+          <img className="img-thumbnail" src={item.thumbPictureUrl} />
           <h4>
             <Link to={item.scopedPath}>{item.name}</Link>
           </h4>

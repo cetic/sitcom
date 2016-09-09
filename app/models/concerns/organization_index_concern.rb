@@ -53,6 +53,7 @@ module OrganizationIndexConcern
 
       :picture_url         => picture_url,
       :preview_picture_url => picture_url(:preview),
+      :thumb_picture_url   => picture_url(:thumb),
 
       :contact_ids => contact_ids,
 

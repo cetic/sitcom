@@ -40,7 +40,7 @@ class Event extends React.Component {
   renderPicture() {
     return (
       <div className="picture">
-        <img className="img-thumbnail" src={this.props.event.previewPictureUrl} />
+        <img className="img-thumbnail" src={this.props.event.thumbPictureUrl} />
       </div>
     )
   }

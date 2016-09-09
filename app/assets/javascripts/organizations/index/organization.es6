@@ -29,7 +29,7 @@ class Organization extends React.Component {
   renderPicture() {
     return (
       <div className="picture">
-        <img className="img-thumbnail" src={this.props.organization.previewPictureUrl} />
+        <img className="img-thumbnail" src={this.props.organization.thumbPictureUrl} />
       </div>
     )
   }

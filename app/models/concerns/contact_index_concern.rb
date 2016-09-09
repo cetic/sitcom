@@ -68,6 +68,7 @@ module ContactIndexConcern
 
       :picture_url         => picture_url,
       :preview_picture_url => picture_url(:preview),
+      :thumb_picture_url   => picture_url(:thumb),
 
       :name             => name,
       :first_name       => first_name,

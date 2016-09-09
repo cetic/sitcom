@@ -34,7 +34,7 @@ class Project extends React.Component {
   renderPicture() {
     return (
       <div className="picture">
-        <img className="img-thumbnail" src={this.props.project.previewPictureUrl} />
+        <img className="img-thumbnail" src={this.props.project.thumbPictureUrl} />
       </div>
     )
   }

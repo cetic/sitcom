@@ -92,7 +92,7 @@ class ContactsBlock extends React.Component {
     return (
       <div className="col-md-6 association contact" key={contact.id}>
         <div className="association-inside">
-          <img className="img-thumbnail" src={contact.previewPictureUrl} />
+          <img className="img-thumbnail" src={contact.thumbPictureUrl} />
           <h4>
             <Link to={contact.scopedPath}>{contact.name}</Link>
           </h4>

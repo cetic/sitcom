@@ -38,7 +38,7 @@ class Contact extends React.Component {
   renderPicture() {
     return (
       <div className="picture">
-        <img className="img-thumbnail" src={this.props.contact.previewPictureUrl} />
+        <img className="img-thumbnail" src={this.props.contact.thumbPictureUrl} />
       </div>
     )
   }

@@ -92,7 +92,7 @@ class OrganizationsBlock extends React.Component {
     return (
       <div className="col-md-6 association organization" key={organization.id}>
         <div className="association-inside">
-          <img className="img-thumbnail" src={organization.previewPictureUrl} />
+          <img className="img-thumbnail" src={organization.thumbPictureUrl} />
           <h4>
             <Link to={organization.scopedPath}>{organization.name}</Link>
           </h4>
