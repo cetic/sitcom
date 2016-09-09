@@ -60,7 +60,7 @@ class NotesController < ApplicationController
   end
 
   def find_notable
-    [:contact, :organization].each do |notable_type|
+    [:contact, :organization, :event, :project].each do |notable_type|
       notable_id = params["#{notable_type}_id".to_sym]
 
       if notable_id

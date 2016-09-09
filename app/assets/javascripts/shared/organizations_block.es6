@@ -97,13 +97,13 @@ class OrganizationsBlock extends React.Component {
             <Link to={organization.scopedPath}>{organization.name}</Link>
           </h4>
 
-          {this.renderRemoveIcon(item)}
+          {this.renderRemoveIcon(organization)}
         </div>
       </div>
     )
   }
 
-  renderRemoveIcon(item) {
+  renderRemoveIcon(organization) {
     if(this.props.canWrite) {
       return (
         <i className="fa fa-times remove-icon"

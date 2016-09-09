@@ -97,13 +97,13 @@ class ContactsBlock extends React.Component {
             <Link to={contact.scopedPath}>{contact.name}</Link>
           </h4>
 
-          {this.renderRemoveIcon(item)}
+          {this.renderRemoveIcon(contact)}
         </div>
       </div>
     )
   }
 
-  renderRemoveIcon(item) {
+  renderRemoveIcon(contact) {
     if(this.props.canWrite) {
       return (
         <i className="fa fa-times remove-icon"

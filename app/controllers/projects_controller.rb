@@ -30,7 +30,7 @@ class ProjectsController < ApplicationController
       format.json do
         if PermissionsService.new(current_user, @lab).can_read?('projects')
           @project = @lab.projects.find(params[:id])
-          render :json => BaseSearch.reject_private_notes_from_result(@project.as_indexed_json)
+          render :json => BaseSearch.reject_private_notes_from_result(@project.as_indexed_json, current_user)
         else
           render_permission_error
         end

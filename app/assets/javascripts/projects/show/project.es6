@@ -1,6 +1,7 @@
 import GeneralShow     from './general_show.es6'
 import GeneralEdit     from './general_edit.es6'
 import ContactsBlock   from '../../shared/contacts_block.es6'
+import NotesBlock      from '../../shared/notes_block.es6'
 import PreviousNextNav from '../../shared/previous_next_nav.es6'
 
 class Project extends React.Component {
@@ -63,6 +64,7 @@ class Project extends React.Component {
           {this.renderPreviousNextNav()}
           {this.renderGeneral()}
           {this.renderContacts()}
+          {this.renderNotes()}
         </div>
       )
     }
@@ -128,6 +130,13 @@ class Project extends React.Component {
                        canWrite={this.props.permissions.canWriteProjects} />
       );
     }
+  }
+
+  renderNotes() {
+    return (
+      <NotesBlock notable={this.state.project}
+                  reloadFromBackend={this.reloadFromBackend.bind(this)} />
+    )
   }
 
 }
