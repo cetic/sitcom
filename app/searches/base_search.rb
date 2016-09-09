@@ -21,13 +21,15 @@ class BaseSearch
   end
 
   def self.reject_private_notes_from_result(result, user)
-    notes = result['notes'].select do |note|
+    result.merge({
+      'notes' => reject_private_notes(result['notes'], user)
+    })
+  end
+
+  def self.reject_private_notes(notes, user)
+    notes.select do |note|
       note['privacy'] == 'public' || note['user_id'] == user.id
     end
-
-    result.merge({
-      'notes' => notes
-    })
   end
 
   private

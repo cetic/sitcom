@@ -2,27 +2,39 @@ class NotesController < ApplicationController
 
   before_action :find_lab
   before_action :find_notable
-  before_action :find_note, only: [ :update, :destroy ]
+  before_action :find_notable_type
+  before_action :find_note,         only: [ :update, :destroy ]
+  before_action :check_permissions, only: [ :update, :destroy ]
 
   def index
     respond_to do |format|
       format.json do
-        @notes = @notable.notes
-        render :json => @notes.map(&:as_indexed_json)
+        if PermissionsService.new(current_user, @lab).can_read?(@notable_type)
+          @notes = BaseSearch.reject_private_notes(@notable.notes, current_user)
+          render :json => @notes
+        else
+          render_permission_error
+        end
       end
     end
   end
 
   def create
+    can_write = PermissionsService.new(current_user, @lab).can_write?(@notable_type)
+
     respond_to do |format|
       format.json do
         @note      = @notable.notes.new(strong_params)
         @note.user = current_user
 
-        if @note.save
-          render_json_success
+        if @note.privacy.private? || can_write
+          if @note.save
+            render_json_success
+          else
+            render_json_errors(@note)
+          end
         else
-          render_json_errors(@note)
+          render_permission_error
         end
       end
     end
@@ -69,8 +81,23 @@ class NotesController < ApplicationController
     end
   end
 
+  def find_notable_type
+    @notable_type = @notable.class.name.pluralize.underscore
+  end
+
   def find_note
     @note = @notable.notes.find(params[:id])
+  end
+
+  def check_permissions
+    can_write = PermissionsService.new(current_user, @lab).can_write?(@notable_type)
+    can_read  = PermissionsService.new(current_user, @lab).can_read?(@notable_type)
+    is_mine   = @note.user_id == current_user.id
+
+    # user can update/destroy its own private notes
+    unless (@note.privacy.public? && can_write) || (@note.privacy.private? && is_mine)
+      render_permission_error
+    end
   end
 
   def strong_params
