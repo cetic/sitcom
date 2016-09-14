@@ -104,6 +104,18 @@ class OrganizationsController < ApplicationController
     @statuses = @lab.organizations.pluck(:status).uniq.reject(&:blank?)
   end
 
+  def export
+    if PermissionsService.new(current_user, @lab).can_read?('organizations')
+      organizations = OrganizationSearch.new(current_user, params.merge({
+        :lab_id => @lab.id
+      })).run
+
+      render_csv(OrganizationExport.new(organizations).csv_data, 'organizations.csv')
+    else
+      render_permission_error
+    end
+  end
+
   private
 
   # Encapsulate new picture in "organization" (don't know how to make it in JS)

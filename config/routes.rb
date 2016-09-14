@@ -44,6 +44,7 @@ Rails.application.routes.draw do
 
       collection do
         get :options
+        get :export
       end
     end
 
@@ -53,6 +54,7 @@ Rails.application.routes.draw do
       collection do
         get :options
         get :status_options
+        get :export
       end
     end
 

@@ -100,6 +100,18 @@ class ContactsController < ApplicationController
     @contacts = @lab.contacts.order(:first_name, :last_name)
   end
 
+  def export
+    if PermissionsService.new(current_user, @lab).can_read?('contacts')
+      contacts = ContactSearch.new(current_user, params.merge({
+        :lab_id => @lab.id
+      })).run
+
+      render_csv(ContactExport.new(contacts).csv_data, 'contacts.csv')
+    else
+      render_permission_error
+    end
+  end
+
   private
 
   # Encapsulate new picture in "contact" (don't know how to make it in JS)
