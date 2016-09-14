@@ -68,3 +68,17 @@
 .btn-new {
   margin-top: -68px;
 }
+
+.btn.export {
+  position: absolute;
+  font-weight: bold;
+  right: 200px;
+  top: 4px;
+  padding: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  height: 32px;
+  line-height: 21px;
+  letter-spacing: 1px;
+  font-size: 10px;
+}

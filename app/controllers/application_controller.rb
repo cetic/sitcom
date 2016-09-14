@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
   def render_csv(csv_data, filename)
     if request.env['HTTP_USER_AGENT'] =~ /msie/i
       headers['Pragma'] = 'public'
-      headers["Content-type"] = "text/plain; charset=utf-8"
+      headers["Content-type"] = "text/csv; charset=utf-8"
       headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
       headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
       headers['Expires'] = "0"
