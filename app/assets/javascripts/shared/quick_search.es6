@@ -1,11 +1,11 @@
 class QuickSearch extends React.Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.state = {
-      search: this.props.quickSearch || ''
-    };
-  }
+  //   this.props.quickSearch = {
+  //     search: this.props.quickSearch || ''
+  //   };
+  // }
 
   componentDidMount() {
     $(this.refs.search).focus()
@@ -45,7 +45,7 @@ class QuickSearch extends React.Component {
                type="search"
                className="form-control"
                placeholder="Recherche rapide"
-               value={this.state.search}
+               value={this.props.quickSearch}
                onChange={this.updateQuickSearch.bind(this)} />
         <i className="glyphicon glyphicon-search"></i>
         { this.renderResetIcon() }
@@ -55,7 +55,7 @@ class QuickSearch extends React.Component {
   }
 
   renderResetIcon() {
-    if(this.state.search.length) {
+    if(this.props.quickSearch.length) {
       return (
         <i className="fa fa-times" onClick={this.resetQuickSearch.bind(this)}></i>
       );
@@ -64,7 +64,7 @@ class QuickSearch extends React.Component {
 
   renderResults() {
     if(this.props.results != 0 && this.props.loaded) {
-      if(this.state.search == '') {
+      if(this.props.quickSearch == '') {
         return (
           <span className="results">
             { this.props.results == 1 ? this.props.results + ' ' + this.singularItemName() : this.props.results + ' ' + this.singularItemName() + 's' }

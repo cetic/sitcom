@@ -11,15 +11,30 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
 
-    this.filterNames = [
-      'quickSearch', 'name', 'email', 'address', 'phone', 'active',
-      'organizationIds', 'fieldIds', 'eventIds', 'projectIds',
-      'notes'
-    ];
+    if(this.props.location.query.active == 'true') {
+      var activeFilter = true;
+    }
+    else if(this.props.location.query.active == 'false') {
+      var activeFilter = false;
+    }
 
     this.state = {
       contacts: [],
       loaded:   false,
+
+      filters: {
+        quickSearch:     this.props.location.query.quickSearch || '',
+        name:            this.props.location.query.name        || '',
+        email:           this.props.location.query.email       || '',
+        address:         this.props.location.query.address     || '',
+        phone:           this.props.location.query.phone       || '',
+        active:          activeFilter,
+        organizationIds: this.props.location.organizationIds,
+        fieldIds:        this.props.location.fieldIds,
+        eventIds:        this.props.location.eventIds,
+        projectIds:      this.props.location.projectIds,
+        notes:           this.props.location.query.notes       || '',
+      }
     };
   }
 
@@ -95,15 +110,15 @@ class Main extends React.Component {
 
   render() {
     if(this.props.permissions.canReadContacts) {
-      var advancedSearchFilters = _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
-        return this.props.location.query[filterName];
-      }));
+      // var advancedSearchFilters = _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
+      //   return this.props.location.query[filterName];
+      // }));
 
       return (
         <div className="container-fluid container-contact">
           <div className="row">
             <div className="col-md-4 pull-right complete-search">
-              <AdvancedSearch filters={advancedSearchFilters}
+              <AdvancedSearch filters={this.state.filters}
                               updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)}
                               organizationOptionsPath={this.props.organizationOptionsPath}
                               fieldOptionsPath={this.props.fieldOptionsPath}
@@ -115,7 +130,7 @@ class Main extends React.Component {
               <QuickSearch title="Contacts"
                            loaded={this.state.loaded}
                            results={this.state.contacts.length}
-                           quickSearch={this.props.location.query.quickSearch}
+                           quickSearch={this.state.filters.quickSearch}
                            updateQuickSearch={this.updateQuickSearch.bind(this)} />
 
               { this.renderNewContactLink() }
