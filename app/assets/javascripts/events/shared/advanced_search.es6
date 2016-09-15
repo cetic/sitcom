@@ -3,24 +3,10 @@ import ItemsSelect     from '../../shared/items_select.es6'
 
 class AdvancedSearch extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      name:         this.props.filters.name        || '',
-      description:  this.props.filters.description || '',
-      place:        this.props.filters.place       || '',
-      notes:        this.props.filters.notes       || ''
-    };
-  }
-
   updateTextFilter(filterName, e) {
     var newFilters = {}
     newFilters[filterName] = e.target.value
-
-    this.setState(newFilters, () => {
-      this.props.updateFilters(newFilters);
-    })
+    this.props.updateFilters(newFilters)
   }
 
   updateContactIds(value) {
@@ -51,7 +37,7 @@ class AdvancedSearch extends React.Component {
         <label htmlFor="events_name">Nom</label><br />
         <input type="text"
                id="events_name"
-               value={this.state.name}
+               value={this.props.filters.name}
                onChange={this.updateTextFilter.bind(this, 'name')} />
       </div>
     );
@@ -63,7 +49,7 @@ class AdvancedSearch extends React.Component {
         <label htmlFor="events_place">Lieu</label><br />
         <input type="text"
                id="events_place"
-               value={this.state.place}
+               value={this.props.filters.place}
                onChange={this.updateTextFilter.bind(this, 'place')} />
       </div>
     );
@@ -82,7 +68,7 @@ class AdvancedSearch extends React.Component {
         <label htmlFor="events_description">Description</label><br />
         <input type="text"
                id="events_description"
-               value={this.state.description}
+               value={this.props.filters.description}
                onChange={this.updateTextFilter.bind(this, 'description')} />
       </div>
     );
@@ -94,7 +80,7 @@ class AdvancedSearch extends React.Component {
         <label htmlFor="events_notes">Notes</label><br />
         <input type="text"
                id="events_notes"
-               value={this.state.notes}
+               value={this.props.filters.notes}
                onChange={this.updateTextFilter.bind(this, 'notes')} />
       </div>
     );

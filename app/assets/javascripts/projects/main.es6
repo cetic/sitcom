@@ -10,11 +10,6 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
 
-    this.filterNames = [
-      'quickSearch', 'name', 'description', 'from', 'to',
-      'contactIds', 'notes'
-    ];
-
     this.state = {
       projects: [],
       loaded:   false,
@@ -23,7 +18,6 @@ class Main extends React.Component {
 
   componentWillMount() {
     this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 300);
-    this.dUpdateUrl         = _.debounce(this.updateUrl, 300);
   }
 
   componentDidMount() {
@@ -31,10 +25,8 @@ class Main extends React.Component {
     this.selectHeaderMenu()
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if(this.filtersHaveChanged(prevProps)) {
-      this.reloadFromBackend();
-    }
+  componentWillReceiveProps(newProps) {
+    this.dReloadFromBackend()
   }
 
   selectHeaderMenu() {
@@ -42,20 +34,20 @@ class Main extends React.Component {
     $('.nav.sections li.projects').addClass('selected')
   }
 
-  filtersHaveChanged(prevProps) {
-    return _.some(this.filterNames, (filterName) => {
-      return prevProps.location.query[filterName] != this.props.location.query[filterName];
-    });
-  }
-
-  buildFilterParams() {
-    return _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
-      return this.props.location.query[filterName];
-    }));
+  getFilters() {
+    return {
+      quickSearch:  this.props.location.query.quickSearch || '',
+      name:         this.props.location.query.name        || '',
+      description:  this.props.location.query.description || '',
+      notes:        this.props.location.query.notes       || '',
+      contactIds:   this.props.location.query.contactIds,
+    }
   }
 
   reloadFromBackend(offset = 0) {
-    var params = _.assign({}, this.buildFilterParams(), {
+    this.setState({ loaded: false })
+
+    var params = _.assign({}, this.getFilters(), {
       offset: offset
     });
 
@@ -74,17 +66,13 @@ class Main extends React.Component {
   }
 
   updateQuickSearch(newQuickSearch) {
-    this.setState({ loaded: false })
-
-    this.dUpdateUrl({
+    this.updateFilters({
       quickSearch: newQuickSearch
-    });
+    })
   }
 
   updateFilters(newFilters) {
-    this.setState({ loaded: false })
-
-    this.dUpdateUrl(newFilters);
+    this.updateUrl(newFilters)
   }
 
   openNewProjectModal() {
@@ -93,15 +81,13 @@ class Main extends React.Component {
 
   render() {
     if(this.props.permissions.canReadProjects) {
-      var advancedSearchFilters = _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
-        return this.props.location.query[filterName];
-      }));
+      var filters = this.getFilters()
 
       return (
         <div className="container-fluid container-project">
           <div className="row">
             <div className="col-md-4 pull-right complete-search">
-              <AdvancedSearch filters={advancedSearchFilters}
+              <AdvancedSearch filters={filters}
                               contactOptionsPath={this.props.contactOptionsPath}
                               updateFilters={this.updateFilters.bind(this)} />
             </div>
@@ -110,7 +96,7 @@ class Main extends React.Component {
               <QuickSearch title="Projets"
                            loaded={this.state.loaded}
                            results={this.state.projects.length}
-                           quickSearch={this.props.location.query.quickSearch}
+                           quickSearch={filters.quickSearch}
                            updateQuickSearch={this.updateQuickSearch.bind(this)} />
 
               { this.renderNewProjectLink() }

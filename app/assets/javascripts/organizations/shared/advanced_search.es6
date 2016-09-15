@@ -2,25 +2,11 @@ import StatusSelect from './status_select.es6'
 import ItemsSelect  from '../../shared/items_select.es6'
 
 class AdvancedSearch extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      name:        this.props.filters.name        || '',
-      status:      this.props.filters.status      || '',
-      description: this.props.filters.description || '',
-      websiteUrl:  this.props.filters.websiteUrl  || '',
-      notes:       this.props.filters.notes       || ''
-    };
-  }
 
   updateTextFilter(filterName, e) {
     var newFilters = {}
     newFilters[filterName] = e.target.value
-
-    this.setState(newFilters, () => {
-      this.props.updateFilters(newFilters);
-    })
+    this.props.updateFilters(newFilters)
   }
 
   updateStatusFilter(value) {
@@ -57,7 +43,7 @@ class AdvancedSearch extends React.Component {
         <label htmlFor="organizations_name">Nom</label><br />
         <input type="text"
                id="organizations_name"
-               value={this.state.name}
+               value={this.props.filters.name}
                onChange={this.updateTextFilter.bind(this, 'name')} />
       </div>
     );
@@ -69,7 +55,7 @@ class AdvancedSearch extends React.Component {
         <label htmlFor="organizations_status">Statut</label><br />
 
         <StatusSelect optionsPath={this.props.organizationStatusesOptionsPath}
-                      value={this.state.status}
+                      value={this.props.filters.status}
                       updateValue={this.updateStatusFilter.bind(this)} />
       </div>
     );
@@ -81,7 +67,7 @@ class AdvancedSearch extends React.Component {
         <label htmlFor="organizations_description">Description</label><br />
         <input type="text"
                id="organizations_description"
-               value={this.state.description}
+               value={this.props.filters.description}
                onChange={this.updateTextFilter.bind(this, 'description')} />
       </div>
     );
@@ -93,7 +79,7 @@ class AdvancedSearch extends React.Component {
         <label htmlFor="organizations_website_url">Site Web</label><br />
         <input type="text"
                id="organizations_website_url"
-               value={this.state.websiteUrl}
+               value={this.props.filters.websiteUrl}
                onChange={this.updateTextFilter.bind(this, 'websiteUrl')} />
       </div>
     );
@@ -105,7 +91,7 @@ class AdvancedSearch extends React.Component {
         <label htmlFor="organizations_notes">Notes</label><br />
         <input type="text"
                id="organizations_notes"
-               value={this.state.notes}
+               value={this.props.filters.notes}
                onChange={this.updateTextFilter.bind(this, 'notes')} />
       </div>
     );

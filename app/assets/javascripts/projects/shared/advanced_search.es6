@@ -3,23 +3,10 @@ import ItemsSelect     from '../../shared/items_select.es6'
 
 class AdvancedSearch extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      name:        this.props.filters.name        || '',
-      description: this.props.filters.description || '',
-      notes:       this.props.filters.notes       || '',
-    };
-  }
-
   updateTextFilter(filterName, e) {
     var newFilters = {}
     newFilters[filterName] = e.target.value
-
-    this.setState(newFilters, () => {
-      this.props.updateFilters(newFilters);
-    })
+    this.props.updateFilters(newFilters)
   }
 
   updateContactIds(value) {
@@ -49,7 +36,7 @@ class AdvancedSearch extends React.Component {
         <label htmlFor="projects_name">Nom</label><br />
         <input type="text"
                id="projects_name"
-               value={this.state.name}
+               value={this.props.filters.name}
                onChange={this.updateTextFilter.bind(this, 'name')} />
       </div>
     );
@@ -61,7 +48,7 @@ class AdvancedSearch extends React.Component {
         <label htmlFor="projects_description">Description</label><br />
         <input type="text"
                id="projects_description"
-               value={this.state.description}
+               value={this.props.filters.description}
                onChange={this.updateTextFilter.bind(this, 'description')} />
       </div>
     );
@@ -73,7 +60,7 @@ class AdvancedSearch extends React.Component {
         <label htmlFor="projects_notes">Notes</label><br />
         <input type="text"
                id="projects_notes"
-               value={this.state.notes}
+               value={this.props.filters.notes}
                onChange={this.updateTextFilter.bind(this, 'notes')} />
       </div>
     );

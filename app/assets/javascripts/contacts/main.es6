@@ -26,7 +26,6 @@ class Main extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log('componentWillReceiveProps')
     this.dReloadFromBackend()
   }
 
@@ -52,8 +51,6 @@ class Main extends React.Component {
   }
 
   reloadFromBackend(offset = 0) {
-    console.log('reloadFromBackend')
-
     this.setState({ loaded: false })
 
     var params = _.assign({}, this.getFilters(), {
@@ -110,7 +107,7 @@ class Main extends React.Component {
                            results={this.state.contacts.length}
                            quickSearch={filters.quickSearch}
                            updateQuickSearch={this.updateQuickSearch.bind(this)}
-                           filters={this.state.filters}
+                           filters={filters}
                            exportUrl={this.props.contactsPath + '/export'} />
 
               { this.renderNewContactLink() }

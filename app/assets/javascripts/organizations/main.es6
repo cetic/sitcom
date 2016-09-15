@@ -10,11 +10,6 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
 
-    this.filterNames = [
-      'quickSearch', 'name', 'status', 'description', 'websiteUrl',
-      'contactIds', 'notes'
-    ];
-
     this.state = {
       organizations: [],
       loaded:        false,
@@ -23,7 +18,6 @@ class Main extends React.Component {
 
   componentWillMount() {
     this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 300);
-    this.dUpdateUrl         = _.debounce(this.updateUrl, 300);
   }
 
   componentDidMount() {
@@ -31,10 +25,8 @@ class Main extends React.Component {
     this.selectHeaderMenu()
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if(this.filtersHaveChanged(prevProps)) {
-      this.reloadFromBackend();
-    }
+  componentWillReceiveProps(newProps) {
+    this.dReloadFromBackend()
   }
 
   selectHeaderMenu() {
@@ -42,20 +34,22 @@ class Main extends React.Component {
     $('.nav.sections li.organizations').addClass('selected')
   }
 
-  filtersHaveChanged(prevProps) {
-    return _.some(this.filterNames, (filterName) => {
-      return prevProps.location.query[filterName] != this.props.location.query[filterName];
-    });
-  }
-
-  buildFilterParams() {
-    return _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
-      return this.props.location.query[filterName];
-    }));
+  getFilters() {
+    return {
+      quickSearch:  this.props.location.query.quickSearch || '',
+      name:         this.props.location.query.name        || '',
+      status:       this.props.location.query.status      || '',
+      description:  this.props.location.query.description || '',
+      websiteUrl:   this.props.location.query.websiteUrl  || '',
+      notes:        this.props.location.query.notes       || '',
+      contactIds:   this.props.location.query.contactIds,
+    }
   }
 
   reloadFromBackend(offset = 0) {
-    var params = _.assign({}, this.buildFilterParams(), {
+    this.setState({ loaded: false })
+
+    var params = _.assign({}, this.getFilters(), {
       offset: offset
     });
 
@@ -74,17 +68,13 @@ class Main extends React.Component {
   }
 
   updateQuickSearch(newQuickSearch) {
-    this.setState({ loaded: false })
-
-    this.dUpdateUrl({
+    this.updateFilters({
       quickSearch: newQuickSearch
-    });
+    })
   }
 
   updateFilters(newFilters) {
-    this.setState({ loaded: false })
-
-    this.dUpdateUrl(newFilters);
+    this.updateUrl(newFilters)
   }
 
   openNewOrganizationModal() {
@@ -93,15 +83,13 @@ class Main extends React.Component {
 
   render() {
     if(this.props.permissions.canReadOrganizations) {
-      var advancedSearchFilters = _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
-        return this.props.location.query[filterName];
-      }));
+      var filters = this.getFilters()
 
       return (
         <div className="container-fluid container-organization">
           <div className="row">
             <div className="col-md-4 pull-right complete-search">
-              <AdvancedSearch filters={advancedSearchFilters}
+              <AdvancedSearch filters={filters}
                               updateFilters={this.updateFilters.bind(this)}
                               contactOptionsPath={this.props.contactOptionsPath}
                               organizationStatusesOptionsPath={this.props.organizationStatusesOptionsPath} />
@@ -111,9 +99,9 @@ class Main extends React.Component {
               <QuickSearch title="Organisations"
                            loaded={this.state.loaded}
                            results={this.state.organizations.length}
-                           quickSearch={this.props.location.query.quickSearch}
+                           quickSearch={filters.quickSearch}
                            updateQuickSearch={this.updateQuickSearch.bind(this)}
-                           filterParams={this.buildFilterParams()}
+                           filters={filters}
                            exportUrl={this.props.organizationsPath + '/export'} />
 
               { this.renderNewOrganizationLink() }
