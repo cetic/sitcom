@@ -12,7 +12,7 @@ class OrganizationSearch < BaseSearch
       add_ids_search(options, field)
     end
 
-    if params[:notes]
+    if params[:notes].present?
       add_notes_search(options)
     end
 

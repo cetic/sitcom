@@ -18,12 +18,12 @@ class AdvancedSearch extends React.Component {
     newFilters[filterName] = e.target.value
 
     this.setState(newFilters, () => {
-      this.props.updateAdvancedSearchFilters(newFilters);
+      this.props.updateFilters(newFilters);
     })
   }
 
   updateContactIds(value) {
-    this.props.updateAdvancedSearchFilters({
+    this.props.updateFilters({
       contactIds: value
     });
   }
@@ -82,7 +82,7 @@ class AdvancedSearch extends React.Component {
   renderDatesFilter() {
     return (
       <DateRangeFilter filters={this.props.filters}
-                       updateAdvancedSearchFilters={this.props.updateAdvancedSearchFilters} />
+                       updateFilters={this.props.updateFilters} />
     );
   }
 

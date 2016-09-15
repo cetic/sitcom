@@ -81,7 +81,7 @@ class Main extends React.Component {
     });
   }
 
-  updateAdvancedSearchFilters(newFilters) {
+  updateFilters(newFilters) {
     this.setState({ loaded: false })
 
     this.dUpdateUrl(newFilters);
@@ -103,7 +103,7 @@ class Main extends React.Component {
             <div className="col-md-4 pull-right complete-search">
               <AdvancedSearch filters={advancedSearchFilters}
                               contactOptionsPath={this.props.contactOptionsPath}
-                              updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)} />
+                              updateFilters={this.updateFilters.bind(this)} />
             </div>
 
             <div className="col-md-8 col-projects">

@@ -12,7 +12,7 @@ class ContactSearch < BaseSearch
       add_ids_search(options, field)
     end
 
-    if params[:active]
+    if params[:active].present?
       options['query']['filtered']['filter']['and'] << {
         'term' => {
           'active' => params[:active] == 'true'
@@ -20,7 +20,7 @@ class ContactSearch < BaseSearch
       }
     end
 
-    if params[:notes]
+    if params[:notes].present?
       add_notes_search(options)
     end
 

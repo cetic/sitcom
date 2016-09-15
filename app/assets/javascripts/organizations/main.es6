@@ -5,7 +5,6 @@ import QuickSearch      from '../shared/quick_search.es6'
 import AdvancedSearch   from './shared/advanced_search.es6'
 import ParamsService    from '../shared/params_service.es6'
 import PermissionDenied from '../shared/permission_denied.es6'
-import ExportButton     from '../shared/export_button.es6'
 
 class Main extends React.Component {
   constructor(props) {
@@ -82,7 +81,7 @@ class Main extends React.Component {
     });
   }
 
-  updateAdvancedSearchFilters(newFilters) {
+  updateFilters(newFilters) {
     this.setState({ loaded: false })
 
     this.dUpdateUrl(newFilters);
@@ -103,7 +102,7 @@ class Main extends React.Component {
           <div className="row">
             <div className="col-md-4 pull-right complete-search">
               <AdvancedSearch filters={advancedSearchFilters}
-                              updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)}
+                              updateFilters={this.updateFilters.bind(this)}
                               contactOptionsPath={this.props.contactOptionsPath}
                               organizationStatusesOptionsPath={this.props.organizationStatusesOptionsPath} />
             </div>
@@ -113,10 +112,11 @@ class Main extends React.Component {
                            loaded={this.state.loaded}
                            results={this.state.organizations.length}
                            quickSearch={this.props.location.query.quickSearch}
-                           updateQuickSearch={this.updateQuickSearch.bind(this)} />
+                           updateQuickSearch={this.updateQuickSearch.bind(this)}
+                           filterParams={this.buildFilterParams()}
+                           exportUrl={this.props.organizationsPath + '/export'} />
 
               { this.renderNewOrganizationLink() }
-              { this.renderExportButton() }
 
               { this.renderOrganization()  }
               { this.renderOrganizations() }
@@ -143,13 +143,6 @@ class Main extends React.Component {
         </button>
       )
     }
-  }
-
-  renderExportButton() {
-    return (
-      <ExportButton filterParams={this.buildFilterParams()}
-                    exportUrl={this.props.organizationsPath + '/export'} />
-    )
   }
 
   renderOrganizations() {

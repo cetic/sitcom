@@ -24,7 +24,7 @@ class DateRangeFilter extends React.Component {
   }
 
   updateDates() {
-    this.props.updateAdvancedSearchFilters({
+    this.props.updateFilters({
       from: this.state.datesEnabled ? this.state.startDate.format('YYYY-MM-DD') : '',
       to:   this.state.datesEnabled ? this.state.endDate.format('YYYY-MM-DD')   : '',
     })

@@ -3,22 +3,21 @@ import ParamsService from './params_service.es6'
 class ExportButton extends React.Component {
 
   export() {
-    var filterParams = humps.decamelizeKeys(this.props.filterParams)
-    var queryString  = ParamsService.rejectEmptyParams($.param(filterParams))
-    var url          = `${this.props.exportUrl}?${queryString}`
+    var filters     = humps.decamelizeKeys(this.props.filters)
+    var queryString = ParamsService.rejectEmptyParams($.param(filters))
+    var url         = `${this.props.exportUrl}?${queryString}`
 
     window.open(url, '_blank')
   }
 
   render() {
     return (
-      <button className="btn btn-primary export"
-              onClick={this.export.bind(this)}>
-        Exporter
-      </button>
+      <i className="fa fa-cloud-download"
+         title="Exporter la sélection"
+         onClick={this.export.bind(this)}>
+      </i>
     )
   }
-
 }
 
 module.exports = ExportButton

@@ -19,18 +19,18 @@ class AdvancedSearch extends React.Component {
     newFilters[filterName] = e.target.value
 
     this.setState(newFilters, () => {
-      this.props.updateAdvancedSearchFilters(newFilters);
+      this.props.updateFilters(newFilters);
     })
   }
 
   updateStatusFilter(value) {
-    this.props.updateAdvancedSearchFilters({
+    this.props.updateFilters({
       status: value
     });
   }
 
   updateContactIds(value) {
-    this.props.updateAdvancedSearchFilters({
+    this.props.updateFilters({
       contactIds: value
     });
   }

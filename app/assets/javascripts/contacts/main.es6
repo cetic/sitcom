@@ -5,42 +5,19 @@ import QuickSearch      from '../shared/quick_search.es6'
 import AdvancedSearch   from './shared/advanced_search.es6'
 import ParamsService    from '../shared/params_service.es6'
 import PermissionDenied from '../shared/permission_denied.es6'
-import ExportButton     from '../shared/export_button.es6'
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
 
-    if(this.props.location.query.active == 'true') {
-      var activeFilter = true;
-    }
-    else if(this.props.location.query.active == 'false') {
-      var activeFilter = false;
-    }
-
     this.state = {
       contacts: [],
       loaded:   false,
-
-      filters: {
-        quickSearch:     this.props.location.query.quickSearch || '',
-        name:            this.props.location.query.name        || '',
-        email:           this.props.location.query.email       || '',
-        address:         this.props.location.query.address     || '',
-        phone:           this.props.location.query.phone       || '',
-        active:          activeFilter,
-        organizationIds: this.props.location.organizationIds,
-        fieldIds:        this.props.location.fieldIds,
-        eventIds:        this.props.location.eventIds,
-        projectIds:      this.props.location.projectIds,
-        notes:           this.props.location.query.notes       || '',
-      }
     };
   }
 
   componentWillMount() {
     this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 300);
-    this.dUpdateUrl         = _.debounce(this.updateUrl, 300);
   }
 
   componentDidMount() {
@@ -48,10 +25,9 @@ class Main extends React.Component {
     this.selectHeaderMenu()
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if(this.filtersHaveChanged(prevProps)) {
-      this.reloadFromBackend();
-    }
+  componentWillReceiveProps(newProps) {
+    console.log('componentWillReceiveProps')
+    this.dReloadFromBackend()
   }
 
   selectHeaderMenu() {
@@ -59,20 +35,28 @@ class Main extends React.Component {
     $('.nav.sections li.contacts').addClass('selected')
   }
 
-  filtersHaveChanged(prevProps) {
-    return _.some(this.filterNames, (filterName) => {
-      return prevProps.location.query[filterName] != this.props.location.query[filterName];
-    });
-  }
-
-  buildFilterParams() {
-    return _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
-      return this.props.location.query[filterName];
-    }));
+  getFilters() {
+    return {
+      quickSearch:     this.props.location.query.quickSearch      || '',
+      name:            this.props.location.query.name             || '',
+      email:           this.props.location.query.email            || '',
+      address:         this.props.location.query.address          || '',
+      phone:           this.props.location.query.phone            || '',
+      notes:           this.props.location.query.notes            || '',
+      active:          this.props.location.query.active           || '',
+      organizationIds: this.props.location.query.organizationIds,
+      fieldIds:        this.props.location.query.fieldIds,
+      eventIds:        this.props.location.query.eventIds,
+      projectIds:      this.props.location.query.projectIds,
+    }
   }
 
   reloadFromBackend(offset = 0) {
-    var params = _.assign({}, this.buildFilterParams(), {
+    console.log('reloadFromBackend')
+
+    this.setState({ loaded: false })
+
+    var params = _.assign({}, this.getFilters(), {
       offset: offset
     });
 
@@ -85,23 +69,19 @@ class Main extends React.Component {
   }
 
   updateUrl(newValues) {
-    var query        = _.assign({}, this.props.location.query, newValues);
+    var query        = _.assign({}, this.props.location.query, newValues)
     var paramsString = ParamsService.rejectEmptyParams($.param(query))
-    this.props.router.push('contacts?' + paramsString);
+    this.props.router.push('contacts?' + paramsString)
   }
 
   updateQuickSearch(newQuickSearch) {
-    this.setState({ loaded: false })
-
-    this.dUpdateUrl({
+    this.updateFilters({
       quickSearch: newQuickSearch
-    });
+    })
   }
 
-  updateAdvancedSearchFilters(newFilters) {
-    this.setState({ loaded: false })
-
-    this.dUpdateUrl(newFilters);
+  updateFilters(newFilters) {
+    this.updateUrl(newFilters)
   }
 
   openNewContactModal() {
@@ -110,16 +90,14 @@ class Main extends React.Component {
 
   render() {
     if(this.props.permissions.canReadContacts) {
-      // var advancedSearchFilters = _.zipObject(this.filterNames, _.map(this.filterNames, (filterName) => {
-      //   return this.props.location.query[filterName];
-      // }));
+      var filters = this.getFilters()
 
       return (
         <div className="container-fluid container-contact">
           <div className="row">
             <div className="col-md-4 pull-right complete-search">
-              <AdvancedSearch filters={this.state.filters}
-                              updateAdvancedSearchFilters={this.updateAdvancedSearchFilters.bind(this)}
+              <AdvancedSearch filters={filters}
+                              updateFilters={this.updateFilters.bind(this)}
                               organizationOptionsPath={this.props.organizationOptionsPath}
                               fieldOptionsPath={this.props.fieldOptionsPath}
                               eventOptionsPath={this.props.eventOptionsPath}
@@ -130,12 +108,12 @@ class Main extends React.Component {
               <QuickSearch title="Contacts"
                            loaded={this.state.loaded}
                            results={this.state.contacts.length}
-                           quickSearch={this.state.filters.quickSearch}
-                           updateQuickSearch={this.updateQuickSearch.bind(this)} />
+                           quickSearch={filters.quickSearch}
+                           updateQuickSearch={this.updateQuickSearch.bind(this)}
+                           filters={this.state.filters}
+                           exportUrl={this.props.contactsPath + '/export'} />
 
               { this.renderNewContactLink() }
-              { this.renderExportButton() }
-
               { this.renderContact()  }
               { this.renderContacts() }
             </div>
@@ -161,13 +139,6 @@ class Main extends React.Component {
         </button>
       )
     }
-  }
-
-  renderExportButton() {
-    return (
-      <ExportButton filterParams={this.buildFilterParams()}
-                    exportUrl={this.props.contactsPath + '/export'} />
-    )
   }
 
   renderContacts() {

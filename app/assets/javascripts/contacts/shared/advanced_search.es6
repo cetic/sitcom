@@ -4,40 +4,35 @@ class AdvancedSearch extends React.Component {
   updateTextFilter(filterName, e) {
     var newFilters = {}
     newFilters[filterName] = e.target.value
-
-    this.setState(newFilters, () => {
-      this.props.updateAdvancedSearchFilters(newFilters);
-    })
+    this.props.updateFilters(newFilters);
   }
 
   updateActive(value, e) {
-    this.setState({ active: value }, () => {
-      this.props.updateAdvancedSearchFilters({
-        active: value
-      });
-    })
+    this.props.updateFilters({
+      active: value
+    });
   }
 
   updateOrganizationIds(value) {
-    this.props.updateAdvancedSearchFilters({
+    this.props.updateFilters({
       organizationIds: value
     });
   }
 
   updateFieldIds(value) {
-    this.props.updateAdvancedSearchFilters({
+    this.props.updateFilters({
       fieldIds: value
     });
   }
 
   updateEventIds(value) {
-    this.props.updateAdvancedSearchFilters({
+    this.props.updateFilters({
       eventIds: value
     });
   }
 
   updateProjectIds(value) {
-    this.props.updateAdvancedSearchFilters({
+    this.props.updateFilters({
       projectIds: value
     });
   }
@@ -53,7 +48,7 @@ class AdvancedSearch extends React.Component {
         {this.renderAddressFilter()}
         {this.renderPhoneFilter()}
         {this.renderNotesFilter()}
-        {this.renderActiveInactiveFilter()}
+        {this.renderActiveFilter()}
         {this.renderOrganizationsFilter()}
         {this.renderFieldsFilter()}
         {this.renderEventsFilter()}
@@ -122,15 +117,15 @@ class AdvancedSearch extends React.Component {
     );
   }
 
-  renderActiveInactiveFilter() {
+  renderActiveFilter() {
     return (
       <div>
         <div>
           <input type="radio"
                  name="contacts_active"
                  id="contacts_active_all"
-                 checked={this.props.filters.active == undefined}
-                 onChange={this.updateActive.bind(this, undefined)} />
+                 checked={this.props.filters.active == ''}
+                 onChange={this.updateActive.bind(this, '')} />
 
           &nbsp;<label htmlFor="contacts_active_all">Tous</label>
         </div>
@@ -139,8 +134,8 @@ class AdvancedSearch extends React.Component {
           <input type="radio"
                  name="contacts_active"
                  id="contacts_active_active"
-                 checked={this.props.filters.active == true}
-                 onChange={this.updateActive.bind(this, true)} />
+                 checked={this.props.filters.active == 'true'}
+                 onChange={this.updateActive.bind(this, 'true')} />
 
           &nbsp;<label htmlFor="contacts_active_active">Actif</label>
         </div>
@@ -149,8 +144,8 @@ class AdvancedSearch extends React.Component {
           <input type="radio"
                  name="contacts_active"
                  id="contacts_active_inactive"
-                 checked={this.props.filters.active == false}
-                 onChange={this.updateActive.bind(this, false)} />
+                 checked={this.props.filters.active == 'false'}
+                 onChange={this.updateActive.bind(this, 'false')} />
 
           &nbsp;<label htmlFor="contacts_active_inactive">Inactif</label>
         </div>

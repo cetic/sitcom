@@ -56,7 +56,7 @@ class BaseSearch
   end
 
   def add_quick_search(options, fields)
-    if params[:quick_search] && params[:quick_search].length > 1
+    if params[:quick_search].present?
       options['query']['filtered']['query'] = {
         'multi_match' => {
           'query'          => params[:quick_search],
@@ -69,7 +69,7 @@ class BaseSearch
   end
 
   def add_string_search(options, field)
-    if params[field]
+    if params[field].present?
       options['query']['filtered']['filter']['and'] << {
         'multi_match' => {
           'query'          => params[field],
@@ -82,7 +82,7 @@ class BaseSearch
   end
 
   def add_ids_search(options, field)
-    if params[field.to_sym]
+    if params[field.to_sym].present?
       ids = params[field.to_sym].split(',').map(&:to_i)
 
       if ids.any?
