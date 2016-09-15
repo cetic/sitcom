@@ -37,6 +37,20 @@
   background-color: white;
 }
 
+.btn-danger {
+  background-color: #d9534f;
+  border-color: #d43f3a;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c9302c;
+}
+
+.btn-danger:active, .btn-danger:focus, .btn-danger:active:focus {
+  background-color: #c9302c;
+}
+
 .btn-xs {
   padding: 1px 5px;
   font-size: 12px;
