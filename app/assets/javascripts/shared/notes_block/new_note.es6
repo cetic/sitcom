@@ -64,17 +64,22 @@ class NewNote extends React.Component {
   renderForm() {
     if(this.state.open) {
       return (
-        <form>
+        <div>
           <textarea value={this.state.newNoteText}
                     onChange={this.updateNewNoteText.bind(this)} />
 
-          <a href="javascript:;"
-             onClick={this.cancel.bind(this)}>Annuler</a>
+          <div className="actions">
+            <button className="btn btn-default"
+                    onClick={this.cancel.bind(this)}>
+              Annuler
+            </button>
 
-          <a href="javascript:;"
-             onClick={this.save.bind(this)}
-             className="btn btn-primary">Ajouter</a>
-        </form>
+            <button className="btn btn-primary"
+                    onClick={this.save.bind(this)}>
+              Ajouter
+            </button>
+          </div>
+        </div>
       )
     }
   }

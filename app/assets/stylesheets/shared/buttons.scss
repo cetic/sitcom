@@ -37,6 +37,20 @@
   background-color: white;
 }
 
+.btn-danger {
+  background-color: #d9534f;
+  border-color: #d43f3a;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c9302c;
+}
+
+.btn-danger:active, .btn-danger:focus, .btn-danger:active:focus {
+  background-color: #c9302c;
+}
+
 .btn-xs {
   padding: 1px 5px;
   font-size: 12px;
@@ -67,18 +81,4 @@
 // for admin
 .btn-new {
   margin-top: -68px;
-}
-
-.btn.export {
-  position: absolute;
-  font-weight: bold;
-  right: 200px;
-  top: 4px;
-  padding: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
-  height: 32px;
-  line-height: 21px;
-  letter-spacing: 1px;
-  font-size: 10px;
 }

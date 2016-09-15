@@ -21,17 +21,16 @@ class CustomDropzone extends React.Component {
       url:                   this.props.url,
       paramName:             'picture',
       createImageThumbnails: false,
-      clickable:             true,
+      clickable:             ['.img-thumbnail', '.update-image'],
       acceptedFiles:         this.props.acceptedFiles,
       method:                'put',
       accept:                (file, done)      => { done() },
       success:               (file, message)   => { uploadPercentageSelector.hide(); this.props.afterSuccess() },
       error:                 (file, message)   => { alert(message); uploadTextSelector.hide(); uploadPercentageSelector.hide(); },
-      uploadprogress:        (file, progress)  => { uploadPercentageSelector.text("Upload: " + progress.toFixed(0) + '%') },
+      uploadprogress:        (file, progress)  => { uploadPercentageSelector.text("Upload en cours : " + progress.toFixed(0) + '%') },
       drop:                  (event)           => { uploadTextSelector.hide(); uploadPercentageSelector.show(); },
       addedfile:             (event)           => { uploadPercentageSelector.show() },
       dragover:              (event)           => { uploadTextSelector.show() },
-      dragleave:             (event)           => { uploadTextSelector.hide() },
       previewTemplate:       '<div id="preview-template" style="display: none;"></div>',
       headers: {
         "X-CSRF-Token" : $('meta[name="csrf-token"]').attr('content')
@@ -41,15 +40,19 @@ class CustomDropzone extends React.Component {
 
   render() {
     return (
-      <div ref="dropzone">
+      <div ref="dropzone" className="custom-dropzone">
         { this.props.children }
+
+        <div className="update-image">
+          Modifier la photo
+        </div>
 
         <div className="upload-text" ref="uploadText">
           Déposez l'image ici.
         </div>
 
         <div className="upload-percentage" ref="uploadPercentage">
-          Upload en cours: 0%
+          Upload en cours : 0%
         </div>
       </div>
     )

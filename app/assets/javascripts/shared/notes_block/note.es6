@@ -28,6 +28,8 @@ class Note extends React.Component {
     this.setState({
       editMode: true,
       noteText: this.props.note.text
+    }, () => {
+      $(this.refs.textarea).focus()
     })
   }
 
@@ -63,17 +65,23 @@ class Note extends React.Component {
   renderContent() {
     if(this.state.editMode) {
       return (
-        <form>
-          <textarea value={this.state.noteText}
+        <div>
+          <textarea ref="textarea"
+                    value={this.state.noteText}
                     onChange={this.updateNoteText.bind(this)} />
 
-          <a href="javascript:;"
-             onClick={this.cancel.bind(this)}>Annuler</a>
+          <div className="actions">
+            <button onClick={this.cancel.bind(this)}
+                    className="btn btn-default">
+              Annuler
+            </button>
 
-          <a href="javascript:;"
-             onClick={this.save.bind(this)}
-             className="btn btn-primary">Enregistrer</a>
-        </form>
+            <button onClick={this.save.bind(this)}
+                    className="btn btn-primary">
+              Enregistrer
+            </button>
+          </div>
+        </div>
       )
     }
     else {
@@ -93,17 +101,17 @@ class Note extends React.Component {
     if(this.props.canWrite) {
       return (
         <div className="buttons">
-          <a href="javascript:;"
-             className="btn btn-default btn-xs"
-             onClick={this.edit.bind(this)}>
+          <button className="btn btn-primary btn-xs"
+                  key="edit"
+                  onClick={this.edit.bind(this)}>
             <i className="fa fa-edit"></i>
-          </a>
+          </button>
 
-          <a href="javascript:;"
-             className="btn btn-primary btn-xs"
-             onClick={this.remove.bind(this)}>
+          <button className="btn btn-danger btn-xs"
+                  key="delete"
+                  onClick={this.remove.bind(this)}>
             <i className="fa fa-times"></i>
-          </a>
+          </button>
         </div>
       )
     }

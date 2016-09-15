@@ -1,3 +1,5 @@
+import ExportButton from '../shared/export_button.es6'
+
 class QuickSearch extends React.Component {
   // constructor(props) {
   //   super(props);
@@ -50,6 +52,7 @@ class QuickSearch extends React.Component {
         <i className="glyphicon glyphicon-search"></i>
         { this.renderResetIcon() }
         { this.renderResults() }
+        { this.renderExportButton() }
       </div>
     )
   }
@@ -59,6 +62,15 @@ class QuickSearch extends React.Component {
       return (
         <i className="fa fa-times" onClick={this.resetQuickSearch.bind(this)}></i>
       );
+    }
+  }
+
+  renderExportButton() {
+    if(this.props.results != 0 && this.props.loaded) {
+      return (
+        <ExportButton filterParams={this.props.filterParams}
+                      exportUrl={this.props.exportUrl} />
+      )
     }
   }
 

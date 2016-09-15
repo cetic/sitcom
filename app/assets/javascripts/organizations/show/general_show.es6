@@ -20,6 +20,11 @@ class GeneralShow extends React.Component {
     }
   }
 
+  reloadFromBackend() {
+    this.props.reloadFromBackend()
+    setTimeout(this.props.reloadIndexFromBackend, 1500)
+  }
+
   render() {
     return (
       <div className="general">
@@ -91,7 +96,7 @@ class GeneralShow extends React.Component {
   renderPicture() {
     return (
       <CustomDropzone url={this.props.organizationPath}
-                      afterSuccess={this.props.reloadFromBackend}
+                      afterSuccess={this.reloadFromBackend.bind(this)}
                       acceptedFiles="image/*">
         <img className="img-thumbnail" src={this.props.organization.previewPictureUrl} />
       </CustomDropzone>
