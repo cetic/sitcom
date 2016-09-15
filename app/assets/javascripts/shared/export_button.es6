@@ -11,8 +11,11 @@ class ExportButton extends React.Component {
   }
 
   render() {
+    var classes = 'fa fa-cloud-download'
+    classes = this.props.exportUrl ? classes : classes + ' disabled'
+
     return (
-      <i className="fa fa-cloud-download"
+      <i className={classes}
          title="Exporter la sélection"
          onClick={this.export.bind(this)}>
       </i>

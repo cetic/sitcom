@@ -111,6 +111,7 @@ class Main extends React.Component {
                            exportUrl={this.props.contactsPath + '/export'} />
 
               { this.renderNewContactLink() }
+
               { this.renderContact()  }
               { this.renderContacts() }
             </div>

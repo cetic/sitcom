@@ -1,6 +1,7 @@
 import ExportButton from '../shared/export_button.es6'
 
 class QuickSearch extends React.Component {
+
   componentDidMount() {
     $(this.refs.search).focus()
   }
