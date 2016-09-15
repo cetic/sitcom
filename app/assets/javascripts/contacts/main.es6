@@ -26,7 +26,9 @@ class Main extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    this.dReloadFromBackend()
+    if(newProps.location.search != this.props.location.search) {
+      this.dReloadFromBackend()
+    }
   }
 
   selectHeaderMenu() {
