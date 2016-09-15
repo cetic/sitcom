@@ -71,8 +71,8 @@ class GeneralEdit extends React.Component {
   render() {
     return (
       <div className="general edit">
-        <Link to={'events/' + this.props.search} className="back">
-          Retour
+        <Link to={'/events/' + this.props.search} className="back">
+          Retour à la liste
         </Link>
 
         <div className="row">

@@ -11,6 +11,10 @@ class QuickSearch extends React.Component {
     $(this.refs.search).focus()
   }
 
+  // componentWillReceiveProps(nextProps) {
+  //   this.setState({ search: nextProps.quickSearch || '' })
+  // }
+
   updateQuickSearch(e) {
     var search = e.target.value
 

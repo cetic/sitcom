@@ -133,11 +133,13 @@ class Organization extends React.Component {
   }
 
   renderNotes() {
-    return (
-      <NotesBlock notable={this.state.organization}
-                  reloadFromBackend={this.reloadFromBackend.bind(this)}
-                  canWrite={this.props.permissions.canWriteOrganizations} />
-    )
+    if(this.state.loaded) {
+      return (
+        <NotesBlock notable={this.state.organization}
+                    reloadFromBackend={this.reloadFromBackend.bind(this)}
+                    canWrite={this.props.permissions.canWriteOrganizations} />
+      )
+    }
   }
 
 }

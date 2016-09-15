@@ -15,7 +15,13 @@ class ContactExport < BaseExport
 
       'Twitter'   => :twitter_url,
       'LinkedIn'  => :linkedin_url,
-      'Facebook'  => :facebook_url
+      'Facebook'  => :facebook_url,
+
+      'Organisations'        => lambda { |item| item.organizations.pluck(:name).join(', ') },
+      "Domaines d'expertise" => lambda { |item| item.fields.pluck(:name).join(', ') },
+      'Évènements'           => lambda { |item| item.events.pluck(:name).join(', ') },
+      'Projets'              => lambda { |item| item.projects.pluck(:name).join(', ') },
+      'Notes publiques'      => lambda { |item| item.notes.pluck(:text).join(', ') }
     }
   end
 

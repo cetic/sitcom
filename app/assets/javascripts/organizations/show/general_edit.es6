@@ -54,7 +54,7 @@ class GeneralEdit extends React.Component {
     return (
       <div className="general edit">
         <Link to={'/organizations' + this.props.search} className="back">
-          Retour
+          Retour à la liste
         </Link>
 
         <div className="row">

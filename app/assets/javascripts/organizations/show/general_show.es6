@@ -24,7 +24,7 @@ class GeneralShow extends React.Component {
     return (
       <div className="general">
         <Link to={'/organizations' + this.props.search} className="back">
-          Retour
+          Retour à la liste
         </Link>
 
         <div className="row">

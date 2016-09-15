@@ -57,7 +57,7 @@ class OrganizationsBlock extends React.Component {
       <div className="associations-block organizations-block">
         <div className="row">
           <div className="col-md-12">
-            <h3>Organizations ({this.props.parent.organizations.length})</h3>
+            <h3>Organisations ({this.props.parent.organizations.length})</h3>
           </div>
         </div>
 

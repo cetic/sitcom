@@ -3,10 +3,9 @@ import ParamsService from './params_service.es6'
 class ExportButton extends React.Component {
 
   export() {
-    var queryString = ParamsService.rejectEmptyParams($.param(this.props.filterParams))
-    var url         = `${this.props.exportUrl}?${queryString}`
-
-    console.log(url)
+    var filterParams = humps.decamelizeKeys(this.props.filterParams)
+    var queryString  = ParamsService.rejectEmptyParams($.param(filterParams))
+    var url          = `${this.props.exportUrl}?${queryString}`
 
     window.open(url, '_blank')
   }
