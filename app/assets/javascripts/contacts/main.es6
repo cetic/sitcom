@@ -5,7 +5,6 @@ import QuickSearch      from '../shared/quick_search.es6'
 import AdvancedSearch   from './shared/advanced_search.es6'
 import ParamsService    from '../shared/params_service.es6'
 import PermissionDenied from '../shared/permission_denied.es6'
-import ExportButton     from '../shared/export_button.es6'
 
 class Main extends React.Component {
   constructor(props) {
@@ -116,10 +115,11 @@ class Main extends React.Component {
                            loaded={this.state.loaded}
                            results={this.state.contacts.length}
                            quickSearch={this.props.location.query.quickSearch}
-                           updateQuickSearch={this.updateQuickSearch.bind(this)} />
+                           updateQuickSearch={this.updateQuickSearch.bind(this)}
+                           filterParams={this.buildFilterParams()}
+                           exportUrl={this.props.contactsPath + '/export'} />
 
               { this.renderNewContactLink() }
-              { this.renderExportButton() }
 
               { this.renderContact()  }
               { this.renderContacts() }
@@ -146,13 +146,6 @@ class Main extends React.Component {
         </button>
       )
     }
-  }
-
-  renderExportButton() {
-    return (
-      <ExportButton filterParams={this.buildFilterParams()}
-                    exportUrl={this.props.contactsPath + '/export'} />
-    )
   }
 
   renderContacts() {

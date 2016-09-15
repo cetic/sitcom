@@ -12,13 +12,12 @@ class ExportButton extends React.Component {
 
   render() {
     return (
-      <button className="btn btn-primary export"
-              onClick={this.export.bind(this)}>
-        Exporter
-      </button>
+      <i className="fa fa-cloud-download"
+         title="Exporter la sélection"
+         onClick={this.export.bind(this)}>
+      </i>
     )
   }
-
 }
 
 module.exports = ExportButton

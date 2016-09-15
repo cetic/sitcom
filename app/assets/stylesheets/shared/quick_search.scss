@@ -36,12 +36,22 @@
     cursor: pointer;
   }
 
+  .fa-cloud-download {
+    position: absolute;
+    font-size: 13px;
+    top: 14px;
+    color: whitesmoke;
+    left: 463px;
+    opacity: 0.9;
+    cursor: pointer;
+  }
+
   .results {
     position: absolute;
     font-size: 11px;
     top: 13px;
     color: whitesmoke;
-    left: 471px;
+    left: 483px;
     opacity: 0.9;
   }
 }
