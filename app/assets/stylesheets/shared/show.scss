@@ -14,7 +14,7 @@
     color: #aaaaaa;
   }
 
-  .general, .social, .items-block, .contacts-block, .organizations-block {
+  .general, .social, .items-block, .contacts-block, .organizations-block, .notes-block {
     position: relative;
     margin-bottom: 36px;
     background-color: white;
@@ -322,6 +322,24 @@
 
     .select {
       margin-top: 16px;
+    }
+  }
+
+  .notes-block {
+    h3 {
+      margin-bottom: 14px;
+      margin-top: 4px;
+    }
+
+    .note {
+      position: relative;
+      margin-bottom: 18px;
+
+      .buttons {
+        position: absolute;
+        right: 4px;
+        bottom: 0px;
+      }
     }
   }
 }

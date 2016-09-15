@@ -79,8 +79,11 @@ class Note extends React.Component {
     else {
       return (
         <div>
-          <div className="note-text">{this.props.note.text}</div>
-          {this.renderButtons()}
+          <div className="note-text">
+            { this.props.note.text }
+          </div>
+
+          { this.renderButtons() }
         </div>
       )
     }
@@ -89,15 +92,15 @@ class Note extends React.Component {
   renderButtons() {
     if(this.props.canWrite) {
       return (
-        <div>
+        <div className="buttons">
           <a href="javascript:;"
-             className="btn btn-xs"
+             className="btn btn-default btn-xs"
              onClick={this.edit.bind(this)}>
             <i className="fa fa-edit"></i>
           </a>
 
           <a href="javascript:;"
-             className="btn btn-xs"
+             className="btn btn-primary btn-xs"
              onClick={this.remove.bind(this)}>
             <i className="fa fa-times"></i>
           </a>
