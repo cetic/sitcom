@@ -1,3 +1,5 @@
+import FlipCard from 'react-flipcard';
+
 class Contact extends React.Component {
   constructor(props) {
     super(props);
@@ -38,7 +40,10 @@ class Contact extends React.Component {
   renderPicture() {
     return (
       <div className="picture">
-        <img className="img-thumbnail" src={this.props.contact.thumbPictureUrl} />
+        <FlipCard>
+          <img className="img-thumbnail front" src={this.props.contact.thumbPictureUrl} />
+          <img className="img-thumbnail back" src={this.props.contact.thumbPictureUrl} />
+        </FlipCard>
       </div>
     )
   }

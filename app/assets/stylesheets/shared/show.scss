@@ -43,15 +43,15 @@
       margin-left: 6px
     }
 
-    .custom-dropzone {
-      position: relative;
-      cursor: pointer;
-
-      .img-thumbnail {
+    .img-thumbnail {
         border-radius: 0px;
         padding: 0px;
         width: 100%;
       }
+
+    .custom-dropzone {
+      position: relative;
+      cursor: pointer;
 
       .update-image, .upload-percentage, .upload-text {
         position: absolute;
