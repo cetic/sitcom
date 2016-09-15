@@ -43,12 +43,57 @@
       margin-left: 6px
     }
 
+    .custom-dropzone {
+      position: relative;
+      cursor: pointer;
+
+      .img-thumbnail {
+        border-radius: 0px;
+        border: 0px;
+        padding: 0px;
+        width: 100%;
+      }
+
+      .update-image, .upload-percentage, .upload-text {
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+        height: auto;
+        padding: 4px;
+        padding-left: 8px;
+        padding-right: 8px;
+        color: white;
+        font-size: 12px;
+        background-color: #1976d2;
+        text-align: center;
+        width: 100%;
+        padding-bottom: 20px;
+        padding-top: 20px;
+        vertical-align: middle;
+        font-weight: bold;
+      }
+
+      .update-image {
+        opacity: 0.0;
+      }
+
+      .upload-percentage, .upload-text {
+        opacity: 0.7;
+      }
+    }
+
+    .custom-dropzone:hover {
+      .update-image {
+        opacity: 0.7;
+        transition: opacity .4s cubic-bezier(.25,.8,.25, 1);
+      }
+    }
+
     .btn-group {
       position: absolute;
       right: 14px;
       top: 14px;
       opacity: 0.0;
-      transition: opacity .8s cubic-bezier(.25,.8,.25, 1);
 
       .btn:not(.dropdown-toggle) {
         line-height: 38px;
@@ -113,8 +158,8 @@
 
   .general:hover {
     .btn-group {
+      transition: opacity .4s cubic-bezier(.25,.8,.25, 1);
       opacity: 0.8;
-      transition: opacity .8s cubic-bezier(.25,.8,.25, 1);
     }
   }
 
@@ -233,14 +278,13 @@
       top: 14px;
       line-height: 38px;
       padding: 0px 19px;
-      transition: opacity .8s cubic-bezier(.25,.8,.25, 1);
     }
   }
 
   .social:hover {
     .btn {
       opacity: 0.8;
-      transition: opacity .8s cubic-bezier(.25,.8,.25, 1);
+      transition: opacity .4s cubic-bezier(.25,.8,.25, 1);
     }
   }
 
