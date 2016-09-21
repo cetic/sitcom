@@ -9,7 +9,6 @@ class Tag < ActiveRecord::Base
 
   # Validations
 
-  validates :lab,  :presence => true
   validates :name, :presence => true
 
   validates_uniqueness_of :name, :scope => :lab_id
@@ -30,5 +29,13 @@ class Tag < ActiveRecord::Base
     end
 
     color
+  end
+
+  def as_indexed_json(options = {})
+    ActiveSupport::HashWithIndifferentAccess.new({
+      :id    => id,
+      :name  => name,
+      :color => color
+    })
   end
 end

@@ -46,9 +46,10 @@ class Main extends React.Component {
       notes:           this.props.location.query.notes            || '',
       active:          this.props.location.query.active           || '',
       organizationIds: this.props.location.query.organizationIds,
-      fieldIds:        this.props.location.query.fieldIds,
-      eventIds:        this.props.location.query.eventIds,
       projectIds:      this.props.location.query.projectIds,
+      eventIds:        this.props.location.query.eventIds,
+      fieldIds:        this.props.location.query.fieldIds,
+      tagIds:          this.props.location.query.tagIds,
     }
   }
 
@@ -95,10 +96,11 @@ class Main extends React.Component {
             <div className="col-md-4 pull-right complete-search">
               <AdvancedSearch filters={filters}
                               updateFilters={this.updateFilters.bind(this)}
-                              organizationOptionsPath={this.props.organizationOptionsPath}
+                              tagOptionsPath={this.props.tagOptionsPath}
                               fieldOptionsPath={this.props.fieldOptionsPath}
-                              eventOptionsPath={this.props.eventOptionsPath}
-                              projectOptionsPath={this.props.projectOptionsPath} />
+                              organizationOptionsPath={this.props.organizationOptionsPath}
+                              projectOptionsPath={this.props.projectOptionsPath}
+                              eventOptionsPath={this.props.eventOptionsPath} />
             </div>
 
             <div className="col-md-8 col-contacts">
@@ -160,10 +162,11 @@ class Main extends React.Component {
                  contactsPath={this.props.contactsPath}
                  search={this.props.location.search}
                  loadingImagePath={this.props.loadingImagePath}
-                 organizationOptionsPath={this.props.organizationOptionsPath}
+                 tagOptionsPath={this.props.tagOptionsPath}
                  fieldOptionsPath={this.props.fieldOptionsPath}
-                 eventOptionsPath={this.props.eventOptionsPath}
+                 organizationOptionsPath={this.props.organizationOptionsPath}
                  projectOptionsPath={this.props.projectOptionsPath}
+                 eventOptionsPath={this.props.eventOptionsPath}
                  contacts={this.state.contacts}
                  router={this.props.router}
                  reloadIndexFromBackend={this.reloadFromBackend.bind(this)} />

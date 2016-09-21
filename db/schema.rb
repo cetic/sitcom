@@ -205,6 +205,8 @@ ActiveRecord::Schema.define(version: 20160921111134) do
   add_foreign_key "contact_organization_links", "organizations"
   add_foreign_key "contact_project_links", "contacts"
   add_foreign_key "contact_project_links", "projects"
+  add_foreign_key "contact_tag_links", "contacts"
+  add_foreign_key "contact_tag_links", "tags"
   add_foreign_key "contacts", "labs"
   add_foreign_key "events", "labs"
   add_foreign_key "fields", "fields", column: "parent_id"
@@ -215,4 +217,5 @@ ActiveRecord::Schema.define(version: 20160921111134) do
   add_foreign_key "projects", "labs"
   add_foreign_key "saved_searches", "labs"
   add_foreign_key "saved_searches", "users"
+  add_foreign_key "tags", "labs"
 end

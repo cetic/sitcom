@@ -49,8 +49,9 @@ class GeneralShow extends React.Component {
               </span>
             </h1>
 
-            <ul className="fields">
+            <ul className="tags">
               { this.renderFields() }
+              { this.renderTags() }
             </ul>
           </div>
         </div>
@@ -131,8 +132,21 @@ class GeneralShow extends React.Component {
   renderFields() {
     return _.map(this.props.contact.fields, (field) => {
       return (
-        <li className="field" key={ field.id }>
-          <span className="label label-default">{ field.name }</span>
+        <li className="field label label-default"
+            key={ field.id }>
+          { field.name }
+        </li>
+      )
+    })
+  }
+
+  renderTags() {
+    return _.map(this.props.contact.tags, (tag) => {
+      return (
+        <li className="tag label label-default"
+            key={ tag.id }
+            style={{ backgroundColor: tag.color }}>
+          { tag.name }
         </li>
       )
     })

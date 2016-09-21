@@ -13,7 +13,7 @@ namespace :app do
 
     # Labs
 
-    gastro = Lab.create(:name => 'Smart Gastronomy')
+    gastro = Lab.create(:name => 'Smart Gastronomy Lab')
     health = Lab.create(:name => 'e-Health')
 
     aurels.labs << gastro
@@ -79,6 +79,7 @@ namespace :app do
   end
 
   task :bootstrap_fake => :environment do
+
     puts "Bootstrapping contacts"
 
     100.times do
@@ -153,6 +154,14 @@ namespace :app do
       rand(3).times do
         contact.fields << fields.sample rescue puts 'contact-field link already present, ignore it'
       end
+    end
+
+    puts "Bootstrapping tags"
+
+    tags = ['group1', 'group2', 'group3', 'group4', 'group5']
+
+    100.times do
+      ContactTagService.new(Contact.all.to_a.sample).add_tag(tags.sample)
     end
   end
 end

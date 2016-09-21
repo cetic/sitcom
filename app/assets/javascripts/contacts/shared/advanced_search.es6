@@ -19,9 +19,9 @@ class AdvancedSearch extends React.Component {
     })
   }
 
-  updateFieldIds(value) {
+  updateProjectIds(value) {
     this.props.updateFilters({
-      fieldIds: value
+      projectIds: value
     })
   }
 
@@ -31,9 +31,15 @@ class AdvancedSearch extends React.Component {
     })
   }
 
-  updateProjectIds(value) {
+  updateFieldIds(value) {
     this.props.updateFilters({
-      projectIds: value
+      fieldIds: value
+    })
+  }
+
+  updateTagIds(value) {
+    this.props.updateFilters({
+      tagIds: value
     })
   }
 
@@ -49,10 +55,11 @@ class AdvancedSearch extends React.Component {
         {this.renderPhoneFilter()}
         {this.renderNotesFilter()}
         {this.renderActiveFilter()}
-        {this.renderOrganizationsFilter()}
+        {this.renderTagsFilter()}
         {this.renderFieldsFilter()}
-        {this.renderEventsFilter()}
+        {this.renderOrganizationsFilter()}
         {this.renderProjectsFilter()}
+        {this.renderEventsFilter()}
       </div>
     )
   }
@@ -153,12 +160,12 @@ class AdvancedSearch extends React.Component {
     )
   }
 
-  renderOrganizationsFilter() {
+  renderTagsFilter() {
     return (
-      <ItemsSelect itemIds={this.props.filters.organizationIds}
-                   optionsPath={this.props.organizationOptionsPath}
-                   updateValue={this.updateOrganizationIds.bind(this)}
-                   label="Organisations" />
+      <ItemsSelect itemIds={this.props.filters.tagIds}
+                   optionsPath={this.props.tagOptionsPath}
+                   updateValue={this.updateTagIds.bind(this)}
+                   label="Tags" />
     )
   }
 
@@ -171,12 +178,12 @@ class AdvancedSearch extends React.Component {
     )
   }
 
-  renderEventsFilter() {
+  renderOrganizationsFilter() {
     return (
-      <ItemsSelect itemIds={this.props.filters.eventIds}
-                   optionsPath={this.props.eventOptionsPath}
-                   updateValue={this.updateEventIds.bind(this)}
-                   label="Évènements" />
+      <ItemsSelect itemIds={this.props.filters.organizationIds}
+                   optionsPath={this.props.organizationOptionsPath}
+                   updateValue={this.updateOrganizationIds.bind(this)}
+                   label="Organisations" />
     )
   }
 
@@ -186,6 +193,15 @@ class AdvancedSearch extends React.Component {
                    optionsPath={this.props.projectOptionsPath}
                    updateValue={this.updateProjectIds.bind(this)}
                    label="Projets" />
+    )
+  }
+
+  renderEventsFilter() {
+    return (
+      <ItemsSelect itemIds={this.props.filters.eventIds}
+                   optionsPath={this.props.eventOptionsPath}
+                   updateValue={this.updateEventIds.bind(this)}
+                   label="Évènements" />
     )
   }
 

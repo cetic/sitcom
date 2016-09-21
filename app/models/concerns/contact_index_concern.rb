@@ -17,10 +17,11 @@ module ContactIndexConcern
         indexes :email
         indexes :phone
         indexes :address
-        indexes :organization_ids, :index => 'not_analyzed'
         indexes :field_ids,        :index => 'not_analyzed'
-        indexes :projects_ids,     :index => 'not_analyzed'
-        indexes :events_ids,       :index => 'not_analyzed'
+        indexes :organization_ids, :index => 'not_analyzed'
+        indexes :project_ids,      :index => 'not_analyzed'
+        indexes :event_ids,        :index => 'not_analyzed'
+        indexes :tag_ids,          :index => 'not_analyzed'
 
         indexes :notes, :type => 'nested'
 
@@ -81,10 +82,11 @@ module ContactIndexConcern
       :address_city     => address_city,
       :address_country  => address_country,
 
-      :organization_ids => organization_ids,
       :field_ids        => field_ids,
-      :event_ids        => event_ids,
+      :organization_ids => organization_ids,
       :project_ids      => project_ids,
+      :event_ids        => event_ids,
+      :tag_ids          => tag_ids,
 
       :sort_name => name
     }
@@ -94,10 +96,11 @@ module ContactIndexConcern
     else
       ActiveSupport::HashWithIndifferentAccess.new(fields.merge({
         :organizations => organizations_as_indexed_json,
-        :fields        => fields_as_indexed_json,
         :events        => events_as_indexed_json,
         :projects      => projects_as_indexed_json,
+        :fields        => fields_as_indexed_json,
         :notes         => notes_as_indexed_json,
+        :tags          => tags_as_indexed_json,
       }))
     end
   end
@@ -126,15 +129,21 @@ module ContactIndexConcern
     end
   end
 
+  def fields_as_indexed_json
+    fields.collect do |field|
+      field.as_indexed_json
+    end
+  end
+
   def notes_as_indexed_json
     notes.collect do |note|
       note.as_indexed_json
     end
   end
 
-  def fields_as_indexed_json
-    fields.collect do |field|
-      field.as_indexed_json
+  def tags_as_indexed_json
+    tags.collect do |tag|
+      tag.as_indexed_json
     end
   end
 end

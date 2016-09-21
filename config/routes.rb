@@ -79,6 +79,12 @@ Rails.application.routes.draw do
         get :options
       end
     end
+
+    resources :tags do
+      collection do
+        get :options
+      end
+    end
   end
 
   root to: 'labs#index'

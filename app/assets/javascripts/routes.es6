@@ -38,9 +38,10 @@ class Routes extends React.Component {
                                 permissions={this.props.permissions}
                                 contactsPath={this.props.contactsPath}
                                 organizationOptionsPath={this.props.organizationOptionsPath}
-                                fieldOptionsPath={this.props.fieldOptionsPath}
-                                eventOptionsPath={this.props.eventOptionsPath}
                                 projectOptionsPath={this.props.projectOptionsPath}
+                                eventOptionsPath={this.props.eventOptionsPath}
+                                tagOptionsPath={this.props.tagOptionsPath}
+                                fieldOptionsPath={this.props.fieldOptionsPath}
                                 loadingImagePath={this.props.loadingImagePath}>
 
           <Route path=":id" component={ContactsWrapper}

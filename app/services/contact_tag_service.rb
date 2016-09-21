@@ -6,7 +6,7 @@ class ContactTagService
   end
 
   def add_tag(tag_name, add_history_comment = true)
-    tag_name.strip!
+    tag_name = tag_name.strip
 
     # Create tag if not present
     existing_tag = @lab.tags.where(:name => tag_name)

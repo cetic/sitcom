@@ -81,6 +81,9 @@ class ItemsSelect extends React.Component {
     if(option.highlight) {
       return ( <div><strong>{option.label}</strong></div> )
     }
+    else if (option.color) {
+      return ( <div><span className="label label-default" style={{ backgroundColor: option.color }}>{option.label}</span></div> )
+    }
     else {
       return ( <div>&nbsp;&nbsp;&nbsp;{option.label}</div> )
     }

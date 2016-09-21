@@ -123,20 +123,22 @@
         }
       }
 
-      .fields {
+      .tags {
+        .tag {
+
+        }
+      }
+
+      .tags {
         list-style-type: none;
         padding-left: 0px;
         margin-top: -4px;
         overflow: hidden;
         height: 22px;
 
-        .field {
-          float: left;
+        .field, .tag {
           margin-right: 4px;
-
-          .label {
-            background-color: #8cafd2;
-          }
+          background-color: #8cafd2;
         }
       }
     }

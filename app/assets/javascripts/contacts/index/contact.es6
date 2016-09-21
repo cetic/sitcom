@@ -25,11 +25,11 @@ class Contact extends React.Component {
           </span>
 
           <span className="associations">
-            { this.renderEvents() }
             { this.renderProjects() }
+            { this.renderEvents() }
           </span>
 
-          { this.renderFieldsContainer() }
+          { this.renderTagsContainer() }
         </div>
 
         <div style={{ clear: 'both' }}></div>
@@ -87,11 +87,12 @@ class Contact extends React.Component {
     })
   }
 
-  renderFieldsContainer() {
+  renderTagsContainer() {
     if(this.props.contact.fields.length)
       return (
-        <ul className="fields">
+        <ul className="tags">
           { this.renderFields() }
+          { this.renderTags() }
         </ul>
       )
   }
@@ -99,24 +100,24 @@ class Contact extends React.Component {
   renderFields() {
     return _.map(this.props.contact.fields, (field) => {
       return (
-        <li className="field" key={ field.id }>
-          <span className="label label-default">{ field.name }</span>
+        <li className="field label label-default"
+            key={ field.id }>
+          { field.name }
         </li>
       )
     })
   }
 
-  renderEvents() {
-    var l = this.props.contact.events.length
-
-    if(l) {
+  renderTags() {
+    return _.map(this.props.contact.tags, (tag) => {
       return (
-        <a className="association events"
-           href="javascript:;">
-          <em>{ l }</em> { l == 1 ? 'évènement' : 'évènements' }
-        </a>
+        <li className="tag label label-default"
+            key={ tag.id }
+            style={{ backgroundColor: tag.color }}>
+          { tag.name }
+        </li>
       )
-    }
+    })
   }
 
   renderProjects() {
@@ -127,6 +128,19 @@ class Contact extends React.Component {
         <a className="association projects"
            href="javascript:;">
           <em>{ l }</em> { l == 1 ? 'projet' : 'projets' }
+        </a>
+      )
+    }
+  }
+
+  renderEvents() {
+    var l = this.props.contact.events.length
+
+    if(l) {
+      return (
+        <a className="association events"
+           href="javascript:;">
+          <em>{ l }</em> { l == 1 ? 'évènement' : 'évènements' }
         </a>
       )
     }
