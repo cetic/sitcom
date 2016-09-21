@@ -45,6 +45,8 @@ Rails.application.routes.draw do
       collection do
         get :options
         get :export
+
+        resources :saved_searches, :item_type => 'contact'
       end
     end
 
@@ -55,6 +57,8 @@ Rails.application.routes.draw do
         get :options
         get :status_options
         get :export
+
+        resources :saved_searches, :item_type => 'organization'
       end
     end
 
@@ -63,6 +67,8 @@ Rails.application.routes.draw do
 
       collection do
         get :options
+
+        resources :saved_searches, :item_type => 'project'
       end
     end
 
@@ -71,6 +77,8 @@ Rails.application.routes.draw do
 
       collection do
         get :options
+
+        resources :saved_searches, :item_type => 'event'
       end
     end
 

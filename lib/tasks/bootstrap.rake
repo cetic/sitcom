@@ -163,5 +163,19 @@ namespace :app do
     100.times do
       ContactTagService.new(Contact.all.to_a.sample).add_tag(tags.sample)
     end
+
+    puts "Bootstrapping saved searches"
+
+    Lab.all.each do |lab|
+      ['contact', 'organization', 'project', 'event'].each do |item_type|
+        5.times do |i|
+          lab.saved_searches.create!(
+            :item_type => item_type,
+            :name      => "Recheche sauvée #{i + 1}",
+            :search    => "?quickSearch=ala"
+          )
+        end
+      end
+    end
   end
 end

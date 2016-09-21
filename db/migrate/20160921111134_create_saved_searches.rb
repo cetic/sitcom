@@ -5,6 +5,7 @@ class CreateSavedSearches < ActiveRecord::Migration[5.0]
       t.references :user, foreign_key: true
 
       t.string :name
+      t.string :item_type
       t.text   :search
 
       t.timestamps

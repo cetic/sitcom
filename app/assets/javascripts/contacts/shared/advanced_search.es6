@@ -1,4 +1,4 @@
-import ItemsSelect from '../../shared/items_select.es6'
+import ItemsSelect   from '../../shared/items_select.es6'
 
 class AdvancedSearch extends React.Component {
   updateTextFilter(filterName, e) {
@@ -7,7 +7,7 @@ class AdvancedSearch extends React.Component {
     this.props.updateFilters(newFilters)
   }
 
-  updateActive(value, e) {
+  updateActive(value) {
     this.props.updateFilters({
       active: value
     })
@@ -48,6 +48,7 @@ class AdvancedSearch extends React.Component {
       <div>
         <h3>Recherche avancée</h3>
         <h4>Général</h4>
+
 
         {this.renderNameFilter()}
         {this.renderEmailFilter()}

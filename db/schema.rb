@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(version: 20160921111134) do
     t.integer  "lab_id"
     t.integer  "user_id"
     t.string   "name"
+    t.string   "item_type"
     t.text     "search",     limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
