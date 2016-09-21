@@ -6,7 +6,10 @@ class SavedSearchesController < ApplicationController
     respond_to do |format|
       format.json do
         if PermissionsService.new(current_user, @lab).can_read?(params[:item_type].pluralize)
-          @saved_searches = @lab.saved_searches.where(:item_type => params[:item_type])
+          @saved_searches = @lab.saved_searches.where(
+            :item_type => params[:item_type],
+            :user_id   => [ nil, current_user.id ]
+          )
         else
           render_permission_error
         end
