@@ -62,11 +62,15 @@ class ItemsSelect extends React.Component {
   }
 
   renderSelect() {
-    if(this.state.options.length) {
+    var filteredOptions = _.reject(this.state.options, (option) => {
+      return _.includes(this.state.itemIds, option.value)
+    })
+
+    if(filteredOptions.length) {
       return (
         <Select multi={true}
                 value={this.getValue()}
-                options={this.state.options}
+                options={filteredOptions}
                 onChange={this.updateValue.bind(this)}
                 optionRenderer={this.renderOption.bind(this)} />
       )
