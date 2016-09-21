@@ -1,10 +1,10 @@
 class SocialShow extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
 
-    };
+    }
   }
 
   render() {
@@ -20,7 +20,7 @@ class SocialShow extends React.Component {
           { this.renderEdit() }
         </div>
       </div>
-    );
+    )
   }
 
   renderEdit() {
@@ -36,7 +36,7 @@ class SocialShow extends React.Component {
 
   renderSocialInside(url) {
     if(url == '') {
-      return <em>non-renseigné</em>;
+      return <em>non-renseigné</em>
     }
     else {
       return (

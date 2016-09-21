@@ -1,12 +1,12 @@
 class SocialEdit extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       facebookUrl: this.props.contact.facebookUrl,
       linkedinUrl: this.props.contact.linkedinUrl,
       twitterUrl:  this.props.contact.twitterUrl,
-    };
+    }
   }
 
   backendUpdateContact() {
@@ -18,12 +18,12 @@ class SocialEdit extends React.Component {
       }
     }
 
-    http.put(this.props.contactPath, params, (data) => {
+    http.put(this.props.contactPath, params, () => {
       this.props.reloadFromBackend(() => {
         this.props.toggleEditMode()
         setTimeout(this.props.reloadIndexFromBackend, 1500)
       })
-    });
+    })
   }
 
   updateFacebookUrl(e) {
@@ -61,7 +61,7 @@ class SocialEdit extends React.Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 
   renderFacebook() {

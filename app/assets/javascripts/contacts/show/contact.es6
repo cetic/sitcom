@@ -24,7 +24,7 @@ class Contact extends React.Component {
     this.reloadFromBackend()
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if(prevProps.id != this.props.id) {
       this.reloadFromBackend()
     }

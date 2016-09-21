@@ -7,15 +7,15 @@ class QuickSearch extends React.Component {
   }
 
   updateQuickSearch(e) {
-    this.props.updateQuickSearch(e.target.value);
+    this.props.updateQuickSearch(e.target.value)
   }
 
   resetQuickSearch() {
-    this.props.updateQuickSearch('');
+    this.props.updateQuickSearch('')
   }
 
   singularItemName() {
-    var singularItemName = this.props.title.substring(0, this.props.title.length - 1);
+    var singularItemName = this.props.title.substring(0, this.props.title.length - 1)
     return singularItemName.toLowerCase()
   }
 
@@ -46,7 +46,7 @@ class QuickSearch extends React.Component {
     if(this.props.quickSearch.length) {
       return (
         <i className="fa fa-times" onClick={this.resetQuickSearch.bind(this)}></i>
-      );
+      )
     }
   }
 

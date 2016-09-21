@@ -8,9 +8,9 @@ class EventDate extends React.Component {
     else {
       return (
         <div />
-      );
+      )
     }
   }
 }
 
-module.exports = EventDate;
+module.exports = EventDate

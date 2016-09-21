@@ -2,7 +2,7 @@ import DateField   from '../../shared/date_field.es6'
 
 class GeneralEdit extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       name:        this.props.project.name,
@@ -10,7 +10,7 @@ class GeneralEdit extends React.Component {
       startDate:   this.props.project.startDate,
       endDate:     this.props.project.endDate,
       errors:      ''
-    };
+    }
   }
 
   backendUpdateOrganization() {
@@ -33,7 +33,7 @@ class GeneralEdit extends React.Component {
           setTimeout(this.props.reloadIndexFromBackend, 1500)
         })
       }
-    });
+    })
   }
 
   updateName(e) {
@@ -92,7 +92,7 @@ class GeneralEdit extends React.Component {
 
         { this.renderActions() }
       </div>
-    );
+    )
   }
 
   renderErrors() {

@@ -1,12 +1,12 @@
 class NewNote extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       open: false,
       newNoteText: ''
-    };
+    }
   }
 
   open() {

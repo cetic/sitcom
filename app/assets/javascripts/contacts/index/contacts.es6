@@ -3,9 +3,9 @@ import Infinite from 'react-infinite'
 
 class Contacts extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.state = {};
+    this.state = {}
   }
 
   render() {
@@ -47,8 +47,8 @@ class Contacts extends React.Component {
         <Contact key={contact.id}
                  contact={contact}
                  search={this.props.search} />
-      );
-    });
+      )
+    })
   }
 }
 

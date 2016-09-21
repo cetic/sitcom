@@ -8,20 +8,20 @@ import PermissionDenied from '../shared/permission_denied.es6'
 
 class Main extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       organizations: [],
       loaded:        false,
-    };
+    }
   }
 
   componentWillMount() {
-    this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 300);
+    this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 300)
   }
 
   componentDidMount() {
-    this.reloadFromBackend();
+    this.reloadFromBackend()
     this.selectHeaderMenu()
   }
 
@@ -53,20 +53,20 @@ class Main extends React.Component {
 
     var params = _.assign({}, this.getFilters(), {
       offset: offset
-    });
+    })
 
     http.get(this.props.organizationsPath, params, (data) => {
       this.setState({
         organizations: offset == 0 ? data.organizations : this.state.organizations.concat(data.organizations),
         loaded:        true,
-      });
-    });
+      })
+    })
   }
 
   updateUrl(newValues) {
-    var query        = _.assign({}, this.props.location.query, newValues);
+    var query        = _.assign({}, this.props.location.query, newValues)
     var paramsString = ParamsService.rejectEmptyParams($.param(query))
-    this.props.router.push('organizations?' + paramsString);
+    this.props.router.push('organizations?' + paramsString)
   }
 
   updateQuickSearch(newQuickSearch) {
@@ -108,14 +108,14 @@ class Main extends React.Component {
 
               { this.renderNewOrganizationLink() }
 
-              { this.renderOrganization()  }
+              { this.renderOrganization() }
               { this.renderOrganizations() }
             </div>
           </div>
 
           { this.renderNewOrganizationModal() }
         </div>
-      );
+      )
     }
     else {
       return (

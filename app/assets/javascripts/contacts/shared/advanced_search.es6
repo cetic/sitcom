@@ -4,37 +4,37 @@ class AdvancedSearch extends React.Component {
   updateTextFilter(filterName, e) {
     var newFilters = {}
     newFilters[filterName] = e.target.value
-    this.props.updateFilters(newFilters);
+    this.props.updateFilters(newFilters)
   }
 
   updateActive(value, e) {
     this.props.updateFilters({
       active: value
-    });
+    })
   }
 
   updateOrganizationIds(value) {
     this.props.updateFilters({
       organizationIds: value
-    });
+    })
   }
 
   updateFieldIds(value) {
     this.props.updateFilters({
       fieldIds: value
-    });
+    })
   }
 
   updateEventIds(value) {
     this.props.updateFilters({
       eventIds: value
-    });
+    })
   }
 
   updateProjectIds(value) {
     this.props.updateFilters({
       projectIds: value
-    });
+    })
   }
 
   render() {
@@ -54,7 +54,7 @@ class AdvancedSearch extends React.Component {
         {this.renderEventsFilter()}
         {this.renderProjectsFilter()}
       </div>
-    );
+    )
   }
 
   renderNameFilter() {
@@ -66,7 +66,7 @@ class AdvancedSearch extends React.Component {
                value={this.props.filters.name}
                onChange={this.updateTextFilter.bind(this, 'name')} />
       </div>
-    );
+    )
   }
 
   renderEmailFilter() {
@@ -78,7 +78,7 @@ class AdvancedSearch extends React.Component {
                value={this.props.filters.email}
                onChange={this.updateTextFilter.bind(this, 'email')} />
       </div>
-    );
+    )
   }
 
   renderAddressFilter() {
@@ -90,7 +90,7 @@ class AdvancedSearch extends React.Component {
                value={this.props.filters.address}
                onChange={this.updateTextFilter.bind(this, 'address')} />
       </div>
-    );
+    )
   }
 
   renderPhoneFilter() {
@@ -102,7 +102,7 @@ class AdvancedSearch extends React.Component {
                value={this.props.filters.phone}
                onChange={this.updateTextFilter.bind(this, 'phone')} />
       </div>
-    );
+    )
   }
 
   renderNotesFilter() {
@@ -114,7 +114,7 @@ class AdvancedSearch extends React.Component {
                value={this.props.filters.notes}
                onChange={this.updateTextFilter.bind(this, 'notes')} />
       </div>
-    );
+    )
   }
 
   renderActiveFilter() {
@@ -159,7 +159,7 @@ class AdvancedSearch extends React.Component {
                    optionsPath={this.props.organizationOptionsPath}
                    updateValue={this.updateOrganizationIds.bind(this)}
                    label="Organisations" />
-    );
+    )
   }
 
   renderFieldsFilter() {
@@ -168,7 +168,7 @@ class AdvancedSearch extends React.Component {
                    optionsPath={this.props.fieldOptionsPath}
                    updateValue={this.updateFieldIds.bind(this)}
                    label="Domaines d'expertise" />
-    );
+    )
   }
 
   renderEventsFilter() {
@@ -177,7 +177,7 @@ class AdvancedSearch extends React.Component {
                    optionsPath={this.props.eventOptionsPath}
                    updateValue={this.updateEventIds.bind(this)}
                    label="Évènements" />
-    );
+    )
   }
 
   renderProjectsFilter() {
@@ -186,7 +186,7 @@ class AdvancedSearch extends React.Component {
                    optionsPath={this.props.projectOptionsPath}
                    updateValue={this.updateProjectIds.bind(this)}
                    label="Projets" />
-    );
+    )
   }
 
 }

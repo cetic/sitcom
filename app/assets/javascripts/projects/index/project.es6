@@ -2,9 +2,9 @@ import ProjectDates from '../shared/project_dates.es6'
 
 class Project extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.state = {};
+    this.state = {}
   }
 
   render() {
@@ -46,7 +46,7 @@ class Project extends React.Component {
       return (
         <a className="association contacts"
            href="javascript:;">
-          <em>{ l }</em> { l == 1 ? 'participant' : 'participants' }
+          <em>{ l }</em> { l == 1 ? 'participant' : 'participants' }
         </a>
       )
     }

@@ -3,11 +3,11 @@ import Dropzone from 'dropzone'
 class CustomDropzone extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
 
-    };
+    }
   }
 
   componentDidMount() {
@@ -26,16 +26,16 @@ class CustomDropzone extends React.Component {
       method:                'put',
       accept:                (file, done)      => { done() },
       success:               (file, message)   => { uploadPercentageSelector.hide(); this.props.afterSuccess() },
-      error:                 (file, message)   => { alert(message); uploadTextSelector.hide(); uploadPercentageSelector.hide(); },
+      error:                 (file, message)   => { alert(message); uploadTextSelector.hide(); uploadPercentageSelector.hide() },
       uploadprogress:        (file, progress)  => { uploadPercentageSelector.text("Upload en cours : " + progress.toFixed(0) + '%') },
-      drop:                  (event)           => { uploadTextSelector.hide(); uploadPercentageSelector.show(); },
+      drop:                  (event)           => { uploadTextSelector.hide(); uploadPercentageSelector.show() },
       addedfile:             (event)           => { uploadPercentageSelector.show() },
       dragover:              (event)           => { uploadTextSelector.show() },
       previewTemplate:       '<div id="preview-template" style="display: none;"></div>',
       headers: {
         "X-CSRF-Token" : $('meta[name="csrf-token"]').attr('content')
       }
-    });
+    })
   }
 
   render() {

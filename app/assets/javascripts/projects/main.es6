@@ -8,20 +8,20 @@ import PermissionDenied from '../shared/permission_denied.es6'
 
 class Main extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       projects: [],
       loaded:   false,
-    };
+    }
   }
 
   componentWillMount() {
-    this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 300);
+    this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 300)
   }
 
   componentDidMount() {
-    this.reloadFromBackend();
+    this.reloadFromBackend()
     this.selectHeaderMenu()
   }
 
@@ -51,20 +51,20 @@ class Main extends React.Component {
 
     var params = _.assign({}, this.getFilters(), {
       offset: offset
-    });
+    })
 
     http.get(this.props.projectsPath, params, (data) => {
       this.setState({
         projects: offset == 0 ? data.projects : this.state.projects.concat(data.projects),
         loaded:   true,
-      });
-    });
+      })
+    })
   }
 
   updateUrl(newValues) {
-    var query        = _.assign({}, this.props.location.query, newValues);
+    var query        = _.assign({}, this.props.location.query, newValues)
     var paramsString = ParamsService.rejectEmptyParams($.param(query))
-    this.props.router.push('projects?' + paramsString);
+    this.props.router.push('projects?' + paramsString)
   }
 
   updateQuickSearch(newQuickSearch) {
@@ -103,14 +103,14 @@ class Main extends React.Component {
 
               { this.renderNewProjectLink() }
 
-              { this.renderProject()  }
+              { this.renderProject()  }
               { this.renderProjects() }
             </div>
           </div>
 
           { this.renderNewProjectModal() }
         </div>
-      );
+      )
     }
     else {
       return (

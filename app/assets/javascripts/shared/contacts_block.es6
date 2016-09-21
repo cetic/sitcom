@@ -1,6 +1,7 @@
 import Select from 'react-select'
 
 class ContactsBlock extends React.Component {
+
   constructor(props) {
     super(props)
 
@@ -131,6 +132,7 @@ class ContactsBlock extends React.Component {
       )
     }
   }
+
 }
 
 module.exports = ContactsBlock

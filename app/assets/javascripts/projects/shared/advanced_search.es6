@@ -12,7 +12,7 @@ class AdvancedSearch extends React.Component {
   updateContactIds(value) {
     this.props.updateFilters({
       contactIds: value
-    });
+    })
   }
 
   render() {
@@ -27,7 +27,7 @@ class AdvancedSearch extends React.Component {
         {this.renderDatesFilter()}
         {this.renderContactsFilter()}
       </div>
-    );
+    )
   }
 
   renderNameFilter() {
@@ -39,7 +39,7 @@ class AdvancedSearch extends React.Component {
                value={this.props.filters.name}
                onChange={this.updateTextFilter.bind(this, 'name')} />
       </div>
-    );
+    )
   }
 
   renderDescriptionFilter() {
@@ -51,7 +51,7 @@ class AdvancedSearch extends React.Component {
                value={this.props.filters.description}
                onChange={this.updateTextFilter.bind(this, 'description')} />
       </div>
-    );
+    )
   }
 
   renderNotesFilter() {
@@ -63,14 +63,14 @@ class AdvancedSearch extends React.Component {
                value={this.props.filters.notes}
                onChange={this.updateTextFilter.bind(this, 'notes')} />
       </div>
-    );
+    )
   }
 
   renderDatesFilter() {
     return (
       <DateRangeFilter filters={this.props.filters}
                        updateFilters={this.props.updateFilters} />
-    );
+    )
   }
 
   renderContactsFilter() {
@@ -79,7 +79,7 @@ class AdvancedSearch extends React.Component {
                    optionsPath={this.props.contactOptionsPath}
                    updateValue={this.updateContactIds.bind(this)}
                    label="Contacts" />
-    );
+    )
   }
 
 }

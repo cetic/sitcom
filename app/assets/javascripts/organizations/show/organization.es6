@@ -6,21 +6,21 @@ import PreviousNextNav from '../../shared/previous_next_nav.es6'
 
 class Organization extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       notFound:        false,
       organization:    {},
       loaded:          false,
       generalEditMode: false
-    };
+    }
   }
 
   componentDidMount() {
     this.reloadFromBackend()
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
      if(prevProps.id != this.props.id) {
        this.reloadFromBackend()
      }
@@ -40,7 +40,7 @@ class Organization extends React.Component {
         organization: data,
         loaded:  true
       }, callback)
-    }, notFoundCallback);
+    }, notFoundCallback)
   }
 
   toggleGeneralEditMode() {
@@ -102,7 +102,7 @@ class Organization extends React.Component {
                        reloadFromBackend={this.reloadFromBackend.bind(this)}
                        reloadIndexFromBackend={this.props.reloadIndexFromBackend}
                        reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
-        );
+        )
       }
       else {
         return (
@@ -128,7 +128,7 @@ class Organization extends React.Component {
                        reloadFromBackend={this.reloadFromBackend.bind(this)}
                        reloadIndexFromBackend={this.props.reloadIndexFromBackend}
                        canWrite={this.props.permissions.canWriteOrganizations} />
-      );
+      )
     }
   }
 

@@ -2,7 +2,7 @@ import ItemsSelect from '../../shared/items_select.es6'
 
 class GeneralEdit extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       firstName:       this.props.contact.firstName,
@@ -16,7 +16,7 @@ class GeneralEdit extends React.Component {
       email:           this.props.contact.email,
       fieldIds:        this.props.contact.fieldIds,
       errors:          ''
-    };
+    }
   }
 
   backendUpdateContact() {
@@ -45,7 +45,7 @@ class GeneralEdit extends React.Component {
           setTimeout(this.props.reloadIndexFromBackend, 1500)
         })
       }
-    });
+    })
   }
 
   updateFirstName(e) {
@@ -105,7 +105,7 @@ class GeneralEdit extends React.Component {
   updateFieldIds(value) {
     this.setState({
       fieldIds: value.split(',')
-    });
+    })
   }
 
   render() {
@@ -146,7 +146,7 @@ class GeneralEdit extends React.Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 
   renderErrors() {

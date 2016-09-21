@@ -3,11 +3,11 @@ import CustomDropzone from '../../shared/custom_dropzone.es6'
 
 class GeneralShow extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
 
-    };
+    }
   }
 
   destroyEvent() {
@@ -17,7 +17,7 @@ class GeneralShow extends React.Component {
           this.props.router.replace('events')
           setTimeout(this.props.reloadIndexFromBackend, 1500)
         }
-      });
+      })
     }
   }
 
@@ -58,7 +58,7 @@ class GeneralShow extends React.Component {
 
         { this.renderButtons() }
       </div>
-    );
+    )
   }
 
   renderButtons() {

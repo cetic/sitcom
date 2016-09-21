@@ -1,11 +1,11 @@
-import FlipCard from 'react-flipcard';
+import FlipCard from 'react-flipcard'
 
 class Contact extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
-    };
+    }
   }
 
   render() {
@@ -61,9 +61,9 @@ class Contact extends React.Component {
   }
 
   renderSocial() {
-    var facebook = this.props.contact.facebookUrl != '' ? <i className="fa fa-facebook-square"></i> : '';
-    var linkedin = this.props.contact.linkedinUrl != '' ? <i className="fa fa-linkedin-square"></i> : '';
-    var twitter  = this.props.contact.twitterUrl  != '' ? <i className="fa fa-twitter-square"></i>  : '';
+    var facebook = this.props.contact.facebookUrl != '' ? <i className="fa fa-facebook-square"></i> : ''
+    var linkedin = this.props.contact.linkedinUrl != '' ? <i className="fa fa-linkedin-square"></i> : ''
+    var twitter  = this.props.contact.twitterUrl  != '' ? <i className="fa fa-twitter-square"></i>  : ''
 
     return (
       <div className="social">
@@ -113,7 +113,7 @@ class Contact extends React.Component {
       return (
         <a className="association events"
            href="javascript:;">
-          <em>{ l }</em> { l == 1 ? 'évènement' : 'évènements' }
+          <em>{ l }</em> { l == 1 ? 'évènement' : 'évènements' }
         </a>
       )
     }

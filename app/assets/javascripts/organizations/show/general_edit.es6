@@ -1,13 +1,13 @@
 class GeneralEdit extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       name:        this.props.organization.name,
       description: this.props.organization.description,
       websiteUrl:  this.props.organization.websiteUrl,
       errors:      ''
-    };
+    }
   }
 
   backendUpdateOrganization() {
@@ -29,7 +29,7 @@ class GeneralEdit extends React.Component {
           setTimeout(this.props.reloadIndexFromBackend, 1500)
         })
       }
-    });
+    })
   }
 
   updateName(e) {
@@ -78,7 +78,7 @@ class GeneralEdit extends React.Component {
 
         { this.renderActions() }
       </div>
-    );
+    )
   }
 
   renderErrors() {

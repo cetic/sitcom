@@ -1,4 +1,5 @@
 class HttpService {
+
   static get(url, request, callback, failCallback) {
     request = humps.decamelizeKeys(request)
 
@@ -31,6 +32,7 @@ class HttpService {
   static delete(url, request, callback) {
     this.post(url, _.merge({ _method: 'DELETE' }, request), callback)
   }
+
 }
 
-module.exports = HttpService;
+module.exports = HttpService

@@ -1,14 +1,15 @@
 import DatePicker from 'react-datepicker'
 
 class DateRangeFilter extends React.Component {
+
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       datesEnabled: this.props.filters.from || this.props.filters.to || false,
       startDate:    this.props.filters.from ? moment(this.props.filters.from, 'YYYY-MM-DD') : moment(),
       endDate:      this.props.filters.to   ? moment(this.props.filters.to,   'YYYY-MM-DD') : moment()
-    };
+    }
   }
 
   updateStartDate(date) {
@@ -67,8 +68,9 @@ class DateRangeFilter extends React.Component {
                       onChange={this.updateEndDate.bind(this)} />
         </div>
       </div>
-    );
+    )
   }
+
 }
 
 module.exports = DateRangeFilter

@@ -8,16 +8,16 @@ import PermissionDenied from '../shared/permission_denied.es6'
 
 class Main extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       contacts: [],
       loaded:   false,
-    };
+    }
   }
 
   componentWillMount() {
-    this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 300);
+    this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 300)
   }
 
   componentDidMount() {
@@ -57,14 +57,14 @@ class Main extends React.Component {
 
     var params = _.assign({}, this.getFilters(), {
       offset: offset
-    });
+    })
 
     http.get(this.props.contactsPath, params, (data) => {
       this.setState({
         contacts: offset == 0 ? data.contacts : this.state.contacts.concat(data.contacts),
         loaded:   true,
-      });
-    });
+      })
+    })
   }
 
   updateUrl(newValues) {
@@ -84,7 +84,7 @@ class Main extends React.Component {
   }
 
   openNewContactModal() {
-    $('.new-contact-modal').modal('show');
+    $('.new-contact-modal').modal('show')
   }
 
   render() {
@@ -121,7 +121,7 @@ class Main extends React.Component {
 
           { this.renderNewContactModal() }
         </div>
-      );
+      )
     }
     else {
       return (

@@ -3,9 +3,9 @@ import Infinite from 'react-infinite'
 
 class Events extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.state = {};
+    this.state = {}
   }
 
   render() {
@@ -47,8 +47,8 @@ class Events extends React.Component {
         <Event key={event.id}
                event={event}
                search={this.props.search} />
-      );
-    });
+      )
+    })
   }
 }
 

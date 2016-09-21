@@ -1,11 +1,11 @@
 class NewItem extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       fieldValue:  '',
       errors:      ''
-    };
+    }
   }
 
   componentDidMount() {
@@ -13,7 +13,7 @@ class NewItem extends React.Component {
   }
 
   bindFocusOnInput() {
-    $('.' + this.props.modalClassName).on('shown.bs.modal', (e) => {
+    $('.' + this.props.modalClassName).on('shown.bs.modal', () => {
       $(this.refs.title).focus()
     })
   }
@@ -27,7 +27,7 @@ class NewItem extends React.Component {
   }
 
   backendCreateNewContactAndRedirect(e) {
-    e.preventDefault();
+    e.preventDefault()
 
     if(this.state.fieldValue != '') {
       var params = {}
@@ -46,7 +46,7 @@ class NewItem extends React.Component {
           })
           setTimeout(this.props.reloadFromBackend, 1500)
         }
-      });
+      })
     }
   }
 

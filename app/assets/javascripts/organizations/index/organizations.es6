@@ -3,9 +3,9 @@ import Infinite     from 'react-infinite'
 
 class Organizations extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.state = {};
+    this.state = {}
   }
 
   render() {
@@ -47,8 +47,8 @@ class Organizations extends React.Component {
         <Organization key={organization.id}
                       organization={organization}
                       search={this.props.search} />
-      );
-    });
+      )
+    })
   }
 }
 

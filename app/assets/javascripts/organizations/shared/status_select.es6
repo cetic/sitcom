@@ -2,12 +2,12 @@ import Select from 'react-select'
 
 class StatusSelect extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       options: [],
       value:   this.props.value || ''
-    };
+    }
   }
 
   componentDidMount() {
@@ -18,28 +18,28 @@ class StatusSelect extends React.Component {
     http.get(this.props.optionsPath, {}, (data) => {
       this.setState({
         options: data
-      });
-    });
+      })
+    })
   }
 
   updateValue(option) {
-    var value = option ? option.value : undefined;
+    var value = option ? option.value : undefined
 
     this.setState({ value: value }, () => {
-      this.props.updateValue(value);
-    });
+      this.props.updateValue(value)
+    })
   }
 
   getValue() {
     if(_.trim(this.state.value) != '') {
       var option = _.find(this.state.options, (option) => {
-        return option.value == this.state.value;
-      });
+        return option.value == this.state.value
+      })
 
       return {
         label: option.label,
         value: option.value
-      };
+      }
     }
   }
 
@@ -50,12 +50,12 @@ class StatusSelect extends React.Component {
                 value={this.getValue()}
                 options={this.state.options}
                 onChange={this.updateValue.bind(this)} />
-      );
+      )
     }
     else {
       return (
         <div />
-      );
+      )
     }
   }
 }

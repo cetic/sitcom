@@ -2,11 +2,11 @@ import CustomDropzone from '../../shared/custom_dropzone.es6'
 
 class GeneralShow extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
 
-    };
+    }
   }
 
   destroyContact() {
@@ -16,7 +16,7 @@ class GeneralShow extends React.Component {
           this.props.router.replace('contacts')
           setTimeout(this.props.reloadIndexFromBackend, 1500)
         }
-      });
+      })
     }
   }
 
@@ -60,7 +60,7 @@ class GeneralShow extends React.Component {
 
         { this.renderButtons() }
       </div>
-    );
+    )
   }
 
   renderButtons() {
@@ -138,7 +138,7 @@ class GeneralShow extends React.Component {
   renderAddress() {
     var address = () => {
       if(this.props.contact.address == '')
-        return <em>non-renseignée</em>;
+        return <em>non-renseignée</em>
       else
         return (
           <div className="address">
@@ -163,7 +163,7 @@ class GeneralShow extends React.Component {
   renderPhone() {
     var phone = () => {
       if(this.props.contact.phone == '')
-        return <em>non-renseigné</em>;
+        return <em>non-renseigné</em>
       else
         return (
           <span title={this.props.contact.phone}>
@@ -184,7 +184,7 @@ class GeneralShow extends React.Component {
   renderEmail() {
     var email = () => {
       if(this.props.contact.email == '')
-        return <em>non-renseigné</em>;
+        return <em>non-renseigné</em>
       else
         return (
           <a title={this.props.contact.email}

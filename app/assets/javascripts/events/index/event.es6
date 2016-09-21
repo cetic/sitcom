@@ -2,9 +2,9 @@ import EventDate from '../shared/event_date.es6'
 
 class Event extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.state = {};
+    this.state = {}
   }
 
   render() {
@@ -52,7 +52,7 @@ class Event extends React.Component {
       return (
         <a className="association contacts"
            href="javascript:;">
-          <em>{ l }</em> { l == 1 ? 'participant' : 'participants' }
+          <em>{ l }</em> { l == 1 ? 'participant' : 'participants' }
         </a>
       )
     }

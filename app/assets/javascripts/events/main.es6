@@ -104,7 +104,7 @@ class Main extends React.Component {
 
               { this.renderNewEventLink() }
 
-              { this.renderEvent()  }
+              { this.renderEvent()  }
               { this.renderEvents() }
             </div>
           </div>

@@ -1,12 +1,12 @@
 class NewContact extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       firstName: '',
       lastName:  '',
       errors:    ''
-    };
+    }
   }
 
   componentDidMount() {
@@ -14,7 +14,7 @@ class NewContact extends React.Component {
   }
 
   bindFocusOnInput() {
-    $('.new-contact-modal').on('shown.bs.modal', (e) => {
+    $('.new-contact-modal').on('shown.bs.modal', () => {
       $(this.refs.firstName).focus()
     })
   }
@@ -32,7 +32,7 @@ class NewContact extends React.Component {
   }
 
   backendCreateNewContactAndRedirect(e) {
-    e.preventDefault();
+    e.preventDefault()
 
     if(this.state.firstName != '' && this.state.lastName != '') {
       var params = {
@@ -40,7 +40,7 @@ class NewContact extends React.Component {
           firstName: this.state.firstName,
           lastName:  this.state.lastName
         }
-      };
+      }
 
       http.post(this.props.contactsPath, params, (data) => {
         if(!data.success) {
@@ -55,7 +55,7 @@ class NewContact extends React.Component {
           })
           setTimeout(this.props.reloadFromBackend, 1500)
         }
-      });
+      })
     }
   }
 
@@ -120,7 +120,10 @@ class NewContact extends React.Component {
     if(this.state.errors.length) {
       return (
         <div className="alert alert-danger" role="alert">
-          <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
           { this.state.errors }
         </div>
       )

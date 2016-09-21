@@ -12,13 +12,13 @@ class AdvancedSearch extends React.Component {
   updateStatusFilter(value) {
     this.props.updateFilters({
       status: value
-    });
+    })
   }
 
   updateContactIds(value) {
     this.props.updateFilters({
       contactIds: value
-    });
+    })
   }
 
   render() {
@@ -34,7 +34,7 @@ class AdvancedSearch extends React.Component {
         {this.renderNotesFilter()}
         {this.renderContactsFilter()}
       </div>
-    );
+    )
   }
 
   renderNameFilter() {
@@ -46,7 +46,7 @@ class AdvancedSearch extends React.Component {
                value={this.props.filters.name}
                onChange={this.updateTextFilter.bind(this, 'name')} />
       </div>
-    );
+    )
   }
 
   renderStatusFilter() {
@@ -58,7 +58,7 @@ class AdvancedSearch extends React.Component {
                       value={this.props.filters.status}
                       updateValue={this.updateStatusFilter.bind(this)} />
       </div>
-    );
+    )
   }
 
   renderDescriptionFilter() {
@@ -70,7 +70,7 @@ class AdvancedSearch extends React.Component {
                value={this.props.filters.description}
                onChange={this.updateTextFilter.bind(this, 'description')} />
       </div>
-    );
+    )
   }
 
   renderWebsiteUrlFilter() {
@@ -82,7 +82,7 @@ class AdvancedSearch extends React.Component {
                value={this.props.filters.websiteUrl}
                onChange={this.updateTextFilter.bind(this, 'websiteUrl')} />
       </div>
-    );
+    )
   }
 
   renderNotesFilter() {
@@ -94,7 +94,7 @@ class AdvancedSearch extends React.Component {
                value={this.props.filters.notes}
                onChange={this.updateTextFilter.bind(this, 'notes')} />
       </div>
-    );
+    )
   }
 
   renderContactsFilter() {
@@ -103,7 +103,7 @@ class AdvancedSearch extends React.Component {
                    optionsPath={this.props.contactOptionsPath}
                    updateValue={this.updateContactIds.bind(this)}
                    label="Contacts" />
-    );
+    )
   }
 
 }

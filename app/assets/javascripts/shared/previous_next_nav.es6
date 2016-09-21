@@ -1,7 +1,7 @@
 class PreviousNextNav extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       currentItemIndex: -1
@@ -12,7 +12,7 @@ class PreviousNextNav extends React.Component {
     this.setCurrentItemIndex()
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if(prevProps.currentItemId != this.props.currentItemId) {
       this.setCurrentItemIndex()
     }
