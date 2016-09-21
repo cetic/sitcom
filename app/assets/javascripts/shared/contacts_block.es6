@@ -2,11 +2,11 @@ import Select from 'react-select'
 
 class ContactsBlock extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       options: []
-    };
+    }
   }
 
   componentDidMount() {
@@ -17,39 +17,39 @@ class ContactsBlock extends React.Component {
     http.get(this.props.optionsPath, {}, (data) => {
       this.setState({
         options: data
-      });
-    });
+      })
+    })
   }
 
   removeContact(contact) {
     if(confirm("Délier ce contact ?")) {
       var contactIds = _.filter(this.props.parent.contactIds, (contactId) => {
-        return contactId != contact.id;
-      });
+        return contactId != contact.id
+      })
 
-      this.saveOnBackend(contactIds);
+      this.saveOnBackend(contactIds)
     }
   }
 
   addContact(option) {
     this.saveOnBackend(
       _.uniq(_.concat(this.props.parent.contactIds, option.value))
-    );
+    )
   }
 
   saveOnBackend(contactIds) {
     // [''] is a way for the rails server to keep the empty array
-    var contactIds = contactIds.length ? contactIds : [''];
+    var ids = contactIds.length ? contactIds : ['']
 
-    var params = {};
-    params[this.props.parentType]            = {};
-    params[this.props.parentType].contactIds = contactIds;
+    var params = {}
+    params[this.props.parentType]            = {}
+    params[this.props.parentType].contactIds = ids
 
     http.put(this.props.parentPath, params, () => {
       this.props.reloadFromBackend(() => {
         setTimeout(this.props.reloadIndexFromBackend, 1500)
       })
-    });
+    })
   }
 
   render() {
@@ -64,14 +64,14 @@ class ContactsBlock extends React.Component {
         {this.renderContacts()}
         {this.renderSelect()}
       </div>
-    );
+    )
   }
 
   renderContacts() {
     if(this.props.parent.contacts.length) {
       var contactDivs = _.map(this.props.parent.contacts, (contact) => {
-        return this.renderItem(contact);
-      });
+        return this.renderItem(contact)
+      })
 
       return (
         <div className="row">
@@ -82,7 +82,9 @@ class ContactsBlock extends React.Component {
     else {
       return (
         <div className="row">
-          {this.props.emptyMessage}
+          <div className="col-md-12">
+            Aucun contact.
+          </div>
         </div>
       )
     }
@@ -116,7 +118,7 @@ class ContactsBlock extends React.Component {
   renderSelect() {
     if(this.props.canWrite) {
       var filteredOptions = _.reject(this.state.options, (option) => {
-        return _.includes(this.props.parent.contactIds, option.value);
+        return _.includes(this.props.parent.contactIds, option.value)
       })
 
       return (
@@ -126,7 +128,7 @@ class ContactsBlock extends React.Component {
                   placeholder="Ajouter..."
                   onChange={this.addContact.bind(this)} />
         </div>
-      );
+      )
     }
   }
 }

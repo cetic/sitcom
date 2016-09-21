@@ -9,7 +9,7 @@ import PreviousNextNav    from '../../shared/previous_next_nav.es6'
 
 class Contact extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       notFound:        false,
@@ -17,7 +17,7 @@ class Contact extends React.Component {
       loaded:          false,
       generalEditMode: false,
       socialEditMode:  false
-    };
+    }
   }
 
   componentDidMount() {
@@ -44,7 +44,7 @@ class Contact extends React.Component {
         contact: data,
         loaded:  true
       }, callback)
-    }, notFoundCallback);
+    }, notFoundCallback)
   }
 
   toggleGeneralEditMode() {
@@ -115,7 +115,7 @@ class Contact extends React.Component {
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)}
                        reloadFromBackend={this.reloadFromBackend.bind(this)}
                        reloadIndexFromBackend={this.props.reloadIndexFromBackend}  />
-        );
+        )
       }
       else {
         return (
@@ -163,7 +163,7 @@ class Contact extends React.Component {
                             reloadFromBackend={this.reloadFromBackend.bind(this)}
                             reloadIndexFromBackend={this.props.reloadIndexFromBackend}
                             canWrite={this.props.permissions.canWriteContacts} />
-      );
+      )
     }
   }
 
@@ -181,7 +181,7 @@ class Contact extends React.Component {
                     reloadFromBackend={this.reloadFromBackend.bind(this)}
                     reloadIndexFromBackend={this.props.reloadIndexFromBackend}
                     canWrite={this.props.permissions.canWriteContacts} />
-      );
+      )
     }
   }
 
@@ -199,7 +199,7 @@ class Contact extends React.Component {
                     reloadFromBackend={this.reloadFromBackend.bind(this)}
                     reloadIndexFromBackend={this.props.reloadIndexFromBackend}
                     canWrite={this.props.permissions.canWriteContacts}  />
-      );
+      )
     }
   }
 

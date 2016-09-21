@@ -1,12 +1,13 @@
 import Select from 'react-select'
 
 class ItemsBlock extends React.Component {
+
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       options: []
-    };
+    }
   }
 
   componentDidMount() {
@@ -17,30 +18,30 @@ class ItemsBlock extends React.Component {
     http.get(this.props.optionsPath, {}, (data) => {
       this.setState({
         options: data
-      });
-    });
+      })
+    })
   }
 
   removeItem(item) {
     if(confirm(this.props.removeConfirmMessage)) {
       var itemIds = _.filter(this.props.contact[this.props.fieldName], (itemId) => {
-        return itemId != item.id;
-      });
+        return itemId != item.id
+      })
 
-      this.saveOnBackend(itemIds);
+      this.saveOnBackend(itemIds)
     }
   }
 
   addItem(option) {
     this.saveOnBackend(
       _.uniq(_.concat(this.props.contact[this.props.fieldName], option.value))
-    );
+    )
   }
 
   saveOnBackend(itemIds) {
     var params = {
       contact: {}
-    };
+    }
 
     params.contact[this.props.fieldName] = itemIds.length ? itemIds : [''] // [''] is a way for the rails server to keep the empty array
 
@@ -48,7 +49,7 @@ class ItemsBlock extends React.Component {
       this.props.reloadFromBackend(() => {
         setTimeout(this.props.reloadIndexFromBackend, 1500)
       })
-    });
+    })
   }
 
   render() {
@@ -63,14 +64,14 @@ class ItemsBlock extends React.Component {
         {this.renderItems()}
         {this.renderSelect()}
       </div>
-    );
+    )
   }
 
   renderItems() {
     if(this.props.items.length) {
       var itemDivs = _.map(this.props.items, (item) => {
-        return this.renderItem(item);
-      });
+        return this.renderItem(item)
+      })
 
       return (
         <div className="row">
@@ -123,20 +124,20 @@ class ItemsBlock extends React.Component {
     if(this.props.fieldName == 'projectIds') {
       return (
         <span className="dates">{item.startDate} &rarr; {item.endDate}</span>
-      );
+      )
     }
 
     if(this.props.fieldName == 'eventIds') {
       return (
         <span className="dates">{item.happensOn}</span>
-      );
+      )
     }
   }
 
   renderSelect() {
     if(this.props.canWrite) {
       var filteredOptions = _.reject(this.state.options, (option) => {
-        return _.includes(this.props.contact[this.props.fieldName], option.value);
+        return _.includes(this.props.contact[this.props.fieldName], option.value)
       })
 
       return (
@@ -146,9 +147,10 @@ class ItemsBlock extends React.Component {
                   placeholder="Ajouter..."
                   onChange={this.addItem.bind(this)} />
         </div>
-      );
+      )
     }
   }
+
 }
 
 module.exports = ItemsBlock

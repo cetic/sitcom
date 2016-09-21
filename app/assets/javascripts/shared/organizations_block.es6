@@ -2,11 +2,11 @@ import Select from 'react-select'
 
 class OrganizationsBlock extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       options: []
-    };
+    }
   }
 
   componentDidMount() {
@@ -17,39 +17,39 @@ class OrganizationsBlock extends React.Component {
     http.get(this.props.optionsPath, {}, (data) => {
       this.setState({
         options: data
-      });
-    });
+      })
+    })
   }
 
   removeOrganization(organization) {
     if(confirm("Délier cette organisation ?")) {
       var organizationIds = _.filter(this.props.parent.organizationIds, (organizationId) => {
-        return organizationId != organization.id;
-      });
+        return organizationId != organization.id
+      })
 
-      this.saveOnBackend(organizationIds);
+      this.saveOnBackend(organizationIds)
     }
   }
 
   addOrganization(option) {
     this.saveOnBackend(
       _.uniq(_.concat(this.props.parent.organizationIds, option.value))
-    );
+    )
   }
 
   saveOnBackend(organizationIds) {
     // [''] is a way for the rails server to keep the empty array
-    var organizationIds = organizationIds.length ? organizationIds : [''];
+    var ids = organizationIds.length ? organizationIds : ['']
 
-    var params = {};
-    params[this.props.parentType]                 = {};
-    params[this.props.parentType].organizationIds = organizationIds;
+    var params = {}
+    params[this.props.parentType]                 = {}
+    params[this.props.parentType].organizationIds = ids
 
     http.put(this.props.parentPath, params, () => {
       this.props.reloadFromBackend(() => {
         setTimeout(this.props.reloadIndexFromBackend, 1500)
       })
-    });
+    })
   }
 
   render() {
@@ -64,14 +64,14 @@ class OrganizationsBlock extends React.Component {
         {this.renderOrganizations()}
         {this.renderSelect()}
       </div>
-    );
+    )
   }
 
   renderOrganizations() {
     if(this.props.parent.organizations.length) {
       var organizationDivs = _.map(this.props.parent.organizations, (organization) => {
-        return this.renderItem(organization);
-      });
+        return this.renderItem(organization)
+      })
 
       return (
         <div className="row">
@@ -82,7 +82,9 @@ class OrganizationsBlock extends React.Component {
     else {
       return (
         <div className="row">
-          {this.props.emptyMessage}
+          <div className="col-md-12">
+            Aucune organisation.
+          </div>
         </div>
       )
     }
@@ -116,7 +118,7 @@ class OrganizationsBlock extends React.Component {
   renderSelect() {
     if(this.props.canWrite) {
       var filteredOptions = _.reject(this.state.options, (option) => {
-        return _.includes(this.props.parent.organizationIds, option.value);
+        return _.includes(this.props.parent.organizationIds, option.value)
       })
 
       return (
@@ -126,7 +128,7 @@ class OrganizationsBlock extends React.Component {
                   placeholder="Ajouter..."
                   onChange={this.addOrganization.bind(this)} />
         </div>
-      );
+      )
     }
   }
 }
