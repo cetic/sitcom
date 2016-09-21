@@ -5,12 +5,12 @@ class TagsController < ApplicationController
 
   def create
     SegmentTagService.new(@contact).add_tag(params[:name])
-    render_json
+    render_json_success
   end
 
   def destroy
     SegmentTagService.new(@contact).remove_tag(params[:id])
-    render_json
+    render_json_success
   end
 
   private
