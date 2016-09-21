@@ -1,5 +1,7 @@
 # SItCOM / LLiW
 
+License : MIT.
+
 ## Development
 
 ```sh
