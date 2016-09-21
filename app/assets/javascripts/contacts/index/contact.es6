@@ -5,7 +5,20 @@ class Contact extends React.Component {
     super(props)
 
     this.state = {
+      selected: this.props.contact.selected
     }
+  }
+
+  // componentWillReceiveProps(newProps) {
+  //   if(newProps.props.contact.selected != this.props.contact.selected) {
+  //     this.setState(selected: newProps.props.contact.selected)
+  //   }
+  // }
+
+  toggleSelected() {
+    this.setState({ selected: !this.state.selected }, () => {
+      this.props.updateSelected(this.props.contact, this.state.selected) // propagate to list
+    })
   }
 
   render() {
@@ -40,9 +53,13 @@ class Contact extends React.Component {
   renderPicture() {
     return (
       <div className="picture">
-        <FlipCard>
-          <img className="img-thumbnail front" src={this.props.contact.thumbPictureUrl} />
-          <img className="img-thumbnail back" src={this.props.contact.thumbPictureUrl} />
+        <FlipCard disabled={true}
+                  flipped={this.state.selected}>
+          <img className="img-thumbnail front" src={this.props.contact.thumbPictureUrl} onClick={this.toggleSelected.bind(this)} />
+          <span onClick={this.toggleSelected.bind(this)}>
+            <img className="img-thumbnail back" src={this.props.contact.thumbPictureUrl} />
+            <i className="fa fa-check"></i>
+          </span>
         </FlipCard>
       </div>
     )

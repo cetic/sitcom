@@ -53,12 +53,17 @@ class ItemsSelect extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <label>{this.props.label}</label>
-        {this.renderSelect()}
-      </div>
-    )
+    if(this.state.options.length) {
+      return (
+        <div>
+          <label>{this.props.label}</label>
+          {this.renderSelect()}
+        </div>
+      )
+    }
+    else {
+      return null
+    }
   }
 
   renderSelect() {
@@ -66,15 +71,13 @@ class ItemsSelect extends React.Component {
       return _.includes(this.state.itemIds, option.value)
     })
 
-    if(filteredOptions.length) {
-      return (
-        <Select multi={true}
-                value={this.getValue()}
-                options={filteredOptions}
-                onChange={this.updateValue.bind(this)}
-                optionRenderer={this.renderOption.bind(this)} />
-      )
-    }
+    return (
+      <Select multi={true}
+              value={this.getValue()}
+              options={filteredOptions}
+              onChange={this.updateValue.bind(this)}
+              optionRenderer={this.renderOption.bind(this)} />
+    )
   }
 
   renderOption(option) {

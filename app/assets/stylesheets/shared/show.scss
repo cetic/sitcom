@@ -119,7 +119,7 @@
 
       .field, .tag {
         margin-right: 4px;
-        background-color: #8cafd2;
+        background-color: #b3b3b3;
       }
     }
 
@@ -266,10 +266,28 @@
     .fa {
       margin-left: 4px;
       margin-right: 6px;
+      font-size: 18px;
+      vertical-align: -1px;
+    }
+
+    .fa-facebook-square {
+      color: #3b5998;
+    }
+
+    .fa-linkedin-square {
+      color: #1985bc;
+    }
+
+    .fa-twitter-square {
+      color: #1da1f2;
     }
   }
 
   .social.show {
+    .facebook, .linkedin {
+      margin-bottom: 10px;
+    }
+
     .btn {
       opacity: 0;
       position: absolute;
@@ -289,8 +307,12 @@
 
   .social.edit {
     input {
-      width: 60%;
+      width: 86%;
       margin-bottom: 6px;
+    }
+
+    .actions {
+      margin-top: 40px;
     }
   }
 
@@ -322,6 +344,10 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+
+          a {
+            //color: #696969;
+          }
         }
 
         .dates {

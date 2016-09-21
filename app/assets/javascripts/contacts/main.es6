@@ -12,8 +12,9 @@ class Main extends React.Component {
     super(props)
 
     this.state = {
-      contacts: [],
-      loaded:   false,
+      contacts:      [],
+      loaded:        false,
+      selectedCount: 0,
     }
   }
 
@@ -61,8 +62,9 @@ class Main extends React.Component {
 
     http.get(this.props.contactsPath, this.getFilters(), (data) => {
       this.setState({
-        contacts: data.contacts,
-        loaded:   true,
+        contacts:      data.contacts,
+        loaded:        true,
+        selectedCount: 0
       })
     })
   }
@@ -85,6 +87,18 @@ class Main extends React.Component {
 
   openNewContactModal() {
     $('.new-contact-modal').modal('show')
+  }
+
+  updateSelected(contact, newValue) {
+    var index    = _.findIndex(this.state.contacts, (c) => { return contact.id == c.id})
+    var contacts = this.state.contacts
+
+    contacts[index].selected = newValue
+
+    this.setState({
+      contacts:      contacts,
+      selectedCount: newValue ? this.state.selectedCount+1 : this.state.selectedCount-1
+    })
   }
 
   render() {
@@ -113,6 +127,7 @@ class Main extends React.Component {
               <QuickSearch title="Contacts"
                            loaded={this.state.loaded}
                            results={this.state.contacts.length}
+                           selectedCount={this.state.selectedCount}
                            quickSearch={filters.quickSearch}
                            updateQuickSearch={this.updateQuickSearch.bind(this)}
                            filters={filters}
@@ -154,7 +169,8 @@ class Main extends React.Component {
                   contacts={this.state.contacts}
                   loaded={this.state.loaded}
                   search={this.props.location.search}
-                  loadingImagePath={this.props.loadingImagePath} />
+                  loadingImagePath={this.props.loadingImagePath}
+                  updateSelected={this.updateSelected.bind(this)} />
       )
     }
   }

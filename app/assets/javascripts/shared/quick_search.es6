@@ -61,7 +61,14 @@ class QuickSearch extends React.Component {
 
   renderResults() {
     if(this.props.results != 0 && this.props.loaded) {
-      if(this.props.quickSearch == '') {
+      if(this.props.selectedCount > 0) {
+        return (
+          <span className="results">
+            { this.props.selectedCount == 1 ? this.props.selectedCount + ' ' + this.singularItemName() + ' sélectionné' : this.props.selectedCount + ' ' + this.singularItemName() + 's sélectionnés' }
+          </span>
+        )
+      }
+      else if(this.props.quickSearch == '') {
         return (
           <span className="results">
             { this.props.results == 1 ? this.props.results + ' ' + this.singularItemName() : this.props.results + ' ' + this.singularItemName() + 's' }
@@ -71,7 +78,7 @@ class QuickSearch extends React.Component {
       else {
         return (
           <span className="results">
-            { this.props.results == 1 ? this.props.results + ' résultat trouvé' : this.props.results + ' résultats trouvés' }
+            { this.props.results == 1 ? this.props.results + ' ' + this.singularItemName() + ' trouvé' : this.props.results + ' ' + this.singularItemName() + 's trouvés' }
           </span>
         )
       }

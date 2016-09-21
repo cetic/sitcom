@@ -48,15 +48,13 @@ class SocialEdit extends React.Component {
     return (
       <div className="social edit">
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-7">
             { this.renderFacebook() }
             { this.renderLinkedin() }
             { this.renderTwitter() }
           </div>
-        </div>
 
-        <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-5">
             { this.renderActions() }
           </div>
         </div>

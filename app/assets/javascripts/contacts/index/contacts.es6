@@ -46,7 +46,8 @@ class Contacts extends React.Component {
       return (
         <Contact key={contact.id}
                  contact={contact}
-                 search={this.props.search} />
+                 search={this.props.search}
+                 updateSelected={this.props.updateSelected} />
       )
     })
   }
