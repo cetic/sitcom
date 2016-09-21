@@ -100,7 +100,6 @@ class Project extends React.Component {
                        projectPath={this.projectPath()}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)}
                        reloadFromBackend={this.reloadFromBackend.bind(this)}
-                       reloadIndexFromBackend={this.props.reloadIndexFromBackend}
                        reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
         )
       }
@@ -112,7 +111,8 @@ class Project extends React.Component {
                        projectPath={this.projectPath()}
                        router={this.props.router}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)}
-                       reloadFromBackend={this.reloadFromBackend.bind(this)} />
+                       reloadFromBackend={this.reloadFromBackend.bind(this)}
+                       reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
         )
       }
     }

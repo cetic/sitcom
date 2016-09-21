@@ -45,6 +45,8 @@ class GeneralShow extends React.Component {
               { this.props.event.name }
             </h1>
 
+            { this.renderWebsite() }
+
             <div className="dates">
               <EventDate event={this.props.event} />
             </div>
@@ -62,6 +64,19 @@ class GeneralShow extends React.Component {
         { this.renderButtons() }
       </div>
     )
+  }
+
+  renderWebsite() {
+    if(this.props.event.websiteUrl != '') {
+      return (
+        <div className="website">
+          <a href={this.props.event.websiteUrl}
+             target="_blank">
+            { this.props.event.websiteUrl }
+          </a>
+        </div>
+      )
+    }
   }
 
   renderButtons() {
