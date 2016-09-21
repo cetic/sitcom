@@ -14,8 +14,11 @@ class GeneralShow extends React.Component {
     if(confirm("Supprimer cet évènement ?")) {
       http.delete(this.props.eventPath, {}, (data) => {
         if(data.success) {
-          this.props.router.replace('events')
-          setTimeout(this.props.reloadIndexFromBackend, 1500)
+          this.props.router.replace('events' + this.props.search)
+
+          setTimeout(() => {
+            this.props.reloadIndexFromBackend(0, false)
+          }, 1500)
         }
       })
     }

@@ -13,8 +13,11 @@ class GeneralShow extends React.Component {
     if(confirm("Supprimer ce contact ?")) {
       http.delete(this.props.contactPath, {}, (data) => {
         if(data.success) {
-          this.props.router.replace('contacts')
-          setTimeout(this.props.reloadIndexFromBackend, 1500)
+          this.props.router.replace('contacts' + this.props.search)
+
+          setTimeout(() => {
+            this.props.reloadIndexFromBackend(0, false)
+          }, 1500)
         }
       })
     }

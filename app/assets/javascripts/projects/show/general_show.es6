@@ -14,8 +14,11 @@ class GeneralShow extends React.Component {
     if(confirm("Supprimer ce projet ?")) {
       http.delete(this.props.projectPath, {}, (data) => {
         if(data.success) {
-          this.props.router.replace('projects')
-          setTimeout(this.props.reloadIndexFromBackend, 1500)
+          this.props.router.replace('projects' + this.props.search)
+
+          setTimeout(() => {
+            this.props.reloadIndexFromBackend(0, false)
+          }, 1500)
         }
       })
     }

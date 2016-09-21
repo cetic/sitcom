@@ -47,8 +47,10 @@ class Main extends React.Component {
     }
   }
 
-  reloadFromBackend(offset = 0) {
-    this.setState({ loaded: false })
+  reloadFromBackend(offset = 0, spinner = true) {
+    if(spinner) {
+      this.setState({ loaded: false })
+    }
 
     var params = _.assign({}, this.getFilters(), {
       offset: offset
