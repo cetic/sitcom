@@ -83,6 +83,7 @@ GEM
       mime-types (>= 1.16)
       mimemagic (>= 0.3.0)
     coffee-script-source (1.10.0)
+    color-generator (0.0.4)
     concurrent-ruby (1.0.2)
     connection_pool (2.2.0)
     devise (4.2.0)
@@ -259,6 +260,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rbenv
   carrierwave
+  color-generator
   devise
   dotenv-rails
   elasticsearch-model

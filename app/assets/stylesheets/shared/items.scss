@@ -2,6 +2,7 @@
   margin-top: 32px;
   padding-left: 80px;
   padding-right: 80px;
+  overflow:none;
 
   .loading {
     text-align: center;
@@ -126,6 +127,8 @@
         list-style-type: none;
         padding-left: 0px;
         margin-top: -4px;
+        overflow: hidden;
+        height: 22px;
 
         .field {
           float: left;

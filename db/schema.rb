@@ -48,6 +48,15 @@ ActiveRecord::Schema.define(version: 20160921111134) do
     t.index ["project_id"], name: "index_contact_project_links_on_project_id", using: :btree
   end
 
+  create_table "contact_tag_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "contact_id"
+    t.integer  "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_contact_tag_links_on_contact_id", using: :btree
+    t.index ["tag_id"], name: "index_contact_tag_links_on_tag_id", using: :btree
+  end
+
   create_table "contacts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "lab_id"
     t.string   "last_name",        default: ""
@@ -158,6 +167,15 @@ ActiveRecord::Schema.define(version: 20160921111134) do
     t.datetime "updated_at",               null: false
     t.index ["lab_id"], name: "index_saved_searches_on_lab_id", using: :btree
     t.index ["user_id"], name: "index_saved_searches_on_user_id", using: :btree
+  end
+
+  create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "lab_id"
+    t.string   "name"
+    t.string   "color"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lab_id"], name: "index_tags_on_lab_id", using: :btree
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
