@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160909085725) do
+ActiveRecord::Schema.define(version: 20160921111134) do
 
   create_table "contact_event_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "contact_id"
@@ -149,6 +149,17 @@ ActiveRecord::Schema.define(version: 20160909085725) do
     t.index ["lab_id"], name: "index_projects_on_lab_id", using: :btree
   end
 
+  create_table "saved_searches", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "lab_id"
+    t.integer  "user_id"
+    t.string   "name"
+    t.text     "search",     limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["lab_id"], name: "index_saved_searches_on_lab_id", using: :btree
+    t.index ["user_id"], name: "index_saved_searches_on_user_id", using: :btree
+  end
+
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "name"
     t.boolean  "admin",                  default: false
@@ -184,4 +195,6 @@ ActiveRecord::Schema.define(version: 20160909085725) do
   add_foreign_key "notes", "users"
   add_foreign_key "organizations", "labs"
   add_foreign_key "projects", "labs"
+  add_foreign_key "saved_searches", "labs"
+  add_foreign_key "saved_searches", "users"
 end
