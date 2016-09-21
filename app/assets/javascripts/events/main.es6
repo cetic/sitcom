@@ -47,18 +47,14 @@ class Main extends React.Component {
     }
   }
 
-  reloadFromBackend(offset = 0, spinner = true) {
+  reloadFromBackend(spinner = true) {
     if(spinner) {
       this.setState({ loaded: false })
     }
 
-    var params = _.assign({}, this.getFilters(), {
-      offset: offset
-    });
-
-    http.get(this.props.eventsPath, params, (data) => {
+    http.get(this.props.eventsPath, this.getFilters(), (data) => {
       this.setState({
-        events: offset == 0 ? data.events : this.state.events.concat(data.events),
+        events: data.events,
         loaded: true,
       });
     });

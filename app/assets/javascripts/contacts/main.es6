@@ -52,18 +52,14 @@ class Main extends React.Component {
     }
   }
 
-  reloadFromBackend(offset = 0, spinner = true) {
+  reloadFromBackend(spinner = true) {
     if(spinner) {
       this.setState({ loaded: false })
     }
 
-    var params = _.assign({}, this.getFilters(), {
-      offset: offset
-    })
-
-    http.get(this.props.contactsPath, params, (data) => {
+    http.get(this.props.contactsPath, this.getFilters(), (data) => {
       this.setState({
-        contacts: offset == 0 ? data.contacts : this.state.contacts.concat(data.contacts),
+        contacts: data.contacts,
         loaded:   true,
       })
     })

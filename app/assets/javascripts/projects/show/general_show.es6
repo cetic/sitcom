@@ -17,7 +17,7 @@ class GeneralShow extends React.Component {
           this.props.router.replace('projects' + this.props.search)
 
           setTimeout(() => {
-            this.props.reloadIndexFromBackend(0, false)
+            this.props.reloadIndexFromBackend(false)
           }, 1500)
         }
       })

@@ -46,18 +46,14 @@ class Main extends React.Component {
     }
   }
 
-  reloadFromBackend(offset = 0, spinner = true) {
+  reloadFromBackend(spinner = true) {
     if(spinner) {
       this.setState({ loaded: false })
     }
 
-    var params = _.assign({}, this.getFilters(), {
-      offset: offset
-    })
-
-    http.get(this.props.projectsPath, params, (data) => {
+    http.get(this.props.projectsPath, this.getFilters(), (data) => {
       this.setState({
-        projects: offset == 0 ? data.projects : this.state.projects.concat(data.projects),
+        projects: data.projects,
         loaded:   true,
       })
     })
