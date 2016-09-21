@@ -1,4 +1,5 @@
-import Select from 'react-select'
+import Select         from 'react-select'
+import NewSavedSearch from './saved_searches/new_saved_search.es6'
 
 class SavedSearches extends React.Component {
 
@@ -109,6 +110,11 @@ class SavedSearches extends React.Component {
         {this.renderSelect()}
         {this.renderCreateButton()}
         {this.renderDestroyButton()}
+
+        <NewSavedSearch reloadFromBackend={this.reloadFromBackend.bind(this)}
+                        savedSearchesPath={this.props.savedSearchesPath}
+                        modalClassName="new-saved-search-modal"
+                        modalTitle="Enregistrer la recherche courante" />
       </div>
     )
   }
