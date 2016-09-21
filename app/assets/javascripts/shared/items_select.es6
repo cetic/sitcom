@@ -78,7 +78,7 @@ class ItemsSelect extends React.Component {
       return ( <div><strong>{option.label}</strong></div> )
     }
     else {
-      return ( <div>{option.label}</div> )
+      return ( <div>&nbsp;&nbsp;&nbsp;{option.label}</div> )
     }
   }
 }
