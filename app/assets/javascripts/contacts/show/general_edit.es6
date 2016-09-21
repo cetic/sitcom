@@ -15,6 +15,7 @@ class GeneralEdit extends React.Component {
       phone:           this.props.contact.phone,
       email:           this.props.contact.email,
       fieldIds:        this.props.contact.fieldIds,
+      tagIds:          this.props.contact.tagIds,
       errors:          ''
     }
   }
@@ -31,7 +32,8 @@ class GeneralEdit extends React.Component {
         addressCountry:  this.state.addressCountry,
         phone:           this.state.phone,
         email:           this.state.email,
-        fieldIds:        this.state.fieldIds
+        fieldIds:        this.state.fieldIds,
+        tagIds:          this.state.tagIds
       }
     }
 
@@ -108,6 +110,12 @@ class GeneralEdit extends React.Component {
     })
   }
 
+  updateTagIds(value) {
+    this.setState({
+      tagIds: value.split(',')
+    })
+  }
+
   render() {
     return (
       <div className="general edit">
@@ -122,6 +130,7 @@ class GeneralEdit extends React.Component {
 
           <div className="col-md-3">
             { this.renderPicture() }
+            { this.renderActive() }
           </div>
           <div className="col-md-9">
             <h1>
@@ -129,8 +138,8 @@ class GeneralEdit extends React.Component {
             </h1>
             <div className="fields">
               { this.renderFields() }
+              { this.renderTags() }
             </div>
-            { this.renderActive() }
           </div>
         </div>
 
@@ -197,9 +206,18 @@ class GeneralEdit extends React.Component {
   renderFields() {
     return (
       <ItemsSelect itemIds={this.state.fieldIds.join(',')}
-                    optionsPath={this.props.fieldOptionsPath}
-                    updateValue={this.updateFieldIds.bind(this)}
-                    label="Domaines d'expertise" />
+                   optionsPath={this.props.fieldOptionsPath}
+                   updateValue={this.updateFieldIds.bind(this)}
+                   label="Domaines d'expertise" />
+    )
+  }
+
+  renderTags() {
+    return (
+      <ItemsSelect itemIds={this.state.tagIds.join(',')}
+                   optionsPath={this.props.tagOptionsPath}
+                   updateValue={this.updateTagIds.bind(this)}
+                   label="Groupes" />
     )
   }
 

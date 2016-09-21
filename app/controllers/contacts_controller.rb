@@ -67,6 +67,8 @@ class ContactsController < ApplicationController
           @contact = @lab.contacts.find(params[:id])
 
           if @contact.update_attributes(strong_params)
+            cleanup_orphan_tags
+
             render_json_success
           else
             render_json_errors(@contact)
@@ -85,6 +87,8 @@ class ContactsController < ApplicationController
           @contact = @lab.contacts.find(params[:id])
 
           if @contact.destroy
+            cleanup_orphan_tags
+
             render_json_success
           else
             render_json_errors(@contact)
@@ -128,14 +132,19 @@ class ContactsController < ApplicationController
       :twitter_url, :linkedin_url, :facebook_url,
       :picture,
       :organization_ids => [],
-      :field_ids        => [],
+      :project_ids      => [],
       :event_ids        => [],
-      :project_ids      => []
+      :field_ids        => [],
+      :tag_ids          => []
     )
   end
 
   def find_lab
     @lab = current_user.labs.find_by_slug!(params[:lab_id])
     save_lab_in_cookies(@lab)
+  end
+
+  def cleanup_orphan_tags
+    ContactTagService.cleanup_orphan_tags(@lab)
   end
 end

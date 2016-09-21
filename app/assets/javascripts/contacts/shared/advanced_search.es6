@@ -165,7 +165,7 @@ class AdvancedSearch extends React.Component {
       <ItemsSelect itemIds={this.props.filters.tagIds}
                    optionsPath={this.props.tagOptionsPath}
                    updateValue={this.updateTagIds.bind(this)}
-                   label="Tags" />
+                   label="Groupes" />
     )
   }
 

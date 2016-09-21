@@ -44,10 +44,14 @@
     }
 
     .img-thumbnail {
-        border-radius: 0px;
-        padding: 0px;
-        width: 100%;
-      }
+      border-radius: 0px;
+      padding: 0px;
+      width: 100%;
+    }
+
+    .active {
+      text-align: center;
+    }
 
     .custom-dropzone {
       position: relative;
