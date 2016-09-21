@@ -13,6 +13,8 @@ class User < ApplicationRecord
   has_many :labs,           :through   => :lab_user_links
   has_many :notes,          :dependent => :nullify
 
+  has_many :saved_searches, :dependent => :destroy
+
   # Validations
 
   validates :name, :presence => { :message => "Le nom est obligatoire." }

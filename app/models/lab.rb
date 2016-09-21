@@ -10,6 +10,8 @@ class Lab < ApplicationRecord
   has_many :projects,      :dependent => :destroy
   has_many :events,        :dependent => :destroy
 
+  has_many :saved_searches, :dependent => :destroy
+
   # Validations
 
   validates :name, :presence   => { :message => "Le nom est obligatoire."  },
