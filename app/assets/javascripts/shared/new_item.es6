@@ -44,7 +44,7 @@ class NewItem extends React.Component {
           this.setState({
             fieldValue: '',
           })
-          setTimeout(this.props.reloadFromBackend, 1500)
+          setTimeout(this.props.reloadFromBackend, window.backendRefreshDelay)
         }
       })
     }

@@ -9,16 +9,30 @@ class Contact extends React.Component {
     }
   }
 
-  // componentWillReceiveProps(newProps) {
-  //   if(newProps.props.contact.selected != this.props.contact.selected) {
-  //     this.setState(selected: newProps.props.contact.selected)
-  //   }
-  // }
+  componentWillReceiveProps(newProps) {
+    if(newProps.contact.selected != this.props.contact.selected) {
+      this.setState({ selected: newProps.contact.selected })
+    }
+  }
 
   toggleSelected() {
     this.setState({ selected: !this.state.selected }, () => {
       this.props.updateSelected(this.props.contact, this.state.selected) // propagate to list
     })
+  }
+
+  tagsPath() {
+    return this.props.tagOptionsPath.slice(0, -8); // remove '/options'
+  }
+
+  removeTag(tag) {
+    if(confirm('Voulez-vous vraiment supprimer le tag ' + tag.name + ' ?')) {
+      http.delete(this.tagsPath() + '/' + tag.id, {
+        contact_id: this.props.contact.id
+      }, (data) => {
+        setTimeout(() => this.props.reloadIndexFromBackend(false), window.backendRefreshDelay)
+      })
+    }
   }
 
   render() {
@@ -105,17 +119,18 @@ class Contact extends React.Component {
   }
 
   renderTagsContainer() {
-    if(this.props.contact.fields.length)
-      return (
-        <ul className="tags">
-          { this.renderFields() }
-          { this.renderTags() }
-        </ul>
-      )
+    return (
+      <ul className="tags">
+        { this.renderFields() }
+        { this.renderTags() }
+      </ul>
+    )
   }
 
   renderFields() {
-    return _.map(this.props.contact.fields, (field) => {
+    var sortedFields = _.sortBy(this.props.contact.fields, 'name')
+
+    return _.map(sortedFields, (field) => {
       return (
         <li className="field label label-default"
             key={ field.id }>
@@ -126,11 +141,16 @@ class Contact extends React.Component {
   }
 
   renderTags() {
-    return _.map(this.props.contact.tags, (tag) => {
+    // reverse because css float right
+    var sortedTags = _.reverse(_.sortBy(this.props.contact.tags, 'name'))
+
+    return _.map(sortedTags, (tag) => {
       return (
         <li className="tag label label-default"
             key={ tag.id }
             style={{ backgroundColor: tag.color }}>
+          <i className="fa fa-times"
+             onClick={ this.removeTag.bind(this, tag) }></i>
           { tag.name }
         </li>
       )

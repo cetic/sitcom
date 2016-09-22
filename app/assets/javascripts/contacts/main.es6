@@ -128,8 +128,11 @@ class Main extends React.Component {
                            loaded={this.state.loaded}
                            results={this.state.contacts.length}
                            selectedCount={this.state.selectedCount}
+                           contacts={this.state.contacts}
+                           tagOptionsPath={this.props.tagOptionsPath}
                            quickSearch={filters.quickSearch}
                            updateQuickSearch={this.updateQuickSearch.bind(this)}
+                           reloadIndexFromBackend={this.reloadFromBackend.bind(this)}
                            filters={filters}
                            exportUrl={this.props.contactsPath + '/export'} />
 
@@ -169,8 +172,10 @@ class Main extends React.Component {
                   contacts={this.state.contacts}
                   loaded={this.state.loaded}
                   search={this.props.location.search}
+                  tagOptionsPath={this.props.tagOptionsPath}
                   loadingImagePath={this.props.loadingImagePath}
-                  updateSelected={this.updateSelected.bind(this)} />
+                  updateSelected={this.updateSelected.bind(this)}
+                  reloadIndexFromBackend={this.reloadFromBackend.bind(this)} />
       )
     }
   }

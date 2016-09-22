@@ -106,9 +106,13 @@ class ContactsController < ApplicationController
 
   def export
     if PermissionsService.new(current_user, @lab).can_read?('contacts')
-      contacts = ContactSearch.new(current_user, params.merge({
-        :lab_id => @lab.id
-      })).run
+      if params[:ids]
+        contacts = Contact.where(:id => params[:ids].split(','))
+      else
+        contacts = ContactSearch.new(current_user, params.merge({
+          :lab_id => @lab.id
+        })).run
+      end
 
       render_csv(ContactExport.new(contacts).csv_data, 'contacts.csv')
     else

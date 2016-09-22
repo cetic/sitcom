@@ -47,7 +47,7 @@ class OrganizationsBlock extends React.Component {
 
     http.put(this.props.parentPath, params, () => {
       this.props.reloadFromBackend(() => {
-        setTimeout(this.props.reloadIndexFromBackend, 1500)
+        setTimeout(this.props.reloadIndexFromBackend, window.backendRefreshDelay)
       })
     })
   }

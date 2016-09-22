@@ -168,11 +168,11 @@ namespace :app do
 
     Lab.all.each do |lab|
       ['contact', 'organization', 'project', 'event'].each do |item_type|
-        5.times do |i|
+        ['ala', 'anne', 'aur', 'dup', 'ray'].each_with_index do |search, i|
           lab.saved_searches.create!(
             :item_type => item_type,
             :name      => "Recheche sauvée #{i + 1}",
-            :search    => "?quickSearch=ala"
+            :search    => "?quickSearch=#{search}"
           )
         end
       end

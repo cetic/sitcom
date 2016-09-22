@@ -44,7 +44,7 @@ class GeneralEdit extends React.Component {
       else {
         this.props.reloadFromBackend(() => {
           this.props.toggleEditMode()
-          setTimeout(this.props.reloadIndexFromBackend, 1500)
+          setTimeout(this.props.reloadIndexFromBackend, window.backendRefreshDelay)
         })
       }
     })

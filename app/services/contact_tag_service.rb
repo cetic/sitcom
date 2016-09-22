@@ -26,6 +26,9 @@ class ContactTagService
       :tag_id     => tag.id
     ).first_or_create!
 
+    # reindex contact
+    @contact.__elasticsearch__.index_document
+
     tag
   end
 
@@ -38,6 +41,9 @@ class ContactTagService
 
     # Remove tag if it's the last one
     tag.destroy! if tag.contact_tag_links.empty?
+
+    # reindex contact
+    @contact.__elasticsearch__.index_document
   end
 
   def self.cleanup_orphan_tags(lab)

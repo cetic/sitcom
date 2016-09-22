@@ -47,7 +47,7 @@ class ItemsBlock extends React.Component {
 
     http.put(this.props.contactPath, params, () => {
       this.props.reloadFromBackend(() => {
-        setTimeout(this.props.reloadIndexFromBackend, 1500)
+        setTimeout(this.props.reloadIndexFromBackend, window.backendRefreshDelay)
       })
     })
   }

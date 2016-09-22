@@ -53,7 +53,7 @@ class NewContact extends React.Component {
             firstName: '',
             lastName:  ''
           })
-          setTimeout(this.props.reloadFromBackend, 1500)
+          setTimeout(this.props.reloadFromBackend, window.backendRefreshDelay)
         }
       })
     }

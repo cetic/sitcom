@@ -17,7 +17,7 @@ class GeneralShow extends React.Component {
 
           setTimeout(() => {
             this.props.reloadIndexFromBackend(false)
-          }, 1500)
+          }, window.backendRefreshDelay)
         }
       })
     }
@@ -25,8 +25,10 @@ class GeneralShow extends React.Component {
 
   reloadFromBackend() {
     this.props.reloadFromBackend()
-    setTimeout(this.props.reloadIndexFromBackend, 1500)
-  }
+
+    setTimeout(() => {
+      this.props.reloadIndexFromBackend(false)
+    }, window.backendRefreshDelay)  }
 
   render() {
     return (
@@ -51,6 +53,9 @@ class GeneralShow extends React.Component {
 
             <ul className="tags">
               { this.renderFields() }
+            </ul>
+
+            <ul className="tags">
               { this.renderTags() }
             </ul>
           </div>

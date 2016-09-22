@@ -58,4 +58,99 @@
     left: 483px;
     opacity: 0.9;
   }
+
+  .tags {
+    position: absolute;
+    font-size: 11px;
+    top: 9px;
+    color: whitesmoke;
+    background-color: #0144a4;
+    border: 1px solid #1976d2;
+    left: 631px;
+    padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: pointer;
+    @include user-select(none);
+
+    > span > .fa {
+      margin-left: 5px;
+      vertical-align: -1px;
+      font-size: 13px;
+    }
+
+    ul.tags-menu {
+      position: absolute;
+      left: 0px;
+      top: 23px;
+      background-color: white;
+      width: 196px;
+      padding-left: 0px;
+      list-style-type: none;
+      z-index: 2;
+      border: 1px solid #dddddd;
+      border-radius: 3px;
+      -webkit-box-shadow: 0 0px 12px rgba(0,0,0,0.15);
+      -moz-box-shadow: 0 0px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 0px 12px rgba(0,0,0,0.15);
+
+      li {
+        padding: 0px;
+        border-bottom: 0px;
+      }
+
+      li.tag-item {
+        width: 100%;
+        padding: 8px;
+        border-bottom: 1px solid #dddddd;
+        font-size: 12px;
+        cursor: pointer;
+
+        .fa-check {
+          display: block;
+          visibility: hidden;
+          float: right;
+          margin-right: 5px;
+          margin-top: 2px;
+        }
+
+        .color {
+          display: block;
+          float: left;
+          vertical-align: middle;
+          border-radius: 3px;
+          width: 14px;
+          height: 14px;
+          margin-right: 7px;
+          margin-left: 3px;
+          margin-top: 1px;
+        }
+      }
+
+      li.tag-item:hover {
+        .fa-check {
+          visibility: visible;
+        }
+      }
+
+      li.tag-item:not(:hover) {
+        background-color: white !important;
+      }
+
+      li:last-child input {
+        font-size: 12px;
+        border: 0px;
+        width: 100%;
+        height: 28px;
+        padding: 8px;
+        margin: 0px;
+        outline: none;
+        color: #404040;
+      }
+    }
+  }
+
+  .tags:hover {
+    background-color: #1976d2;
+  }
 }

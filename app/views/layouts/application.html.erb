@@ -57,7 +57,8 @@
     <%# render 'shared/footer' %>
 
     <script>
-      window.infiniteScrollStep = <%= BaseSearch::STEP %>
+      window.infiniteScrollStep  = <%= BaseSearch::STEP %>
+      window.backendRefreshDelay = 1000
     </script>
 
     <%= javascript_include_tag 'application' %>
