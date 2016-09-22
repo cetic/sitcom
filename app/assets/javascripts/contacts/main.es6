@@ -112,7 +112,7 @@ class Main extends React.Component {
               <SavedSearches router={this.props.router}
                              search={this.props.location.search}
                              itemType="contact"
-                             savedSearchesPath={this.props.contactsPath + '/saved_searches'} />
+                             savedSearchesPath={`${this.props.contactsPath}/saved_searches`} />
 
               <AdvancedSearch filters={filters}
                               updateFilters={this.updateFilters.bind(this)}

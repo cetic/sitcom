@@ -5,6 +5,7 @@ import QuickSearch      from '../shared/quick_search.es6'
 import AdvancedSearch   from './shared/advanced_search.es6'
 import ParamsService    from '../shared/params_service.es6'
 import PermissionDenied from '../shared/permission_denied.es6'
+import SavedSearches    from '../shared/saved_searches.es6'
 
 class Main extends React.Component {
   constructor(props) {
@@ -88,6 +89,11 @@ class Main extends React.Component {
         <div className="container-fluid container-event">
           <div className="row">
             <div className="col-md-4 pull-right complete-search">
+              <SavedSearches router={this.props.router}
+                             search={this.props.location.search}
+                             itemType="event"
+                             savedSearchesPath={`${this.props.eventsPath}/saved_searches`} />
+
               <AdvancedSearch filters={filters}
                               contactOptionsPath={this.props.contactOptionsPath}
                               updateFilters={this.updateFilters.bind(this)} />
