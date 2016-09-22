@@ -66,13 +66,19 @@ class ItemsSelect extends React.Component {
     if(this.state.options.length) {
       return (
         <div>
-          <label>{this.props.label}</label>
-          {this.renderSelect()}
+          { this.renderLabel() }
+          { this.renderSelect() }
         </div>
       )
     }
     else {
       return null
+    }
+  }
+
+  renderLabel() {
+    if(this.props.label) {
+      return (<label>{this.props.label}</label>)
     }
   }
 

@@ -133,10 +133,11 @@ class SavedSearches extends React.Component {
   renderListMode() {
     if(!this.state.formMode) {
       return (
-        <div>
+        <div className="list-mode">
           {this.renderSelect()}
           {this.renderCreateButton()}
           {this.renderDestroyButton()}
+          <div style={{ clear: 'both' }}></div>
         </div>
       )
     }
@@ -161,7 +162,7 @@ class SavedSearches extends React.Component {
         <Select multi={false}
                 options={options}
                 value={value}
-                placeholder="Recherches sauvegardées"
+                placeholder="Recherches enregistrées"
                 onChange={this.updateSelectedId.bind(this)} />
       )
     }

@@ -158,11 +158,12 @@ class Contact extends React.Component {
       return (
         <li className="tag label label-default"
             key={tag.id}
-            style={{ backgroundColor: tag.color, cursor: 'pointer' }}
-            onClick={this.pushTagIdsFilter.bind(this, tag)}>
+            style={{ backgroundColor: tag.color, cursor: 'pointer' }}>
           <i className="fa fa-times"
              onClick={this.removeTag.bind(this, tag)}></i>
-          { tag.name }
+          <span onClick={this.pushTagIdsFilter.bind(this, tag)}>
+            { tag.name }
+          </span>
         </li>
       )
     })

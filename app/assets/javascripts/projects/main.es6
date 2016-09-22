@@ -87,7 +87,7 @@ class Main extends React.Component {
       return (
         <div className="container-fluid container-project">
           <div className="row">
-            <div className="col-md-4 pull-right complete-search">
+            <div className="col-md-4 pull-right right-sidebar">
               <SavedSearches router={this.props.router}
                              search={this.props.location.search}
                              itemType="project"

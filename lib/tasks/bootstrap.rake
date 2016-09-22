@@ -171,7 +171,7 @@ namespace :app do
         ['ala', 'anne', 'aur', 'dup', 'ray'].each_with_index do |search, i|
           lab.saved_searches.create!(
             :item_type => item_type,
-            :name      => "Recherche sauvegardée #{i + 1}",
+            :name      => "Recherche enregistrée #{i + 1}",
             :search    => "?quickSearch=#{search}"
           )
         end

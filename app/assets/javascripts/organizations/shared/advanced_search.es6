@@ -24,9 +24,6 @@ class AdvancedSearch extends React.Component {
   render() {
     return (
       <div>
-        <h3>Recherche avancée</h3>
-        <h4>Général</h4>
-
         {this.renderNameFilter()}
         {this.renderStatusFilter()}
         {this.renderDescriptionFilter()}
