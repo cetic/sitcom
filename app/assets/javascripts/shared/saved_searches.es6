@@ -110,8 +110,7 @@ class SavedSearches extends React.Component {
 
   render() {
     return (
-      <div>
-        <h4>Recherches sauvées</h4>
+      <div className="saved-search">
         {this.renderFormMode()}
         {this.renderListMode()}
       </div>
@@ -148,7 +147,7 @@ class SavedSearches extends React.Component {
       var options = _.map(this.state.savedSearches, (savedSearch) => {
         return {
           value: savedSearch.id,
-          label: savedSearch.name
+          label: savedSearch.name + (savedSearch.isPublic ? ' (publique)' : ' (privée)')
         }
       })
 
@@ -162,7 +161,7 @@ class SavedSearches extends React.Component {
         <Select multi={false}
                 options={options}
                 value={value}
-                placeholder="Recherches sauvées"
+                placeholder="Recherches sauvegardées"
                 onChange={this.updateSelectedId.bind(this)} />
       )
     }
@@ -172,7 +171,7 @@ class SavedSearches extends React.Component {
     if(!this.hasSelected()) {
       return (
         <a href="javascript:;"
-           className="btn btn-default btn-primary btn-success"
+           className="btn btn-primary"
            onClick={this.setFormMode.bind(this)}>Enregistrer</a>
       )
     }

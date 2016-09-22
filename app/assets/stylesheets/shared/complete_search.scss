@@ -12,4 +12,20 @@
     font-size: 14px;
     margin-top: 14px;
   }
+
+  .saved-search {
+    padding-top: 3px;
+
+    .Select {
+      width: 60%;
+      float: left;
+    }
+
+    .btn {
+      font-size: 13px;
+      line-height: 36px;
+      padding: 0 10px;
+      margin-left: 8px;
+    }
+  }
 }
