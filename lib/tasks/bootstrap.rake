@@ -158,7 +158,7 @@ namespace :app do
 
     puts "Bootstrapping tags"
 
-    tags = ['group1', 'group2', 'group3', 'group4', 'group5']
+    tags = ['groupe 1', 'groupe 2', 'groupe 3', 'groupe 4', 'groupe 5']
 
     100.times do
       ContactTagService.new(Contact.all.to_a.sample).add_tag(tags.sample)

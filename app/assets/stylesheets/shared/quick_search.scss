@@ -67,16 +67,20 @@
     background-color: #0144a4;
     border: 1px solid #1976d2;
     left: 631px;
-    padding: 3px;
-    padding-left: 5px;
-    padding-right: 5px;
-    cursor: pointer;
     @include user-select(none);
 
-    > span > .fa {
-      margin-left: 5px;
-      vertical-align: -1px;
-      font-size: 13px;
+    > span {
+      display: block;
+      padding: 3px;
+      padding-left: 5px;
+      padding-right: 5px;
+      cursor: pointer;
+
+      .fa {
+        margin-left: 5px;
+        vertical-align: -1px;
+        font-size: 13px;
+      }
     }
 
     ul.tags-menu {

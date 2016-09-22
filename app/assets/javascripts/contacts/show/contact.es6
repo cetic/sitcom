@@ -112,7 +112,6 @@ class Contact extends React.Component {
                        search={this.props.search}
                        contactPath={this.contactPath()}
                        fieldOptionsPath={this.props.fieldOptionsPath}
-                       tagOptionsPath={this.props.tagOptionsPath}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)}
                        reloadFromBackend={this.reloadFromBackend.bind(this)}
                        reloadIndexFromBackend={this.props.reloadIndexFromBackend}  />
@@ -124,6 +123,7 @@ class Contact extends React.Component {
                        permissions={this.props.permissions}
                        search={this.props.search}
                        contactPath={this.contactPath()}
+                       tagOptionsPath={this.props.tagOptionsPath}
                        router={this.props.router}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)}
                        reloadFromBackend={this.reloadFromBackend.bind(this)}

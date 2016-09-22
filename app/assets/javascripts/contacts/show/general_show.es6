@@ -28,7 +28,22 @@ class GeneralShow extends React.Component {
 
     setTimeout(() => {
       this.props.reloadIndexFromBackend(false)
-    }, window.backendRefreshDelay)  }
+    }, window.backendRefreshDelay)
+  }
+
+  tagsPath() {
+    return this.props.tagOptionsPath.slice(0, -8); // remove '/options'
+  }
+
+  removeTag(tag) {
+    if(confirm('Voulez-vous vraiment supprimer le tag ' + tag.name + ' ?')) {
+      http.delete(this.tagsPath() + '/' + tag.id, {
+        contact_id: this.props.contact.id
+      }, (data) => {
+        this.reloadFromBackend()
+      })
+    }
+  }
 
   render() {
     return (
@@ -135,7 +150,9 @@ class GeneralShow extends React.Component {
   }
 
   renderFields() {
-    return _.map(this.props.contact.fields, (field) => {
+    var sortedFields = _.sortBy(this.props.contact.fields, 'name')
+
+    return _.map(sortedFields, (field) => {
       return (
         <li className="field label label-default"
             key={ field.id }>
@@ -146,11 +163,15 @@ class GeneralShow extends React.Component {
   }
 
   renderTags() {
-    return _.map(this.props.contact.tags, (tag) => {
+    var sortedTags = _.sortBy(this.props.contact.tags, 'name')
+
+    return _.map(sortedTags, (tag) => {
       return (
         <li className="tag label label-default"
             key={ tag.id }
             style={{ backgroundColor: tag.color }}>
+          <i className="fa fa-times"
+             onClick={ this.removeTag.bind(this, tag) }></i>
           { tag.name }
         </li>
       )
