@@ -14,11 +14,21 @@ class ItemsSelect extends React.Component {
     this.reloadOptionsFromBackend()
   }
 
-  reloadOptionsFromBackend() {
+  componentWillReceiveProps(newProps) {
+    if(newProps.itemIds != this.props.itemIds) {
+      this.reloadOptionsFromBackend(() => {
+        this.setState({
+          itemIds: newProps.itemIds || ''
+        })
+      })
+    }
+  }
+
+  reloadOptionsFromBackend(callback) {
     http.get(this.props.optionsPath, {}, (data) => {
       this.setState({
         options: data
-      })
+      }, callback)
     })
   }
 

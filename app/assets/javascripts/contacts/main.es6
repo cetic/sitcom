@@ -85,6 +85,27 @@ class Main extends React.Component {
     this.updateUrl(newFilters)
   }
 
+  pushIdsListFilter(field, newId) {
+    var filters = this.getFilters()
+    var newIds
+
+    if(filters[field] == undefined) {
+      newIds = [newId]
+    }
+    else {
+      newIds = _.map(filters[field].split(','), (id) => {
+        return parseInt(id)
+      })
+
+      newIds = _.concat(newIds, newId)
+    }
+
+    var newFilters    = {}
+    newFilters[field] = _.uniq(newIds).join(',')
+
+    this.updateFilters(newFilters)
+  }
+
   openNewContactModal() {
     $('.new-contact-modal').modal('show')
   }
@@ -175,6 +196,8 @@ class Main extends React.Component {
                   tagOptionsPath={this.props.tagOptionsPath}
                   loadingImagePath={this.props.loadingImagePath}
                   updateSelected={this.updateSelected.bind(this)}
+                  pushTagIdsFilter={this.pushIdsListFilter.bind(this, 'tagIds')}
+                  pushFieldIdsFilter={this.pushIdsListFilter.bind(this, 'fieldIds')}
                   reloadIndexFromBackend={this.reloadFromBackend.bind(this)} />
       )
     }

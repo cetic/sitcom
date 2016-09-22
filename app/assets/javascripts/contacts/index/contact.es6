@@ -22,7 +22,7 @@ class Contact extends React.Component {
   }
 
   tagsPath() {
-    return this.props.tagOptionsPath.slice(0, -8); // remove '/options'
+    return this.props.tagOptionsPath.slice(0, -8) // remove '/options'
   }
 
   removeTag(tag) {
@@ -33,6 +33,14 @@ class Contact extends React.Component {
         setTimeout(() => this.props.reloadIndexFromBackend(false), window.backendRefreshDelay)
       })
     }
+  }
+
+  pushTagIdsFilter(tag) {
+    this.props.pushTagIdsFilter(tag.id)
+  }
+
+  pushFieldIdsFilter(field) {
+    this.props.pushFieldIdsFilter(field.id)
   }
 
   render() {
@@ -133,7 +141,9 @@ class Contact extends React.Component {
     return _.map(sortedFields, (field) => {
       return (
         <li className="field label label-default"
-            key={ field.id }>
+            key={field.id}
+            style={{ cursor: 'pointer' }}
+            onClick={this.pushFieldIdsFilter.bind(this, field)}>
           { field.name }
         </li>
       )
@@ -147,10 +157,11 @@ class Contact extends React.Component {
     return _.map(sortedTags, (tag) => {
       return (
         <li className="tag label label-default"
-            key={ tag.id }
-            style={{ backgroundColor: tag.color }}>
+            key={tag.id}
+            style={{ backgroundColor: tag.color, cursor: 'pointer' }}
+            onClick={this.pushTagIdsFilter.bind(this, tag)}>
           <i className="fa fa-times"
-             onClick={ this.removeTag.bind(this, tag) }></i>
+             onClick={this.removeTag.bind(this, tag)}></i>
           { tag.name }
         </li>
       )
