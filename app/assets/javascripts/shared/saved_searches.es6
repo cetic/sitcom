@@ -9,7 +9,8 @@ class SavedSearches extends React.Component {
     this.state = {
       savedSearches: [],
       loaded:        false,
-      selectedId:    undefined
+      selectedId:    undefined,
+      formMode:      false
     }
   }
 
@@ -55,6 +56,17 @@ class SavedSearches extends React.Component {
       if(this.hasSelected()) {
         this.applySelected()
       }
+      else {
+        this.resetFilters()
+      }
+    })
+  }
+
+  setSelectedId(id) {
+    this.setState({ selectedId: id }, () => {
+      if(this.hasSelected()) {
+        this.applySelected()
+      }
     })
   }
 
@@ -62,31 +74,24 @@ class SavedSearches extends React.Component {
     const savedSearch = this.selectedSavedSearch()
 
     if(savedSearch.search != undefined) {
-      this.props.router.push(`${this.props.itemType}s` + savedSearch.search)
+      this.props.router.push(`${this.props.itemType}s${savedSearch.search}`)
     }
   }
 
-  create() {
-    const name = prompt("Nom de la recherche")
+  resetFilters() {
+    this.props.router.push(`${this.props.itemType}s`)
+  }
 
-    if(_.trim(name).length) {
-      var params = {
-        savedSearch: {
-          name:   name,
-          search: this.props.search
-        }
-      }
+  setFormMode() {
+    this.setState({
+      formMode: true
+    })
+  }
 
-      http.post(this.props.savedSearchesPath, params, (data) => {
-        if(data.success) {
-          this.reloadFromBackend(() => {
-            this.setState({
-              selectedId: data.savedSearch.id
-            })
-          })
-        }
-      })
-    }
+  unsetFormMode() {
+    this.setState({
+      formMode: false
+    })
   }
 
   destroySelected() {
@@ -107,16 +112,35 @@ class SavedSearches extends React.Component {
     return (
       <div>
         <h4>Recherches sauvées</h4>
-        {this.renderSelect()}
-        {this.renderCreateButton()}
-        {this.renderDestroyButton()}
-
-        <NewSavedSearch reloadFromBackend={this.reloadFromBackend.bind(this)}
-                        savedSearchesPath={this.props.savedSearchesPath}
-                        modalClassName="new-saved-search-modal"
-                        modalTitle="Enregistrer la recherche courante" />
+        {this.renderFormMode()}
+        {this.renderListMode()}
       </div>
     )
+  }
+
+  renderFormMode() {
+    if(this.state.formMode) {
+      return (
+        <NewSavedSearch search={this.props.search}
+                        savedSearchesPath={this.props.savedSearchesPath}
+                        reloadFromBackend={this.reloadFromBackend.bind(this)}
+                        savedSearchesPath={this.props.savedSearchesPath}
+                        unsetFormMode={this.unsetFormMode.bind(this)}
+                        setSelectedId={this.setSelectedId.bind(this)} />
+      )
+    }
+  }
+
+  renderListMode() {
+    if(!this.state.formMode) {
+      return (
+        <div>
+          {this.renderSelect()}
+          {this.renderCreateButton()}
+          {this.renderDestroyButton()}
+        </div>
+      )
+    }
   }
 
   renderSelect() {
@@ -149,7 +173,7 @@ class SavedSearches extends React.Component {
       return (
         <a href="javascript:;"
            className="btn btn-default btn-primary btn-success"
-           onClick={this.create.bind(this)}>Enregistrer</a>
+           onClick={this.setFormMode.bind(this)}>Enregistrer</a>
       )
     }
   }
