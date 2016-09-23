@@ -1,4 +1,5 @@
 import ParamsService from '../params_service.es6'
+import QuickSearch   from '../quick_search.es6'
 
 class BaseMain extends React.Component {
 
@@ -120,6 +121,45 @@ class BaseMain extends React.Component {
         {this.renderSavedSearches()}
         {this.renderAdvancedSearch(filters)}
       </div>
+    )
+  }
+
+  renderSavedSearches() {
+    const pathPrefix        = this.props[`${this.itemType}sPath`]
+    const savedSearchesPath = `${pathPrefix}/saved_searches`
+
+    return(
+      <this.SavedSearches router={this.props.router}
+                          search={this.props.location.search}
+                          itemType={this.itemType}
+                          savedSearchesPath={savedSearchesPath} />
+    )
+  }
+
+  renderAdvancedSearch(filters) {
+    return (
+      <this.AdvancedSearch filters={filters}
+                           updateFilters={this.updateFilters.bind(this)}
+                           tagOptionsPath={this.props.tagOptionsPath}
+                           fieldOptionsPath={this.props.fieldOptionsPath}
+                           contactOptionsPath={this.props.contactOptionsPath}
+                           organizationOptionsPath={this.props.organizationOptionsPath}
+                           projectOptionsPath={this.props.projectOptionsPath}
+                           eventOptionsPath={this.props.eventOptionsPath}
+                           organizationStatusesOptionsPath={this.props.organizationStatusesOptionsPath} />
+    )
+  }
+
+  renderQuickSearch(filters) {
+    return (
+      <QuickSearch title={this.title}
+                   loaded={this.state.loaded}
+                   results={this.state[`${this.itemType}s`].length}
+                   quickSearch={filters.quickSearch}
+                   updateQuickSearch={this.updateQuickSearch.bind(this)}
+                   reloadIndexFromBackend={this.reloadFromBackend.bind(this)}
+                   filters={filters}
+                   exportUrl={this.exportUrl} />
     )
   }
 

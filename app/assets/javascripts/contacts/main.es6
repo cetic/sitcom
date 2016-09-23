@@ -1,17 +1,21 @@
-import BaseMain         from '../shared/base/base_main.es6'
-import Contacts         from './index/contacts.es6'
-import Contact          from './show/contact.es6'
-import NewContact       from './shared/new_contact.es6'
-import QuickSearch      from '../shared/quick_search.es6'
-import AdvancedSearch   from './shared/advanced_search.es6'
-import SavedSearches    from '../shared/saved_searches.es6'
+import BaseMain       from '../shared/base/base_main.es6'
+import Contacts       from './index/contacts.es6'
+import Contact        from './show/contact.es6'
+import NewContact     from './shared/new_contact.es6'
+import AdvancedSearch from './shared/advanced_search.es6'
+import SavedSearches  from '../shared/saved_searches.es6'
+import QuickSearch    from '../shared/quick_search.es6'
 
 class Main extends BaseMain {
   constructor(props) {
     super(props)
 
+    this.title          = 'Contacts'
     this.itemType       = 'contact'
     this.newButtonLabel = 'Nouveau contact'
+    this.SavedSearches  = SavedSearches
+    this.AdvancedSearch = AdvancedSearch
+    this.exportUrl      = `${this.props.contactsPath}/export`
 
     this.state = {
       contacts:      [],
@@ -51,40 +55,20 @@ class Main extends BaseMain {
     })
   }
 
-  renderSavedSearches() {
-    return (
-      <SavedSearches router={this.props.router}
-                     search={this.props.location.search}
-                     itemType="contact"
-                     savedSearchesPath={`${this.props.contactsPath}/saved_searches`} />
-    )
-  }
-
-  renderAdvancedSearch(filters) {
-    return (
-      <AdvancedSearch filters={filters}
-                      updateFilters={this.updateFilters.bind(this)}
-                      tagOptionsPath={this.props.tagOptionsPath}
-                      fieldOptionsPath={this.props.fieldOptionsPath}
-                      organizationOptionsPath={this.props.organizationOptionsPath}
-                      projectOptionsPath={this.props.projectOptionsPath}
-                      eventOptionsPath={this.props.eventOptionsPath} />
-    )
-  }
-
+  // @overrides
   renderQuickSearch(filters) {
     return (
-      <QuickSearch title="Contacts"
+      <QuickSearch title={this.title}
                    loaded={this.state.loaded}
                    results={this.state.contacts.length}
-                   selectedCount={this.state.selectedCount}
-                   contacts={this.state.contacts}
-                   tagOptionsPath={this.props.tagOptionsPath}
                    quickSearch={filters.quickSearch}
                    updateQuickSearch={this.updateQuickSearch.bind(this)}
                    reloadIndexFromBackend={this.reloadFromBackend.bind(this)}
                    filters={filters}
-                   exportUrl={this.props.contactsPath + '/export'} />
+                   exportUrl={this.exportUrl}
+                   selectedCount={this.state.selectedCount}
+                   contacts={this.state.contacts}
+                   tagOptionsPath={this.props.tagOptionsPath} />
     )
   }
 

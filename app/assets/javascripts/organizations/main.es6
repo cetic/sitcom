@@ -1,17 +1,20 @@
-import BaseMain         from '../shared/base/base_main.es6'
-import Organizations    from './index/organizations.es6'
-import Organization     from './show/organization.es6'
-import NewItem          from '../shared/new_item.es6'
-import QuickSearch      from '../shared/quick_search.es6'
-import AdvancedSearch   from './shared/advanced_search.es6'
-import SavedSearches    from '../shared/saved_searches.es6'
+import BaseMain       from '../shared/base/base_main.es6'
+import Organizations  from './index/organizations.es6'
+import Organization   from './show/organization.es6'
+import NewItem        from '../shared/new_item.es6'
+import AdvancedSearch from './shared/advanced_search.es6'
+import SavedSearches  from '../shared/saved_searches.es6'
 
 class Main extends BaseMain {
   constructor(props) {
     super(props)
 
+    this.title          = 'Organisations'
     this.itemType       = 'organization'
     this.newButtonLabel = 'Nouvelle organisation'
+    this.SavedSearches  = SavedSearches
+    this.AdvancedSearch = AdvancedSearch
+    this.exportUrl      = `${this.props.organizationsPath}/export`
 
     this.state = {
       organizations: [],
@@ -29,36 +32,6 @@ class Main extends BaseMain {
       notes:        this.props.location.query.notes       || '',
       contactIds:   this.props.location.query.contactIds,
     }
-  }
-
-  renderSavedSearches() {
-    return(
-      <SavedSearches router={this.props.router}
-                     search={this.props.location.search}
-                     itemType="organization"
-                     savedSearchesPath={`${this.props.organizationsPath}/saved_searches`} />
-    )
-  }
-
-  renderAdvancedSearch(filters) {
-    return (
-      <AdvancedSearch filters={filters}
-                      updateFilters={this.updateFilters.bind(this)}
-                      contactOptionsPath={this.props.contactOptionsPath}
-                      organizationStatusesOptionsPath={this.props.organizationStatusesOptionsPath} />
-    )
-  }
-
-  renderQuickSearch(filters) {
-    return (
-      <QuickSearch title="Organisations"
-                   loaded={this.state.loaded}
-                   results={this.state.organizations.length}
-                   quickSearch={filters.quickSearch}
-                   updateQuickSearch={this.updateQuickSearch.bind(this)}
-                   filters={filters}
-                   exportUrl={this.props.organizationsPath + '/export'} />
-    )
   }
 
   renderItems() {

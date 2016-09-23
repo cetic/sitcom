@@ -1,17 +1,19 @@
-import BaseMain         from '../shared/base/base_main.es6'
-import Projects         from './index/projects.es6'
-import Project          from './show/project.es6'
-import NewItem          from '../shared/new_item.es6'
-import QuickSearch      from '../shared/quick_search.es6'
-import AdvancedSearch   from './shared/advanced_search.es6'
-import SavedSearches    from '../shared/saved_searches.es6'
+import BaseMain       from '../shared/base/base_main.es6'
+import Projects       from './index/projects.es6'
+import Project        from './show/project.es6'
+import NewItem        from '../shared/new_item.es6'
+import AdvancedSearch from './shared/advanced_search.es6'
+import SavedSearches  from '../shared/saved_searches.es6'
 
 class Main extends BaseMain {
   constructor(props) {
     super(props)
 
+    this.title          = 'Projets'
     this.itemType       = 'project'
     this.newButtonLabel = 'Nouveau projet'
+    this.SavedSearches  = SavedSearches
+    this.AdvancedSearch = AdvancedSearch
 
     this.state = {
       projects: [],
@@ -27,33 +29,6 @@ class Main extends BaseMain {
       notes:        this.props.location.query.notes       || '',
       contactIds:   this.props.location.query.contactIds,
     }
-  }
-
-  renderSavedSearches() {
-    return(
-      <SavedSearches router={this.props.router}
-                     search={this.props.location.search}
-                     itemType="project"
-                     savedSearchesPath={`${this.props.projectsPath}/saved_searches`} />
-    )
-  }
-
-  renderAdvancedSearch(filters) {
-    return (
-      <AdvancedSearch filters={filters}
-                      contactOptionsPath={this.props.contactOptionsPath}
-                      updateFilters={this.updateFilters.bind(this)} />
-    )
-  }
-
-  renderQuickSearch(filters) {
-    return (
-      <QuickSearch title="Projets"
-                   loaded={this.state.loaded}
-                   results={this.state.projects.length}
-                   quickSearch={filters.quickSearch}
-                   updateQuickSearch={this.updateQuickSearch.bind(this)} />
-    )
   }
 
   renderItems() {
