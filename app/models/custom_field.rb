@@ -6,6 +6,16 @@ class CustomField < ApplicationRecord
 
   acts_as_list :scope => [ :lab_id, :item_type ]
 
+  # Attrobites
+
+  serialize :options, JSON
+
+  # Callbacks
+
+  after_initialize do |instance|
+    instance.options ||= []
+  end
+
   # Enums
 
   enumerize :field_type, :in      => [ :text, :bool, :enum ],

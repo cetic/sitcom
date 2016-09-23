@@ -15,7 +15,7 @@
               <a href="<%= admin_users_path %>">Utilisateurs</a>
             </li>
 
-            <li class="<%= params[:controller] == 'admin/labs' ? 'selected' : '' %>">
+            <li class="<%= params[:controller] == 'admin/labs' || params[:controller] == 'admin/custom_fields' ? 'selected' : '' %>">
               <a href="<%= admin_labs_path %>">Labs</a>
             </li>
 

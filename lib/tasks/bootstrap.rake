@@ -188,6 +188,10 @@ namespace :app do
       lab.custom_fields.create!(:name => "Champs booléen 1", :field_type => :bool)
       lab.custom_fields.create!(:name => "Champs booléen 2", :field_type => :bool)
       lab.custom_fields.create!(:name => "Champs booléen 3", :field_type => :bool)
+
+      lab.custom_fields.create!(:name       => "Sexe",
+                                :field_type => :enum,
+                                :options    => ['Homme', 'Femme'])
     end
   end
 end

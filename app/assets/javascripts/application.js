@@ -15,7 +15,6 @@ global.hashHistory = require('react-router').hashHistory
 global.humps       = require('humps')
 global.moment      = require('moment')
 
-global.http = require('./shared/http_service.es6')
-
+global.http   = require('./shared/http_service.es6')
 global.Routes = require('./routes.es6')
 

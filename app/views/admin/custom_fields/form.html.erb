@@ -20,7 +20,9 @@
             </div>
           </div>
 
-          <% unless @custom_field.persisted? %>
+          <% if @custom_field.persisted? %>
+            <%= f.hidden_field :field_type %>
+          <% else %>
             <div class="form-group">
               <%= f.label :field_type, 'Type', :class => 'control-label col-md-3' %>
 
@@ -29,6 +31,34 @@
               </div>
             </div>
           <% end %>
+        </fieldset>
+
+        <fieldset id="enum-options" style="display:none;">
+          <legend>Valeurs possibles</legend>
+
+          <table class="table table-striped">
+            <tbody>
+              <% @custom_field.options.each do |option| %>
+                <tr>
+                  <td colspan="2">
+                    <%= option %>
+                    <%= hidden_field_tag 'custom_field[options][]', option %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+
+            <tfoot>
+              <tr>
+                <td><input type="text" class="form-control" id="new-option" /></td>
+                <td>
+                  <button id="new-option-button" class="btn btn-xs btn-primary btn-default">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
         </fieldset>
 
         <div class="actions">
