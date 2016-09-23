@@ -1,13 +1,13 @@
+import BaseMain         from '../shared/base/base_main.es6'
 import Contacts         from './index/contacts.es6'
 import Contact          from './show/contact.es6'
 import NewContact       from './shared/new_contact.es6'
 import QuickSearch      from '../shared/quick_search.es6'
 import AdvancedSearch   from './shared/advanced_search.es6'
-import ParamsService    from '../shared/params_service.es6'
 import PermissionDenied from '../shared/permission_denied.es6'
 import SavedSearches    from '../shared/saved_searches.es6'
 
-class Main extends React.Component {
+class Main extends BaseMain {
   constructor(props) {
     super(props)
 
@@ -16,26 +16,6 @@ class Main extends React.Component {
       loaded:        false,
       selectedCount: 0,
     }
-  }
-
-  componentWillMount() {
-    this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 300)
-  }
-
-  componentDidMount() {
-    this.reloadFromBackend()
-    this.selectHeaderMenu()
-  }
-
-  componentWillReceiveProps(newProps) {
-    if(newProps.location.search != this.props.location.search) {
-      this.dReloadFromBackend()
-    }
-  }
-
-  selectHeaderMenu() {
-    $('.nav.sections li').removeClass('selected')
-    $('.nav.sections li.contacts').addClass('selected')
   }
 
   getFilters() {
@@ -67,22 +47,6 @@ class Main extends React.Component {
         selectedCount: 0
       })
     })
-  }
-
-  updateUrl(newValues) {
-    var query        = _.assign({}, this.props.location.query, newValues)
-    var paramsString = ParamsService.rejectEmptyParams($.param(query))
-    this.props.router.push('contacts?' + paramsString)
-  }
-
-  updateQuickSearch(newQuickSearch) {
-    this.updateFilters({
-      quickSearch: newQuickSearch
-    })
-  }
-
-  updateFilters(newFilters) {
-    this.updateUrl(newFilters)
   }
 
   pushIdsListFilter(field, newId) {
