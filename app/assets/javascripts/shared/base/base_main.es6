@@ -55,6 +55,11 @@ class BaseMain extends React.Component {
     this.props.router.push(`${this.itemType}s?${paramsString}`)
   }
 
+  replaceUrl(newValues) {
+    var paramsString = ParamsService.rejectEmptyParams($.param(newValues))
+    this.props.router.push(`${this.itemType}s?${paramsString}`)
+  }
+
   updateQuickSearch(newQuickSearch) {
     this.updateFilters({
       quickSearch: newQuickSearch
@@ -65,25 +70,29 @@ class BaseMain extends React.Component {
     this.updateUrl(newFilters)
   }
 
+  replaceFilters(newFilters) {
+    this.replaceUrl(newFilters)
+  }
+
   pushIdsListFilter(field, newId) {
     var filters = this.getFilters()
     var newIds
 
-    if(filters[field] == undefined) {
+    //if(filters[field] == undefined) {
       newIds = [newId]
-    }
-    else {
-      newIds = _.map(filters[field].split(','), (id) => {
-        return parseInt(id)
-      })
+    //}
+    // else {
+    //   newIds = _.map(filters[field].split(','), (id) => {
+    //     return parseInt(id)
+    //   })
 
-      newIds = _.concat(newIds, newId)
-    }
+    //   newIds = _.concat(newIds, newId)
+    // }
 
     var newFilters    = {}
     newFilters[field] = _.uniq(newIds).join(',')
 
-    this.updateFilters(newFilters)
+    this.replaceFilters(newFilters)
   }
 
   render() {

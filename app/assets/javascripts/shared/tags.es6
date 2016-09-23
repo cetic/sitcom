@@ -111,6 +111,7 @@ class TagsSelector extends React.Component {
           <div className="new-tag">
             <span onClick={this.toggleOpened.bind(this)}>
               <i className="fa fa-plus"></i>
+              { this.renderPlusName() }
             </span>
 
             { this.renderTagSelection() }
@@ -118,6 +119,10 @@ class TagsSelector extends React.Component {
         </li>
       )
     }
+  }
+
+  renderPlusName() {
+    return this.props.contactTags.length ? '' : ' Groupe'
   }
 
   renderTagSelection() {
