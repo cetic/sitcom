@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160921111134) do
+ActiveRecord::Schema.define(version: 20160923134236) do
 
   create_table "contact_event_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "contact_id"
@@ -75,6 +75,32 @@ ActiveRecord::Schema.define(version: 20160921111134) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.index ["lab_id"], name: "index_contacts_on_lab_id", using: :btree
+  end
+
+  create_table "custom_field_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "custom_field_id"
+    t.string   "item_type"
+    t.integer  "item_id"
+    t.text     "text_value",      limit: 65535
+    t.boolean  "boolean_value",                 default: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.index ["custom_field_id"], name: "index_custom_field_links_on_custom_field_id", using: :btree
+    t.index ["item_id"], name: "index_custom_field_links_on_item_id", using: :btree
+    t.index ["item_type"], name: "index_custom_field_links_on_item_type", using: :btree
+  end
+
+  create_table "custom_fields", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "lab_id"
+    t.string   "item_type",                default: "contact"
+    t.string   "name"
+    t.string   "field_type"
+    t.integer  "position"
+    t.text     "options",    limit: 65535
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.index ["item_type"], name: "index_custom_fields_on_item_type", using: :btree
+    t.index ["lab_id"], name: "index_custom_fields_on_lab_id", using: :btree
   end
 
   create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
@@ -209,6 +235,8 @@ ActiveRecord::Schema.define(version: 20160921111134) do
   add_foreign_key "contact_tag_links", "contacts"
   add_foreign_key "contact_tag_links", "tags"
   add_foreign_key "contacts", "labs"
+  add_foreign_key "custom_field_links", "custom_fields"
+  add_foreign_key "custom_fields", "labs"
   add_foreign_key "events", "labs"
   add_foreign_key "fields", "fields", column: "parent_id"
   add_foreign_key "lab_user_links", "labs"

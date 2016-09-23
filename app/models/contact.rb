@@ -31,6 +31,9 @@ class Contact < ApplicationRecord
 
   has_many :notes, :as => :notable
 
+  has_many :custom_field_links, :dependent => :destroy,
+                                :as        => :item
+
   # Validations
 
   validates :first_name, :presence   => { :message => "Le prénom est obligatoire."  },
