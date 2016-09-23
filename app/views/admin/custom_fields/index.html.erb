@@ -1,0 +1,29 @@
+<div class="container container-main">
+  <div class="row">
+    <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><%= link_to 'Labs', admin_labs_path %></li>
+        <li><%= @lab.name %></li>
+        <li class="active">Champs personnalisés</li>
+      </ol>
+
+      <%= link_to 'Ajouter un champs personnalisé', new_admin_lab_custom_field_path(@lab), :class => 'btn btn-primary pull-right btn-new' %>
+
+      <% if @custom_fields.any? %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="col-md-6">Nom</th>
+              <th class="col-md-5">Type</th>
+              <th class="col-md-1 actions">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <%= render @custom_fields %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>

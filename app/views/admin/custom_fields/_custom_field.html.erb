@@ -1,0 +1,10 @@
+<tr>
+  <td><%= custom_field.name %></td>
+  <td><%= custom_field.field_type.text %></td>
+
+  <td class="actions">
+    <%= link_to fa('edit'),   edit_admin_lab_custom_field_path(@lab, custom_field), :class => 'btn btn-xs btn-default' %>
+    <%= link_to fa('remove'), admin_lab_custom_field_path(@lab, custom_field),      :class => 'btn btn-xs btn-danger', :data => { :confirm => "Supprimer ce champs ?" }, :method => :delete %>
+  </td>
+</tr>
+

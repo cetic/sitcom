@@ -177,5 +177,17 @@ namespace :app do
         end
       end
     end
+
+    puts "Bootstrapping custom fields"
+
+    Lab.all.each do |lab|
+      lab.custom_fields.create!(:name => "Champs texte 1", :field_type => :text)
+      lab.custom_fields.create!(:name => "Champs texte 2", :field_type => :text)
+      lab.custom_fields.create!(:name => "Champs texte 3", :field_type => :text)
+
+      lab.custom_fields.create!(:name => "Champs booléen 1", :field_type => :bool)
+      lab.custom_fields.create!(:name => "Champs booléen 2", :field_type => :bool)
+      lab.custom_fields.create!(:name => "Champs booléen 3", :field_type => :bool)
+    end
   end
 end

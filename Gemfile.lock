@@ -38,6 +38,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    acts_as_list (0.8.1)
+      activerecord (>= 3.0)
     airbrake (4.1.0)
       builder
       multi_json
@@ -249,6 +251,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_list
   airbrake (= 4.1.0)
   bootstrap-sass
   browserify-rails
@@ -285,4 +288,4 @@ DEPENDENCIES
   uuidtools
 
 BUNDLED WITH
-   1.12.5
+   1.13.1

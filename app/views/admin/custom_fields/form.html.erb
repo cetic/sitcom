@@ -1,0 +1,41 @@
+<div class="container container-main">
+  <div class="row">
+    <div class="panel col-md-6 col-md-offset-3">
+      <ol class="breadcrumb">
+        <li><%= link_to 'Labs', admin_labs_path %></li>
+        <li><%= link_to @lab.name, admin_lab_path(@lab) %></li>
+        <li><%= link_to 'Champs personnalisés', admin_lab_custom_fields_path(@lab) %></li>
+        <li class="active"><%= params[:action].in?(['new', 'create']) ? 'Créer' : 'Modifier' %></li>
+      </ol>
+
+      <%= render 'shared/flash' %>
+
+      <%= form_for([:admin, @lab, @custom_field], :html => { :class => 'form-horizontal' }) do |f| %>
+        <fieldset>
+          <div class="form-group">
+            <%= f.label :name, 'Nom', :class => 'control-label col-md-3' %>
+
+            <div class="col-md-9">
+              <%= f.text_field :name, :class => 'form-control' %>
+            </div>
+          </div>
+
+          <% unless @custom_field.persisted? %>
+            <div class="form-group">
+              <%= f.label :field_type, 'Type', :class => 'control-label col-md-3' %>
+
+              <div class="col-md-9">
+                <%= f.select :field_type, CustomField.field_type.options, {}, :class => 'form-control' %>
+              </div>
+            </div>
+          <% end %>
+        </fieldset>
+
+        <div class="actions">
+          <%= link_to 'Annuler', admin_lab_custom_fields_path(@lab), :class => 'btn btn-default' %>
+          <%= f.submit 'Enregistrer', :class => 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

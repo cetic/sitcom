@@ -34,6 +34,7 @@ gem 'color-generator'
 gem 'airbrake', '4.1.0'
 gem 'dotenv-rails'
 gem 'roo'
+gem 'acts_as_list'
 gem 'puma', '~> 3.0'
 
 group :development do

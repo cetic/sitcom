@@ -4,6 +4,8 @@ class CustomField < ApplicationRecord
 
   extend Enumerize
 
+  acts_as_list :scope => [ :lab_id, :item_type ]
+
   # Enums
 
   enumerize :field_type, :in      => [ :text, :bool, :enum ],

@@ -15,7 +15,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :labs
+    resources :labs do
+      resources :custom_fields
+    end
 
     resources :fields do
       resources :children, controller: 'fields'
