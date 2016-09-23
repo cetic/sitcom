@@ -173,7 +173,7 @@
         }
 
         .tag:hover {
-          .fa-times {
+          .fa-times:not(.not-visible) {
             font-size: 8px;
             vertical-align: 0px;
             margin-left: 2px;

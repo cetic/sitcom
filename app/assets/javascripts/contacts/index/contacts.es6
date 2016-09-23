@@ -45,6 +45,7 @@ class Contacts extends React.Component {
     return _.map(this.props.contacts, (contact) => {
       return (
         <Contact key={contact.id}
+                 permissions={this.props.permissions}
                  contact={contact}
                  search={this.props.search}
                  tagOptionsPath={this.props.tagOptionsPath}

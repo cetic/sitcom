@@ -112,33 +112,45 @@
       }
     }
 
-    .tags {
-      list-style-type: none;
+    .tags, .fields {
       padding-left: 0px;
-      margin-top: -4px;
-      margin-bottom: 8px;
-      cursor: pointer;
+      margin-top: -2px;
+      margin-bottom: 6px;
+      list-style-type: none;
 
       .field, .tag {
         margin-right: 4px;
-        background-color: #b3b3b3;
+        background-color: #wh;
       }
 
       .tag {
         margin-right: 0px;
         margin-left: 0px;
         border-radius: 0px;
+        cursor: pointer;
       }
 
       .tag.last {
-        background-color: white;
-        color: #999999;
+        padding: 0px;
+
+        .new-tag > span {
+          background-color: white;
+          color: #999999;
+        }
       }
 
       .new-tag {
         display: inline;
         position: relative;
-        vertical-align: -1px;
+
+        > span {
+          display: inline-block;
+          padding-left: 5px;
+          padding-top: 5px;
+          padding-right: 5px;
+          padding-bottom: 3px;
+          vertical-align: -1px;
+        }
 
         ul.tags-menu {
           position: absolute;
@@ -225,9 +237,15 @@
       }
     }
 
+    .tags {
+      display: inline-block;
+    }
+
     .tags:hover {
       .tag.last {
-        background-color: #eeeeee;
+        .new-tag > span {
+          background-color: #eeeeee;
+        }
       }
     }
 

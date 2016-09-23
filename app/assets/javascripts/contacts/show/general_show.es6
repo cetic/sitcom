@@ -67,13 +67,11 @@ class GeneralShow extends React.Component {
               </span>
             </h1>
 
-            <ul className="tags">
+            <ul className="fields">
               { this.renderFields() }
             </ul>
 
-            <ul className="tags">
-              { this.renderTags() }
-            </ul>
+            { this.renderTags() }
           </div>
         </div>
 
@@ -165,7 +163,8 @@ class GeneralShow extends React.Component {
 
   renderTags() {
     return (
-      <Tags contactTags={this.props.contact.tags}
+      <Tags permissions={this.props.permissions}
+            contactTags={this.props.contact.tags}
             contactId={this.props.contact.id}
             contactPath={this.props.contactPath}
             tagsPath={this.tagsPath()}

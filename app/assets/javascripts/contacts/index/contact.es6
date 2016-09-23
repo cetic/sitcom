@@ -159,14 +159,23 @@ class Contact extends React.Component {
         <li className="tag label label-default"
             key={tag.id}
             style={{ backgroundColor: tag.color, cursor: 'pointer' }}>
-          <i className="fa fa-times"
-             onClick={this.removeTag.bind(this, tag)}></i>
+          { this.renderDelete(tag) }
           <span onClick={this.pushTagIdsFilter.bind(this, tag)}>
             { tag.name }
           </span>
         </li>
       )
     })
+  }
+
+  renderDelete(tag) {
+    var iconClass = 'fa fa-times'
+    iconClass += this.props.permissions.canWriteContacts ? '' : 'not-visible'
+
+    return (
+      <i className={iconClass}
+         onClick={this.removeTag.bind(this, tag)}></i>
+    )
   }
 
   renderProjects() {

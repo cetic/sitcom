@@ -105,17 +105,19 @@ class TagsSelector extends React.Component {
   }
 
   renderNewTag() {
-    return (
-      <li className="tag label label-default last">
-        <div className="new-tag">
-          <span>
-            <i className="fa fa-plus"></i>
-          </span>
+    if(this.props.permissions.canWriteContacts) {
+      return (
+        <li className="tag label label-default last">
+          <div className="new-tag">
+            <span onClick={this.toggleOpened.bind(this)}>
+              <i className="fa fa-plus"></i>
+            </span>
 
-          { this.renderTagSelection() }
-        </div>
-      </li>
-    )
+            { this.renderTagSelection() }
+          </div>
+        </li>
+      )
+    }
   }
 
   renderTagSelection() {

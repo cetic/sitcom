@@ -4,22 +4,30 @@ class TagsController < ApplicationController
 
   # create many tags at once
   def create
-    contacts = @lab.contacts.where(:id => params[:contact_ids])
+    if PermissionsService.new(current_user, @lab).can_write?('contacts')
+      contacts = @lab.contacts.where(:id => params[:contact_ids])
 
-    contacts.each do |contact|
-      ContactTagService.new(contact).add_tag(params[:name])
+      contacts.each do |contact|
+        ContactTagService.new(contact).add_tag(params[:name])
+      end
+
+      render_json_success
+    else
+      render_permission_error
     end
-
-    render_json_success
   end
 
   # destroy only one tag
   def destroy
-    contact = @lab.contacts.find(params[:contact_id])
+    if PermissionsService.new(current_user, @lab).can_write?('contacts')
+      contact = @lab.contacts.find(params[:contact_id])
 
-    ContactTagService.new(contact).remove_tag(params[:id])
+      ContactTagService.new(contact).remove_tag(params[:id])
 
-    render_json_success
+      render_json_success
+    else
+      render_permission_error
+    end
   end
 
   def options
