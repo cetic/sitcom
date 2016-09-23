@@ -13,17 +13,18 @@ class AdvancedSearch extends BaseAdvancedSearch {
       <div className="advanced-search form-horizontal">
         <fieldset>
           <legend>Général</legend>
-
           {this.renderSimpleFilter('name',        'Nom'        )}
           {this.renderSimpleFilter('description', 'Description')}
           {this.renderSimpleFilter('notes',       'Notes'      )}
         </fieldset>
 
-        {this.renderDatesFilter()}
+        <fieldset>
+          <legend>Intervalle de dates</legend>
+          {this.renderDatesFilter()}
+        </fieldset>
 
         <fieldset>
           <legend>Associations</legend>
-
           {this.renderIdsListFilter('contact', 'Contacts')}
         </fieldset>
       </div>
@@ -32,8 +33,12 @@ class AdvancedSearch extends BaseAdvancedSearch {
 
   renderDatesFilter() {
     return (
-      <DateRangeFilter filters={this.props.filters}
-                       updateFilters={this.props.updateFilters} />
+      <div className="dates-filter form-group">
+        <div className="col-sm-12 dates-filter-pickers">
+          <DateRangeFilter filters={this.props.filters}
+                           updateFilters={this.props.updateFilters} />
+        </div>
+      </div>
     )
   }
 

@@ -18,19 +18,16 @@ class AdvancedSearch extends BaseAdvancedSearch {
       <div className="advanced-search form-horizontal">
         <fieldset>
           <legend>Général</legend>
-
           {this.renderSimpleFilter('name',    'Nom'      )}
           {this.renderSimpleFilter('email',   'Email'    )}
           {this.renderSimpleFilter('address', 'Adresse'  )}
           {this.renderSimpleFilter('phone',   'Téléphone')}
           {this.renderSimpleFilter('notes',   'Notes'    )}
-
           {this.renderActiveFilter()}
         </fieldset>
 
         <fieldset>
           <legend>Associations</legend>
-
           {this.renderIdsListFilter('tag',          'Groupes'      )}
           {this.renderIdsListFilter('field',        'Expertises'   )}
           {this.renderIdsListFilter('organization', 'Organisations')}

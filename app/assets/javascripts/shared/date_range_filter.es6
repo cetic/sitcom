@@ -39,12 +39,11 @@ class DateRangeFilter extends React.Component {
 
     return (
       <div className="date-range-filter">
-        <label>Date (intervalle)</label><br />
-
         <input type="checkbox" checked={this.state.datesEnabled}
                                onChange={this.updateDatesEnabled.bind(this)}
                                id="dates-enabled" />
-        <label htmlFor="dates-enabled">&nbsp;Activer</label>
+
+        &nbsp;&nbsp;<label htmlFor="dates-enabled">Activer</label>
 
         <div className={datePickerclassNames}>
           <DatePicker inline
