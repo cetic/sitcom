@@ -14,6 +14,8 @@ class CustomField < ApplicationRecord
 
   belongs_to :lab
 
+  has_many :custom_field_links, :dependent => :destroy
+
   # Validations
 
   validates :name, :presence => { :message => "Le nom est obligatoire."  }
