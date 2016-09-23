@@ -11,8 +11,10 @@ class Main extends BaseMain {
   constructor(props) {
     super(props)
 
+    this.itemType = 'contact'
+
     this.state = {
-      contacts:      [],
+      contacts:         [],
       loaded:        false,
       selectedCount: 0,
     }
@@ -33,20 +35,6 @@ class Main extends BaseMain {
       fieldIds:        this.props.location.query.fieldIds,
       tagIds:          this.props.location.query.tagIds,
     }
-  }
-
-  reloadFromBackend(spinner = true) {
-    if(spinner) {
-      this.setState({ loaded: false })
-    }
-
-    http.get(this.props.contactsPath, this.getFilters(), (data) => {
-      this.setState({
-        contacts:      data.contacts,
-        loaded:        true,
-        selectedCount: 0
-      })
-    })
   }
 
   pushIdsListFilter(field, newId) {
@@ -70,10 +58,6 @@ class Main extends BaseMain {
     this.updateFilters(newFilters)
   }
 
-  openNewContactModal() {
-    $('.new-contact-modal').modal('show')
-  }
-
   updateSelected(contact, newValue) {
     var index    = _.findIndex(this.state.contacts, (c) => { return contact.id == c.id})
     var contacts = this.state.contacts
@@ -82,7 +66,7 @@ class Main extends BaseMain {
 
     this.setState({
       contacts:      contacts,
-      selectedCount: newValue ? this.state.selectedCount+1 : this.state.selectedCount-1
+      selectedCount: newValue ? this.state.selectedCount + 1 : this.state.selectedCount - 1
     })
   }
 
@@ -121,31 +105,20 @@ class Main extends BaseMain {
                            filters={filters}
                            exportUrl={this.props.contactsPath + '/export'} />
 
-              { this.renderNewContactLink() }
+              { this.renderNewButton("Nouveau contact") }
 
               { this.renderContact()  }
               { this.renderContacts() }
             </div>
           </div>
 
-          { this.renderNewContactModal() }
+          { this.renderNewModal() }
         </div>
       )
     }
     else {
       return (
         <PermissionDenied />
-      )
-    }
-  }
-
-  renderNewContactLink() {
-    if(this.props.permissions.canWriteContacts) {
-      return (
-        <button className="btn btn-primary new"
-                onClick={this.openNewContactModal.bind(this)}>
-          Nouveau contact
-        </button>
       )
     }
   }
@@ -188,7 +161,7 @@ class Main extends BaseMain {
     }
   }
 
-  renderNewContactModal() {
+  renderNewModal() {
     return (
       <NewContact reloadFromBackend={this.reloadFromBackend.bind(this)}
                   contactsPath={this.props.contactsPath}

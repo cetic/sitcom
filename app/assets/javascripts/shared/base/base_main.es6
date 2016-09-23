@@ -4,7 +4,6 @@ class BaseMain extends React.Component {
 
   constructor(props) {
     super(props)
-    this.itemType = 'contact'
   }
 
   componentWillMount() {
@@ -27,6 +26,28 @@ class BaseMain extends React.Component {
     $(`.nav.sections li.${this.itemType}s`).addClass('selected')
   }
 
+  openNewModal() {
+    $(`.new-${this.itemType}-modal`).modal('show')
+  }
+
+  reloadFromBackend(spinner = true) {
+    const itemsPath = this.props[`${this.itemType}sPath`]
+
+    if(spinner) {
+      this.setState({ loaded: false })
+    }
+
+    http.get(itemsPath, this.getFilters(), (data) => {
+      var newState = {
+        loaded:        true,
+        selectedCount: 0
+      }
+
+      newState[`${this.itemType}s`] = data[`${this.itemType}s`]
+      this.setState(newState)
+    })
+  }
+
   updateUrl(newValues) {
     var query        = _.assign({}, this.props.location.query, newValues)
     var paramsString = ParamsService.rejectEmptyParams($.param(query))
@@ -41,6 +62,17 @@ class BaseMain extends React.Component {
 
   updateFilters(newFilters) {
     this.updateUrl(newFilters)
+  }
+
+  renderNewButton(label) {
+    if(this.props.permissions[`canWrite${_.upperFirst(this.itemType)}s`]) {
+      return (
+        <button className="btn btn-primary new"
+                onClick={this.openNewModal.bind(this)}>
+          {label}
+        </button>
+      )
+    }
   }
 
 }
