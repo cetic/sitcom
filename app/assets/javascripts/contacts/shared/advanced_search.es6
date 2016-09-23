@@ -2,6 +2,10 @@ import BaseAdvancedSearch from '../../shared/base/base_advanced_search.es6'
 
 class AdvancedSearch extends BaseAdvancedSearch {
 
+  itemType() {
+    return 'contact'
+  }
+
   updateActiveFilter(value) {
     this.props.updateFilters({
       active: value
@@ -14,11 +18,11 @@ class AdvancedSearch extends BaseAdvancedSearch {
         <fieldset>
           <legend>Général</legend>
 
-          {this.renderSimpleFilter('contact', 'name',    'Nom'      )}
-          {this.renderSimpleFilter('contact', 'email',   'Email'    )}
-          {this.renderSimpleFilter('contact', 'address', 'Adresse'  )}
-          {this.renderSimpleFilter('contact', 'phone',   'Téléphone')}
-          {this.renderSimpleFilter('contact', 'notes',   'Notes'    )}
+          {this.renderSimpleFilter('name',    'Nom'      )}
+          {this.renderSimpleFilter('email',   'Email'    )}
+          {this.renderSimpleFilter('address', 'Adresse'  )}
+          {this.renderSimpleFilter('phone',   'Téléphone')}
+          {this.renderSimpleFilter('notes',   'Notes'    )}
 
           {this.renderActiveFilter()}
         </fieldset>

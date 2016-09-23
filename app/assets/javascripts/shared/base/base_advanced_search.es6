@@ -3,7 +3,7 @@ import ItemsSelect from '../../shared/items_select.es6'
 class BaseAdvancedSearch extends React.Component {
 
   updateTextFilter(filterName, e) {
-    var newFilters = {}
+    var newFilters         = {}
     newFilters[filterName] = e.target.value
     this.props.updateFilters(newFilters)
   }
@@ -14,8 +14,8 @@ class BaseAdvancedSearch extends React.Component {
     this.props.updateFilters(newFilters)
   }
 
-  renderSimpleFilter(prefix, fieldName, labelName) {
-    const fieldId = `${prefix}_${fieldName}`
+  renderSimpleFilter(fieldName, labelName) {
+    const fieldId = `${this.itemType()}_${fieldName}`
 
     return (
       <div className="form-group">
