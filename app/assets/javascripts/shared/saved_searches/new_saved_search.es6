@@ -72,9 +72,9 @@ class NewSavedSearch extends React.Component {
             { this.renderErrors() }
 
             <div className="form-group">
-              <label className="control-label col-md-4" htmlFor="name">Nom de la recherche</label>
+              <label className="control-label col-md-3" htmlFor="name">Nom</label>
 
-              <div className="col-md-8">
+              <div className="col-md-9">
                 <input value={this.state.name}
                        onChange={this.updateName.bind(this)}
                        ref="name"
@@ -86,10 +86,10 @@ class NewSavedSearch extends React.Component {
             </div>
 
             <div className="form-group">
-              <label className="control-label col-md-4" htmlFor="ownerId">Visibilité</label>
+              <label className="control-label col-md-3" htmlFor="ownerId">Visibilité</label>
 
-              <div className="col-md-8">
-                <div>
+              <div className="col-md-9">
+                <div className="choice">
                   <input type="radio"
                          name="saved-searches-public"
                          id="saved-searches-public-true"
@@ -99,22 +99,29 @@ class NewSavedSearch extends React.Component {
                   &nbsp;<label htmlFor="saved-searches-public-true">Publique</label>
                 </div>
 
-                <div>
+                <div className="choice">
                   <input type="radio"
                          name="saved-searches-public"
                          id="saved-searches-public-false"
                          checked={!this.state.public}
                          onChange={this.updatePublic.bind(this, false)} />
 
-                  &nbsp;<label htmlFor="saved-searches-public-false">Uniquement pour moi</label>
+                  &nbsp;<label htmlFor="saved-searches-public-false">Privée</label>
                 </div>
 
-                <a href="javascript:;"
-                   className="btn btn-default btn-primary btn-success"
-                   onClick={this.backendCreateSavedSearch.bind(this)}>Enregistrer</a>
+                <div style={{ clear: 'both' }}></div>
 
-                <a href="javascript:;"
-                   onClick={this.cancel.bind(this)}>Annuler</a>
+                <div className="actions">
+                  <button className="btn btn-default"
+                          onClick={this.cancel.bind(this)}>
+                    Annuler
+                  </button>
+
+                  <button className="btn btn-primary"
+                          onClick={this.backendCreateSavedSearch.bind(this)}>
+                    Enregistrer
+                  </button>
+                </div>
               </div>
             </div>
           </div>

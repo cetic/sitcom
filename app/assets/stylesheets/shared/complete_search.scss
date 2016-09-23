@@ -16,7 +16,27 @@
   }
 
   .saved-search {
-    padding-top: 3px;
+    padding-top: 12px;
+
+    .choice {
+      float: left;
+      margin-right: 16px;
+      margin-top: 6px;
+
+      label {
+        font-weight: 400;
+        margin-left: 2px;
+      }
+    }
+
+    .actions {
+      text-align: right;
+      margin-top: 10px;
+
+      button {
+        margin-left: 12px;
+      }
+    }
 
     .list-mode {
       margin-bottom: 10px;

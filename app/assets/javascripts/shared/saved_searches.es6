@@ -143,6 +143,10 @@ class SavedSearches extends React.Component {
     }
   }
 
+  isSearch() {
+    return this.props.search.length && this.props.search != '?'
+  }
+
   renderSelect() {
     if(this.state.loaded) {
       var options = _.map(this.state.savedSearches, (savedSearch) => {
@@ -170,11 +174,22 @@ class SavedSearches extends React.Component {
 
   renderCreateButton() {
     if(!this.hasSelected()) {
-      return (
-        <a href="javascript:;"
-           className="btn btn-primary"
-           onClick={this.setFormMode.bind(this)}>Enregistrer</a>
-      )
+      if(this.isSearch()) {
+        return (
+          <button className="btn btn-primary"
+                  onClick={this.setFormMode.bind(this)}>
+            Enregistrer
+          </button>
+        )
+      }
+      else {
+        return (
+          <button className="btn btn-primary"
+                  disabled>
+            Enregistrer
+          </button>
+        )
+      }
     }
   }
 
