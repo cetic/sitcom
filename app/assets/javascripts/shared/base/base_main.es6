@@ -64,12 +64,59 @@ class BaseMain extends React.Component {
     this.updateUrl(newFilters)
   }
 
-  renderNewButton(label) {
+  render() {
+    const canRead = this.props.permissions[`canRead${_.upperFirst(this.itemType)}s`]
+
+    if(canRead) {
+      var filters = this.getFilters()
+
+      return (
+        <div className="container-fluid container-contact">
+          <div className="row">
+            {this.renderRightSidebar(filters)}
+
+            <div className={`col-md-8 col-${this.itemType}s`}>
+              {this.renderQuickSearch(filters)}
+              {this.renderNewButton()}
+              {this.renderItemOrItems()}
+            </div>
+          </div>
+
+          { this.renderNewModal() }
+        </div>
+      )
+    }
+    else {
+      return (
+        <PermissionDenied />
+      )
+    }
+  }
+
+  renderRightSidebar(filters) {
+    return (
+      <div className="col-md-4 pull-right right-sidebar">
+        {this.renderSavedSearches()}
+        {this.renderAdvancedSearch(filters)}
+      </div>
+    )
+  }
+
+  renderItemOrItems() {
+    if(this.props.params.id) {
+      return this.renderItem()
+    }
+    else {
+      return this.renderItems()
+    }
+  }
+
+  renderNewButton() {
     if(this.props.permissions[`canWrite${_.upperFirst(this.itemType)}s`]) {
       return (
         <button className="btn btn-primary new"
                 onClick={this.openNewModal.bind(this)}>
-          {label}
+          {this.newButtonLabel}
         </button>
       )
     }
