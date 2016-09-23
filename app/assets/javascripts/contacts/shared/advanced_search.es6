@@ -2,8 +2,9 @@ import BaseAdvancedSearch from '../../shared/base/base_advanced_search.es6'
 
 class AdvancedSearch extends BaseAdvancedSearch {
 
-  itemType() {
-    return 'contact'
+  constructor(props) {
+    super(props)
+    this.itemType = 'contact'
   }
 
   updateActiveFilter(value) {

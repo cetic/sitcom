@@ -1,53 +1,32 @@
-import DateRangeFilter from '../../shared/date_range_filter.es6'
-import ItemsSelect     from '../../shared/items_select.es6'
+import BaseAdvancedSearch from '../../shared/base/base_advanced_search.es6'
+import DateRangeFilter    from '../../shared/date_range_filter.es6'
 
-class AdvancedSearch extends React.Component {
+class AdvancedSearch extends BaseAdvancedSearch {
 
-  updateTextFilter(filterName, e) {
-    var newFilters = {}
-    newFilters[filterName] = e.target.value
-    this.props.updateFilters(newFilters)
-  }
-
-  updateContactIds(value) {
-    this.props.updateFilters({
-      contactIds: value
-    })
+  constructor(props) {
+    super(props)
+    this.itemType = 'event'
   }
 
   render() {
     return (
-      <div>
-        {this.renderNameFilter()}
-        {this.renderPlaceFilter()}
-        {this.renderDescriptionFilter()}
-        {this.renderNotesFilter()}
+      <div className="advanced-search form-horizontal">
+        <fieldset>
+          <legend>Général</legend>
+
+          {this.renderSimpleFilter('name',        'Nom'        )}
+          {this.renderSimpleFilter('place',       'Lieu'       )}
+          {this.renderSimpleFilter('description', 'Description')}
+          {this.renderSimpleFilter('notes',       'Notes'      )}
+        </fieldset>
+
         {this.renderHappensOnFilter()}
-        {this.renderContactsFilter()}
-      </div>
-    )
-  }
 
-  renderNameFilter() {
-    return (
-      <div>
-        <label htmlFor="events_name">Nom</label><br />
-        <input type="text"
-               id="events_name"
-               value={this.props.filters.name}
-               onChange={this.updateTextFilter.bind(this, 'name')} />
-      </div>
-    )
-  }
+        <fieldset>
+          <legend>Associations</legend>
 
-  renderPlaceFilter() {
-    return (
-      <div>
-        <label htmlFor="events_place">Lieu</label><br />
-        <input type="text"
-               id="events_place"
-               value={this.props.filters.place}
-               onChange={this.updateTextFilter.bind(this, 'place')} />
+          {this.renderIdsListFilter('contact', 'Contacts')}
+        </fieldset>
       </div>
     )
   }
@@ -56,39 +35,6 @@ class AdvancedSearch extends React.Component {
     return (
       <DateRangeFilter filters={this.props.filters}
                        updateFilters={this.props.updateFilters} />
-    )
-  }
-
-  renderDescriptionFilter() {
-    return (
-      <div>
-        <label htmlFor="events_description">Description</label><br />
-        <input type="text"
-               id="events_description"
-               value={this.props.filters.description}
-               onChange={this.updateTextFilter.bind(this, 'description')} />
-      </div>
-    )
-  }
-
-  renderNotesFilter() {
-    return (
-      <div>
-        <label htmlFor="events_notes">Notes</label><br />
-        <input type="text"
-               id="events_notes"
-               value={this.props.filters.notes}
-               onChange={this.updateTextFilter.bind(this, 'notes')} />
-      </div>
-    )
-  }
-
-  renderContactsFilter() {
-    return (
-      <ItemsSelect itemIds={this.props.filters.contactIds}
-                   optionsPath={this.props.contactOptionsPath}
-                   updateValue={this.updateContactIds.bind(this)}
-                   label="Contacts" />
     )
   }
 

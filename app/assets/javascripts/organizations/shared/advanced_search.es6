@@ -1,12 +1,11 @@
-import StatusSelect from './status_select.es6'
-import ItemsSelect  from '../../shared/items_select.es6'
+import BaseAdvancedSearch from '../../shared/base/base_advanced_search.es6'
+import StatusSelect       from './status_select.es6'
 
-class AdvancedSearch extends React.Component {
+class AdvancedSearch extends BaseAdvancedSearch {
 
-  updateTextFilter(filterName, e) {
-    var newFilters = {}
-    newFilters[filterName] = e.target.value
-    this.props.updateFilters(newFilters)
+  constructor(props) {
+    super(props)
+    this.itemType = 'organization'
   }
 
   updateStatusFilter(value) {
@@ -15,91 +14,44 @@ class AdvancedSearch extends React.Component {
     })
   }
 
-  updateContactIds(value) {
-    this.props.updateFilters({
-      contactIds: value
-    })
-  }
-
   render() {
     return (
-      <div>
-        {this.renderNameFilter()}
-        {this.renderStatusFilter()}
-        {this.renderDescriptionFilter()}
-        {this.renderWebsiteUrlFilter()}
-        {this.renderNotesFilter()}
-        {this.renderContactsFilter()}
-      </div>
-    )
-  }
+      <div className="advanced-search form-horizontal">
+        <fieldset>
+          <legend>Général</legend>
 
-  renderNameFilter() {
-    return (
-      <div>
-        <label htmlFor="organizations_name">Nom</label><br />
-        <input type="text"
-               id="organizations_name"
-               value={this.props.filters.name}
-               onChange={this.updateTextFilter.bind(this, 'name')} />
+          {this.renderSimpleFilter('name', 'Nom' )}
+
+          {this.renderStatusFilter()}
+
+          {this.renderSimpleFilter('description', 'Description')}
+          {this.renderSimpleFilter('websiteUrl',  'Site Web'   )}
+          {this.renderSimpleFilter('notes',       'Notes'      )}
+        </fieldset>
+
+        <fieldset>
+          <legend>Associations</legend>
+
+          {this.renderIdsListFilter('contact', 'Contacts')}
+        </fieldset>
       </div>
     )
   }
 
   renderStatusFilter() {
     return (
-      <div>
-        <label htmlFor="organizations_status">Statut</label><br />
+      <div className="form-group">
+        <label htmlFor="organizations_status"
+               className="col-sm-3 control-label">
+          Statut
+        </label>
 
-        <StatusSelect optionsPath={this.props.organizationStatusesOptionsPath}
-                      value={this.props.filters.status}
-                      updateValue={this.updateStatusFilter.bind(this)} />
+        <div className="col-sm-9">
+          <StatusSelect optionsPath={this.props.organizationStatusesOptionsPath}
+                        value={this.props.filters.status}
+                        updateValue={this.updateStatusFilter.bind(this)} />
+        </div>
       </div>
-    )
-  }
-
-  renderDescriptionFilter() {
-    return (
-      <div>
-        <label htmlFor="organizations_description">Description</label><br />
-        <input type="text"
-               id="organizations_description"
-               value={this.props.filters.description}
-               onChange={this.updateTextFilter.bind(this, 'description')} />
-      </div>
-    )
-  }
-
-  renderWebsiteUrlFilter() {
-    return (
-      <div>
-        <label htmlFor="organizations_website_url">Site Web</label><br />
-        <input type="text"
-               id="organizations_website_url"
-               value={this.props.filters.websiteUrl}
-               onChange={this.updateTextFilter.bind(this, 'websiteUrl')} />
-      </div>
-    )
-  }
-
-  renderNotesFilter() {
-    return (
-      <div>
-        <label htmlFor="organizations_notes">Notes</label><br />
-        <input type="text"
-               id="organizations_notes"
-               value={this.props.filters.notes}
-               onChange={this.updateTextFilter.bind(this, 'notes')} />
-      </div>
-    )
-  }
-
-  renderContactsFilter() {
-    return (
-      <ItemsSelect itemIds={this.props.filters.contactIds}
-                   optionsPath={this.props.contactOptionsPath}
-                   updateValue={this.updateContactIds.bind(this)}
-                   label="Contacts" />
     )
   }
 

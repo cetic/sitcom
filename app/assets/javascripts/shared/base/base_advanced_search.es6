@@ -2,6 +2,11 @@ import ItemsSelect from '../../shared/items_select.es6'
 
 class BaseAdvancedSearch extends React.Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+
   updateTextFilter(filterName, e) {
     var newFilters         = {}
     newFilters[filterName] = e.target.value
@@ -15,7 +20,7 @@ class BaseAdvancedSearch extends React.Component {
   }
 
   renderSimpleFilter(fieldName, labelName) {
-    const fieldId = `${this.itemType()}_${fieldName}`
+    const fieldId = `${this.itemType}_${fieldName}`
 
     return (
       <div className="form-group">
