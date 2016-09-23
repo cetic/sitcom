@@ -64,6 +64,27 @@ class BaseMain extends React.Component {
     this.updateUrl(newFilters)
   }
 
+  pushIdsListFilter(field, newId) {
+    var filters = this.getFilters()
+    var newIds
+
+    if(filters[field] == undefined) {
+      newIds = [newId]
+    }
+    else {
+      newIds = _.map(filters[field].split(','), (id) => {
+        return parseInt(id)
+      })
+
+      newIds = _.concat(newIds, newId)
+    }
+
+    var newFilters    = {}
+    newFilters[field] = _.uniq(newIds).join(',')
+
+    this.updateFilters(newFilters)
+  }
+
   render() {
     const canRead = this.props.permissions[`canRead${_.upperFirst(this.itemType)}s`]
 
@@ -71,7 +92,7 @@ class BaseMain extends React.Component {
       var filters = this.getFilters()
 
       return (
-        <div className="container-fluid container-contact">
+        <div className={`container-fluid container-${this.itemType}`}>
           <div className="row">
             {this.renderRightSidebar(filters)}
 

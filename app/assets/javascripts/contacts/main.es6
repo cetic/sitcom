@@ -37,27 +37,6 @@ class Main extends BaseMain {
     }
   }
 
-  pushIdsListFilter(field, newId) {
-    var filters = this.getFilters()
-    var newIds
-
-    if(filters[field] == undefined) {
-      newIds = [newId]
-    }
-    else {
-      newIds = _.map(filters[field].split(','), (id) => {
-        return parseInt(id)
-      })
-
-      newIds = _.concat(newIds, newId)
-    }
-
-    var newFilters    = {}
-    newFilters[field] = _.uniq(newIds).join(',')
-
-    this.updateFilters(newFilters)
-  }
-
   updateSelected(contact, newValue) {
     var index    = _.findIndex(this.state.contacts, (c) => { return contact.id == c.id})
     var contacts = this.state.contacts
