@@ -1,4 +1,4 @@
-import FlipCard from 'react-flipcard'
+import FlipCard from 'react-flipcard/flip_card.es6'
 
 class Contact extends React.Component {
   constructor(props) {
