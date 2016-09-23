@@ -33,7 +33,7 @@ class TagsSelector extends React.Component {
   }
 
   toggleTag(tag) {
-    var selected = _.includes(this.props.selectedTagLabels, tag.label)
+    var selected = _.includes(this.selectedTagLabels(), tag.label)
 
     if(selected) {
       this.removeTag(tag)
@@ -76,15 +76,45 @@ class TagsSelector extends React.Component {
     })
   }
 
+  selectedTagLabels() {
+    return _.map(this.props.contactTags, 'name')
+  }
+
   render() {
     return (
-      <div className="new-tag">
-        <span onClick={this.toggleOpened.bind(this)}>
-          <i className="fa fa-plus"></i>
-        </span>
+      <ul className="tags">
+        { this.renderTags() }
+        { this.renderNewTag() }
+      </ul>
+    )
+  }
 
-        { this.renderTagSelection() }
-      </div>
+  renderTags() {
+    var sortedTags = _.sortBy(this.props.contactTags, 'name')
+
+    return _.map(sortedTags, (tag) => {
+      return (
+        <li className="tag label label-default"
+            onClick={this.toggleOpened.bind(this)}
+            key={ tag.id }
+            style={{ backgroundColor: tag.color }}>
+          { tag.name }
+        </li>
+      )
+    })
+  }
+
+  renderNewTag() {
+    return (
+      <li className="tag label label-default last">
+        <div className="new-tag">
+          <span>
+            <i className="fa fa-plus"></i>
+          </span>
+
+          { this.renderTagSelection() }
+        </div>
+      </li>
     )
   }
 
@@ -106,7 +136,7 @@ class TagsSelector extends React.Component {
 
   renderTagSelectionItems() {
     return _.map(this.state.tags, (tag, index) => {
-      var selected = _.includes(this.props.selectedTagLabels, tag.label)
+      var selected = _.includes(this.selectedTagLabels(), tag.label)
 
       var darkerColor  = selected ? window.shadeColor(-0.30, tag.color) : undefined
       var lighterColor = selected ? window.shadeColor( 0.85, tag.color) : undefined

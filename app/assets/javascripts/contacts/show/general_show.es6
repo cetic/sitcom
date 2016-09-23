@@ -72,8 +72,7 @@ class GeneralShow extends React.Component {
             </ul>
 
             <ul className="tags">
-              { this.renderTags()   }
-              { this.renderNewTag() }
+              { this.renderTags() }
             </ul>
           </div>
         </div>
@@ -165,31 +164,13 @@ class GeneralShow extends React.Component {
   }
 
   renderTags() {
-    var sortedTags = _.sortBy(this.props.contact.tags, 'name')
-
-    return _.map(sortedTags, (tag) => {
-      return (
-        <li className="tag label label-default"
-            key={ tag.id }
-            style={{ backgroundColor: tag.color }}>
-          <i className="fa fa-times"
-             onClick={ this.removeTag.bind(this, tag) }></i>
-          { tag.name }
-        </li>
-      )
-    })
-  }
-
-  renderNewTag() {
     return (
-      <li className="label label-default">
-        <Tags selectedTagLabels={_.map(this.props.contact.tags, 'name')}
-              contactId={this.props.contact.id}
-              contactPath={this.props.contactPath}
-              tagsPath={this.tagsPath()}
-              tagOptionsPath={this.props.tagOptionsPath}
-              onChange={this.reloadFromBackend.bind(this)} />
-      </li>
+      <Tags contactTags={this.props.contact.tags}
+            contactId={this.props.contact.id}
+            contactPath={this.props.contactPath}
+            tagsPath={this.tagsPath()}
+            tagOptionsPath={this.props.tagOptionsPath}
+            onChange={this.reloadFromBackend.bind(this)} />
     )
   }
 
