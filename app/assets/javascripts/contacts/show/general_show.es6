@@ -1,4 +1,5 @@
 import CustomDropzone from '../../shared/custom_dropzone.es6'
+import Tags           from '../../shared/tags.es6'
 
 class GeneralShow extends React.Component {
   constructor(props) {
@@ -71,7 +72,8 @@ class GeneralShow extends React.Component {
             </ul>
 
             <ul className="tags">
-              { this.renderTags() }
+              { this.renderTags()   }
+              { this.renderNewTag() }
             </ul>
           </div>
         </div>
@@ -176,6 +178,19 @@ class GeneralShow extends React.Component {
         </li>
       )
     })
+  }
+
+  renderNewTag() {
+    return (
+      <li className="label label-default">
+        <Tags selectedTagLabels={_.map(this.props.contact.tags, 'name')}
+              contactId={this.props.contact.id}
+              contactPath={this.props.contactPath}
+              tagsPath={this.tagsPath()}
+              tagOptionsPath={this.props.tagOptionsPath}
+              onChange={this.reloadFromBackend.bind(this)} />
+      </li>
+    )
   }
 
   renderAddress() {

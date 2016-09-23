@@ -110,6 +110,14 @@
         font-size: 12px;
         cursor: pointer;
 
+        .name {
+          float: left;
+          width: 126px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
         .fa-check {
           display: block;
           visibility: hidden;
@@ -139,6 +147,10 @@
 
       li.tag-item:not(:hover) {
         background-color: white !important;
+
+        .name {
+          color: #444444 !important;
+        }
       }
 
       li:last-child input {
