@@ -1,45 +1,10 @@
-import ItemsSelect   from '../../shared/items_select.es6'
+import BaseAdvancedSearch from '../../shared/base/base_advanced_search.es6'
 
-class AdvancedSearch extends React.Component {
-  updateTextFilter(filterName, e) {
-    var newFilters = {}
-    newFilters[filterName] = e.target.value
-    this.props.updateFilters(newFilters)
-  }
+class AdvancedSearch extends BaseAdvancedSearch {
 
-  updateActive(value) {
+  updateActiveFilter(value) {
     this.props.updateFilters({
       active: value
-    })
-  }
-
-  updateOrganizationIds(value) {
-    this.props.updateFilters({
-      organizationIds: value
-    })
-  }
-
-  updateProjectIds(value) {
-    this.props.updateFilters({
-      projectIds: value
-    })
-  }
-
-  updateEventIds(value) {
-    this.props.updateFilters({
-      eventIds: value
-    })
-  }
-
-  updateFieldIds(value) {
-    this.props.updateFilters({
-      fieldIds: value
-    })
-  }
-
-  updateTagIds(value) {
-    this.props.updateFilters({
-      tagIds: value
     })
   }
 
@@ -49,113 +14,24 @@ class AdvancedSearch extends React.Component {
         <fieldset>
           <legend>Général</legend>
 
-          {this.renderNameFilter()}
-          {this.renderEmailFilter()}
-          {this.renderAddressFilter()}
-          {this.renderPhoneFilter()}
-          {this.renderNotesFilter()}
+          {this.renderSimpleFilter('contact', 'name',    'Nom'      )}
+          {this.renderSimpleFilter('contact', 'email',   'Email'    )}
+          {this.renderSimpleFilter('contact', 'address', 'Adresse'  )}
+          {this.renderSimpleFilter('contact', 'phone',   'Téléphone')}
+          {this.renderSimpleFilter('contact', 'notes',   'Notes'    )}
+
           {this.renderActiveFilter()}
         </fieldset>
 
         <fieldset>
           <legend>Associations</legend>
 
-          {this.renderTagsFilter()}
-          {this.renderFieldsFilter()}
-          {this.renderOrganizationsFilter()}
-          {this.renderProjectsFilter()}
-          {this.renderEventsFilter()}
+          {this.renderIdsListFilter('tag',          'Groupes'      )}
+          {this.renderIdsListFilter('field',        'Expertises'   )}
+          {this.renderIdsListFilter('organization', 'Organisations')}
+          {this.renderIdsListFilter('project',      'Projets'      )}
+          {this.renderIdsListFilter('event',        'Evènements'   )}
         </fieldset>
-      </div>
-    )
-  }
-
-  renderNameFilter() {
-    return (
-      <div className="form-group">
-        <label className="col-sm-3 control-label"
-               htmlFor="contacts_name">
-          Nom
-        </label>
-        <div className="col-sm-9">
-          <input className="form-control input-sm"
-                 type="text"
-                 id="contacts_name"
-                 value={this.props.filters.name}
-                 onChange={this.updateTextFilter.bind(this, 'name')} />
-        </div>
-      </div>
-    )
-  }
-
-  renderEmailFilter() {
-    return (
-      <div className="form-group">
-        <label className="col-sm-3 control-label"
-               htmlFor="contacts_email">
-          Email
-        </label>
-        <div className="col-sm-9">
-          <input className="form-control input-sm"
-                 type="text"
-                 id="contacts_email"
-                 value={this.props.filters.email}
-                 onChange={this.updateTextFilter.bind(this, 'email')} />
-        </div>
-      </div>
-    )
-  }
-
-  renderAddressFilter() {
-    return (
-      <div className="form-group">
-        <label className="col-sm-3 control-label"
-               htmlFor="contacts_address">
-          Adresse
-        </label>
-        <div className="col-sm-9">
-          <input className="form-control input-sm"
-                 type="text"
-                 id="contacts_address"
-                 value={this.props.filters.address}
-                 onChange={this.updateTextFilter.bind(this, 'address')} />
-        </div>
-      </div>
-    )
-  }
-
-  renderPhoneFilter() {
-    return (
-      <div className="form-group">
-        <label className="col-sm-3 control-label"
-               htmlFor="contacts_phone">
-          Téléphone
-        </label>
-        <div className="col-sm-9">
-          <input className="form-control input-sm"
-                 type="text"
-                 id="contacts_phone"
-                 value={this.props.filters.phone}
-                 onChange={this.updateTextFilter.bind(this, 'phone')} />
-        </div>
-      </div>
-    )
-  }
-
-  renderNotesFilter() {
-    return (
-      <div className="form-group">
-        <label className="col-sm-3 control-label"
-               htmlFor="contacts_notes">
-          Notes
-        </label>
-        <div className="col-sm-9">
-          <input className="form-control input-sm"
-                 type="text"
-                 id="contacts_notes"
-                 value={this.props.filters.notes}
-                 onChange={this.updateTextFilter.bind(this, 'notes')} />
-        </div>
       </div>
     )
   }
@@ -172,7 +48,7 @@ class AdvancedSearch extends React.Component {
                  name="contacts_active"
                  id="contacts_active_all"
                  checked={this.props.filters.active == ''}
-                 onChange={this.updateActive.bind(this, '')} />
+                 onChange={this.updateActiveFilter.bind(this, '')} />
 
           &nbsp;<label htmlFor="contacts_active_all">Tous</label>
 
@@ -180,7 +56,7 @@ class AdvancedSearch extends React.Component {
                  name="contacts_active"
                  id="contacts_active_active"
                  checked={this.props.filters.active == 'true'}
-                 onChange={this.updateActive.bind(this, 'true')} />
+                 onChange={this.updateActiveFilter.bind(this, 'true')} />
 
           &nbsp;<label htmlFor="contacts_active_active">Actif</label>
 
@@ -188,84 +64,9 @@ class AdvancedSearch extends React.Component {
                  name="contacts_active"
                  id="contacts_active_inactive"
                  checked={this.props.filters.active == 'false'}
-                 onChange={this.updateActive.bind(this, 'false')} />
+                 onChange={this.updateActiveFilter.bind(this, 'false')} />
 
           &nbsp;<label htmlFor="contacts_active_inactive">Inactif</label>
-        </div>
-      </div>
-    )
-  }
-
-  renderTagsFilter() {
-    return (
-      <div className="form-group">
-        <label className="col-sm-3 control-label">
-          Groupes
-        </label>
-        <div className="col-sm-9">
-          <ItemsSelect itemIds={this.props.filters.tagIds}
-                       optionsPath={this.props.tagOptionsPath}
-                       updateValue={this.updateTagIds.bind(this)} />
-        </div>
-      </div>
-    )
-  }
-
-  renderFieldsFilter() {
-    return (
-      <div className="form-group">
-        <label className="col-sm-3 control-label">
-          Expertises
-        </label>
-        <div className="col-sm-9">
-          <ItemsSelect itemIds={this.props.filters.fieldIds}
-                       optionsPath={this.props.fieldOptionsPath}
-                       updateValue={this.updateFieldIds.bind(this)} />
-        </div>
-      </div>
-    )
-  }
-
-  renderOrganizationsFilter() {
-    return (
-      <div className="form-group">
-        <label className="col-sm-3 control-label">
-          Organisations
-        </label>
-        <div className="col-sm-9">
-          <ItemsSelect itemIds={this.props.filters.organizationIds}
-                       optionsPath={this.props.organizationOptionsPath}
-                       updateValue={this.updateOrganizationIds.bind(this)} />
-        </div>
-      </div>
-    )
-  }
-
-  renderProjectsFilter() {
-    return (
-      <div className="form-group">
-        <label className="col-sm-3 control-label">
-          Projets
-        </label>
-        <div className="col-sm-9">
-          <ItemsSelect itemIds={this.props.filters.projectIds}
-                       optionsPath={this.props.projectOptionsPath}
-                       updateValue={this.updateProjectIds.bind(this)} />
-        </div>
-      </div>
-    )
-  }
-
-  renderEventsFilter() {
-    return (
-      <div className="form-group">
-        <label className="col-sm-3 control-label">
-          Évènements
-        </label>
-        <div className="col-sm-9">
-          <ItemsSelect itemIds={this.props.filters.eventIds}
-                       optionsPath={this.props.eventOptionsPath}
-                       updateValue={this.updateEventIds.bind(this)} />
         </div>
       </div>
     )

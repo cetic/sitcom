@@ -13,20 +13,20 @@ var EventsWithRouter        = withRouter(Events)
 
 // We want to access props in this.props and not in this.props.route (but it's just a personal choice)
 global.mergePropsRouteInProps = (props) => {
-  var cleanedPropsRoute = _.omit(props.route, ['component', 'path']);
-  return _.merge({}, props, cleanedPropsRoute);
+  var cleanedPropsRoute = _.omit(props.route, ['component', 'path'])
+  return _.merge({}, props, cleanedPropsRoute)
 }
 
-const ContactsWrapper      = (props) => { return ( <ContactsWithRouter {...mergePropsRouteInProps(props)} /> ); }
-const OrganizationsWrapper = (props) => { return ( <OrganizationsWithRouter {...mergePropsRouteInProps(props)} /> ); }
-const ProjectsWrapper      = (props) => { return ( <ProjectsWithRouter {...mergePropsRouteInProps(props)} /> ); }
-const EventsWrapper        = (props) => { return ( <EventsWithRouter {...mergePropsRouteInProps(props)} /> ); }
+const ContactsWrapper      = (props) => { return ( <ContactsWithRouter {...mergePropsRouteInProps(props)} /> ) }
+const OrganizationsWrapper = (props) => { return ( <OrganizationsWithRouter {...mergePropsRouteInProps(props)} /> ) }
+const ProjectsWrapper      = (props) => { return ( <ProjectsWithRouter {...mergePropsRouteInProps(props)} /> ) }
+const EventsWrapper        = (props) => { return ( <EventsWithRouter {...mergePropsRouteInProps(props)} /> ) }
 
 class Routes extends React.Component {
   componentWillMount() {
     this.browserHistory = useRouterHistory(createHistory)({
       basename: this.props.labPath
-    });
+    })
 
     global.browserHistory = this.browserHistory;
   }
@@ -79,7 +79,7 @@ class Routes extends React.Component {
                             permissions={this.props.permissions} />
         </Route>
       </Router>
-    );
+    )
   }
 }
 
