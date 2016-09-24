@@ -12,18 +12,10 @@ class BaseMain extends React.Component {
   }
 
   componentDidMount() {
-    if(this.isEmptyFilters() && localStorage.getItem(`${this.itemType}s`)) {
-      var newState = {
-        loaded:        true,
-        selectedCount: 0
-      }
-      newState[`${this.itemType}s`] = JSON.parse(localStorage.getItem(`${this.itemType}s`))
-
-      this.setState(newState)
-    }
-    else {
+    if(this.shouldUseLocalStorage())
+      this.reloadFromLocalStorage()
+    else
       this.reloadFromBackend()
-    }
 
     this.selectHeaderMenu()
   }
@@ -34,8 +26,35 @@ class BaseMain extends React.Component {
     }
   }
 
+  shouldUseLocalStorage() {
+    var emptyFilters      = this.isEmptyFilters()
+    var existingStorage   = localStorage.getItem(`${this.itemType}s`)
+    var storageNotExpired = localStorage.getItem(`${this.itemType}s-lastSync`) && Date.now() - parseInt(localStorage.getItem(`${this.itemType}s-lastSync`)) < 5 * 60 * 1000 // 5 minutes
+
+    return emptyFilters && existingStorage && storageNotExpired
+  }
+
+  getListFromLocalStorage() {
+    return JSON.parse(localStorage.getItem(`${this.itemType}s`))
+  }
+
+  setListToLocalStorage() {
+    localStorage.setItem(`${this.itemType}s`, JSON.stringify(this.state[`${this.itemType}s`]))
+    localStorage.setItem(`${this.itemType}s-lastSync`, Date.now())
+  }
+
   isEmptyFilters() {
     return !this.props.location.search.length || this.props.location.search == '?'
+  }
+
+  reloadFromLocalStorage() {
+    var newState = {
+      loaded:        true,
+      selectedCount: 0
+    }
+    newState[`${this.itemType}s`] = this.getListFromLocalStorage()
+
+    this.setState(newState)
   }
 
   selectHeaderMenu() {
@@ -63,7 +82,7 @@ class BaseMain extends React.Component {
 
       this.setState(newState, () => {
         if(this.isEmptyFilters()) {
-          localStorage.setItem(`${this.itemType}s`, JSON.stringify(data[`${this.itemType}s`]));
+          this.setListToLocalStorage()
         }
       })
     })

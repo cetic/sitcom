@@ -97,6 +97,7 @@ class Main extends BaseMain {
                 updateSelected={this.updateSelected.bind(this)}
                 pushTagIdsFilter={this.pushIdsListFilter.bind(this, 'tagIds')}
                 pushFieldIdsFilter={this.pushIdsListFilter.bind(this, 'fieldIds')}
+                applyNewContacts={this.applyNewContacts.bind(this)}
                 reloadIndexFromBackend={this.reloadFromBackend.bind(this)} />
     )
   }

@@ -30,7 +30,10 @@ class Contact extends React.Component {
       http.delete(this.tagsPath() + '/' + tag.id, {
         contact_id: this.props.contact.id
       }, (data) => {
-        setTimeout(() => this.props.reloadIndexFromBackend(false), window.backendRefreshDelay)
+        this.props.applyNewContacts([data.contact])
+        setTimeout(() => {
+          this.props.reloadIndexFromBackend(false)
+        }, window.backendRefreshDelay)
       })
     }
   }
