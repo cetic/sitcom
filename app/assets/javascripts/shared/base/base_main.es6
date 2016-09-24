@@ -12,7 +12,19 @@ class BaseMain extends React.Component {
   }
 
   componentDidMount() {
-    this.reloadFromBackend()
+    if(this.isEmptyFilters() && localStorage.getItem(`${this.itemType}s`)) {
+      var newState = {
+        loaded:        true,
+        selectedCount: 0
+      }
+      newState[`${this.itemType}s`] = JSON.parse(localStorage.getItem(`${this.itemType}s`))
+
+      this.setState(newState)
+    }
+    else {
+      this.reloadFromBackend()
+    }
+
     this.selectHeaderMenu()
   }
 
@@ -20,6 +32,10 @@ class BaseMain extends React.Component {
     if(newProps.location.search != this.props.location.search) {
       this.dReloadFromBackend()
     }
+  }
+
+  isEmptyFilters() {
+    return !this.props.location.search.length || this.props.location.search == '?'
   }
 
   selectHeaderMenu() {
@@ -43,9 +59,13 @@ class BaseMain extends React.Component {
         loaded:        true,
         selectedCount: 0
       }
-
       newState[`${this.itemType}s`] = data[`${this.itemType}s`]
-      this.setState(newState)
+
+      this.setState(newState, () => {
+        if(this.isEmptyFilters()) {
+          localStorage.setItem(`${this.itemType}s`, JSON.stringify(data[`${this.itemType}s`]));
+        }
+      })
     })
   }
 
