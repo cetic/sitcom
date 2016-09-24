@@ -11,7 +11,9 @@ class TagsController < ApplicationController
         ContactTagService.new(contact).add_tag(params[:name])
       end
 
-      render_json_success
+      render_json_success({
+        :contacts => contacts.collect { |contact| contact.as_indexed_json }
+      })
     else
       render_permission_error
     end
@@ -24,7 +26,7 @@ class TagsController < ApplicationController
 
       ContactTagService.new(contact).remove_tag(params[:id])
 
-      render_json_success
+      render_json_success({ :contact => contact.as_indexed_json })
     else
       render_permission_error
     end

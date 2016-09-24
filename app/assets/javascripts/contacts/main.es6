@@ -41,6 +41,19 @@ class Main extends BaseMain {
     }
   }
 
+  applyNewContacts(contacts) {
+    var newContacts = this.state.contacts
+
+    contacts.forEach((contact) => {
+      var index = _.findIndex(newContacts, (c) => { return contact.id == c.id})
+      newContacts[index] = contact
+    })
+
+    this.setState({
+      contacts: newContacts,
+    })
+  }
+
   updateSelected(contact, newValue) {
     var index    = _.findIndex(this.state.contacts, (c) => { return contact.id == c.id})
     var contacts = this.state.contacts
@@ -64,6 +77,7 @@ class Main extends BaseMain {
                    quickSearch={filters.quickSearch}
                    updateQuickSearch={this.updateQuickSearch.bind(this)}
                    reloadIndexFromBackend={this.reloadFromBackend.bind(this)}
+                   applyNewContacts={this.applyNewContacts.bind(this)}
                    filters={filters}
                    exportUrl={this.exportUrl}
                    selectedCount={this.state.selectedCount}

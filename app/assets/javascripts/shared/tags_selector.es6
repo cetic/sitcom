@@ -44,9 +44,10 @@ class TagsSelector extends React.Component {
         name:        e.target.value,
         contact_ids: this.props.selectedContactIds()
       }, (data) => {
+        this.reloadTags()
+        this.props.applyNewContacts(data.contacts)
         setTimeout(() => {
           this.props.reloadIndexFromBackend(false)
-          this.reloadTags()
         }, window.backendRefreshDelay)
       })
     }
@@ -59,7 +60,11 @@ class TagsSelector extends React.Component {
       name:        tag.label,
       contact_ids: this.props.selectedContactIds()
     }, (data) => {
-      setTimeout(() => this.props.reloadIndexFromBackend(false), window.backendRefreshDelay)
+      this.reloadTags()
+      this.props.applyNewContacts(data.contacts)
+      setTimeout(() => {
+        this.props.reloadIndexFromBackend(false)
+      }, window.backendRefreshDelay)
     })
   }
 
