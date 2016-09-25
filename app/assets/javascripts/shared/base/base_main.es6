@@ -12,10 +12,12 @@ class BaseMain extends React.Component {
   }
 
   componentDidMount() {
-    if(this.shouldUseLocalStorage())
+    if(this.shouldUseLocalStorage()) {
       this.reloadFromLocalStorage()
-    else
+    }
+    else {
       this.reloadFromBackend()
+    }
 
     this.selectHeaderMenu()
   }
