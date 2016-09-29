@@ -12,11 +12,8 @@ class GeneralShow extends React.Component {
 
   destroyContact() {
     if(confirm("Supprimer ce contact ?")) {
-      http.delete(this.props.contactPath, {}, (data) => {
-        if(data.success) {
-          this.props.router.replace('contacts' + this.props.search)
-        }
-      })
+      http.delete(this.props.contactPath)
+      this.props.router.replace('contacts' + this.props.search)
     }
   }
 

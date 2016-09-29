@@ -55,6 +55,19 @@ class Main extends BaseMain {
     })
   }
 
+  unselectAllContacts() {
+    var contacts = this.state.contacts
+
+    _.each(contacts, (contact) => {
+      contact.selected = false
+    })
+
+    this.setState({
+      contacts:      contacts,
+      selectedCount: 0
+    })
+  }
+
   // @overrides
   renderQuickSearch(filters) {
     return (
@@ -67,7 +80,8 @@ class Main extends BaseMain {
                    exportUrl={this.exportUrl}
                    selectedCount={this.state.selectedCount}
                    contacts={this.state.contacts}
-                   tagOptionsPath={this.props.route.tagOptionsPath} />
+                   tagOptionsPath={this.props.route.tagOptionsPath}
+                   unselectAllContacts={this.unselectAllContacts.bind(this)} />
     )
   }
 

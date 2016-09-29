@@ -11,11 +11,8 @@ class GeneralShow extends React.Component {
 
   destroyOrganization() {
     if(confirm("Supprimer cette organisation ?")) {
-      http.delete(this.props.organizationPath, {}, (data) => {
-        if(data.success) {
-          this.props.router.replace('organizations'  + this.props.search)
-        }
-      })
+      http.delete(this.props.organizationPath)
+      this.props.router.replace('organizations'  + this.props.search)
     }
   }
 

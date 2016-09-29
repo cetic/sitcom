@@ -12,11 +12,8 @@ class GeneralShow extends React.Component {
 
   destroyProject() {
     if(confirm("Supprimer ce projet ?")) {
-      http.delete(this.props.projectPath, {}, (data) => {
-        if(data.success) {
-          this.props.router.replace('projects' + this.props.search)
-        }
-      })
+      http.delete(this.props.projectPath)
+      this.props.router.replace('projects' + this.props.search)
     }
   }
 

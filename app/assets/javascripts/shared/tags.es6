@@ -1,6 +1,6 @@
 import enhanceWithClickOutside from 'react-click-outside'
 
-class TagsSelector extends React.Component {
+class Tags extends React.Component {
   constructor(props) {
     super(props)
 
@@ -185,4 +185,4 @@ class TagsSelector extends React.Component {
   }
 }
 
-module.exports = enhanceWithClickOutside(TagsSelector)
+module.exports = enhanceWithClickOutside(Tags)

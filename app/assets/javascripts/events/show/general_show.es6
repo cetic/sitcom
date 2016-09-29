@@ -12,11 +12,8 @@ class GeneralShow extends React.Component {
 
   destroyEvent() {
     if(confirm("Supprimer cet évènement ?")) {
-      http.delete(this.props.eventPath, {}, (data) => {
-        if(data.success) {
-          this.props.router.replace('events' + this.props.search)
-        }
-      })
+      http.delete(this.props.eventPath)
+      this.props.router.replace('events' + this.props.search)
     }
   }
 

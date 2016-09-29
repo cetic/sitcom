@@ -10,7 +10,7 @@ class Contact extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if(newProps.contact.selected != this.props.contact.selected) {
+    if(newProps.contact.selected != this.state.selected) {
       this.setState({ selected: newProps.contact.selected })
     }
   }
