@@ -30,11 +30,24 @@ class CustomField < ApplicationRecord
 
   # Validations
 
-  validates :name, :presence => { :message => "Le nom est obligatoire."  }
+  validates :name, :presence   => { :message => "Le nom est obligatoire."                                            },
+                   :uniqueness => { :message => "Ce nom de chams est déjà utilisé.", :scope => [:lab_id, :item_type] }
 
   validates :field_type, :inclusion => {
     :in      => CustomField.field_type.values,
     :message => "Le type de champs est invalide."
   }
+
+  # Methods
+
+  def ensure_concistency
+    if field_type.enum?
+      custom_field_links.each do |custom_field_link|
+        unless options.include?(custom_field_link.value)
+          custom_field_link.destroy
+        end
+      end
+    end
+  end
 
 end

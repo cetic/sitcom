@@ -4,7 +4,7 @@ class BoolCustomField extends CustomField {
 
   constructor(props) {
     super(props)
-    this.state.value = this.props.customField.value || false
+    this.state.value = this.props.customField.value == 'true'
   }
 
   buildParams() {
@@ -23,7 +23,7 @@ class BoolCustomField extends CustomField {
 
   renderValue() {
     return (
-      <span>{this.props.customField.value ? 'Oui' : 'Non'}</span>
+      <span>{this.state.value ? 'Oui' : 'Non'}</span>
     )
   }
 

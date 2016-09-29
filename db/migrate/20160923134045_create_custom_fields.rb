@@ -3,7 +3,7 @@ class CreateCustomFields < ActiveRecord::Migration[5.0]
     create_table :custom_fields do |t|
       t.references :lab, foreign_key: true
 
-      t.string  :item_type, default: 'contact', index: true
+      t.string  :item_type, default: 'Contact', index: true
       t.string  :name
       t.string  :field_type
       t.integer :position

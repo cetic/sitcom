@@ -15,6 +15,7 @@ class Admin::CustomFieldsController < Admin::BaseController
     @custom_field = @lab.custom_fields.new(strong_params)
 
     if @custom_field.save
+      ReindexAllItemsWorker.perform_async(@lab.id, @custom_field.item_type)
       redirect_to admin_lab_custom_fields_path(@lab)
     else
       set_flash_now_errors(@custom_field)
@@ -31,6 +32,8 @@ class Admin::CustomFieldsController < Admin::BaseController
     @custom_field = @lab.custom_fields.find(params[:id])
 
     if @custom_field.update_attributes(strong_params)
+      @custom_field.ensure_concistency
+      ReindexAllItemsWorker.perform_async(@lab.id, @custom_field.item_type)
       redirect_to admin_lab_custom_fields_path(@lab)
     else
       set_flash_now_errors(@custom_field)
@@ -41,6 +44,7 @@ class Admin::CustomFieldsController < Admin::BaseController
   def destroy
     @custom_field = @lab.custom_fields.find(params[:id])
     @custom_field.destroy
+    ReindexAllItemsWorker.perform_async(@lab.id, @custom_field.item_type)
     redirect_to admin_lab_custom_fields_path(@lab)
   end
 

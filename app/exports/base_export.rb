@@ -1,8 +1,9 @@
 class BaseExport
 
-  attr_accessor :items
+  attr_accessor :lab, :items
 
-  def initialize(items)
+  def initialize(lab, items)
+    @lab   = lab
     @items = items
   end
 

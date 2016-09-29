@@ -118,4 +118,24 @@ class Contact < ApplicationRecord
       "https://placeholdit.imgix.net/~text?txtsize=68&txt=#{txt}&w=200&h=200"
     end
   end
+
+  def custom_field_value(custom_field)
+    custom_field_link = custom_field_links.where(:custom_field_id => custom_field.id).first
+
+    if custom_field.field_type.bool?
+      custom_field_link.try(:bool_value) || false
+    else
+      custom_field_link.try(:text_value).to_s
+    end
+  end
+
+  def custom_field_text_value(custom_field)
+    value = custom_field_value(custom_field)
+
+    if custom_field.field_type.boolean?
+      value ? 'Oui' : 'Non'
+    else
+      value
+    end
+  end
 end

@@ -23,7 +23,8 @@ module ContactIndexConcern
         indexes :event_ids,        :index => 'not_analyzed'
         indexes :tag_ids,          :index => 'not_analyzed'
 
-        indexes :notes, :type => 'nested'
+        indexes :notes,         :type => 'nested'
+        indexes :custom_fields, :type => 'nested'
 
         indexes :sort_name, :analyzer => :sortable_string_analyzer
       end
@@ -126,16 +127,18 @@ module ContactIndexConcern
 
   def custom_fields_as_json
     lab.custom_fields.collect do |custom_field|
-      custom_field_link = custom_field_links.where(:custom_field_id => custom_field.id)
-                                            .first
-
-      {
-        :id                   => custom_field.id,
-        :name                 => custom_field.name,
-        :field_type           => custom_field.field_type,
-        :custom_field_link_id => custom_field_link.try(:id),
-        :value                => custom_field_link.try(:value)
+      custom_field_data = {
+        :id          => custom_field.id,
+        :name        => custom_field.name,
+        :field_type  => custom_field.field_type,
+        :value       => custom_field_value(custom_field).to_s, # ES cannot index booleans here
       }
+
+      if custom_field.field_type.enum?
+        custom_field_data[:options] = custom_field.options
+      end
+
+      custom_field_data
     end
   end
 end

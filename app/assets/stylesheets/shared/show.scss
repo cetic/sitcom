@@ -14,7 +14,7 @@
     color: #aaaaaa;
   }
 
-  .general, .social, .items-block, .contacts-block, .organizations-block, .notes-block {
+  .general, .social, .items-block, .contacts-block, .organizations-block, .notes-block, .custom-fields-block {
     position: relative;
     margin-bottom: 36px;
     background-color: white;
@@ -565,5 +565,9 @@
         opacity: 0.8;
       }
     }
+  }
+
+  .custom-fields_block {
+
   }
 }

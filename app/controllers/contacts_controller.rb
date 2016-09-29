@@ -114,7 +114,7 @@ class ContactsController < ApplicationController
         })).run
       end
 
-      render_csv(ContactExport.new(contacts).csv_data, 'contacts.csv')
+      render_csv(ContactExport.new(@lab, contacts).csv_data, 'contacts.csv')
     else
       render_permission_error
     end
