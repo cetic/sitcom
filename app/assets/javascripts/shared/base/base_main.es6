@@ -125,8 +125,8 @@ class BaseMain extends React.Component {
         items:           items,
         filteredItemIds: _.map(items, 'id'),
         filteredCount:   items.length,
-        //selectedItemIds: [],
-        //selectedCount:   0,
+        //selectedItemIds: [], => keep selected items
+        //selectedCount:   0,  => keep selected items
         loaded:          true,
       }, () => {
         this.props.storage.setItem(`${this.itemType}s`, items)
