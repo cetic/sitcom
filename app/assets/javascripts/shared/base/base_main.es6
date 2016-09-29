@@ -21,9 +21,7 @@ class BaseMain extends React.Component {
     }
     else {
       this.reloadAllFromBackend(true, () => {
-        if(this.hasFilters()) {
-          this.reloadIdsFromBackend()
-        }
+        this.reloadIdsFromBackend()
       })
     }
 
@@ -75,7 +73,7 @@ class BaseMain extends React.Component {
   onStorageItemCreated() {
     console.log(`${this.itemType}-created`)
     setTimeout(() => {
-      this.reloadAllFromBackend()
+      this.reloadAllFromBackend(false)
     }, window.backendRefreshDelay) // waiting for indexation, but not in a hurry
   }
 
@@ -127,8 +125,8 @@ class BaseMain extends React.Component {
         items:           items,
         filteredItemIds: _.map(items, 'id'),
         filteredCount:   items.length,
-        selectedItemIds: [],
-        selectedCount:   0,
+        //selectedItemIds: [],
+        //selectedCount:   0,
         loaded:          true,
       }, () => {
         this.props.storage.setItem(`${this.itemType}s`, items)
@@ -141,22 +139,33 @@ class BaseMain extends React.Component {
   }
 
   reloadIdsFromBackend(spinner = true) {
-    if(spinner) {
-      this.setState({ loaded: false })
+    if(this.hasFilters()) {
+      if(spinner) {
+        this.setState({ loaded: false })
+      }
+
+      const itemsPath = this.props.route[`${this.itemType}sPath`]
+      var   query     = _.assign({}, { onlyIds: true }, this.getFilters())
+
+      http.get(itemsPath, query, (data) => {
+        this.setState({
+          filteredItemIds: data[`${this.itemType}Ids`],
+          filteredCount:   data[`${this.itemType}Ids`].length,
+          selectedItemIds: [],
+          selectedCount:   0,
+          loaded:          true,
+        })
+      })
     }
-
-    const itemsPath = this.props.route[`${this.itemType}sPath`]
-    var   query     = _.assign({}, { onlyIds: true }, this.getFilters())
-
-    http.get(itemsPath, query, (data) => {
+    else {
       this.setState({
-        filteredItemIds: data[`${this.itemType}Ids`],
-        filteredCount:   data[`${this.itemType}Ids`].length,
+        filteredItemIds: _.map(this.state.items, 'id'),
+        filteredCount:   this.state.items.length,
         selectedItemIds: [],
         selectedCount:   0,
         loaded:          true,
       })
-    })
+    }
   }
 
   updateUrl(newValues) {

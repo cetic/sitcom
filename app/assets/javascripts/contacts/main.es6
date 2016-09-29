@@ -45,29 +45,24 @@ class Main extends BaseMain {
   }
 
   updateSelected(item, newValue) {
-    var index    = _.findIndex(this.state.items, (i) => { return item.id == i.id })
-    var items = this.state.items
-
-    items[index].selected = newValue
-
-    var selectedCount = newValue ? this.state.selectedCount + 1 : this.state.selectedCount - 1
-
-    this.setState({
-      items:         items,
-      selectedCount: selectedCount
-    })
+    if(newValue == false && _.includes(this.state.selectedItemIds, item.id)) {
+      this.setState({
+        selectedItemIds: _.filter(this.state.selectedItemIds, (itemId) => { return itemId != item.id }),
+        selectedCount:   this.state.selectedCount - 1,
+      })
+    }
+    else if(newValue == true && !_.includes(this.state.selectedItemIds, item.id)) {
+      this.setState({
+        selectedItemIds: this.state.selectedItemIds.concat([item.id]),
+        selectedCount:   this.state.selectedCount + 1,
+      })
+    }
   }
 
   unselectAllItems() {
-    var items = this.state.items
-
-    _.each(items, (item) => {
-      item.selected = false
-    })
-
     this.setState({
-      items:         items,
-      selectedCount: 0
+      selectedItemIds: [],
+      selectedCount:   0,
     })
   }
 
@@ -76,12 +71,12 @@ class Main extends BaseMain {
     return (
       <QuickSearch title={this.title}
                    loaded={this.state.loaded}
-                   results={this.state.filteredItemIds.length}
+                   results={this.state.filteredCount}
+                   selectedCount={this.state.selectedCount}
                    quickSearch={filters.quickSearch}
                    updateQuickSearch={this.updateQuickSearch.bind(this)}
                    filters={filters}
                    exportUrl={this.exportUrl}
-                   selectedCount={this.state.selectedCount}
                    contacts={this.filteredItems()}
                    tagOptionsPath={this.props.route.tagOptionsPath}
                    unselectAllContacts={this.unselectAllItems.bind(this)} />
@@ -92,6 +87,7 @@ class Main extends BaseMain {
     return (
       <Contacts permissions={this.props.route.permissions}
                 contacts={this.filteredItems()}
+                selectedItemIds={this.state.selectedItemIds}
                 loaded={this.state.loaded}
                 search={this.props.location.search}
                 tagOptionsPath={this.props.route.tagOptionsPath}

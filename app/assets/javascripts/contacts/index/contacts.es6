@@ -43,12 +43,15 @@ class Contacts extends React.Component {
 
   renderContacts() {
     return _.map(this.props.contacts, (contact) => {
+      var selected = _.includes(this.props.selectedItemIds, contact.id)
+
       return (
         <Contact key={contact.id}
                  permissions={this.props.permissions}
                  contact={contact}
                  search={this.props.search}
                  tagOptionsPath={this.props.tagOptionsPath}
+                 selected={selected}
                  updateSelected={this.props.updateSelected}
                  pushTagIdsFilter={this.props.pushTagIdsFilter}
                  pushFieldIdsFilter={this.props.pushFieldIdsFilter} />

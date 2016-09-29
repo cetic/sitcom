@@ -32,11 +32,14 @@ class Storage {
   }
 
   onCableUpdate(data, itemType, itemId) {
-    var items             = this[`${itemType}s`]
-    var index             = _.findIndex(items, (item) => { return itemId == item.id })
-    items[index]          = data.item
+    var items    = this[`${itemType}s`]
+    var index    = _.findIndex(items, (item) => { return itemId == item.id })
 
-    this.ee.emitEvent(`${itemType}-updated`) // signal component that state need to be updated from storage
+    if(index != -1) {
+      items[index] = data.item
+
+      this.ee.emitEvent(`${itemType}-updated`) // signal component that state need to be updated from storage
+    }
   }
 
   onCableDestroy(data, itemType, itemId) {
