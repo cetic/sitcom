@@ -5,6 +5,10 @@ class BaseMain extends React.Component {
 
   constructor(props) {
     super(props)
+
+    this.onStorageItemCreated   = this.onStorageItemCreated.bind(this)
+    this.onStorageItemUpdated   = this.onStorageItemUpdated.bind(this)
+    this.onStorageItemDestroyed = this.onStorageItemDestroyed.bind(this)
   }
 
   componentWillMount() {
@@ -12,15 +16,17 @@ class BaseMain extends React.Component {
   }
 
   componentDidMount() {
-    if(this.shouldUseLocalStorage()) {
-      this.reloadFromLocalStorage()
-    }
-    else {
+    if(this.storageExists())
+      this.reloadFromStorage()
+    else
       this.reloadFromBackend()
-    }
 
-    this.bindCable()
     this.selectHeaderMenu()
+    this.bindStorageListeners()
+  }
+
+  componentWillUnmount() {
+    this.unbindStorageListeners()
   }
 
   componentWillReceiveProps(newProps) {
@@ -29,66 +35,39 @@ class BaseMain extends React.Component {
     }
   }
 
-  bindCable() {
-    App.cable.subscriptions.create({ channel: `${_.upperFirst(this.itemType)}sChannel`, lab_id: this.props.route.labId }, {
-      received: (data) => {
-        var camelData = humps.camelizeKeys(data)
-        var itemId    = camelData.action == 'destroy' ? camelData.itemId : camelData.item.id
-
-        if(camelData.action == 'create') {
-          setTimeout(() => {
-            this.reloadFromBackend(false)
-          }, window.backendRefreshDelay) // waiting for indexation, but not in a hurry
-        }
-        else if(camelData.action == 'update') {
-          var newItems = this.state[`${this.itemType}s`]
-          var index       = _.findIndex(newItems, (item) => { return itemId == item.id })
-          var wasSelected = newItems[index].selected
-          newItems[index] = camelData.item
-          newItems[index].selected = wasSelected // to keep selection when updated (only useful for contacts for now)
-
-          var newState = {}
-          newState[`${this.itemType}s`] = newItems
-          this.setState(newState)
-        }
-        else if(camelData.action == 'destroy') {
-          var newState = {}
-          newState[`${this.itemType}s`] = _.filter(this.state[`${this.itemType}s`], (item) => { return itemId != item.id })
-          this.setState(newState)
-        }
-      }
-    })
+  bindStorageListeners() {
+    this.props.storage.ee.addListener(`${this.itemType}-created`,   this.onStorageItemCreated)
+    this.props.storage.ee.addListener(`${this.itemType}-updated`,   this.onStorageItemUpdated)
+    this.props.storage.ee.addListener(`${this.itemType}-destroyed`, this.onStorageItemDestroyed)
   }
 
-  shouldUseLocalStorage() {
-    var emptyFilters      = this.isEmptyFilters()
-    var existingStorage   = localStorage.getItem(`${this.itemType}s`)
-    var storageNotExpired = localStorage.getItem(`${this.itemType}s-lastSync`) && Date.now() - parseInt(localStorage.getItem(`${this.itemType}s-lastSync`)) < 0 //5 * 60 * 1000 // 5 minutes
-
-    return emptyFilters && existingStorage && storageNotExpired
+  unbindStorageListeners() {
+    this.props.storage.ee.removeListener(`${this.itemType}-created`,   this.onStorageItemCreated)
+    this.props.storage.ee.removeListener(`${this.itemType}-updated`,   this.onStorageItemUpdated)
+    this.props.storage.ee.removeListener(`${this.itemType}-destroyed`, this.onStorageItemDestroyed)
   }
 
-  getListFromLocalStorage() {
-    return JSON.parse(localStorage.getItem(`${this.itemType}s`))
+  storageExists() {
+    return this.props.storage.getItem(`${this.itemType}s`) != undefined
   }
 
-  setListToLocalStorage() {
-    localStorage.setItem(`${this.itemType}s`, JSON.stringify(this.state[`${this.itemType}s`]))
-    localStorage.setItem(`${this.itemType}s-lastSync`, Date.now())
+  onStorageItemCreated() {
+    console.log(`${this.itemType}-created`)
+    setTimeout(() => {
+      this.reloadFromBackend(this.itemType)
+    }, window.backendRefreshDelay) // waiting for indexation, but not in a hurry
   }
 
-  isEmptyFilters() {
-    return !this.props.location.search.length || this.props.location.search == '?'
-  }
-
-  reloadFromLocalStorage() {
-    var newState = {
-      loaded:        true,
-      selectedCount: 0
-    }
-    newState[`${this.itemType}s`] = this.getListFromLocalStorage()
-
+  onStorageItemUpdated() {
+    console.log(`${this.itemType}-updated`)
+    var newState = {}
+    newState[`${this.itemType}s`] = this.props.storage.getItem(`${this.itemType}s`)
     this.setState(newState)
+  }
+
+  onStorageItemDestroyed() {
+    console.log(`${this.itemType}-destroyed`)
+    this.onStorageItemUpdated()
   }
 
   selectHeaderMenu() {
@@ -98,6 +77,18 @@ class BaseMain extends React.Component {
 
   openNewModal() {
     $(`.new-${this.itemType}-modal`).modal('show')
+  }
+
+  reloadFromStorage() {
+    var storedItems = this.props.storage.getItem(`${this.itemType}s`)
+
+    var newState = {
+      loaded:        true,
+      selectedCount: 0
+    }
+    newState[`${this.itemType}s`] = storedItems
+
+    this.setState(newState)
   }
 
   reloadFromBackend(spinner = true) {
@@ -115,8 +106,9 @@ class BaseMain extends React.Component {
       newState[`${this.itemType}s`] = data[`${this.itemType}s`]
 
       this.setState(newState, () => {
-        if(this.isEmptyFilters()) {
-          this.setListToLocalStorage()
+        // Push item in persistent storage (only if no active filter!)
+        if(this.props.location.search == '' || this.props.location.search == '?') {
+          this.props.storage.setItem(`${this.itemType}s`, data[`${this.itemType}s`])
         }
       })
     })
@@ -149,21 +141,8 @@ class BaseMain extends React.Component {
 
   pushIdsListFilter(field, newId) {
     var filters = this.getFilters()
-    var newIds
-
-    //if(filters[field] == undefined) {
-      newIds = [newId]
-    //}
-    // else {
-    //   newIds = _.map(filters[field].split(','), (id) => {
-    //     return parseInt(id)
-    //   })
-
-    //   newIds = _.concat(newIds, newId)
-    // }
-
     var newFilters    = {}
-    newFilters[field] = _.uniq(newIds).join(',')
+    newFilters[field] = [newId].join(',')
 
     this.replaceFilters(newFilters)
   }

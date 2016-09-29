@@ -76,6 +76,8 @@ namespace :app do
     gastro.organizations.create!(name: "Creative Wallonia")
     gastro.organizations.create!(name: "80LIMIT")
     gastro.organizations.create!(name: "Phonoid")
+
+    Sidekiq::Queue.new.clear
   end
 
   task :bootstrap_fake => :environment do
@@ -193,5 +195,7 @@ namespace :app do
                                 :field_type => :enum,
                                 :options    => ['Homme', 'Femme'])
     end
+
+    Sidekiq::Queue.new.clear
   end
 end

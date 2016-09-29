@@ -42,7 +42,7 @@ class Main extends BaseMain {
   }
 
   updateSelected(contact, newValue) {
-    var index    = _.findIndex(this.state.contacts, (c) => { return contact.id == c.id})
+    var index    = _.findIndex(this.state.contacts, (c) => { return contact.id == c.id })
     var contacts = this.state.contacts
 
     contacts[index].selected = newValue
