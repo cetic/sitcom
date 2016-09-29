@@ -77,6 +77,7 @@ module ContactIndexConcern
         :fields        => fields_as_indexed_json,
         :notes         => notes_as_indexed_json,
         :tags          => tags_as_indexed_json,
+        :custom_fields => custom_fields_as_json
       }))
     end
   end
@@ -120,6 +121,21 @@ module ContactIndexConcern
   def tags_as_indexed_json
     tags.collect do |tag|
       tag.as_indexed_json
+    end
+  end
+
+  def custom_fields_as_json
+    lab.custom_fields.collect do |custom_field|
+      custom_field_link = custom_field_links.where(:custom_field_id => custom_field.id)
+                                            .first
+
+      {
+        :id                   => custom_field.id,
+        :name                 => custom_field.name,
+        :field_type           => custom_field.field_type,
+        :custom_field_link_id => custom_field_link.try(:id),
+        :value                => custom_field_link.try(:value)
+      }
     end
   end
 end

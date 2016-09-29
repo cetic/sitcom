@@ -6,6 +6,7 @@ import OrganizationsBlock from '../../shared/organizations_block.es6'
 import ItemsBlock         from './items_block.es6'
 import NotesBlock         from '../../shared/notes_block.es6'
 import PreviousNextNav    from '../../shared/previous_next_nav.es6'
+import CustomFieldsBlock  from '../../shared/custom_fields_block.es6'
 
 class Contact extends React.Component {
   constructor(props) {
@@ -108,6 +109,7 @@ class Contact extends React.Component {
           { this.renderPreviousNextNav() }
           { this.renderGeneral() }
           { this.renderSocial() }
+          { this.renderCustomFields() }
           { this.renderNotes() }
           { this.renderOrganizations() }
           { this.renderProjects() }
@@ -179,6 +181,14 @@ class Contact extends React.Component {
                       permissions={this.props.permissions} />
         )
       }
+    }
+  }
+
+  renderCustomFields() {
+    if(this.state.loaded) {
+      return (
+        <CustomFieldsBlock item={this.state.contact} />
+      )
     }
   }
 
