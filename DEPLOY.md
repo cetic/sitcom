@@ -24,7 +24,7 @@ As root:
 
     apt-get install zlib1g zlib1g-dev build-essential git-core curl emacs imagemagick nginx
     apt-get install mysql-client libmysqlclient-dev libopenssl-ruby1.9.1 libssl-dev libreadline-dev
-    apt-get install mysql-server monit unattended-upgrades logrotate memcached
+    apt-get install mysql-server monit unattended-upgrades logrotate memcached redis-server
     apt-get install nodejs npm
     apt-get install libcurl4-gnutls-dev libxml2 libxml2-dev libxslt1-dev ruby-dev
     apt-get install mysql-client libmysqlclient-dev libssl-dev libreadline-dev screen
@@ -104,6 +104,11 @@ Create a file in **/etc/nginx/sites-available/sitcom** :
         gzip_static on;
         expires     max;
         add_header  Cache-Control public;
+      }
+
+      location /cable {
+        passenger_app_group_name sitcom_action_cable;
+        passenger_force_max_concurrent_requests_per_process 0;
       }
 
       client_max_body_size 300M;
