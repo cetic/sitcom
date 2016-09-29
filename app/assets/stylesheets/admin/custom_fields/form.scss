@@ -1,0 +1,24 @@
+#admin-custom_fields-new,
+#admin-custom_fields-create,
+#admin-custom_fields-edit,
+#admin-custom_fields-update, {
+  .form-control-no-input {
+    padding: 6px 0px;
+    font-style: italic;
+  }
+
+  fieldset {
+    legend {
+      font-size: 15px;
+      font-weight: bold;
+    }
+  }
+
+  table.table.table-striped {
+    tfoot {
+      td {
+        border-top: none;
+      }
+    }
+  }
+}

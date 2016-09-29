@@ -26,7 +26,7 @@
             <div class="col-md-9">
               <% if @custom_field.persisted? %>
                 <%= f.hidden_field :field_type %>
-                <div class="form-control"><%= @custom_field.field_type.text %></div>
+                <div class="form-control-no-input"><%= @custom_field.field_type.text %></div>
               <% else %>
                 <%= f.select :field_type, CustomField.field_type.options, {}, :class => 'form-control' %>
               <% end %>
