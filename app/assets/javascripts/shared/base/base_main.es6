@@ -57,6 +57,17 @@ class BaseMain extends React.Component {
     return this.props.location.search != '' && this.props.location.search != '?'
   }
 
+  filteredItems() {
+    if(this.hasFilters()) {
+      return _.filter(this.state.items, (item) => {
+        return _.includes(this.state.filteredItemIds, item.id)
+      })
+    }
+    else {
+      return this.state.items
+    }
+  }
+
   storageExists() {
     return this.props.storage.getItem(`${this.itemType}s`) != undefined
   }
@@ -71,7 +82,7 @@ class BaseMain extends React.Component {
   onStorageItemUpdated() {
     console.log(`${this.itemType}-updated`)
     var newState = {}
-    newState[`${this.itemType}s`] = this.props.storage.getItem(`${this.itemType}s`)
+    newState['items'] = this.props.storage.getItem(`${this.itemType}s`)
     this.setState(newState)
   }
 
@@ -92,15 +103,14 @@ class BaseMain extends React.Component {
   reloadFromStorage() {
     var storedItems = this.props.storage.getItem(`${this.itemType}s`)
 
-    var newState = {
-      loaded:        true,
-      selectedCount: 0,
-      filteredCount: storedItems.length
-    }
-    newState[`${this.itemType}s`] = storedItems
-    newState[`filtered${_.upperFirst(this.itemType)}Ids`] = _.map(storedItems, 'id')
-
-    this.setState(newState)
+    this.setState({
+      items:           storedItems,
+      filteredItemIds: _.map(storedItems, 'id'),
+      filteredCount:   storedItems.length,
+      selectedItemIds: [],
+      selectedCount:   0,
+      loaded:          true,
+    })
   }
 
   reloadAllFromBackend(spinner = true, callback = undefined) {
@@ -111,16 +121,17 @@ class BaseMain extends React.Component {
     const itemsPath = this.props.route[`${this.itemType}sPath`]
 
     http.get(itemsPath, {}, (data) => {
-      var newState = {
-        loaded:        true,
-        selectedCount: 0,
-        filteredCount: data[`${this.itemType}s`].length
-      }
-      newState[`${this.itemType}s`] = data[`${this.itemType}s`]
-      newState[`filtered${_.upperFirst(this.itemType)}Ids`] = _.map(data[`${this.itemType}s`], 'id')
+      var items = data[`${this.itemType}s`]
 
-      this.setState(newState, () => {
-        this.props.storage.setItem(`${this.itemType}s`, data[`${this.itemType}s`])
+      this.setState({
+        items:           items,
+        filteredItemIds: _.map(items, 'id'),
+        filteredCount:   items.length,
+        selectedItemIds: [],
+        selectedCount:   0,
+        loaded:          true,
+      }, () => {
+        this.props.storage.setItem(`${this.itemType}s`, items)
 
         if(callback) {
           callback()
@@ -135,18 +146,16 @@ class BaseMain extends React.Component {
     }
 
     const itemsPath = this.props.route[`${this.itemType}sPath`]
-    var   query = _.assign({}, { onlyIds: true }, this.getFilters())
+    var   query     = _.assign({}, { onlyIds: true }, this.getFilters())
 
     http.get(itemsPath, query, (data) => {
-      var newState = {
-        loaded:        true,
-        selectedCount: 0,
-        filteredCount: data[`${this.itemType}Ids`].length
-      }
-
-      newState[`filtered${_.upperFirst(this.itemType)}Ids`] = data[`${this.itemType}Ids`]
-
-      this.setState(newState)
+      this.setState({
+        filteredItemIds: data[`${this.itemType}Ids`],
+        filteredCount:   data[`${this.itemType}Ids`].length,
+        selectedItemIds: [],
+        selectedCount:   0,
+        loaded:          true,
+      })
     })
   }
 
@@ -251,7 +260,7 @@ class BaseMain extends React.Component {
     return (
       <QuickSearch title={this.title}
                    loaded={this.state.loaded}
-                   results={this.state[`${this.itemType}s`].length}
+                   results={this.state.filteredItemIds.length}
                    quickSearch={filters.quickSearch}
                    updateQuickSearch={this.updateQuickSearch.bind(this)}
                    filters={filters}

@@ -18,12 +18,12 @@ class Main extends BaseMain {
     this.exportUrl      = `${this.props.route.contactsPath}/export`
 
     this.state = {
-      contacts:           [],
-      filteredContactIds: [],
-      filteredCount:      0,
-      selectedContactIds: [],
-      selectedCount:      0,
-      loaded:             false,
+      items:           [],
+      filteredItemIds: [],
+      filteredCount:   0,
+      selectedItemIds: [],
+      selectedCount:   0,
+      loaded:          false,
     }
   }
 
@@ -44,36 +44,30 @@ class Main extends BaseMain {
     }
   }
 
-  updateSelected(contact, newValue) {
-    var index    = _.findIndex(this.state.contacts, (c) => { return contact.id == c.id })
-    var contacts = this.state.contacts
+  updateSelected(item, newValue) {
+    var index    = _.findIndex(this.state.items, (i) => { return item.id == i.id })
+    var items = this.state.items
 
-    contacts[index].selected = newValue
+    items[index].selected = newValue
 
     var selectedCount = newValue ? this.state.selectedCount + 1 : this.state.selectedCount - 1
 
     this.setState({
-      contacts:      contacts,
+      items:         items,
       selectedCount: selectedCount
     })
   }
 
-  unselectAllContacts() {
-    var contacts = this.state.contacts
+  unselectAllItems() {
+    var items = this.state.items
 
-    _.each(contacts, (contact) => {
-      contact.selected = false
+    _.each(items, (item) => {
+      item.selected = false
     })
 
     this.setState({
-      contacts:      contacts,
+      items:         items,
       selectedCount: 0
-    })
-  }
-
-  filteredContacts() {
-    return _.filter(this.state.contacts, (contact) => {
-      return _.includes(this.state.filteredContactIds, contact.id)
     })
   }
 
@@ -82,22 +76,22 @@ class Main extends BaseMain {
     return (
       <QuickSearch title={this.title}
                    loaded={this.state.loaded}
-                   results={this.state.contacts.length}
+                   results={this.state.filteredItemIds.length}
                    quickSearch={filters.quickSearch}
                    updateQuickSearch={this.updateQuickSearch.bind(this)}
                    filters={filters}
                    exportUrl={this.exportUrl}
                    selectedCount={this.state.selectedCount}
-                   contacts={this.state.contacts}
+                   contacts={this.filteredItems()}
                    tagOptionsPath={this.props.route.tagOptionsPath}
-                   unselectAllContacts={this.unselectAllContacts.bind(this)} />
+                   unselectAllContacts={this.unselectAllItems.bind(this)} />
     )
   }
 
   renderItems() {
     return (
       <Contacts permissions={this.props.route.permissions}
-                contacts={this.filteredContacts()}
+                contacts={this.filteredItems()}
                 loaded={this.state.loaded}
                 search={this.props.location.search}
                 tagOptionsPath={this.props.route.tagOptionsPath}
@@ -109,12 +103,12 @@ class Main extends BaseMain {
   }
 
   renderItem() {
-    var urlContactId = parseInt(this.props.params.id)
-    var contact      = _.find(this.state.contacts, (contact) => { return contact.id == urlContactId } )
+    var urlItemId = parseInt(this.props.params.id)
+    var item      = _.find(this.state.items, (item) => { return item.id == urlItemId } )
 
     return (
-      <Contact id={urlContactId}
-               contact={contact}
+      <Contact id={urlItemId}
+               contact={item}
                permissions={this.props.route.permissions}
                currentUserId={this.props.route.currentUserId}
                labId={this.props.route.labId}
@@ -127,7 +121,7 @@ class Main extends BaseMain {
                organizationOptionsPath={this.props.route.organizationOptionsPath}
                projectOptionsPath={this.props.route.projectOptionsPath}
                eventOptionsPath={this.props.route.eventOptionsPath}
-               contacts={this.state.contacts}
+               contacts={this.filteredItems()}
                router={this.props.router} />
     )
   }
