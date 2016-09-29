@@ -18,9 +18,12 @@ class Main extends BaseMain {
     this.exportUrl      = `${this.props.route.contactsPath}/export`
 
     this.state = {
-      contacts:      [],
-      loaded:        false,
-      selectedCount: 0,
+      contacts:           [],
+      filteredContactIds: [],
+      filteredCount:      0,
+      selectedContactIds: [],
+      selectedCount:      0,
+      loaded:             false,
     }
   }
 
@@ -68,6 +71,12 @@ class Main extends BaseMain {
     })
   }
 
+  filteredContacts() {
+    return _.filter(this.state.contacts, (contact) => {
+      return _.includes(this.state.filteredContactIds, contact.id)
+    })
+  }
+
   // @overrides
   renderQuickSearch(filters) {
     return (
@@ -88,7 +97,7 @@ class Main extends BaseMain {
   renderItems() {
     return (
       <Contacts permissions={this.props.route.permissions}
-                contacts={this.state.contacts}
+                contacts={this.filteredContacts()}
                 loaded={this.state.loaded}
                 search={this.props.location.search}
                 tagOptionsPath={this.props.route.tagOptionsPath}

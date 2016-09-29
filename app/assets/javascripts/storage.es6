@@ -5,11 +5,6 @@ class Storage {
     this.route    = props.route
     this.ee       = new EventEmitter()
 
-    // this.contacts      = []
-    // this.organizations = []
-    // this.projects      = []
-    // this.events        = []
-
     this.bindCable('contact')
     this.bindCable('organization')
     this.bindCable('project')
@@ -39,9 +34,7 @@ class Storage {
   onCableUpdate(data, itemType, itemId) {
     var items             = this[`${itemType}s`]
     var index             = _.findIndex(items, (item) => { return itemId == item.id })
-    var wasSelected       = items[index].selected
     items[index]          = data.item
-    items[index].selected = wasSelected // to keep selection when updated (only useful for contacts for now)
 
     this.ee.emitEvent(`${itemType}-updated`) // signal component that state need to be updated from storage
   }

@@ -5,34 +5,40 @@ class BaseMain extends React.Component {
 
   constructor(props) {
     super(props)
-
-    this.onStorageItemCreated   = this.onStorageItemCreated.bind(this)
-    this.onStorageItemUpdated   = this.onStorageItemUpdated.bind(this)
-    this.onStorageItemDestroyed = this.onStorageItemDestroyed.bind(this)
   }
 
   componentWillMount() {
-    this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 300)
+    this.onStorageItemCreated   = this.onStorageItemCreated.bind(this)
+    this.onStorageItemUpdated   = this.onStorageItemUpdated.bind(this)
+    this.onStorageItemDestroyed = this.onStorageItemDestroyed.bind(this)
+
+    this.dReloadIdsFromBackend = _.debounce(this.reloadIdsFromBackend, 300)
   }
 
   componentDidMount() {
-    if(this.storageExists())
+    if(this.storageExists()) {
       this.reloadFromStorage()
-    else
-      this.reloadFromBackend()
+    }
+    else {
+      this.reloadAllFromBackend(true, () => {
+        if(this.hasFilters()) {
+          this.reloadIdsFromBackend()
+        }
+      })
+    }
 
     this.selectHeaderMenu()
     this.bindStorageListeners()
   }
 
-  componentWillUnmount() {
-    this.unbindStorageListeners()
-  }
-
   componentWillReceiveProps(newProps) {
     if(newProps.location.search != this.props.location.search) {
-      this.dReloadFromBackend()
+      this.dReloadIdsFromBackend()
     }
+  }
+
+  componentWillUnmount() {
+    this.unbindStorageListeners()
   }
 
   bindStorageListeners() {
@@ -47,6 +53,10 @@ class BaseMain extends React.Component {
     this.props.storage.ee.removeListener(`${this.itemType}-destroyed`, this.onStorageItemDestroyed)
   }
 
+  hasFilters() {
+    return this.props.location.search != '' && this.props.location.search != '?'
+  }
+
   storageExists() {
     return this.props.storage.getItem(`${this.itemType}s`) != undefined
   }
@@ -54,7 +64,7 @@ class BaseMain extends React.Component {
   onStorageItemCreated() {
     console.log(`${this.itemType}-created`)
     setTimeout(() => {
-      this.reloadFromBackend(this.itemType)
+      this.reloadAllFromBackend()
     }, window.backendRefreshDelay) // waiting for indexation, but not in a hurry
   }
 
@@ -84,33 +94,59 @@ class BaseMain extends React.Component {
 
     var newState = {
       loaded:        true,
-      selectedCount: 0
+      selectedCount: 0,
+      filteredCount: storedItems.length
     }
     newState[`${this.itemType}s`] = storedItems
+    newState[`filtered${_.upperFirst(this.itemType)}Ids`] = _.map(storedItems, 'id')
 
     this.setState(newState)
   }
 
-  reloadFromBackend(spinner = true) {
-    const itemsPath = this.props.route[`${this.itemType}sPath`]
-
+  reloadAllFromBackend(spinner = true, callback = undefined) {
     if(spinner) {
       this.setState({ loaded: false })
     }
 
-    http.get(itemsPath, this.getFilters(), (data) => {
+    const itemsPath = this.props.route[`${this.itemType}sPath`]
+
+    http.get(itemsPath, {}, (data) => {
       var newState = {
         loaded:        true,
-        selectedCount: 0
+        selectedCount: 0,
+        filteredCount: data[`${this.itemType}s`].length
       }
       newState[`${this.itemType}s`] = data[`${this.itemType}s`]
+      newState[`filtered${_.upperFirst(this.itemType)}Ids`] = _.map(data[`${this.itemType}s`], 'id')
 
       this.setState(newState, () => {
-        // Push item in persistent storage (only if no active filter!)
-        if(this.props.location.search == '' || this.props.location.search == '?') {
-          this.props.storage.setItem(`${this.itemType}s`, data[`${this.itemType}s`])
+        this.props.storage.setItem(`${this.itemType}s`, data[`${this.itemType}s`])
+
+        if(callback) {
+          callback()
         }
       })
+    })
+  }
+
+  reloadIdsFromBackend(spinner = true) {
+    if(spinner) {
+      this.setState({ loaded: false })
+    }
+
+    const itemsPath = this.props.route[`${this.itemType}sPath`]
+    var   query = _.assign({}, { onlyIds: true }, this.getFilters())
+
+    http.get(itemsPath, query, (data) => {
+      var newState = {
+        loaded:        true,
+        selectedCount: 0,
+        filteredCount: data[`${this.itemType}Ids`].length
+      }
+
+      newState[`filtered${_.upperFirst(this.itemType)}Ids`] = data[`${this.itemType}Ids`]
+
+      this.setState(newState)
     })
   }
 
