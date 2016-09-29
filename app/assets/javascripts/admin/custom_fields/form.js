@@ -7,24 +7,14 @@ $(function() {
   ) {
 
     var toggleOptions = function() {
+      console.log('toggleOptions')
       var fieldType = $('#custom_field_field_type').val()
+      console.log(fieldType)
       $('#enum-options').toggle(fieldType == 'enum')
     }
 
     $('body').on('change', '#custom_field_field_type', function() {
       toggleOptions()
-    })
-
-    $('body').on('click', '#new-option-button', function(e) {
-      e.preventDefault()
-
-      var name = _.trim($('#new-option').val())
-
-      if(name.length) {
-        $('#enum-options table tbody').append(
-          '<tr><td colspan="2">' + name + '<input type="hidden" name="custom_field[options][]" value="' + name + '" /></td></tr>'
-        )
-      }
     })
 
     toggleOptions()

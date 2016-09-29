@@ -18,3 +18,5 @@ global.moment      = require('moment')
 global.http   = require('./shared/http_service.es6')
 global.Routes = require('./routes.es6')
 
+global.Admin                    = {}
+global.Admin.CustomFieldsEditor = require('./admin/custom_fields/custom_fields_editor.es6')

@@ -53,6 +53,8 @@ class Admin::CustomFieldsController < Admin::BaseController
   private
 
   def strong_params
+    params[:custom_field][:options] ||= []
+
     params.require(:custom_field).permit(
       :name, :field_type, :options => []
     )

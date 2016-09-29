@@ -20,46 +20,25 @@
             </div>
           </div>
 
-          <% if @custom_field.persisted? %>
-            <%= f.hidden_field :field_type %>
-          <% else %>
-            <div class="form-group">
-              <%= f.label :field_type, 'Type', :class => 'control-label col-md-3' %>
+          <div class="form-group">
+            <%= f.label :field_type, 'Type', :class => 'control-label col-md-3' %>
 
-              <div class="col-md-9">
+            <div class="col-md-9">
+              <% if @custom_field.persisted? %>
+                <%= f.hidden_field :field_type %>
+                <div class="form-control"><%= @custom_field.field_type.text %></div>
+              <% else %>
                 <%= f.select :field_type, CustomField.field_type.options, {}, :class => 'form-control' %>
-              </div>
-            </div>
-          <% end %>
-        </fieldset>
-
-        <fieldset id="enum-options" style="display:none;">
-          <legend>Valeurs possibles</legend>
-
-          <table class="table table-striped">
-            <tbody>
-              <% @custom_field.options.each do |option| %>
-                <tr>
-                  <td colspan="2">
-                    <%= option %>
-                    <%= hidden_field_tag 'custom_field[options][]', option %>
-                  </td>
-                </tr>
               <% end %>
-            </tbody>
-
-            <tfoot>
-              <tr>
-                <td><input type="text" class="form-control" id="new-option" /></td>
-                <td>
-                  <button id="new-option-button" class="btn btn-xs btn-primary btn-default">
-                    <i class="fa fa-plus"></i>
-                  </button>
-                </td>
-              </tr>
-            </tfoot>
-          </table>
+            </div>
+          </div>
         </fieldset>
+
+        <div class="enum-options">
+          <%= react_component('Admin.CustomFieldsEditor', {
+            options: @custom_field.options
+          }) %>
+        </div>
 
         <div class="actions">
           <%= link_to 'Annuler', admin_lab_custom_fields_path(@lab), :class => 'btn btn-default' %>
