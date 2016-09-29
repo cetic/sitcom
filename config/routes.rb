@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   resources :labs, :path => '', :only => [] do
     resources :contacts do
       resources :notes
+      resources :custom_fields
 
       collection do
         get :options

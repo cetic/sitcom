@@ -9,8 +9,8 @@ class CustomFieldLink < ApplicationRecord
   # Methods
 
   def value
-    if custom_field.field_type == 'boolean'
-      boolean_value
+    if custom_field.field_type.bool?
+      bool_value
     else
       text_value
     end

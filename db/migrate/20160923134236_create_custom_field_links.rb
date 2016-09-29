@@ -7,7 +7,7 @@ class CreateCustomFieldLinks < ActiveRecord::Migration[5.0]
       t.integer :item_id,   index: true
 
       t.text    :text_value
-      t.boolean :boolean_value, default: false
+      t.boolean :bool_value, default: false
 
       t.timestamps
     end

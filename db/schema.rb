@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 20160923134236) do
     t.string   "item_type"
     t.integer  "item_id"
     t.text     "text_value",      limit: 65535
-    t.boolean  "boolean_value",                 default: false
+    t.boolean  "bool_value",                    default: false
     t.datetime "created_at",                                    null: false
     t.datetime "updated_at",                                    null: false
     t.index ["custom_field_id"], name: "index_custom_field_links_on_custom_field_id", using: :btree

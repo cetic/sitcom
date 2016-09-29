@@ -1,4 +1,5 @@
-import CustomField from './custom_fields_block/custom_field.es6'
+import TextCustomField from './custom_fields_block/text_custom_field.es6'
+import BoolCustomField from './custom_fields_block/bool_custom_field.es6'
 
 class CustomFieldsBlock extends React.Component {
 
@@ -23,10 +24,20 @@ class CustomFieldsBlock extends React.Component {
   }
 
   renderCustomField(customField) {
-    return (
-      <CustomField key={customField.id}
-                   customField={customField} />
-    )
+    if(customField.fieldType == 'text') {
+      return (
+        <TextCustomField key={customField.id}
+                         item={this.props.item}
+                         customField={customField} />
+      )
+    }
+    else if(customField.fieldType == 'bool') {
+      return (
+        <BoolCustomField key={customField.id}
+                         item={this.props.item}
+                         customField={customField} />
+      )
+    }
   }
 
 }
