@@ -22,24 +22,6 @@ module EventIndexConcern
         indexes :sort_name, :analyzer => :sortable_string_analyzer
       end
     end
-
-    after_commit   :after_commit_callback, on: [:create, :update]
-    around_destroy :around_destroy_callback
-  end
-
-  def after_commit_callback
-    __elasticsearch__.index_document
-    contacts.import
-  end
-
-  def around_destroy_callback
-    saved_contact_ids = contacts.pluck(:id)
-
-    yield
-
-    __elasticsearch__.delete_document
-
-    Contact.where(:id => saved_contact_ids).import
   end
 
   def as_indexed_json(options = {})
@@ -49,11 +31,11 @@ module EventIndexConcern
       :path        => path,
       :scoped_path => scoped_path,
 
-      :name                => name,
-      :happens_on          => happens_on,
-      :place               => place,
-      :description         => description,
-      :website_url         => website_url,
+      :name        => name,
+      :happens_on  => happens_on,
+      :place       => place,
+      :description => description,
+      :website_url => website_url,
 
       :picture_url         => picture_url,
       :preview_picture_url => picture_url(:preview),

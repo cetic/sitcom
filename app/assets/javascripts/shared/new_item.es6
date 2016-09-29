@@ -39,12 +39,13 @@ class NewItem extends React.Component {
           this.setState({ errors: data.errors })
         }
         else {
-          this.props.router.push(`${this.props.modelName}s/${data[this.props.modelName].id}`)
-          this.hideModal()
-          this.setState({
-            fieldValue: '',
-          })
-          setTimeout(this.props.reloadFromBackend, window.backendRefreshDelay)
+          setTimeout(() => {
+            this.props.router.push(`${this.props.modelName}s/${data[this.props.modelName].id}`)
+            this.hideModal()
+            this.setState({
+              fieldValue: '',
+            })
+          }, window.backendRefreshDelay)
         }
       })
     }

@@ -29,11 +29,6 @@ class Contact extends React.Component {
     if(confirm('Voulez-vous vraiment supprimer le tag ' + tag.name + ' ?')) {
       http.delete(this.tagsPath() + '/' + tag.id, {
         contact_id: this.props.contact.id
-      }, (data) => {
-        this.props.applyNewContacts([data.contact])
-        setTimeout(() => {
-          this.props.reloadIndexFromBackend(false)
-        }, window.backendRefreshDelay)
       })
     }
   }

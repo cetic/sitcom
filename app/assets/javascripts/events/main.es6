@@ -23,43 +23,47 @@ class Main extends BaseMain {
 
   getFilters() {
     return {
-      quickSearch:  this.props.location.query.quickSearch || '',
-      name:         this.props.location.query.name        || '',
-      description:  this.props.location.query.description || '',
-      place:        this.props.location.query.place       || '',
-      notes:        this.props.location.query.notes       || '',
-      contactIds:   this.props.location.query.contactIds,
+      quickSearch: this.props.location.query.quickSearch || '',
+      name:        this.props.location.query.name        || '',
+      description: this.props.location.query.description || '',
+      place:       this.props.location.query.place       || '',
+      notes:       this.props.location.query.notes       || '',
+      contactIds:  this.props.location.query.contactIds,
     }
   }
 
   renderItems() {
     return (
-            <Events events={this.state.events}
-                    loaded={this.state.loaded}
-                    search={this.props.location.search}
-                    loadingImagePath={this.props.loadingImagePath} />
-          )
+      <Events events={this.state.events}
+              loaded={this.state.loaded}
+              search={this.props.location.search}
+              loadingImagePath={this.props.route.loadingImagePath} />
+    )
   }
 
   renderItem() {
+    var urlEventId = parseInt(this.props.params.id)
+    var event      = _.find(this.state.events, (event) => { return event.id == urlEventId } )
+
     return (
-            <Event id={this.props.params.id}
-                   permissions={this.props.permissions}
-                   loaded={this.state.loaded}
-                   eventsPath={this.props.eventsPath}
-                   search={this.props.location.search}
-                   loadingImagePath={this.props.loadingImagePath}
-                   contactOptionsPath={this.props.contactOptionsPath}
-                   reloadIndexFromBackend={this.reloadFromBackend.bind(this)}
-                   events={this.state.events}
-                   router={this.props.router} />
-          )
+      <Event id={urlEventId}
+             event={event}
+             permissions={this.props.route.permissions}
+             currentUserId={this.props.route.currentUserId}
+             labId={this.props.route.labId}
+             loaded={this.state.loaded}
+             eventsPath={this.props.route.eventsPath}
+             search={this.props.location.search}
+             loadingImagePath={this.props.route.loadingImagePath}
+             contactOptionsPath={this.props.route.contactOptionsPath}
+             events={this.state.events}
+             router={this.props.router} />
+    )
   }
 
   renderNewModal() {
     return (
-      <NewItem reloadFromBackend={this.reloadFromBackend.bind(this)}
-               itemsPath={this.props.eventsPath}
+      <NewItem itemsPath={this.props.route.eventsPath}
                router={this.props.router}
                modalClassName="new-event-modal"
                modalTitle="Nouvel évènement"

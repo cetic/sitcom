@@ -24,12 +24,15 @@ class Field < ApplicationRecord
 
   def after_commit_callback
     contacts.import
+    contacts.each(&:cable_update)
   end
 
   def around_destroy_callback
     saved_contact_ids = contacts.pluck(:id)
     yield
-    Contact.where(:id => saved_contact_ids).import
+    saved_contacts = Contact.where(:id => saved_contact_ids)
+    saved_contacts.import
+    saved_contacts.each(&:cable_update)
   end
 
   # Methods

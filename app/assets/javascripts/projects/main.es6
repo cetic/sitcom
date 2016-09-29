@@ -23,11 +23,11 @@ class Main extends BaseMain {
 
   getFilters() {
     return {
-      quickSearch:  this.props.location.query.quickSearch || '',
-      name:         this.props.location.query.name        || '',
-      description:  this.props.location.query.description || '',
-      notes:        this.props.location.query.notes       || '',
-      contactIds:   this.props.location.query.contactIds,
+      quickSearch: this.props.location.query.quickSearch || '',
+      name:        this.props.location.query.name        || '',
+      description: this.props.location.query.description || '',
+      notes:       this.props.location.query.notes       || '',
+      contactIds:  this.props.location.query.contactIds,
     }
   }
 
@@ -36,20 +36,25 @@ class Main extends BaseMain {
       <Projects projects={this.state.projects}
                 loaded={this.state.loaded}
                 search={this.props.location.search}
-                loadingImagePath={this.props.loadingImagePath} />
+                loadingImagePath={this.props.route.loadingImagePath} />
     )
   }
 
   renderItem() {
+    var urlProjectId = parseInt(this.props.params.id)
+    var project      = _.find(this.state.projects, (project) => { return project.id == urlProjectId } )
+
     return (
-      <Project id={this.props.params.id}
-               permissions={this.props.permissions}
+      <Project id={urlProjectId}
+               project={project}
+               permissions={this.props.route.permissions}
+               currentUserId={this.props.route.currentUserId}
+               labId={this.props.route.labId}
                loaded={this.state.loaded}
-               projectsPath={this.props.projectsPath}
+               projectsPath={this.props.route.projectsPath}
                search={this.props.location.search}
-               loadingImagePath={this.props.loadingImagePath}
-               contactOptionsPath={this.props.contactOptionsPath}
-               reloadIndexFromBackend={this.reloadFromBackend.bind(this)}
+               loadingImagePath={this.props.route.loadingImagePath}
+               contactOptionsPath={this.props.route.contactOptionsPath}
                projects={this.state.projects}
                router={this.props.router} />
     )
@@ -57,8 +62,7 @@ class Main extends BaseMain {
 
   renderNewModal() {
     return (
-      <NewItem reloadFromBackend={this.reloadFromBackend.bind(this)}
-               itemsPath={this.props.projectsPath}
+      <NewItem itemsPath={this.props.route.projectsPath}
                router={this.props.router}
                modalClassName="new-project-modal"
                modalTitle="Nouveau projet"

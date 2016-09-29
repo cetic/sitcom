@@ -4,6 +4,7 @@ class Organization < ApplicationRecord
 
   include CommonIndexConcern
   include OrganizationIndexConcern
+  include CableActionsConcern
 
   # Uploaders
 
@@ -25,6 +26,44 @@ class Organization < ApplicationRecord
 
   validates :website_url, :format      => { :with => URI::regexp(%w(http https)), :message => "L'adresse du site Web est invalide." },
                           :allow_blank => true
+
+  # Callbacks
+
+  after_commit   :after_create_callback, on: :create
+  after_commit   :after_update_callback, on: :update
+  around_destroy :around_destroy_callback
+
+  def after_create_callback
+    # websockets
+    cable_create
+    contacts.each(&:cable_update)
+
+    # elasticsearch
+    ReindexOrganizationWorker.perform_async(id)
+  end
+
+  def after_update_callback
+    # websockets
+    cable_update
+    contacts.each(&:cable_update)
+
+    # elasticsearch
+    ReindexOrganizationWorker.perform_async(id)
+  end
+
+  def around_destroy_callback
+    saved_id          = id
+    saved_contact_ids = contacts.pluck(:id)
+
+    yield
+
+    # websockets
+    cable_destroy
+    Contact.where(:id => saved_contact_ids).each(&:cable_update)
+
+    # elasticsearch
+    ReindexOrganizationWorker.perform_async(saved_id, 'delete', saved_contact_ids)
+  end
 
   # Methods
 

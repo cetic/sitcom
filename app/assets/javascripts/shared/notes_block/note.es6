@@ -16,11 +16,7 @@ class Note extends React.Component {
 
   remove(e) {
     if(confirm("Supprimer définitivement cette note ?")) {
-      http.delete(`${this.props.note.path}`, {}, (data) => {
-        if(data.success) {
-          this.props.reloadFromBackend()
-        }
-      })
+      http.delete(`${this.props.note.path}`)
     }
   }
 
@@ -42,7 +38,6 @@ class Note extends React.Component {
 
     http.put(`${this.props.note.path}`, params, (data) => {
       if(data.success) {
-        this.props.reloadFromBackend()
         this.cancel()
       }
     })

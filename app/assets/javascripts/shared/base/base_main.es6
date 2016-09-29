@@ -19,6 +19,7 @@ class BaseMain extends React.Component {
       this.reloadFromBackend()
     }
 
+    this.bindCable()
     this.selectHeaderMenu()
   }
 
@@ -28,10 +29,41 @@ class BaseMain extends React.Component {
     }
   }
 
+  bindCable() {
+    App.cable.subscriptions.create({ channel: `${_.upperFirst(this.itemType)}sChannel`, lab_id: this.props.route.labId }, {
+      received: (data) => {
+        var camelData = humps.camelizeKeys(data)
+        var itemId    = camelData.action == 'destroy' ? camelData.itemId : camelData.item.id
+
+        if(camelData.action == 'create') {
+          setTimeout(() => {
+            this.reloadFromBackend(false)
+          }, window.backendRefreshDelay) // waiting for indexation, but not in a hurry
+        }
+        else if(camelData.action == 'update') {
+          var newItems = this.state[`${this.itemType}s`]
+          var index       = _.findIndex(newItems, (item) => { return itemId == item.id })
+          var wasSelected = newItems[index].selected
+          newItems[index] = camelData.item
+          newItems[index].selected = wasSelected // to keep selection when updated (only useful for contacts for now)
+
+          var newState = {}
+          newState[`${this.itemType}s`] = newItems
+          this.setState(newState)
+        }
+        else if(camelData.action == 'destroy') {
+          var newState = {}
+          newState[`${this.itemType}s`] = _.filter(this.state[`${this.itemType}s`], (item) => { return itemId != item.id })
+          this.setState(newState)
+        }
+      }
+    })
+  }
+
   shouldUseLocalStorage() {
     var emptyFilters      = this.isEmptyFilters()
     var existingStorage   = localStorage.getItem(`${this.itemType}s`)
-    var storageNotExpired = localStorage.getItem(`${this.itemType}s-lastSync`) && Date.now() - parseInt(localStorage.getItem(`${this.itemType}s-lastSync`)) < 5 * 60 * 1000 // 5 minutes
+    var storageNotExpired = localStorage.getItem(`${this.itemType}s-lastSync`) && Date.now() - parseInt(localStorage.getItem(`${this.itemType}s-lastSync`)) < 0 //5 * 60 * 1000 // 5 minutes
 
     return emptyFilters && existingStorage && storageNotExpired
   }
@@ -69,7 +101,7 @@ class BaseMain extends React.Component {
   }
 
   reloadFromBackend(spinner = true) {
-    const itemsPath = this.props[`${this.itemType}sPath`]
+    const itemsPath = this.props.route[`${this.itemType}sPath`]
 
     if(spinner) {
       this.setState({ loaded: false })
@@ -137,7 +169,7 @@ class BaseMain extends React.Component {
   }
 
   render() {
-    const canRead = this.props.permissions[`canRead${_.upperFirst(this.itemType)}s`]
+    const canRead = this.props.route.permissions[`canRead${_.upperFirst(this.itemType)}s`]
 
     if(canRead) {
       var filters = this.getFilters()
@@ -175,7 +207,7 @@ class BaseMain extends React.Component {
   }
 
   renderSavedSearches() {
-    const pathPrefix        = this.props[`${this.itemType}sPath`]
+    const pathPrefix        = this.props.route[`${this.itemType}sPath`]
     const savedSearchesPath = `${pathPrefix}/saved_searches`
 
     return(
@@ -190,13 +222,13 @@ class BaseMain extends React.Component {
     return (
       <this.AdvancedSearch filters={filters}
                            updateFilters={this.updateFilters.bind(this)}
-                           tagOptionsPath={this.props.tagOptionsPath}
-                           fieldOptionsPath={this.props.fieldOptionsPath}
-                           contactOptionsPath={this.props.contactOptionsPath}
-                           organizationOptionsPath={this.props.organizationOptionsPath}
-                           projectOptionsPath={this.props.projectOptionsPath}
-                           eventOptionsPath={this.props.eventOptionsPath}
-                           organizationStatusesOptionsPath={this.props.organizationStatusesOptionsPath} />
+                           tagOptionsPath={this.props.route.tagOptionsPath}
+                           fieldOptionsPath={this.props.route.fieldOptionsPath}
+                           contactOptionsPath={this.props.route.contactOptionsPath}
+                           organizationOptionsPath={this.props.route.organizationOptionsPath}
+                           projectOptionsPath={this.props.route.projectOptionsPath}
+                           eventOptionsPath={this.props.route.eventOptionsPath}
+                           organizationStatusesOptionsPath={this.props.route.organizationStatusesOptionsPath} />
     )
   }
 
@@ -207,7 +239,6 @@ class BaseMain extends React.Component {
                    results={this.state[`${this.itemType}s`].length}
                    quickSearch={filters.quickSearch}
                    updateQuickSearch={this.updateQuickSearch.bind(this)}
-                   reloadIndexFromBackend={this.reloadFromBackend.bind(this)}
                    filters={filters}
                    exportUrl={this.exportUrl} />
     )
@@ -223,7 +254,7 @@ class BaseMain extends React.Component {
   }
 
   renderNewButton() {
-    if(this.props.permissions[`canWrite${_.upperFirst(this.itemType)}s`]) {
+    if(this.props.route.permissions[`canWrite${_.upperFirst(this.itemType)}s`]) {
       return (
         <button className="btn btn-primary new"
                 onClick={this.openNewModal.bind(this)}>

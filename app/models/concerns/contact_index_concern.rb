@@ -28,30 +28,6 @@ module ContactIndexConcern
         indexes :sort_name, :analyzer => :sortable_string_analyzer
       end
     end
-
-    after_commit   :after_commit_callback, on: [:create, :update]
-    around_destroy :around_destroy_callback
-  end
-
-  def after_commit_callback
-    __elasticsearch__.index_document
-    organizations.import
-    projects.import
-    events.import
-  end
-
-  def around_destroy_callback
-    saved_organization_ids = organizations.pluck(:id)
-    saved_event_ids        = events.pluck(:id)
-    saved_project_ids      = projects.pluck(:id)
-
-    yield
-
-    __elasticsearch__.delete_document
-
-    Organization.where(:id => saved_organization_ids).import
-    Project.where(:id => saved_project_ids).import
-    Event.where(:id => saved_event_ids).import
   end
 
   def as_indexed_json(options = {})

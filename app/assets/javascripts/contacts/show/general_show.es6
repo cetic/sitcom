@@ -15,35 +15,13 @@ class GeneralShow extends React.Component {
       http.delete(this.props.contactPath, {}, (data) => {
         if(data.success) {
           this.props.router.replace('contacts' + this.props.search)
-
-          setTimeout(() => {
-            this.props.reloadIndexFromBackend(false)
-          }, window.backendRefreshDelay)
         }
       })
     }
   }
 
-  reloadFromBackend() {
-    this.props.reloadFromBackend()
-
-    setTimeout(() => {
-      this.props.reloadIndexFromBackend(false)
-    }, window.backendRefreshDelay)
-  }
-
   tagsPath() {
     return this.props.tagOptionsPath.slice(0, -8); // remove '/options'
-  }
-
-  removeTag(tag) {
-    if(confirm('Voulez-vous vraiment supprimer le tag ' + tag.name + ' ?')) {
-      http.delete(this.tagsPath() + '/' + tag.id, {
-        contact_id: this.props.contact.id
-      }, (data) => {
-        this.reloadFromBackend()
-      })
-    }
   }
 
   render() {
@@ -134,7 +112,6 @@ class GeneralShow extends React.Component {
   renderPicture() {
     return (
       <CustomDropzone url={this.props.contactPath}
-                      afterSuccess={this.reloadFromBackend.bind(this)}
                       acceptedFiles="image/*">
         <img className="img-thumbnail" src={this.props.contact.previewPictureUrl} />
       </CustomDropzone>
@@ -168,8 +145,7 @@ class GeneralShow extends React.Component {
             contactId={this.props.contact.id}
             contactPath={this.props.contactPath}
             tagsPath={this.tagsPath()}
-            tagOptionsPath={this.props.tagOptionsPath}
-            onChange={this.reloadFromBackend.bind(this)} />
+            tagOptionsPath={this.props.tagOptionsPath} />
     )
   }
 

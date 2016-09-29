@@ -13,21 +13,55 @@ class Contact extends React.Component {
 
     this.state = {
       notFound:        false,
-      contact:         {},
-      loaded:          false,
+      contact:         this.props.contact,              // When coming from index and not direct link
+      loaded:          this.props.contact != undefined, //
       generalEditMode: false,
       socialEditMode:  false
     }
   }
 
   componentDidMount() {
-    this.reloadFromBackend()
+    if(this.state.contact == undefined) {
+      this.reloadFromBackend()
+    }
+    else {
+      window.scrollTo(0, 0)
+    }
+
+    this.bindCable()
   }
 
   componentDidUpdate(prevProps) {
     if(prevProps.id != this.props.id) {
-      this.reloadFromBackend()
+      if(this.state.contact == undefined) {
+        this.reloadFromBackend()
+      }
+      else {
+        window.scrollTo(0, 0)
+        this.setState({
+          contact: this.props.contact,
+          loaded:  this.props.contact != undefined
+        })
+      }
     }
+  }
+
+  bindCable() {
+    App.cable.subscriptions.create({ channel: "ContactsChannel", lab_id: this.props.labId }, {
+      received: (data) => {
+        var camelData = humps.camelizeKeys(data)
+        var itemId    = camelData.action == 'destroy' ? camelData.itemId : camelData.item.id
+
+        if(itemId == this.props.id) {
+          if(camelData.action == 'update') {
+            this.setState({ contact: camelData.item })
+          }
+          else {
+            this.setState({ notFound: true })
+          }
+        }
+      }
+    })
   }
 
   contactPath() {
@@ -112,9 +146,7 @@ class Contact extends React.Component {
                        search={this.props.search}
                        contactPath={this.contactPath()}
                        fieldOptionsPath={this.props.fieldOptionsPath}
-                       toggleEditMode={this.toggleGeneralEditMode.bind(this)}
-                       reloadFromBackend={this.reloadFromBackend.bind(this)}
-                       reloadIndexFromBackend={this.props.reloadIndexFromBackend}  />
+                       toggleEditMode={this.toggleGeneralEditMode.bind(this)} />
         )
       }
       else {
@@ -125,9 +157,7 @@ class Contact extends React.Component {
                        contactPath={this.contactPath()}
                        tagOptionsPath={this.props.tagOptionsPath}
                        router={this.props.router}
-                       toggleEditMode={this.toggleGeneralEditMode.bind(this)}
-                       reloadFromBackend={this.reloadFromBackend.bind(this)}
-                       reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
+                       toggleEditMode={this.toggleGeneralEditMode.bind(this)} />
         )
       }
     }
@@ -139,9 +169,7 @@ class Contact extends React.Component {
         return (
           <SocialEdit contact={this.state.contact}
                       contactPath={this.contactPath()}
-                      toggleEditMode={this.toggleSocialEditMode.bind(this)}
-                      reloadFromBackend={this.reloadFromBackend.bind(this)}
-                      reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
+                      toggleEditMode={this.toggleSocialEditMode.bind(this)} />
         )
       }
       else {
@@ -161,8 +189,6 @@ class Contact extends React.Component {
                             parentType="contact"
                             parentPath={this.contactPath()}
                             optionsPath={this.props.organizationOptionsPath}
-                            reloadFromBackend={this.reloadFromBackend.bind(this)}
-                            reloadIndexFromBackend={this.props.reloadIndexFromBackend}
                             canWrite={this.props.permissions.canWriteContacts} />
       )
     }
@@ -179,8 +205,6 @@ class Contact extends React.Component {
                     removeConfirmMessage="Délier ce projet du contact ?"
                     emptyMessage="Aucun projet."
                     optionsPath={this.props.projectOptionsPath}
-                    reloadFromBackend={this.reloadFromBackend.bind(this)}
-                    reloadIndexFromBackend={this.props.reloadIndexFromBackend}
                     canWrite={this.props.permissions.canWriteContacts} />
       )
     }
@@ -197,8 +221,6 @@ class Contact extends React.Component {
                     removeConfirmMessage="Délier cet évènement du contact ?"
                     emptyMessage="Aucun évènement."
                     optionsPath={this.props.projectOptionsPath}
-                    reloadFromBackend={this.reloadFromBackend.bind(this)}
-                    reloadIndexFromBackend={this.props.reloadIndexFromBackend}
                     canWrite={this.props.permissions.canWriteContacts}  />
       )
     }
@@ -208,8 +230,8 @@ class Contact extends React.Component {
     if(this.state.loaded) {
       return (
         <NotesBlock notable={this.state.contact}
-                    reloadFromBackend={this.reloadFromBackend.bind(this)}
-                    canWrite={this.props.permissions.canWriteContacts} />
+                    canWrite={this.props.permissions.canWriteContacts}
+                    currentUserId={this.props.currentUserId} />
       )
     }
   }

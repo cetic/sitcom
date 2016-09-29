@@ -47,13 +47,14 @@ class NewContact extends React.Component {
           this.setState({ errors: data.errors })
         }
         else {
-          this.props.router.push(`contacts/${data.contact.id}`)
-          this.hideModal()
-          this.setState({
-            firstName: '',
-            lastName:  ''
-          })
-          setTimeout(this.props.reloadFromBackend, window.backendRefreshDelay)
+          setTimeout(() => {
+            this.props.router.push(`contacts/${data.contact.id}`)
+            this.hideModal()
+            this.setState({
+              firstName: '',
+              lastName:  ''
+            })
+          }, window.backendRefreshDelay)
         }
       })
     }

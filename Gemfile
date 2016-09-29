@@ -24,6 +24,9 @@ gem 'browserify-rails'
 gem 'rmagick'
 gem 'carrierwave'
 
+gem 'redis', '~> 3.0'
+gem 'sidekiq'
+
 # Utils
 gem 'enumerize'
 gem 'factory_girl'

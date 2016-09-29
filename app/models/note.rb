@@ -17,7 +17,7 @@ class Note < ApplicationRecord
 
   # Validations
 
-  validates :text, :presence => { :message => 'Le texte est obligaroire.' }
+  validates :text, :presence => { :message => 'Le texte est obligatoire.' }
 
   # Callbacks
 
@@ -25,13 +25,17 @@ class Note < ApplicationRecord
   around_destroy :around_destroy_callback
 
   def after_commit_callback
-    notable.__elasticsearch__.index_document
+    "Reindex#{notable_type}Worker".constantize.perform_async(notable_id)
+    notable.cable_update
   end
 
   def around_destroy_callback
-    saved_notable_id = notable_id
+    saved_notable_id   = notable_id
+    saved_notable_type = notable_type
     yield
-    notable.__elasticsearch__.index_document
+    "Reindex#{notable_type}Worker".constantize.perform_async(saved_notable_id)
+    saved_notable = saved_notable_type.constantize.find(saved_notable_id)
+    saved_notable.cable_update
   end
 
   # Methods

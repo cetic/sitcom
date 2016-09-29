@@ -4,6 +4,7 @@ class Contact < ApplicationRecord
 
   include CommonIndexConcern
   include ContactIndexConcern
+  include CableActionsConcern
   include GravatarConcern
 
   # Uploaders
@@ -45,6 +46,50 @@ class Contact < ApplicationRecord
                     :allow_blank => true
 
   # Callbacks
+
+  after_commit   :after_create_callback, on: :create
+  after_commit   :after_update_callback, on: :update
+  around_destroy :around_destroy_callback
+
+  def after_create_callback
+    # websockets
+    cable_create
+    organizations.each(&:cable_update)
+    projects.each(&:cable_update)
+    events.each(&:cable_update)
+
+    # elasticsearch
+    ReindexContactWorker.perform_async(id)
+  end
+
+  def after_update_callback
+    # websockets
+    cable_update
+    organizations.each(&:cable_update)
+    projects.each(&:cable_update)
+    events.each(&:cable_update)
+
+    # elasticsearch
+    ReindexContactWorker.perform_async(id)
+  end
+
+  def around_destroy_callback
+    saved_id               = id
+    saved_organization_ids = organizations.pluck(:id)
+    saved_event_ids        = events.pluck(:id)
+    saved_project_ids      = projects.pluck(:id)
+
+    yield
+
+    # websockets
+    cable_destroy
+    Organization.where(:id => saved_organization_ids).each(&:cable_update)
+    Project.where(:id => saved_project_ids).each(&:cable_update)
+    Event.where(:id => saved_event_ids).each(&:cable_update)
+
+    # elasticsearch
+    ReindexContactWorker.perform_async(saved_id, 'delete', saved_organization_ids, saved_event_ids, saved_project_ids)
+  end
 
   # Methods
 

@@ -10,21 +10,55 @@ class Event extends React.Component {
 
     this.state = {
       notFound:        false,
-      event:           {},
-      loaded:          false,
+      event:           this.props.event,              // When coming from index and not direct link
+      loaded:          this.props.event != undefined, //
       generalEditMode: false
     }
   }
 
   componentDidMount() {
-    this.reloadFromBackend()
+    if(this.state.event == undefined) {
+      this.reloadFromBackend()
+    }
+    else {
+      window.scrollTo(0, 0)
+    }
+
+    this.bindCable()
   }
 
   componentDidUpdate(prevProps) {
-     if(prevProps.id != this.props.id) {
-       this.reloadFromBackend()
-     }
-   }
+    if(prevProps.id != this.props.id) {
+      if(this.state.event == undefined) {
+        this.reloadFromBackend()
+      }
+      else {
+        window.scrollTo(0, 0)
+        this.setState({
+          event:  this.props.event,
+          loaded: this.props.event != undefined
+        })
+      }
+    }
+  }
+
+  bindCable() {
+    App.cable.subscriptions.create({ channel: "EventsChannel", lab_id: this.props.labId }, {
+      received: (data) => {
+        var camelData = humps.camelizeKeys(data)
+        var itemId    = camelData.action == 'destroy' ? camelData.itemId : camelData.item.id
+
+        if(itemId == this.props.id) {
+          if(camelData.action == 'update') {
+            this.setState({ event: camelData.item })
+          }
+          else {
+            this.setState({ notFound: true })
+          }
+        }
+      }
+    })
+  }
 
   eventPath() {
     return this.props.eventsPath + '/' + this.props.id
@@ -98,9 +132,7 @@ class Event extends React.Component {
           <GeneralEdit event={this.state.event}
                        search={this.props.search}
                        eventPath={this.eventPath()}
-                       toggleEditMode={this.toggleGeneralEditMode.bind(this)}
-                       reloadFromBackend={this.reloadFromBackend.bind(this)}
-                       reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
+                       toggleEditMode={this.toggleGeneralEditMode.bind(this)} />
         )
       }
       else {
@@ -110,9 +142,7 @@ class Event extends React.Component {
                        search={this.props.search}
                        eventPath={this.eventPath()}
                        router={this.props.router}
-                       toggleEditMode={this.toggleGeneralEditMode.bind(this)}
-                       reloadFromBackend={this.reloadFromBackend.bind(this)}
-                       reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
+                       toggleEditMode={this.toggleGeneralEditMode.bind(this)} />
         )
       }
     }
@@ -125,8 +155,6 @@ class Event extends React.Component {
                        parentType="event"
                        parentPath={this.eventPath()}
                        optionsPath={this.props.contactOptionsPath}
-                       reloadFromBackend={this.reloadFromBackend.bind(this)}
-                       reloadIndexFromBackend={this.props.reloadIndexFromBackend}
                        canWrite={this.props.permissions.canWriteEvents} />
       )
     }
@@ -136,8 +164,8 @@ class Event extends React.Component {
     if(this.state.loaded) {
       return (
         <NotesBlock notable={this.state.event}
-                    reloadFromBackend={this.reloadFromBackend.bind(this)}
-                    canWrite={this.props.permissions.canWriteEvents} />
+                    canWrite={this.props.permissions.canWriteEvents}
+                    currentUserId={this.props.currentUserId} />
       )
     }
   }

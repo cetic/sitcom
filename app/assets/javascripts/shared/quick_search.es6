@@ -117,9 +117,7 @@ class QuickSearch extends React.Component {
     if(this.props.selectedCount > 0 && this.props.loaded) {
       return (
         <TagsSelector tagOptionsPath={this.props.tagOptionsPath}
-                      reloadIndexFromBackend={this.props.reloadIndexFromBackend}
-                      selectedContactIds={this.selectedContactIds.bind(this)}
-                      applyNewContacts={this.props.applyNewContacts} />
+                      selectedContactIds={this.selectedContactIds.bind(this)} />
       )
     }
   }

@@ -53,7 +53,9 @@ class TagsSelector extends React.Component {
         $(this.refs.newTagInput).focus()
         this.reloadTags()
 
-        this.props.onChange()
+        if(this.props.onChange) {
+          this.props.onChange()
+        }
       })
     }
   }
@@ -63,7 +65,11 @@ class TagsSelector extends React.Component {
       name:        tag.label,
       contact_ids: [this.props.contactId]
     }, (data) => {
-      this.props.onChange()
+      // don't reload tags here because it already exists if we were able to add it
+
+      if(this.props.onChange) {
+        this.props.onChange()
+      }
     })
   }
 
@@ -72,7 +78,10 @@ class TagsSelector extends React.Component {
       contact_id: this.props.contactId
     }, (data) => {
       this.reloadTags()
-      this.props.onChange()
+
+      if(this.props.onChange) {
+        this.props.onChange()
+      }
     })
   }
 

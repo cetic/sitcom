@@ -19,7 +19,6 @@ class NotesColumn extends React.Component {
       return (
         <Note key={note.id}
               note={note}
-              reloadFromBackend={this.props.reloadFromBackend}
               canWrite={this.props.canWrite} />
       )
     })
@@ -29,8 +28,7 @@ class NotesColumn extends React.Component {
     if(this.props.canWrite) {
       return (
         <NewNote notable={this.props.notable}
-                 privacy={this.props.privacy}
-                 reloadFromBackend={this.props.reloadFromBackend} />
+                 privacy={this.props.privacy} />
       )
     }
   }

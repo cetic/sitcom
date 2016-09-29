@@ -49,11 +49,9 @@ class Contacts extends React.Component {
                  contact={contact}
                  search={this.props.search}
                  tagOptionsPath={this.props.tagOptionsPath}
-                 reloadIndexFromBackend={this.props.reloadIndexFromBackend}
                  updateSelected={this.props.updateSelected}
                  pushTagIdsFilter={this.props.pushTagIdsFilter}
-                 pushFieldIdsFilter={this.props.pushFieldIdsFilter}
-                 applyNewContacts={this.props.applyNewContacts} />
+                 pushFieldIdsFilter={this.props.pushFieldIdsFilter} />
       )
     })
   }

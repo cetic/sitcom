@@ -32,7 +32,6 @@ class NewNote extends React.Component {
 
     http.post(`${this.props.notable.path}/notes`, params, (data) => {
       if(data.success) {
-        this.props.reloadFromBackend()
         this.cancel()
       }
     })

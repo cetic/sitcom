@@ -28,14 +28,13 @@ class NotesBlock extends React.Component {
                    notable={this.props.notable}
                    notes={notes}
                    privacy="public"
-                   reloadFromBackend={this.props.reloadFromBackend}
                    canWrite={this.props.canWrite} />
     )
   }
 
   renderPrivateColumn() {
     var notes = _.filter(this.props.notable.notes, (note) => {
-      return note.privacy == 'private'
+      return note.privacy == 'private' && note.userId == this.props.currentUserId
     })
 
     return (
@@ -43,7 +42,6 @@ class NotesBlock extends React.Component {
                    notable={this.props.notable}
                    notes={notes}
                    privacy="private"
-                   reloadFromBackend={this.props.reloadFromBackend}
                    canWrite={true} />
     )
   }

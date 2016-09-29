@@ -15,21 +15,9 @@ class GeneralShow extends React.Component {
       http.delete(this.props.projectPath, {}, (data) => {
         if(data.success) {
           this.props.router.replace('projects' + this.props.search)
-
-          setTimeout(() => {
-            this.props.reloadIndexFromBackend(false)
-          }, window.backendRefreshDelay)
         }
       })
     }
-  }
-
-  reloadFromBackend() {
-    this.props.reloadFromBackend()
-
-    setTimeout(() => {
-      this.props.reloadIndexFromBackend(false)
-    }, window.backendRefreshDelay)
   }
 
   render() {
@@ -93,7 +81,6 @@ class GeneralShow extends React.Component {
   renderPicture() {
     return (
       <CustomDropzone url={this.props.projectPath}
-                      afterSuccess={this.reloadFromBackend.bind(this)}
                       acceptedFiles="image/*">
         <img className="img-thumbnail" src={this.props.project.previewPictureUrl} />
       </CustomDropzone>

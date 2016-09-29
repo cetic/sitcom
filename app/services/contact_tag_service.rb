@@ -29,6 +29,9 @@ class ContactTagService
     # reindex contact
     @contact.__elasticsearch__.index_document
 
+    # websockets
+    @contact.cable_update
+
     tag
   end
 
@@ -44,6 +47,9 @@ class ContactTagService
 
     # reindex contact
     @contact.__elasticsearch__.index_document
+
+    # websockets
+    @contact.cable_update
   end
 
   def self.cleanup_orphan_tags(lab)

@@ -45,11 +45,7 @@ class ItemsBlock extends React.Component {
 
     params.contact[this.props.fieldName] = itemIds.length ? itemIds : [''] // [''] is a way for the rails server to keep the empty array
 
-    http.put(this.props.contactPath, params, () => {
-      this.props.reloadFromBackend(() => {
-        setTimeout(this.props.reloadIndexFromBackend, window.backendRefreshDelay)
-      })
-    })
+    http.put(this.props.contactPath, params)
   }
 
   render() {

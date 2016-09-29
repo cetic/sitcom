@@ -15,7 +15,7 @@ class Main extends BaseMain {
     this.newButtonLabel = 'Nouveau contact'
     this.SavedSearches  = SavedSearches
     this.AdvancedSearch = AdvancedSearch
-    this.exportUrl      = `${this.props.contactsPath}/export`
+    this.exportUrl      = `${this.props.route.contactsPath}/export`
 
     this.state = {
       contacts:      [],
@@ -41,19 +41,6 @@ class Main extends BaseMain {
     }
   }
 
-  applyNewContacts(contacts) {
-    var newContacts = this.state.contacts
-
-    contacts.forEach((contact) => {
-      var index = _.findIndex(newContacts, (c) => { return contact.id == c.id})
-      newContacts[index] = contact
-    })
-
-    this.setState({
-      contacts: newContacts,
-    })
-  }
-
   updateSelected(contact, newValue) {
     var index    = _.findIndex(this.state.contacts, (c) => { return contact.id == c.id})
     var contacts = this.state.contacts
@@ -76,55 +63,55 @@ class Main extends BaseMain {
                    results={this.state.contacts.length}
                    quickSearch={filters.quickSearch}
                    updateQuickSearch={this.updateQuickSearch.bind(this)}
-                   reloadIndexFromBackend={this.reloadFromBackend.bind(this)}
-                   applyNewContacts={this.applyNewContacts.bind(this)}
                    filters={filters}
                    exportUrl={this.exportUrl}
                    selectedCount={this.state.selectedCount}
                    contacts={this.state.contacts}
-                   tagOptionsPath={this.props.tagOptionsPath} />
+                   tagOptionsPath={this.props.route.tagOptionsPath} />
     )
   }
 
   renderItems() {
     return (
-      <Contacts permissions={this.props.permissions}
+      <Contacts permissions={this.props.route.permissions}
                 contacts={this.state.contacts}
                 loaded={this.state.loaded}
                 search={this.props.location.search}
-                tagOptionsPath={this.props.tagOptionsPath}
-                loadingImagePath={this.props.loadingImagePath}
+                tagOptionsPath={this.props.route.tagOptionsPath}
+                loadingImagePath={this.props.route.loadingImagePath}
                 updateSelected={this.updateSelected.bind(this)}
                 pushTagIdsFilter={this.pushIdsListFilter.bind(this, 'tagIds')}
-                pushFieldIdsFilter={this.pushIdsListFilter.bind(this, 'fieldIds')}
-                applyNewContacts={this.applyNewContacts.bind(this)}
-                reloadIndexFromBackend={this.reloadFromBackend.bind(this)} />
+                pushFieldIdsFilter={this.pushIdsListFilter.bind(this, 'fieldIds')} />
     )
   }
 
   renderItem() {
+    var urlContactId = parseInt(this.props.params.id)
+    var contact      = _.find(this.state.contacts, (contact) => { return contact.id == urlContactId } )
+
     return (
-      <Contact id={this.props.params.id}
-               permissions={this.props.permissions}
+      <Contact id={urlContactId}
+               contact={contact}
+               permissions={this.props.route.permissions}
+               currentUserId={this.props.route.currentUserId}
+               labId={this.props.route.labId}
                loaded={this.state.loaded}
-               contactsPath={this.props.contactsPath}
+               contactsPath={this.props.route.contactsPath}
                search={this.props.location.search}
-               loadingImagePath={this.props.loadingImagePath}
-               tagOptionsPath={this.props.tagOptionsPath}
-               fieldOptionsPath={this.props.fieldOptionsPath}
-               organizationOptionsPath={this.props.organizationOptionsPath}
-               projectOptionsPath={this.props.projectOptionsPath}
-               eventOptionsPath={this.props.eventOptionsPath}
+               loadingImagePath={this.props.route.loadingImagePath}
+               tagOptionsPath={this.props.route.tagOptionsPath}
+               fieldOptionsPath={this.props.route.fieldOptionsPath}
+               organizationOptionsPath={this.props.route.organizationOptionsPath}
+               projectOptionsPath={this.props.route.projectOptionsPath}
+               eventOptionsPath={this.props.route.eventOptionsPath}
                contacts={this.state.contacts}
-               router={this.props.router}
-               reloadIndexFromBackend={this.reloadFromBackend.bind(this)} />
+               router={this.props.router} />
     )
   }
 
   renderNewModal() {
     return (
-      <NewContact reloadFromBackend={this.reloadFromBackend.bind(this)}
-                  contactsPath={this.props.contactsPath}
+      <NewContact contactsPath={this.props.route.contactsPath}
                   router={this.props.router} />
     )
   }

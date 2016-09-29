@@ -10,21 +10,55 @@ class Project extends React.Component {
 
     this.state = {
       notFound:        false,
-      project:         {},
-      loaded:          false,
+      project:         this.props.project,              // When coming from index and not direct link
+      loaded:          this.props.project != undefined, //
       generalEditMode: false
     }
   }
 
   componentDidMount() {
-    this.reloadFromBackend()
+    if(this.state.project == undefined) {
+      this.reloadFromBackend()
+    }
+    else {
+      window.scrollTo(0, 0)
+    }
+
+    this.bindCable()
   }
 
   componentDidUpdate(prevProps) {
-     if(prevProps.id != this.props.id) {
-       this.reloadFromBackend()
-     }
-   }
+    if(prevProps.id != this.props.id) {
+      if(this.state.project == undefined) {
+        this.reloadFromBackend()
+      }
+      else {
+        window.scrollTo(0, 0)
+        this.setState({
+          project: this.props.project,
+          loaded:  this.props.project != undefined
+        })
+      }
+    }
+  }
+
+  bindCable() {
+    App.cable.subscriptions.create({ channel: "ProjectsChannel", lab_id: this.props.labId }, {
+      received: (data) => {
+        var camelData = humps.camelizeKeys(data)
+        var itemId    = camelData.action == 'destroy' ? camelData.itemId : camelData.item.id
+
+        if(itemId == this.props.id) {
+          if(camelData.action == 'update') {
+            this.setState({ project: camelData.item })
+          }
+          else {
+            this.setState({ notFound: true })
+          }
+        }
+      }
+    })
+  }
 
   projectPath() {
     return this.props.projectsPath + '/' + this.props.id
@@ -98,9 +132,7 @@ class Project extends React.Component {
           <GeneralEdit project={this.state.project}
                        search={this.props.search}
                        projectPath={this.projectPath()}
-                       toggleEditMode={this.toggleGeneralEditMode.bind(this)}
-                       reloadFromBackend={this.reloadFromBackend.bind(this)}
-                       reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
+                       toggleEditMode={this.toggleGeneralEditMode.bind(this)} />
         )
       }
       else {
@@ -110,9 +142,7 @@ class Project extends React.Component {
                        search={this.props.search}
                        projectPath={this.projectPath()}
                        router={this.props.router}
-                       toggleEditMode={this.toggleGeneralEditMode.bind(this)}
-                       reloadFromBackend={this.reloadFromBackend.bind(this)}
-                       reloadIndexFromBackend={this.props.reloadIndexFromBackend} />
+                       toggleEditMode={this.toggleGeneralEditMode.bind(this)} />
         )
       }
     }
@@ -125,8 +155,6 @@ class Project extends React.Component {
                        parentType="project"
                        parentPath={this.projectPath()}
                        optionsPath={this.props.contactOptionsPath}
-                       reloadFromBackend={this.reloadFromBackend.bind(this)}
-                       reloadIndexFromBackend={this.props.reloadIndexFromBackend}
                        canWrite={this.props.permissions.canWriteProjects} />
       )
     }
@@ -136,8 +164,8 @@ class Project extends React.Component {
     if(this.state.loaded) {
       return (
         <NotesBlock notable={this.state.project}
-                    reloadFromBackend={this.reloadFromBackend.bind(this)}
-                    canWrite={this.props.permissions.canWriteProjects} />
+                    canWrite={this.props.permissions.canWriteProjects}
+                    currentUserId={this.props.currentUserId} />
       )
     }
   }
