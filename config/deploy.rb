@@ -13,7 +13,7 @@ set :linked_dirs,  %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/sy
 set :rbenv_type, 'user'
 
 set :bundle_binstubs, nil
-set :bundle_bins,     %w(gem rake rails sidekiq)
+set :bundle_bins,     %w(gem rake rails sidekiq sidekiqctl)
 
 before 'deploy:assets:precompile', 'deploy:npm:install'
 
