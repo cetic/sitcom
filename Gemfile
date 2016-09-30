@@ -51,6 +51,7 @@ group :development do
   gem 'capistrano-rbenv'
   gem 'capistrano-bundler'
   gem 'capistrano-passenger'
+  gem 'capistrano-sidekiq'
 
   gem 'sqlite3'
 end
