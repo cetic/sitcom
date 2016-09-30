@@ -37,14 +37,6 @@ class QuickSearch extends React.Component {
     return name == 'organisations' ? 'trouvées' : 'trouvés'
   }
 
-  selectedContacts() {
-    return _.filter(this.props.contacts, 'selected');
-  }
-
-  selectedContactIds() {
-    return _.map(this.selectedContacts(), 'id')
-  }
-
   render() {
     return (
       <div className="quick-search row">
@@ -80,7 +72,7 @@ class QuickSearch extends React.Component {
   renderExportButton() {
     if(this.props.results != 0 && this.props.loaded) {
       return (
-        <ExportButton selectedIds={this.selectedContactIds.bind(this)}
+        <ExportButton selectedIds={this.props.selectedItemIds}
                       filters={this.props.filters}
                       exportUrl={this.props.exportUrl} />
       )
@@ -117,7 +109,7 @@ class QuickSearch extends React.Component {
     if(this.props.selectedCount > 0 && this.props.loaded) {
       return (
         <TagsSelector tagOptionsPath={this.props.tagOptionsPath}
-                      selectedContactIds={this.selectedContactIds.bind(this)}
+                      selectedItemIds={this.props.selectedItemIds}
                       unselectAllContacts={this.props.unselectAllContacts} />
       )
     }
