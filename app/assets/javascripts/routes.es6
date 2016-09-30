@@ -73,6 +73,7 @@ class Routes extends React.Component {
                                 permissions={this.props.permissions}
                                 currentUserId={this.props.currentUserId}
                                 labId={this.props.labId}
+                                contactCustomFields={this.props.contactCustomFields}
                                 contactsPath={this.props.contactsPath}
                                 organizationsPath={this.props.organizationsPath}
                                 projectsPath={this.props.projectsPath}

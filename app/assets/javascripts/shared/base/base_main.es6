@@ -255,6 +255,7 @@ class BaseMain extends React.Component {
     return (
       <this.AdvancedSearch filters={filters}
                            updateFilters={this.updateFilters.bind(this)}
+                           contactCustomFields={this.props.route.contactCustomFields}
                            tagOptionsPath={this.props.route.tagOptionsPath}
                            fieldOptionsPath={this.props.route.fieldOptionsPath}
                            contactOptionsPath={this.props.route.contactOptionsPath}

@@ -33,4 +33,15 @@ class Lab < ApplicationRecord
     slug
   end
 
+  def custom_fields_as_json(item_type)
+    custom_fields.where(:item_type => item_type).collect do |custom_field|
+      {
+        :id         => custom_field.id,
+        :name       => custom_field.name,
+        :field_type => custom_field.field_type,
+        :options    => custom_field.options
+      }
+    end
+  end
+
 end

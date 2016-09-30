@@ -28,7 +28,13 @@ class Main extends BaseMain {
   }
 
   getFilters() {
-    return {
+    var customFieldFilters = {}
+
+    _.each(this.props.route.contactCustomFields, (customField) => {
+      customFieldFilters[`customField${customField.id}`] = this.props.location.query[`customField${customField.id}`] || ''
+    })
+
+    return Object.assign(customFieldFilters, {
       quickSearch:     this.props.location.query.quickSearch      || '',
       name:            this.props.location.query.name             || '',
       email:           this.props.location.query.email            || '',
@@ -41,7 +47,7 @@ class Main extends BaseMain {
       eventIds:        this.props.location.query.eventIds,
       fieldIds:        this.props.location.query.fieldIds,
       tagIds:          this.props.location.query.tagIds,
-    }
+    })
   }
 
   updateSelected(item, newValue) {
