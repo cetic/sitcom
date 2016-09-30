@@ -77,7 +77,7 @@ class Main extends BaseMain {
                    updateQuickSearch={this.updateQuickSearch.bind(this)}
                    filters={filters}
                    exportUrl={this.exportUrl}
-                   contacts={this.filteredItems()}
+                   selectedItemIds={this.state.selectedItemIds}
                    tagOptionsPath={this.props.route.tagOptionsPath}
                    unselectAllContacts={this.unselectAllItems.bind(this)} />
     )
@@ -100,7 +100,7 @@ class Main extends BaseMain {
 
   renderItem() {
     var urlItemId = parseInt(this.props.params.id)
-    var item      = _.find(this.state.items, (item) => { return item.id == urlItemId } )
+    var item      = _.find(this.state.items, (item) => { return item.id == urlItemId })
 
     return (
       <Contact id={urlItemId}

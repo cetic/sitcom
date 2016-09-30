@@ -49,12 +49,12 @@ class Main extends BaseMain {
   }
 
   renderItem() {
-    var urlOrganizationId = parseInt(this.props.params.id)
-    var organization      = _.find(this.state.organizations, (organization) => { return organization.id == urlOrganizationId } )
+    var urlItemId = parseInt(this.props.params.id)
+    var item      = _.find(this.state.items, (item) => { return item.id == urlItemId })
 
     return (
-      <Organization id={urlOrganizationId}
-                    organization={organization}
+      <Organization id={urlItemId}
+                    organization={item}
                     permissions={this.props.route.permissions}
                     currentUserId={this.props.route.currentUserId}
                     labId={this.props.route.labId}

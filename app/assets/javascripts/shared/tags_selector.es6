@@ -42,7 +42,7 @@ class TagsSelector extends React.Component {
 
       http.post(this.tagsPath(), {
         name:        e.target.value,
-        contact_ids: this.props.selectedContactIds()
+        contact_ids: this.props.selectedItemIds
       }, (data) => {
         // this.reloadTags() => will already be remounted next time an item is selected
         this.props.unselectAllContacts()
@@ -55,7 +55,7 @@ class TagsSelector extends React.Component {
 
     http.post(this.tagsPath(), {
       name:        tag.label,
-      contact_ids: this.props.selectedContactIds()
+      contact_ids: this.props.selectedItemIds
     }, (data) => {
       // this.reloadTags() => will already be remounted next time an item is selected
       this.props.unselectAllContacts()

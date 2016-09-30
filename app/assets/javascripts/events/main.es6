@@ -47,12 +47,12 @@ class Main extends BaseMain {
   }
 
   renderItem() {
-    var urlEventId = parseInt(this.props.params.id)
-    var event      = _.find(this.state.events, (event) => { return event.id == urlEventId } )
+    var urlItemId = parseInt(this.props.params.id)
+    var item      = _.find(this.state.items, (item) => { return item.id == urlItemId })
 
     return (
-      <Event id={urlEventId}
-             event={event}
+      <Event id={urlItemId}
+             event={item}
              permissions={this.props.route.permissions}
              currentUserId={this.props.route.currentUserId}
              labId={this.props.route.labId}
