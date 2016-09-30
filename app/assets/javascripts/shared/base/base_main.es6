@@ -8,87 +8,85 @@ class BaseMain extends React.Component {
   }
 
   componentWillMount() {
-    this.dReloadFromBackend = _.debounce(this.reloadFromBackend, 300)
+    this.onStorageItemCreated   = this.onStorageItemCreated.bind(this)
+    this.onStorageItemUpdated   = this.onStorageItemUpdated.bind(this)
+    this.onStorageItemDestroyed = this.onStorageItemDestroyed.bind(this)
+
+    this.dReloadIdsFromBackend = _.debounce(this.reloadIdsFromBackend, 300)
   }
 
   componentDidMount() {
-    if(this.shouldUseLocalStorage()) {
-      this.reloadFromLocalStorage()
+    if(this.storageExists()) {
+      this.reloadFromStorage()
     }
     else {
-      this.reloadFromBackend()
+      this.reloadAllFromBackend(true, () => {
+        this.reloadIdsFromBackend()
+      })
     }
 
-    this.bindCable()
     this.selectHeaderMenu()
+    this.bindStorageListeners()
   }
 
   componentWillReceiveProps(newProps) {
     if(newProps.location.search != this.props.location.search) {
-      this.dReloadFromBackend()
+      this.dReloadIdsFromBackend()
     }
   }
 
-  bindCable() {
-    App.cable.subscriptions.create({ channel: `${_.upperFirst(this.itemType)}sChannel`, lab_id: this.props.route.labId }, {
-      received: (data) => {
-        var camelData = humps.camelizeKeys(data)
-        var itemId    = camelData.action == 'destroy' ? camelData.itemId : camelData.item.id
-
-        if(camelData.action == 'create') {
-          setTimeout(() => {
-            this.reloadFromBackend(false)
-          }, window.backendRefreshDelay) // waiting for indexation, but not in a hurry
-        }
-        else if(camelData.action == 'update') {
-          var newItems = this.state[`${this.itemType}s`]
-          var index       = _.findIndex(newItems, (item) => { return itemId == item.id })
-          var wasSelected = newItems[index].selected
-          newItems[index] = camelData.item
-          newItems[index].selected = wasSelected // to keep selection when updated (only useful for contacts for now)
-
-          var newState = {}
-          newState[`${this.itemType}s`] = newItems
-          this.setState(newState)
-        }
-        else if(camelData.action == 'destroy') {
-          var newState = {}
-          newState[`${this.itemType}s`] = _.filter(this.state[`${this.itemType}s`], (item) => { return itemId != item.id })
-          this.setState(newState)
-        }
-      }
-    })
+  componentWillUnmount() {
+    this.unbindStorageListeners()
   }
 
-  shouldUseLocalStorage() {
-    var emptyFilters      = this.isEmptyFilters()
-    var existingStorage   = localStorage.getItem(`${this.itemType}s`)
-    var storageNotExpired = localStorage.getItem(`${this.itemType}s-lastSync`) && Date.now() - parseInt(localStorage.getItem(`${this.itemType}s-lastSync`)) < 0 //5 * 60 * 1000 // 5 minutes
-
-    return emptyFilters && existingStorage && storageNotExpired
+  bindStorageListeners() {
+    this.props.storage.ee.addListener(`${this.itemType}-created`,   this.onStorageItemCreated)
+    this.props.storage.ee.addListener(`${this.itemType}-updated`,   this.onStorageItemUpdated)
+    this.props.storage.ee.addListener(`${this.itemType}-destroyed`, this.onStorageItemDestroyed)
   }
 
-  getListFromLocalStorage() {
-    return JSON.parse(localStorage.getItem(`${this.itemType}s`))
+  unbindStorageListeners() {
+    this.props.storage.ee.removeListener(`${this.itemType}-created`,   this.onStorageItemCreated)
+    this.props.storage.ee.removeListener(`${this.itemType}-updated`,   this.onStorageItemUpdated)
+    this.props.storage.ee.removeListener(`${this.itemType}-destroyed`, this.onStorageItemDestroyed)
   }
 
-  setListToLocalStorage() {
-    localStorage.setItem(`${this.itemType}s`, JSON.stringify(this.state[`${this.itemType}s`]))
-    localStorage.setItem(`${this.itemType}s-lastSync`, Date.now())
+  hasFilters() {
+    return this.props.location.search != '' && this.props.location.search != '?'
   }
 
-  isEmptyFilters() {
-    return !this.props.location.search.length || this.props.location.search == '?'
-  }
-
-  reloadFromLocalStorage() {
-    var newState = {
-      loaded:        true,
-      selectedCount: 0
+  filteredItems() {
+    if(this.hasFilters()) {
+      return _.filter(this.state.items, (item) => {
+        return _.includes(this.state.filteredItemIds, item.id)
+      })
     }
-    newState[`${this.itemType}s`] = this.getListFromLocalStorage()
+    else {
+      return this.state.items
+    }
+  }
 
+  storageExists() {
+    return this.props.storage.getItem(`${this.itemType}s`) != undefined
+  }
+
+  onStorageItemCreated() {
+    console.log(`${this.itemType}-created`)
+    setTimeout(() => {
+      this.reloadAllFromBackend(false)
+    }, window.backendRefreshDelay) // waiting for indexation, but not in a hurry
+  }
+
+  onStorageItemUpdated() {
+    console.log(`${this.itemType}-updated`)
+    var newState = {}
+    newState['items'] = this.props.storage.getItem(`${this.itemType}s`)
     this.setState(newState)
+  }
+
+  onStorageItemDestroyed() {
+    console.log(`${this.itemType}-destroyed`)
+    this.onStorageItemUpdated()
   }
 
   selectHeaderMenu() {
@@ -100,26 +98,74 @@ class BaseMain extends React.Component {
     $(`.new-${this.itemType}-modal`).modal('show')
   }
 
-  reloadFromBackend(spinner = true) {
-    const itemsPath = this.props.route[`${this.itemType}sPath`]
+  reloadFromStorage() {
+    var storedItems = this.props.storage.getItem(`${this.itemType}s`)
 
+    this.setState({
+      items:           storedItems,
+      filteredItemIds: _.map(storedItems, 'id'),
+      filteredCount:   storedItems.length,
+      selectedItemIds: [],
+      selectedCount:   0,
+      loaded:          true,
+    })
+  }
+
+  reloadAllFromBackend(spinner = true, callback = undefined) {
     if(spinner) {
       this.setState({ loaded: false })
     }
 
-    http.get(itemsPath, this.getFilters(), (data) => {
-      var newState = {
-        loaded:        true,
-        selectedCount: 0
-      }
-      newState[`${this.itemType}s`] = data[`${this.itemType}s`]
+    const itemsPath = this.props.route[`${this.itemType}sPath`]
 
-      this.setState(newState, () => {
-        if(this.isEmptyFilters()) {
-          this.setListToLocalStorage()
+    http.get(itemsPath, {}, (data) => {
+      var items = data[`${this.itemType}s`]
+
+      this.setState({
+        items:           items,
+        filteredItemIds: _.map(items, 'id'),
+        filteredCount:   items.length,
+        //selectedItemIds: [], => keep selected items
+        //selectedCount:   0,  => keep selected items
+        loaded:          true,
+      }, () => {
+        this.props.storage.setItem(`${this.itemType}s`, items)
+
+        if(callback) {
+          callback()
         }
       })
     })
+  }
+
+  reloadIdsFromBackend(spinner = true) {
+    if(this.hasFilters()) {
+      if(spinner) {
+        this.setState({ loaded: false })
+      }
+
+      const itemsPath = this.props.route[`${this.itemType}sPath`]
+      var   query     = _.assign({}, { onlyIds: true }, this.getFilters())
+
+      http.get(itemsPath, query, (data) => {
+        this.setState({
+          filteredItemIds: data[`${this.itemType}Ids`],
+          filteredCount:   data[`${this.itemType}Ids`].length,
+          selectedItemIds: [],
+          selectedCount:   0,
+          loaded:          true,
+        })
+      })
+    }
+    else {
+      this.setState({
+        filteredItemIds: _.map(this.state.items, 'id'),
+        filteredCount:   this.state.items.length,
+        selectedItemIds: [],
+        selectedCount:   0,
+        loaded:          true,
+      })
+    }
   }
 
   updateUrl(newValues) {
@@ -149,21 +195,8 @@ class BaseMain extends React.Component {
 
   pushIdsListFilter(field, newId) {
     var filters = this.getFilters()
-    var newIds
-
-    //if(filters[field] == undefined) {
-      newIds = [newId]
-    //}
-    // else {
-    //   newIds = _.map(filters[field].split(','), (id) => {
-    //     return parseInt(id)
-    //   })
-
-    //   newIds = _.concat(newIds, newId)
-    // }
-
     var newFilters    = {}
-    newFilters[field] = _.uniq(newIds).join(',')
+    newFilters[field] = [newId].join(',')
 
     this.replaceFilters(newFilters)
   }
@@ -236,7 +269,7 @@ class BaseMain extends React.Component {
     return (
       <QuickSearch title={this.title}
                    loaded={this.state.loaded}
-                   results={this.state[`${this.itemType}s`].length}
+                   results={this.state.filteredItemIds.length}
                    quickSearch={filters.quickSearch}
                    updateQuickSearch={this.updateQuickSearch.bind(this)}
                    filters={filters}

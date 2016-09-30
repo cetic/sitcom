@@ -11,9 +11,15 @@ class ContactsController < ApplicationController
             :lab_id => @lab.id
           })).run
 
-          render :json => {
-            :contacts => contacts
-          }
+          if params[:only_ids]
+            render :json => {
+              :contact_ids => contacts
+            }
+          else
+            render :json => {
+              :contacts => contacts
+            }
+          end
         else
           render_permission_error
         end

@@ -18,9 +18,12 @@ class Main extends BaseMain {
     this.exportUrl      = `${this.props.route.contactsPath}/export`
 
     this.state = {
-      contacts:      [],
-      loaded:        false,
-      selectedCount: 0,
+      items:           [],
+      filteredItemIds: [],
+      filteredCount:   0,
+      selectedItemIds: [],
+      selectedCount:   0,
+      loaded:          false,
     }
   }
 
@@ -41,30 +44,25 @@ class Main extends BaseMain {
     }
   }
 
-  updateSelected(contact, newValue) {
-    var index    = _.findIndex(this.state.contacts, (c) => { return contact.id == c.id})
-    var contacts = this.state.contacts
-
-    contacts[index].selected = newValue
-
-    var selectedCount = newValue ? this.state.selectedCount + 1 : this.state.selectedCount - 1
-
-    this.setState({
-      contacts:      contacts,
-      selectedCount: selectedCount
-    })
+  updateSelected(item, newValue) {
+    if(newValue == false && _.includes(this.state.selectedItemIds, item.id)) {
+      this.setState({
+        selectedItemIds: _.filter(this.state.selectedItemIds, (itemId) => { return itemId != item.id }),
+        selectedCount:   this.state.selectedCount - 1,
+      })
+    }
+    else if(newValue == true && !_.includes(this.state.selectedItemIds, item.id)) {
+      this.setState({
+        selectedItemIds: this.state.selectedItemIds.concat([item.id]),
+        selectedCount:   this.state.selectedCount + 1,
+      })
+    }
   }
 
-  unselectAllContacts() {
-    var contacts = this.state.contacts
-
-    _.each(contacts, (contact) => {
-      contact.selected = false
-    })
-
+  unselectAllItems() {
     this.setState({
-      contacts:      contacts,
-      selectedCount: 0
+      selectedItemIds: [],
+      selectedCount:   0,
     })
   }
 
@@ -73,22 +71,23 @@ class Main extends BaseMain {
     return (
       <QuickSearch title={this.title}
                    loaded={this.state.loaded}
-                   results={this.state.contacts.length}
+                   results={this.state.filteredCount}
+                   selectedCount={this.state.selectedCount}
                    quickSearch={filters.quickSearch}
                    updateQuickSearch={this.updateQuickSearch.bind(this)}
                    filters={filters}
                    exportUrl={this.exportUrl}
-                   selectedCount={this.state.selectedCount}
-                   contacts={this.state.contacts}
+                   contacts={this.filteredItems()}
                    tagOptionsPath={this.props.route.tagOptionsPath}
-                   unselectAllContacts={this.unselectAllContacts.bind(this)} />
+                   unselectAllContacts={this.unselectAllItems.bind(this)} />
     )
   }
 
   renderItems() {
     return (
       <Contacts permissions={this.props.route.permissions}
-                contacts={this.state.contacts}
+                contacts={this.filteredItems()}
+                selectedItemIds={this.state.selectedItemIds}
                 loaded={this.state.loaded}
                 search={this.props.location.search}
                 tagOptionsPath={this.props.route.tagOptionsPath}
@@ -100,12 +99,12 @@ class Main extends BaseMain {
   }
 
   renderItem() {
-    var urlContactId = parseInt(this.props.params.id)
-    var contact      = _.find(this.state.contacts, (contact) => { return contact.id == urlContactId } )
+    var urlItemId = parseInt(this.props.params.id)
+    var item      = _.find(this.state.items, (item) => { return item.id == urlItemId } )
 
     return (
-      <Contact id={urlContactId}
-               contact={contact}
+      <Contact id={urlItemId}
+               contact={item}
                permissions={this.props.route.permissions}
                currentUserId={this.props.route.currentUserId}
                labId={this.props.route.labId}
@@ -118,7 +117,7 @@ class Main extends BaseMain {
                organizationOptionsPath={this.props.route.organizationOptionsPath}
                projectOptionsPath={this.props.route.projectOptionsPath}
                eventOptionsPath={this.props.route.eventOptionsPath}
-               contacts={this.state.contacts}
+               contacts={this.filteredItems()}
                router={this.props.router} />
     )
   }

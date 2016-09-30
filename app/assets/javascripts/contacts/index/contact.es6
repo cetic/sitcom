@@ -5,13 +5,13 @@ class Contact extends React.Component {
     super(props)
 
     this.state = {
-      selected: this.props.contact.selected
+      selected: this.props.selected
     }
   }
 
   componentWillReceiveProps(newProps) {
-    if(newProps.contact.selected != this.state.selected) {
-      this.setState({ selected: newProps.contact.selected })
+    if(newProps.selected != this.state.selected) {
+      this.setState({ selected: newProps.selected })
     }
   }
 

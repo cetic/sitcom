@@ -16,8 +16,12 @@ class Main extends BaseMain {
     this.AdvancedSearch = AdvancedSearch
 
     this.state = {
-      projects: [],
-      loaded:   false,
+      items:           [],
+      filteredItemIds: [],
+      filteredCount:   0,
+      selectedItemIds: [],
+      selectedCount:   0,
+      loaded:          false,
     }
   }
 
@@ -33,7 +37,8 @@ class Main extends BaseMain {
 
   renderItems() {
     return (
-      <Projects projects={this.state.projects}
+      <Projects permissions={this.props.route.permissions}
+                projects={this.filteredItems()}
                 loaded={this.state.loaded}
                 search={this.props.location.search}
                 loadingImagePath={this.props.route.loadingImagePath} />
@@ -55,7 +60,7 @@ class Main extends BaseMain {
                search={this.props.location.search}
                loadingImagePath={this.props.route.loadingImagePath}
                contactOptionsPath={this.props.route.contactOptionsPath}
-               projects={this.state.projects}
+               projects={this.filteredItems()}
                router={this.props.router} />
     )
   }

@@ -10,8 +10,13 @@ class BaseSearch
   end
 
   def run
-    results = run_step.results.collect(&:_source)
-    self.class.reject_private_notes_from_collection(results, user)
+    if params[:only_ids]
+      # we only get meta informations when fetching ids => http://stackoverflow.com/a/17497442/1243212
+      results = run_step.results.results.collect(&:_id).collect(&:to_i)
+    else
+      results = run_step.results.collect(&:_source)
+      self.class.reject_private_notes_from_collection(results, user)
+    end
   end
 
   def self.reject_private_notes_from_collection(results, user)
@@ -51,6 +56,12 @@ class BaseSearch
       'from' => params[:offset].to_i,
       'size' => STEP
     }
+
+    if params[:only_ids]
+      options = options.merge({
+        'fields' => []
+      })
+    end
 
     options
   end

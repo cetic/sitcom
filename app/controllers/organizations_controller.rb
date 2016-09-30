@@ -11,9 +11,15 @@ class OrganizationsController < ApplicationController
             :lab_id => @lab.id
           })).run
 
-          render :json => {
-            :organizations => organizations
-          }
+          if params[:only_ids]
+            render :json => {
+              :organization_ids => organizations
+            }
+          else
+            render :json => {
+              :organizations => organizations
+            }
+          end
         else
           render_permission_error
         end

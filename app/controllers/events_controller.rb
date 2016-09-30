@@ -11,9 +11,15 @@ class EventsController < ApplicationController
             :lab_id => @lab.id
           })).run
 
-          render :json => {
-            :events => events
-          }
+          if params[:only_ids]
+            render :json => {
+              :event_ids => events
+            }
+          else
+            render :json => {
+              :events => events
+            }
+          end
         else
           render_permission_error
         end

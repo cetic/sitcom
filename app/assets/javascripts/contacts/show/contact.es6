@@ -32,6 +32,10 @@ class Contact extends React.Component {
     this.bindCable()
   }
 
+  componentWillUnmount() {
+    this.unbindCable()
+  }
+
   componentDidUpdate(prevProps) {
     if(prevProps.id != this.props.id) {
       if(this.state.contact == undefined) {
@@ -48,7 +52,7 @@ class Contact extends React.Component {
   }
 
   bindCable() {
-    App.cable.subscriptions.create({ channel: "ContactsChannel", lab_id: this.props.labId }, {
+    this.cableSubscription = App.cable.subscriptions.create({ channel: "ContactsChannel", lab_id: this.props.labId }, {
       received: (data) => {
         var camelData = humps.camelizeKeys(data)
         var itemId    = camelData.action == 'destroy' ? camelData.itemId : camelData.item.id
@@ -63,6 +67,10 @@ class Contact extends React.Component {
         }
       }
     })
+  }
+
+  unbindCable() {
+    App.cable.subscriptions.remove(this.cableSubscription)
   }
 
   contactPath() {
