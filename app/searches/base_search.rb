@@ -66,6 +66,20 @@ class BaseSearch
     options
   end
 
+  def add_own_ids_search(options)
+    if params[:ids].present?
+      ids = params[:ids].split(',').map(&:to_i)
+
+      if ids.any?
+        options['query']['filtered']['filter']['and'] << {
+          'terms' => {
+            'id' => ids
+          }
+        }
+      end
+    end
+  end
+
   def add_quick_search(options, fields)
     if params[:quick_search].present?
       options['query']['filtered']['query'] = {

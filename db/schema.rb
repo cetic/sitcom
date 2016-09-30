@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 20160923134236) do
 
   create_table "custom_fields", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "lab_id"
-    t.string   "item_type",                default: "contact"
+    t.string   "item_type",                default: "Contact"
     t.string   "name"
     t.string   "field_type"
     t.integer  "position"

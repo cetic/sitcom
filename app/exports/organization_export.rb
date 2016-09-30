@@ -7,8 +7,8 @@ class OrganizationExport < BaseExport
       'Description' => :description,
       'Site Web'    => :website_url,
 
-      'Contacts'        => lambda { |item| item.contacts.pluck(:name).join(', ') },
-      'Notes publiques' => lambda { |item| item.notes.pluck(:text).join(', ') }
+      'Contacts'        => lambda { |item| item.contacts.colletct(:name).join(', ') },
+      'Notes publiques' => lambda { |item| item.notes.colletct(:text).join(', ') }
     }
   end
 

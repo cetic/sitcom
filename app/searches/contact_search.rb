@@ -2,6 +2,8 @@ class ContactSearch < BaseSearch
   def run_step
     options = get_base_options
 
+    add_own_ids_search(options)
+
     add_quick_search(options, [ 'name', 'email', 'phone', 'address' ])
 
     [ 'name', 'email', 'address', 'phone' ].each do |field|

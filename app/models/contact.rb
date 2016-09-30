@@ -128,14 +128,4 @@ class Contact < ApplicationRecord
       custom_field_link.try(:text_value).to_s
     end
   end
-
-  def custom_field_text_value(custom_field)
-    value = custom_field_value(custom_field)
-
-    if custom_field.field_type.boolean?
-      value ? 'Oui' : 'Non'
-    else
-      value
-    end
-  end
 end

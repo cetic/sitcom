@@ -8,6 +8,14 @@ class EnumCustomField extends CustomField {
     this.state.value = this.props.customField.value || ''
   }
 
+  componentWillReceiveProps(newProps) {
+    if(newProps.customField.value != this.props.customField.value) {
+      this.setState({
+        value: newProps.customField.value
+      })
+    }
+  }
+
   buildParams() {
     return {
       customField: {

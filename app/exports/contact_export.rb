@@ -22,16 +22,16 @@ class ContactExport < BaseExport
 
     custom_fields.each do |custom_field|
       list[custom_field.name] = lambda do |item|
-        item.custom_field_value(custom_field).to_s
+        item.custom_fields.detect { |f| f.name == custom_field.name }.try(:value)
       end
     end
 
     list = list.merge({
-      'Organisations'        => lambda { |item| item.organizations.pluck(:name).join(', ') },
-      "Domaines d'expertise" => lambda { |item| item.fields.pluck(:name).join(', ') },
-      'Évènements'           => lambda { |item| item.events.pluck(:name).join(', ') },
-      'Projets'              => lambda { |item| item.projects.pluck(:name).join(', ') },
-      'Notes publiques'      => lambda { |item| item.notes.pluck(:text).join(', ') }
+      'Organisations'        => lambda { |item| item.organizations.collect(&:name).join(', ') },
+      "Domaines d'expertise" => lambda { |item| item.fields.collect(&:name).join(', ') },
+      'Évènements'           => lambda { |item| item.events.collect(&:name).join(', ') },
+      'Projets'              => lambda { |item| item.projects.collect(&:name).join(', ') },
+      'Notes publiques'      => lambda { |item| item.notes.collect(&:text).join(', ') }
     })
 
     list
