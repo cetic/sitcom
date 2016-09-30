@@ -40,10 +40,6 @@ gem 'roo'
 gem 'acts_as_list'
 gem 'puma', '~> 3.0'
 
-group :development do
-  gem 'listen'
-end
-
 # Deployment
 group :development do
   gem 'capistrano'
@@ -54,6 +50,7 @@ group :development do
   gem 'capistrano-sidekiq'
 
   gem 'sqlite3'
+  gem 'listen'
 end
 
 group :production do
