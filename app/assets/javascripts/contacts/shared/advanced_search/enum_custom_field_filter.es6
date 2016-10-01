@@ -3,16 +3,19 @@ import CustomFieldFilter from './custom_field_filter.es6'
 
 class EnumCustomFieldFilter extends CustomFieldFilter {
 
-  updateValue(value) {
-    console.log(value)
+  updateValue(option) {
+    var newFilters = {}
+    newFilters[`customField${this.props.customField.id}`] = option ? option.value : undefined
+    this.props.updateFilters(newFilters)
   }
 
   renderInput() {
     const options = this.getSelectOptions()
+    const value   = this.getSelectValue(options)
 
     return (
       <Select multi={false}
-              value={this.getSelectValue(options)}
+              value={value}
               options={options}
               onChange={this.updateValue.bind(this)} />
     )
@@ -28,7 +31,7 @@ class EnumCustomFieldFilter extends CustomFieldFilter {
   }
 
   getSelectValue(options) {
-    var value = ''
+    const value = this.getValue()
 
     if(_.trim(value) != '') {
       var option = _.find(options, (option) => {

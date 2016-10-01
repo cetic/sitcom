@@ -22,12 +22,11 @@ As root:
     apt-get update
     apt-get upgrade
 
-    apt-get install zlib1g zlib1g-dev build-essential git-core curl emacs imagemagick nginx
+    apt-get install zlib1g zlib1g-dev build-essential git-core curl emacs imagemagick nginx screen
     apt-get install mysql-client libmysqlclient-dev libopenssl-ruby1.9.1 libssl-dev libreadline-dev
     apt-get install mysql-server monit unattended-upgrades logrotate memcached redis-server
     apt-get install nodejs npm
     apt-get install libcurl4-gnutls-dev libxml2 libxml2-dev libxslt1-dev ruby-dev
-    apt-get install mysql-client libmysqlclient-dev libssl-dev libreadline-dev screen
     apt-get install libmagickcore-dev libmagickwand-dev
 
 Set a [generated password](https://strongpasswordgenerator.com) for mysql root and save it somewhere.
@@ -78,6 +77,7 @@ Use a [generated password](https://strongpasswordgenerator.com) and store it som
 ### Passenger
 
 Install [Phusion Passenger](https://www.phusionpassenger.com/library/install/nginx/install/oss/xenial/).
+Or https://www.phusionpassenger.com/library/install/nginx/install/oss/jessie/
 
 ### Server block
 
@@ -123,7 +123,7 @@ Then restart nginx:
 
     service nginx restart
 
-## Setup ElasticSearch (option)
+## Setup ElasticSearch
 
 Setup [repositories](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup-repositories.html).
 
@@ -137,9 +137,10 @@ Then:
 
 ### Deploy for the first time
 
+    bundle exec cap production deploy:check
+
 Create the env file in `/home/deploy/apps/sitcom/shared/.env.production`. Then:
 
-    bundle exec cap production deploy:check
     bundle exec cap production deploy
 
 ## Configure logrotate

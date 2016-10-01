@@ -4,7 +4,7 @@ class BoolCustomFieldFilter extends CustomFieldFilter {
 
   updateValue(value) {
     var newFilters = {}
-    newFilters[`customField${this.props.customField.id}`] = value.toString()
+    newFilters[`customField${this.props.customField.id}`] = value
     this.props.updateFilters(newFilters)
   }
 
