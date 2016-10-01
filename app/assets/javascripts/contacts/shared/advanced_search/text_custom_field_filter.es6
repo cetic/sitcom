@@ -11,6 +11,7 @@ class TextCustomFieldFilter extends CustomFieldFilter {
   renderInput() {
     return (
       <input type="text"
+             className="form-control input-sm"
              value={this.getValue()}
              onChange={this.updateValue.bind(this)} />
     )
