@@ -32,7 +32,9 @@ class EnumCustomField extends CustomField {
 
   renderValue() {
     return (
-      <span>{this.props.customField.value}</span>
+      <span className="text">
+        {this.props.customField.value}
+      </span>
     )
   }
 

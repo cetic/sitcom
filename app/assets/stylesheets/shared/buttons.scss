@@ -51,6 +51,15 @@
   background-color: #c9302c;
 }
 
+.btn-success {
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+
+.btn-success:active, .btn-success:focus, .btn-success:active:focus {
+  background-color: #5cb85c;
+}
+
 .btn-xs {
   padding: 1px 5px;
   font-size: 12px;

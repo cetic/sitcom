@@ -22,16 +22,30 @@ class TextCustomField extends CustomField {
   }
 
   renderValue() {
-    return (
-      <span>{this.props.customField.value}</span>
-    )
+    if(this.props.customField.value && this.props.customField.value != '') {
+      return (
+        <span className="text">
+          {this.props.customField.value}
+        </span>
+      )
+    }
+    else {
+      return (
+        <span className="text">
+          <em>
+            Non spécifié
+          </em>
+        </span>
+      )
+    }
   }
 
   renderValueInput() {
     return (
-      <input type="text"
-             value={this.state.value}
-             onChange={this.updateValue.bind(this)} />
+      <textarea type="text"
+                defaultValue={this.state.value}
+                onChange={this.updateValue.bind(this)}>
+      </textarea>
     )
   }
 

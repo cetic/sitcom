@@ -23,7 +23,9 @@ class BoolCustomField extends CustomField {
 
   renderValue() {
     return (
-      <span>{this.state.value ? 'Oui' : 'Non'}</span>
+      <span className="text">
+        {this.state.value ? 'Oui' : 'Non'}
+      </span>
     )
   }
 

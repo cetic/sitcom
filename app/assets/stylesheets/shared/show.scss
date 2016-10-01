@@ -567,7 +567,50 @@
     }
   }
 
-  .custom-fields_block {
+  .custom-fields-block {
+    h3 {
+      margin-bottom: 14px;
+      margin-top: 4px;
+    }
 
+    .custom-field {
+      position: relative;
+
+      .show-mode {
+        .text {
+          display: block;
+          height: 50px;
+          width: 100%;
+
+          em {
+
+          }
+        }
+      }
+
+      .edit-mode {
+        textarea {
+          height: 45px;
+          width: 100%;
+        }
+
+        .Select, .bool-choices {
+          width: 100%;
+          height: 50px;
+        }
+
+        label {
+          margin-left: 4px;
+          margin-right: 16px;
+          font-weight: 400;
+        }
+      }
+
+      .btn {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+      }
+    }
   }
 }

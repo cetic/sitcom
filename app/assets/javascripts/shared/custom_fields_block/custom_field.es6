@@ -24,14 +24,10 @@ class CustomField extends React.Component {
 
   render() {
     return (
-      <div className="row custom-field">
-        <div className="col-md-6">
-          <label>{this.props.customField.name}</label>
-        </div>
+      <div className="custom-field">
+        <label>{this.props.customField.name}</label>
 
-        <div className="col-md-6">
-          {this.renderContent()}
-        </div>
+        {this.renderContent()}
       </div>
     )
   }
