@@ -3,8 +3,7 @@
 #admin-custom_fields-edit,
 #admin-custom_fields-update, {
   .form-control-no-input {
-    padding: 6px 0px;
-    font-style: italic;
+    padding: 7px 0px;
   }
 
   fieldset {
@@ -14,10 +13,32 @@
     }
   }
 
-  table.table.table-striped {
+  .enum-options {
+    padding: 20px;
+    padding-right: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    table.table.table-striped {
+      tfoot {
+        td {
+          border-top: none;
+        }
+      }
+    }
+
+    .actions {
+      width: 80px;
+    }
+
     tfoot {
-      td {
-        border-top: none;
+      .actions {
+        .btn {
+          line-height: 30px;
+          padding-left: 10px;
+          padding-right: 10px;
+          font-size: 13px;
+        }
       }
     }
   }

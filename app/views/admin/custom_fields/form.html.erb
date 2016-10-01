@@ -3,7 +3,7 @@
     <div class="panel col-md-6 col-md-offset-3">
       <ol class="breadcrumb">
         <li><%= link_to 'Labs', admin_labs_path %></li>
-        <li><%= link_to @lab.name, admin_lab_path(@lab) %></li>
+        <li><%= @lab.name %></li>
         <li><%= link_to 'Champs personnalisés', admin_lab_custom_fields_path(@lab) %></li>
         <li class="active"><%= params[:action].in?(['new', 'create']) ? 'Créer' : 'Modifier' %></li>
       </ol>

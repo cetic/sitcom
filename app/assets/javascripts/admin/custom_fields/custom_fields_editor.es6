@@ -73,8 +73,8 @@ class CustomFieldsEditor extends React.Component {
           <input type="hidden" name="custom_field[options][]" value={option} />
         </td>
 
-        <td>
-          <button className="btn btn-xs btn-primary"
+        <td className="actions">
+          <button className="btn btn-xs btn-danger"
                   onClick={this.removeOption.bind(this, option)}>
             <i className="fa fa-trash"></i>
           </button>
@@ -94,10 +94,10 @@ class CustomFieldsEditor extends React.Component {
                    onChange={this.updateNewOption.bind(this)} />
           </td>
 
-          <td>
+          <td className="actions">
             <button className="btn btn-primary"
                     onClick={this.addOption.bind(this)}>
-              <i className="fa fa-plus"></i>&nbsp;Ajouter
+              Ajouter
             </button>
           </td>
         </tr>
