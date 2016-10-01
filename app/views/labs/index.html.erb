@@ -16,7 +16,7 @@
       <ul>
         <% @labs.each do |lab| %>
           <li>
-            <%= link_to lab.name, lab_path(lab) %>
+            <%= link_to "&bull; ".html_safe + lab.name, lab_path(lab) %>
           </li>
         <% end %>
       </ul>

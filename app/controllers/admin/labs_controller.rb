@@ -1,5 +1,5 @@
 class Admin::LabsController < Admin::BaseController
-  before_action :find_lab,        :only => [ :edit, :update, :destroy ]
+  before_action :find_lab, :only => [ :edit, :update, :destroy ]
 
   def index
     @labs = Lab.order(:name)

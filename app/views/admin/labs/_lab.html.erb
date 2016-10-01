@@ -1,9 +1,14 @@
 <tr>
-  <td><%= lab.name %></td>
+  <td>
+    <%= lab.name %>
+  </td>
+
+  <td>
+    <%= link_to "#{lab.custom_fields.count} champs personnalisés", admin_lab_custom_fields_path(lab), :class => '' %>
+  </td>
 
   <td class="actions">
-    <%= link_to fa('plus-square'), admin_lab_custom_fields_path(lab), :class => 'btn btn-xs btn-default', :title => 'Champs personnalisés' %>
-    <%= link_to fa('edit'),        edit_admin_lab_path(lab),          :class => 'btn btn-xs btn-default' %>
-    <%= link_to fa('remove'),      admin_lab_path(lab),               :class => 'btn btn-xs btn-danger', :data => { :confirm => "Supprimer ce lab ?" }, :method => :delete %>
+    <%= link_to fa('edit'),   edit_admin_lab_path(lab), :class => 'btn btn-xs btn-default' %>
+    <%= link_to fa('remove'), admin_lab_path(lab),      :class => 'btn btn-xs btn-danger', :data => { :confirm => "Supprimer ce lab ?" }, :method => :delete %>
   </td>
 </tr>
