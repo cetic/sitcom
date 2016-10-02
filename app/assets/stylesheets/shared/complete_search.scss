@@ -41,10 +41,12 @@
 
     .list-mode {
       margin-bottom: 10px;
+      text-align: right;
 
       .Select {
         width: calc(100% - 91px);
         float: left;
+        text-align: left;
       }
 
       .btn {
@@ -64,6 +66,10 @@
 
     .Select {
       margin-top: -2px;
+    }
+
+    .form-group {
+      height: 32px;
     }
 
     .active-filter {
