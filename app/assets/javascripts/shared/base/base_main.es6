@@ -15,7 +15,7 @@ class BaseMain extends React.Component {
     this.dReloadIdsFromBackend = _.debounce(this.reloadIdsFromBackend, 300)
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if(this.storageExists()) {
       this.reloadFromStorage()
     }
@@ -24,7 +24,9 @@ class BaseMain extends React.Component {
         this.reloadIdsFromBackend()
       })
     }
+  }
 
+  componentDidMount() {
     this.selectHeaderMenu()
     this.bindStorageListeners()
   }
