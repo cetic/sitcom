@@ -20,11 +20,6 @@ class AdvancedSearch extends BaseAdvancedSearch {
     return (
       <div className="advanced-search form-horizontal">
         <fieldset>
-          <legend>Champs personnalisés</legend>
-          {this.renderCustomFieldsFilters()}
-        </fieldset>
-
-        <fieldset>
           <legend>Général</legend>
           {this.renderSimpleFilter('name',    'Nom'      )}
           {this.renderSimpleFilter('email',   'Email'    )}
@@ -41,6 +36,11 @@ class AdvancedSearch extends BaseAdvancedSearch {
           {this.renderIdsListFilter('organization', 'Organisations')}
           {this.renderIdsListFilter('project',      'Projets'      )}
           {this.renderIdsListFilter('event',        'Evènements'   )}
+        </fieldset>
+
+        <fieldset>
+          <legend>Champs personnalisés</legend>
+          {this.renderCustomFieldsFilters()}
         </fieldset>
       </div>
     )
