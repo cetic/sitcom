@@ -13,9 +13,7 @@ class BaseMain extends React.Component {
     this.onStorageItemDestroyed = this.onStorageItemDestroyed.bind(this)
 
     this.dReloadIdsFromBackend = _.debounce(this.reloadIdsFromBackend, 300)
-  }
 
-  componentWillMount() {
     if(this.storageExists()) {
       this.reloadFromStorage()
     }
