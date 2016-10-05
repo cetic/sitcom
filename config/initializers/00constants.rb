@@ -8,10 +8,8 @@ if Rails.env.development?
     APP_HOSTNAME = "localhost:#{APP_PORT}"
     MAIL_FROM    = 'noreply@localhost'
   end
-end
-
-if Rails.env.production?
-  APP_PORT     = 443
-  APP_HOSTNAME = ENV['APP_HOSTNAME']
-  MAIL_FROM    = ENV['MAIL_FROM']
+else
+  PP_PORT     = 443
+    APP_HOSTNAME = ENV['APP_HOSTNAME']
+    MAIL_FROM    = ENV['MAIL_FROM']
 end

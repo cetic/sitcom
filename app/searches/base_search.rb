@@ -145,10 +145,8 @@ class BaseSearch
 
                   {
                     'and' => [
-                      {
-                        'term' => { 'notes.privacy' => 'private' },
-                        'term' => { 'notes.user_id' => user.id   }
-                      },
+                      { 'term' => { 'notes.privacy' => 'private' } },
+                      { 'term' => { 'notes.user_id' => user.id   } }
                     ]
                   }
                 ]
