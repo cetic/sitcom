@@ -9,10 +9,10 @@ class BoolCustomFieldFilter extends CustomFieldFilter {
   }
 
   renderInput() {
-    const name    = `custom_field_${this.props.customField.id}`
-    const bothId  = `custom_field_${this.props.customField.id}_both`
-    const trueId  = `custom_field_${this.props.customField.id}_true`
-    const falseId = `custom_field_${this.props.customField.id}_false`
+    const name    = `custom_field_filter_${this.props.customField.id}`
+    const bothId  = `custom_field_filter_${this.props.customField.id}_both`
+    const trueId  = `custom_field_filter_${this.props.customField.id}_true`
+    const falseId = `custom_field_filter_${this.props.customField.id}_false`
 
     var value = this.getValue()
 
