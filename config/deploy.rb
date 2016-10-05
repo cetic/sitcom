@@ -3,6 +3,9 @@ lock '3.5.0'
 set :repo_url,      'git@github.com:aurels/sitcom.git'
 set :keep_releases, 30
 
+set :application, 'sitcom'
+set :rbenv_ruby,  File.read('.ruby-version').strip
+
 set :use_sudo,  false
 set :log_level, :debug
 set :pty,       false
