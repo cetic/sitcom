@@ -3,7 +3,7 @@ import ParamsService from './params_service.es6'
 class ExportButton extends React.Component {
 
   export() {
-    var selectedIds = this.props.selectedIds ? this.props.selectedIds() : undefined
+    var selectedIds = this.props.selectedIds ? this.props.selectedIds : undefined
 
     if(selectedIds && selectedIds.length) {
       var url = `${this.props.exportUrl}?ids=${selectedIds.join(',')}`
