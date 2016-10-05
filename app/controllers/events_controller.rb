@@ -55,7 +55,7 @@ class EventsController < ApplicationController
           @event = @lab.events.new(strong_params)
 
           if @event.save
-            render_json_success({ :event => @event.as_indexed_json })
+            render_json_success({ :event_id => @event.id })
           else
             render_json_errors(@event)
           end

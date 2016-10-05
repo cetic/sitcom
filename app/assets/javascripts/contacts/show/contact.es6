@@ -193,8 +193,6 @@ class Contact extends React.Component {
   }
 
   renderCustomFields() {
-    console.log(this.props.permissions)
-
     if(this.state.loaded) {
       return (
         <CustomFieldsBlock item={this.state.contact}

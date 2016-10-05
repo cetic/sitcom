@@ -55,7 +55,7 @@ class ContactsController < ApplicationController
           @contact = @lab.contacts.new(strong_params)
 
           if @contact.save
-            render_json_success({ :contact => @contact.as_indexed_json })
+            render_json_success({ :contact_id => @contact.id })
           else
             render_json_errors(@contact)
           end

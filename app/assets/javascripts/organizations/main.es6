@@ -70,7 +70,7 @@ class Main extends BaseMain {
 
   renderNewModal() {
     return (
-      <NewItem itemsPath={this.props.route.contactsPath}
+      <NewItem itemsPath={this.props.route.organizationsPath}
                router={this.props.router}
                modalClassName="new-organization-modal"
                modalTitle="Nouvelle organisation"

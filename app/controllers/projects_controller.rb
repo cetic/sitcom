@@ -55,7 +55,7 @@ class ProjectsController < ApplicationController
           @project = @lab.projects.new(strong_params)
 
           if @project.save
-            render_json_success({ :project => @project.as_indexed_json })
+            render_json_success({ :project_id => @project.id })
           else
             render_json_errors(@project)
           end

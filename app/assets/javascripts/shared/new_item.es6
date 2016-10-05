@@ -40,8 +40,10 @@ class NewItem extends React.Component {
         }
         else {
           setTimeout(() => {
-            this.props.router.push(`${this.props.modelName}s/${data[this.props.modelName].id}`)
+            var id = data[`${this.props.modelName}Id`]
+            this.props.router.push(`${this.props.modelName}s/${id}`)
             this.hideModal()
+
             this.setState({
               fieldValue: '',
             })

@@ -48,7 +48,7 @@ class NewContact extends React.Component {
         }
         else {
           setTimeout(() => {
-            this.props.router.push(`contacts/${data.contact.id}`)
+            this.props.router.push(`contacts/${data.contactId}`)
             this.hideModal()
             this.setState({
               firstName: '',

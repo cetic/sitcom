@@ -55,7 +55,7 @@ class OrganizationsController < ApplicationController
           @organization = @lab.organizations.new(strong_params)
 
           if @organization.save
-            render_json_success({ :organization => @organization.as_indexed_json })
+            render_json_success({ :organization_id => @organization.id })
           else
             render_json_errors(@organization)
           end
