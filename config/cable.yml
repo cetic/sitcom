@@ -8,3 +8,7 @@ test:
 production:
   adapter: redis
   url: redis://localhost:6379/0
+
+cetic:
+  adapter: redis
+  url: redis://localhost:6379/0
