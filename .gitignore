@@ -27,7 +27,7 @@
 .env.development
 .env.production
 .env.cetic
-.env.deploy
+.env.deploy.production
 .env.deploy.cetic
 .env
 .notes
