@@ -16,7 +16,6 @@ class Note extends React.Component {
 
   remove() {
     if(confirm("Supprimer définitivement cette note ?")) {
-      console.log(`${this.props.note.path}`)
       http.delete(`${this.props.note.path}`)
     }
   }
