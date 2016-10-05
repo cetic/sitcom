@@ -9,7 +9,7 @@ if Rails.env.development?
     MAIL_FROM    = 'noreply@localhost'
   end
 else
-  PP_PORT     = 443
-    APP_HOSTNAME = ENV['APP_HOSTNAME']
-    MAIL_FROM    = ENV['MAIL_FROM']
+  APP_PORT     = 443
+  APP_HOSTNAME = ENV['APP_HOSTNAME']
+  MAIL_FROM    = ENV['MAIL_FROM']
 end
