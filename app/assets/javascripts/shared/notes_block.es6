@@ -2,6 +2,32 @@ import NotesColumn from './notes_block/notes_column.es6'
 
 class NotesBlock extends React.Component {
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      privateNotes: []
+    }
+  }
+
+  componentDidMount() {
+    this.reloadPrivateNotesFromBackend()
+  }
+
+  componentWillReceiveProps(newProps) {
+    if(newProps.notable.updatedAt != this.props.notable.updatedAt) {
+      this.reloadPrivateNotesFromBackend()
+    }
+  }
+
+  reloadPrivateNotesFromBackend() {
+    http.get(`${this.props.notable.path}/notes`, { privacy: 'private' }, (data) => {
+      this.setState({
+        privateNotes: data
+      })
+    })
+  }
+
   render() {
     return (
       <div className="notes-block">
@@ -19,28 +45,20 @@ class NotesBlock extends React.Component {
   }
 
   renderPublicColumn() {
-    var notes = _.filter(this.props.notable.notes, (note) => {
-      return note.privacy == 'public'
-    })
-
     return (
       <NotesColumn label="Notes publiques"
                    notable={this.props.notable}
-                   notes={notes}
+                   notes={this.props.notable.notes}
                    privacy="public"
                    canWrite={this.props.canWrite} />
     )
   }
 
   renderPrivateColumn() {
-    var notes = _.filter(this.props.notable.notes, (note) => {
-      return note.privacy == 'private' && note.userId == this.props.currentUserId
-    })
-
     return (
       <NotesColumn label="Notes privées"
                    notable={this.props.notable}
-                   notes={notes}
+                   notes={this.state.privateNotes}
                    privacy="private"
                    canWrite={true} />
     )

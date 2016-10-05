@@ -19,6 +19,8 @@ module OrganizationIndexConcern
         indexes :notes, :type => 'nested'
 
         indexes :sort_name, :analyzer => :sortable_string_analyzer
+
+        indexes :updated_at, :type => 'date'
       end
     end
   end
@@ -41,7 +43,9 @@ module OrganizationIndexConcern
 
       :contact_ids => contact_ids,
 
-      :sort_name => name
+      :sort_name => name,
+
+      :updated_at => updated_at
     }
 
     if options[:simple]

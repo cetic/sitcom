@@ -32,6 +32,8 @@ module ContactIndexConcern
         end
 
         indexes :sort_name, :analyzer => :sortable_string_analyzer
+
+        indexes :updated_at, :type => 'date'
       end
     end
   end
@@ -70,7 +72,9 @@ module ContactIndexConcern
       :event_ids        => event_ids,
       :tag_ids          => tag_ids,
 
-      :sort_name => name
+      :sort_name => name,
+
+      :updated_at => updated_at
     }
 
     if options[:simple]

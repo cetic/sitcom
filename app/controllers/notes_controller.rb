@@ -10,8 +10,16 @@ class NotesController < ApplicationController
     respond_to do |format|
       format.json do
         if PermissionsService.new(current_user, @lab).can_read?(@notable_type)
-          @notes = BaseSearch.reject_private_notes(@notable.notes, current_user)
-          render :json => @notes
+          if params[:privacy] == 'private'
+            @notes = @notable.notes.where({
+              :privacy => 'private',
+              :user_id => current_user.id
+            })
+          else
+            @notes = BaseSearch.reject_private_notes(@notable.notes)
+          end
+
+          render :json => @notes.map(&:as_indexed_json)
         else
           render_permission_error
         end

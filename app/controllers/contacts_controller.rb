@@ -36,7 +36,7 @@ class ContactsController < ApplicationController
       format.json do
         if PermissionsService.new(current_user, @lab).can_read?('contacts')
           @contact = @lab.contacts.find(params[:id])
-          render :json => BaseSearch.reject_private_notes_from_result(@contact.as_indexed_json, current_user)
+          render :json => BaseSearch.reject_private_notes_from_result(@contact.as_indexed_json)
         else
           render_permission_error
         end

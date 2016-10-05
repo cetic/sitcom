@@ -15,25 +15,25 @@ class BaseSearch
       results = run_step.results.results.collect(&:_id).collect(&:to_i)
     else
       results = run_step.results.collect(&:_source)
-      self.class.reject_private_notes_from_collection(results, user)
+      self.class.reject_private_notes_from_collection(results)
     end
   end
 
-  def self.reject_private_notes_from_collection(results, user)
+  def self.reject_private_notes_from_collection(results)
     results.collect do |result|
-      reject_private_notes_from_result(result, user)
+      reject_private_notes_from_result(result)
     end
   end
 
-  def self.reject_private_notes_from_result(result, user)
+  def self.reject_private_notes_from_result(result)
     result.merge({
-      'notes' => reject_private_notes(result['notes'], user)
+      'notes' => reject_private_notes(result['notes'])
     })
   end
 
-  def self.reject_private_notes(notes, user)
-    notes.select do |note|
-      note['privacy'] == 'public' || note['user_id'] == user.id
+  def self.reject_private_notes(notes)
+    notes.reject do |note|
+      note['privacy'] == 'private'
     end
   end
 
