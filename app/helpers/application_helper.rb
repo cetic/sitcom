@@ -1,9 +1,12 @@
 module ApplicationHelper
-  def fa(name, suffix = nil)
+  def fa(name, suffix = nil, title = nil)
     if suffix.present?
-      "#{content_tag(:i, '', :class => "fa fa-#{name}")}&nbsp;#{suffix}".html_safe
+      "#{content_tag(:i, '', { :class => "fa fa-#{name}", :title => title })}&nbsp;#{suffix}".html_safe
     else
-      content_tag(:i, '', :class => "fa fa-#{name}")
+      content_tag(:i, '', {
+        :class => "fa fa-#{name}",
+        :title => title
+      })
     end
   end
 

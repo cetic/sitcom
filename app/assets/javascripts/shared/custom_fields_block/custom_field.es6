@@ -45,13 +45,20 @@ class CustomField extends React.Component {
     return (
       <div className="show-mode">
         {this.renderValue()}
+        {this.renderEditButton()}
+      </div>
+    )
+  }
 
+  renderEditButton() {
+    if(this.props.canWrite) {
+      return (
         <button className="btn btn-xs btn-primary"
                 onClick={this.setEditMode.bind(this, true)}>
           <i className="fa fa-edit"></i>
         </button>
-      </div>
-    )
+      )
+    }
   }
 
   renderValueEditMode() {

@@ -21,7 +21,7 @@ class CustomFieldsBlock extends React.Component {
   }
 
   renderCustomFields() {
-    return _.map(this.props.item.customFields, (customField, i) => {
+    return _.map(this.props.item.customFields, (customField) => {
       return (
         <div className="col-md-6" key={customField.id}>
           { this.renderCustomField(customField) }
@@ -35,21 +35,24 @@ class CustomFieldsBlock extends React.Component {
       return (
         <TextCustomField key={customField.id}
                          item={this.props.item}
-                         customField={customField} />
+                         customField={customField}
+                         canWrite={this.props.canWrite} />
       )
     }
     else if(customField.fieldType == 'bool') {
       return (
         <BoolCustomField key={customField.id}
                          item={this.props.item}
-                         customField={customField} />
+                         customField={customField}
+                         canWrite={this.props.canWrite} />
       )
     }
     else if(customField.fieldType == 'enum') {
       return (
         <EnumCustomField key={customField.id}
                          item={this.props.item}
-                         customField={customField} />
+                         customField={customField}
+                         canWrite={this.props.canWrite} />
       )
     }
   }

@@ -1,5 +1,6 @@
-import ParamsService from '../params_service.es6'
-import QuickSearch   from '../quick_search.es6'
+import ParamsService    from '../params_service.es6'
+import QuickSearch      from '../quick_search.es6'
+import PermissionDenied from '../../shared/permission_denied.es6'
 
 class BaseMain extends React.Component {
 

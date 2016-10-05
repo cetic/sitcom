@@ -28,7 +28,7 @@ class GeneralShow extends React.Component {
           <div className="col-md-3">
             { this.renderPicture() }
           </div>
-          <div className="col-md-8">
+          <div className="col-md-9">
             <h1>
               { this.props.event.name }
             </h1>

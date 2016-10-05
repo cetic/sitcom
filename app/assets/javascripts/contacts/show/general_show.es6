@@ -33,7 +33,7 @@ class GeneralShow extends React.Component {
             { this.renderPicture() }
           </div>
 
-          <div className="col-md-8">
+          <div className="col-md-9">
             <h1>
               { this.props.contact.name }
 
@@ -62,35 +62,26 @@ class GeneralShow extends React.Component {
   }
 
   renderButtons() {
-    return (
-      <div className="btn-group">
-        <button type="button"
-                className="btn btn-primary"
-                onClick={this.props.toggleEditMode}>
-          Modifier
-        </button>
-        <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span className="caret"></span>
-        </button>
-        <ul className="dropdown-menu">
-          <li>
-            <a href="javascript:;"
-               onClick={this.destroyContact.bind(this)}>
-              Supprimer
-            </a>
-          </li>
-        </ul>
-      </div>
-    )
-  }
-
-  renderEdit() {
     if(this.props.permissions.canWriteContacts) {
-      return(
-        <button className="btn btn-secondary btn-edit"
-                onClick={this.props.toggleEditMode}>
-          Modifier
-        </button>
+      return (
+        <div className="btn-group">
+          <button type="button"
+                  className="btn btn-primary"
+                  onClick={this.props.toggleEditMode}>
+            Modifier
+          </button>
+          <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span className="caret"></span>
+          </button>
+          <ul className="dropdown-menu">
+            <li>
+              <a href="javascript:;"
+                 onClick={this.destroyContact.bind(this)}>
+                Supprimer
+              </a>
+            </li>
+          </ul>
+        </div>
       )
     }
   }
