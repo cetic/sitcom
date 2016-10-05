@@ -22,7 +22,7 @@ class TextCustomField extends CustomField {
   }
 
   renderValue() {
-    if(this.props.customField.value && this.props.customField.value != '') {
+    if(_.trim(this.props.customField.value).length) {
       return (
         <span className="text">
           {this.props.customField.value}
@@ -32,9 +32,7 @@ class TextCustomField extends CustomField {
     else {
       return (
         <span className="text">
-          <em>
-            Non spécifié
-          </em>
+          <em>Non spécifié</em>
         </span>
       )
     }

@@ -26,6 +26,8 @@ class ContactSearch < BaseSearch
       add_notes_search(options)
     end
 
+    add_custom_fields_search(options)
+
     Contact.search(options)
   end
 end

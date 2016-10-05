@@ -122,7 +122,6 @@ class BaseSearch
 
   def add_notes_search(options)
     options['query']['filtered']['filter']['and'] << {
-
       'nested' => {
         'path' => 'notes',
 
@@ -160,4 +159,69 @@ class BaseSearch
       }
     }
   end
+
+  def add_custom_fields_search(options)
+    custom_field_ids = params.keys.select { |k| k.start_with?('custom_field') }
+                                  .map    { |k| k.split('custom_field').last.to_i }
+
+    custom_field_ids.each do |custom_field_id|
+      custom_field = CustomField.find(custom_field_id)
+      value        = params["custom_field#{custom_field_id}"]
+
+      if value.present?
+        method_name = "add_custom_#{custom_field.field_type}_field_search".to_sym
+        send(method_name, options, custom_field, value)
+      end
+    end
+  end
+
+  def add_custom_text_field_search(options, custom_field, value)
+    options['query']['filtered']['filter']['and'] << {
+      'nested' => {
+        'path' => 'custom_fields',
+
+        'query' => {
+          'bool' => {
+            'must' => [
+              {
+                'term' => { 'custom_fields.id' => custom_field.id }
+              },
+
+              {
+                'multi_match' => {
+                  'query'          => value.to_s,
+                  'fields'         => ['custom_fields.value'],
+                  'type'           => 'phrase',
+                  'max_expansions' => MAX_EXPANSIONS
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  end
+
+  def add_custom_bool_field_search(options, custom_field, value)
+
+    #raise value
+
+    options['query']['filtered']['filter']['and'] << {
+      'nested' => {
+        'path' => 'custom_fields',
+
+        'query' => {
+          'bool' => {
+            'must' => [
+              { 'term' => { 'custom_fields.id'        => custom_field.id } },
+              { 'term' => { 'custom_fields.raw_value' => value.to_s      } }
+            ]
+          }
+        }
+      }
+    }
+  end
+
+  alias_method :add_custom_enum_field_search, :add_custom_bool_field_search
+
 end

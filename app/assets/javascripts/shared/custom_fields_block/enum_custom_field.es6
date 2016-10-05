@@ -26,16 +26,25 @@ class EnumCustomField extends CustomField {
 
   updateValue(option) {
     this.setState({
-      value: option.value
+      value: option ? option.value : ''
     })
   }
 
   renderValue() {
-    return (
-      <span className="text">
-        {this.props.customField.value}
-      </span>
-    )
+    if(_.trim(this.props.customField.value).length) {
+      return (
+        <span className="text">
+          {this.props.customField.value}
+        </span>
+      )
+    }
+    else {
+      return (
+          <span className="text">
+          <em>Non spécifié</em>
+        </span>
+      )
+    }
   }
 
   renderValueInput() {

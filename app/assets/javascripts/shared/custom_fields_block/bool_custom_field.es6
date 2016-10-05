@@ -15,7 +15,7 @@ class BoolCustomField extends CustomField {
     }
   }
 
-  updateValue(value) {
+  updateValue(value, e) {
     this.setState({
       value: value
     })
@@ -34,12 +34,14 @@ class BoolCustomField extends CustomField {
     const trueId  = `custom_field_${this.props.customField.id}_true`
     const falseId = `custom_field_${this.props.customField.id}_false`
 
+    console.log(this.state.value)
+
     return (
       <div className="bool-choices">
         <input type="radio"
                name={name}
                id={trueId}
-               checked={this.state.value == true}
+               checked={this.state.value}
                onChange={this.updateValue.bind(this, true)} />
 
         <label htmlFor={trueId}>Oui</label>
@@ -47,7 +49,7 @@ class BoolCustomField extends CustomField {
         <input type="radio"
                name={name}
                id={falseId}
-               checked={this.state.value == false}
+               checked={!this.state.value}
                onChange={this.updateValue.bind(this, false)} />
 
         <label htmlFor={falseId}>Non</label>
