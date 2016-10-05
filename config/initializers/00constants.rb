@@ -12,6 +12,6 @@ end
 
 if Rails.env.production?
   APP_PORT     = 443
-  APP_HOSTNAME = 'sitecom.cetic.be'
-  MAIL_FROM    = 'noreply@sitecom.cetic.be'
+  APP_HOSTNAME = ENV['APP_HOSTNAME']
+  MAIL_FROM    = ENV['MAIL_FROM']
 end
