@@ -14,7 +14,7 @@ Rails.application.configure do
   end
 
   config.action_mailer.default_url_options = {
-    :host => APP_HOSTNAME,
-    :port => APP_PORT
+    :host     => APP_HOSTNAME,
+    :protocol => (APP_PORT == 443 ? 'https' : 'http')
   }
 end
