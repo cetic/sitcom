@@ -1,6 +1,6 @@
 lock '3.5.0'
 
-set :repo_url,      'git@github.com:aurels/sitcom.git'
+set :repo_url,      'git@github.com:cetic/sitcom.git'
 set :keep_releases, 30
 
 set :application, 'sitcom'
