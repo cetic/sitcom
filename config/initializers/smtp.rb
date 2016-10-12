@@ -1,11 +1,11 @@
 Rails.application.configure do
   if ENV['SMTP_ADDRESS']
     config.action_mailer.smtp_settings = {
-      :domain               => ENV['SMTP_DOMAIN'  ],
-      :address              => ENV['SMTP_ADDRESS' ],
-      :port                 => ENV['SMTP_PORT'    ],
-      :user_name            => ENV['SMTP_USERNAME'],
-      :password             => ENV['SMTP_PASSWORD'],
+      :domain               => ENV['SMTP_DOMAIN'  ].to_s,
+      :address              => ENV['SMTP_ADDRESS' ].to_s,
+      :port                 => ENV['SMTP_PORT'    ].to_s,
+      :user_name            => ENV['SMTP_USERNAME'].to_s,
+      :password             => ENV['SMTP_PASSWORD'].to_s,
       :authentication       => :login,
       :enable_starttls_auto => true,
       :ssl                  => true,
