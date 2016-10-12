@@ -3,11 +3,13 @@ Rails.application.configure do
     config.action_mailer.smtp_settings = {
       :domain               => ENV['SMTP_DOMAIN'  ],
       :address              => ENV['SMTP_ADDRESS' ],
-      :port                 => ENV['SMTP_PORT'    ].to_i,
+      :port                 => ENV['SMTP_PORT'    ],
       :user_name            => ENV['SMTP_USERNAME'],
       :password             => ENV['SMTP_PASSWORD'],
       :authentication       => :login,
-      :enable_starttls_auto => true
+      :enable_starttls_auto => true,
+      :ssl                  => true,
+      :tls                  => true
     }
   end
 
