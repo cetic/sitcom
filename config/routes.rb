@@ -43,7 +43,23 @@ Rails.application.routes.draw do
   # API
 
   namespace :api do
-    # nothing ATM
+    resources :users do
+      resources :permissions
+    end
+
+    resources :labs do
+      resources :contacts do
+        resources :organizations
+        resources :projects
+        resources :events
+        resources :tags
+      end
+
+      resources :organizations
+      resources :projects
+      resources :events
+      resources :tags
+    end
   end
 
   # App
