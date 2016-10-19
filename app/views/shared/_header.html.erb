@@ -11,7 +11,7 @@
           </div>
 
           <ul class="nav navbar-nav sections">
-            <li class="<%= params[:controller] == 'admin/users' || params[:controller] == 'admin/lab_user_links' ? 'selected' : '' %>">
+            <li class="<%= params[:controller] == 'admin/users' || params[:controller] == 'admin/lab_user_links' || params[:controller] == 'admin/api_keys' ? 'selected' : '' %>">
               <a href="<%= admin_users_path %>">Utilisateurs</a>
             </li>
 

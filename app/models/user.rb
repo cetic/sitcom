@@ -33,11 +33,17 @@ class User < ApplicationRecord
 
   # Callbacks
 
+  before_create :set_new_api_key
+
   # Methods
 
   def permissions_for_lab(lab)
     lab_user_link = lab_user_links.where(lab_id: lab.id).first
     lab_user_link.try(:permissions)
+  end
+
+  def set_new_api_key
+    self.api_key = "#{SecureRandom.hex}#{UUIDTools::UUID.random_create}#{self.id}".gsub('-', '')
   end
 
   # Class Methods

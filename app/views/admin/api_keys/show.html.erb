@@ -1,0 +1,23 @@
+<div class="container container-main">
+  <div class="row">
+    <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><%= link_to 'Users', admin_users_path %></li>
+        <li><%= @user.name %></li>
+        <li class="active">Accès à l'API</li>
+      </ol>
+
+      <%= link_to 'Regénérer', reset_admin_user_api_key_path(@user), {
+        :class  => 'btn btn-primary btn-danger pull-right btn-new',
+        :method => 'PUT',
+
+        :data => {
+          :confirm => "L'ancienne clé d'API ne sera plus utilisable. Regénérer cette clé d'API ?"
+        }
+      } %>
+
+      <p>La clé d'API de cet utilisateur est :</p>
+      <div class="well"><%= @user.api_key %></div>
+    </div>
+  </div>
+</div>

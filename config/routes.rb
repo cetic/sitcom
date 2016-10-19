@@ -21,6 +21,12 @@ Rails.application.routes.draw do
           put :update_many
         end
       end
+
+      resource :api_key do
+        member do
+          put :reset
+        end
+      end
     end
 
     resources :labs do
