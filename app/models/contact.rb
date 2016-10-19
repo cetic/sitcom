@@ -16,7 +16,7 @@ class Contact < ApplicationRecord
   belongs_to :lab
 
   has_many :contact_tag_links, :dependent => :destroy
-  has_many :tags, :through   => :contact_tag_links
+  has_many :tags, :through => :contact_tag_links
 
   has_many :contact_organization_links, :dependent => :destroy
   has_many :organizations, :through => :contact_organization_links
@@ -34,6 +34,8 @@ class Contact < ApplicationRecord
 
   has_many :custom_field_links, :dependent => :destroy,
                                 :as        => :item
+
+  has_many :log_entries, :as => :item # no dependent destroy/nullify because we want to keep them after deletion
 
   # Validations
 
@@ -127,5 +129,15 @@ class Contact < ApplicationRecord
     else
       custom_field_link.try(:text_value).to_s
     end
+  end
+
+  def association_ids
+    {
+      :organization_ids => organization_ids,
+      :project_ids      => project_ids,
+      :event_ids        => event_ids,
+      :field_ids        => field_ids,
+      :tag_ids          => tag_ids,
+    }
   end
 end

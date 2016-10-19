@@ -4,9 +4,10 @@ class CustomField < ApplicationRecord
 
   extend Enumerize
 
+  # not really used for now
   acts_as_list :scope => [ :lab_id, :item_type ]
 
-  # Attrobites
+  # Attributes
 
   serialize :options, JSON
 
@@ -22,7 +23,7 @@ class CustomField < ApplicationRecord
                          :default => :text,
                          :scope   => true
 
-  # Assocations
+  # Associations
 
   belongs_to :lab
 

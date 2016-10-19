@@ -19,6 +19,8 @@ class Project < ApplicationRecord
 
   has_many :notes, :as => :notable
 
+  has_many :log_entries, :as => :item # no dependent destroy/nullify because we want to keep them after deletion
+
   # Validations
 
   validates :name, :presence   => { :message => "Le nom est obligatoire."  }
@@ -79,5 +81,11 @@ class Project < ApplicationRecord
       txt = "#{name.first}"
       "https://placeholdit.imgix.net/~text?txtsize=68&txt=#{txt}&w=200&h=200"
     end
+  end
+
+  def association_ids
+    {
+      :contact_ids => contact_ids,
+    }
   end
 end

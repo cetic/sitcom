@@ -15,6 +15,8 @@ class User < ApplicationRecord
 
   has_many :saved_searches, :dependent => :destroy
 
+  has_many :log_entries,    :dependent => :nullify
+
   # Validations
 
   validates :name, :presence => { :message => "Le nom est obligatoire." }

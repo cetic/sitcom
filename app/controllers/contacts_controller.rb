@@ -55,6 +55,8 @@ class ContactsController < ApplicationController
           @contact = @lab.contacts.new(strong_params)
 
           if @contact.save
+            LogEntry.log_create(current_user, @contact)
+
             render_json_success({ :contact_id => @contact.id })
           else
             render_json_errors(@contact)
@@ -70,9 +72,11 @@ class ContactsController < ApplicationController
     if PermissionsService.new(current_user, @lab).can_write?('contacts')
       respond_to do |format|
         format.json do
-          @contact = @lab.contacts.find(params[:id])
+          @contact                 = @lab.contacts.find(params[:id])
+          previous_association_ids = @contact.association_ids
 
           if @contact.update_attributes(strong_params)
+            LogEntry.log_update(current_user, @contact, previous_association_ids)
             cleanup_orphan_tags
 
             render_json_success
@@ -93,6 +97,7 @@ class ContactsController < ApplicationController
           @contact = @lab.contacts.find(params[:id])
 
           if @contact.destroy
+            LogEntry.log_destroy(current_user, @contact)
             cleanup_orphan_tags
 
             render_json_success

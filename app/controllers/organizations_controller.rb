@@ -55,6 +55,8 @@ class OrganizationsController < ApplicationController
           @organization = @lab.organizations.new(strong_params)
 
           if @organization.save
+            LogEntry.log_create(current_user, @organization)
+
             render_json_success({ :organization_id => @organization.id })
           else
             render_json_errors(@organization)
@@ -70,9 +72,12 @@ class OrganizationsController < ApplicationController
     if PermissionsService.new(current_user, @lab).can_write?('organizations')
       respond_to do |format|
         format.json do
-          @organization = @lab.organizations.find(params[:id])
+          @organization            = @lab.organizations.find(params[:id])
+          previous_association_ids = @organization.association_ids
 
           if @organization.update_attributes(strong_params)
+            LogEntry.log_update(current_user, @organization, previous_association_ids)
+
             render_json_success
           else
             render_json_errors(@organization)
@@ -91,6 +96,8 @@ class OrganizationsController < ApplicationController
           @organization = @lab.organizations.find(params[:id])
 
           if @organization.destroy
+            LogEntry.log_destroy(current_user, @organization)
+
             render_json_success
           else
             render_json_errors(@organization)

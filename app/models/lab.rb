@@ -16,6 +16,8 @@ class Lab < ApplicationRecord
 
   has_many :custom_fields, :dependent => :destroy
 
+  has_many :log_entries, :dependent => :destroy
+
   # Validations
 
   validates :name, :presence   => { :message => "Le nom est obligatoire."  },

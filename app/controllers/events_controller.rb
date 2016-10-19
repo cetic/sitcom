@@ -55,6 +55,8 @@ class EventsController < ApplicationController
           @event = @lab.events.new(strong_params)
 
           if @event.save
+            LogEntry.log_create(current_user, @event)
+
             render_json_success({ :event_id => @event.id })
           else
             render_json_errors(@event)
@@ -70,9 +72,12 @@ class EventsController < ApplicationController
     if PermissionsService.new(current_user, @lab).can_write?('events')
       respond_to do |format|
         format.json do
-          @event = @lab.events.find(params[:id])
+          @event                   = @lab.events.find(params[:id])
+          previous_association_ids = @event.association_ids
 
           if @event.update_attributes(strong_params)
+            LogEntry.log_update(current_user, @event, previous_association_ids)
+
             render_json_success
           else
             render_json_errors(@event)
@@ -91,6 +96,8 @@ class EventsController < ApplicationController
           @event = @lab.events.find(params[:id])
 
           if @event.destroy
+            LogEntry.log_destroy(current_user, @event)
+
             render_json_success
           else
             render_json_errors(@event)

@@ -55,6 +55,8 @@ class ProjectsController < ApplicationController
           @project = @lab.projects.new(strong_params)
 
           if @project.save
+            LogEntry.log_create(current_user, @project)
+
             render_json_success({ :project_id => @project.id })
           else
             render_json_errors(@project)
@@ -70,9 +72,12 @@ class ProjectsController < ApplicationController
     if PermissionsService.new(current_user, @lab).can_write?('projects')
       respond_to do |format|
         format.json do
-          @project = @lab.projects.find(params[:id])
+          @project                 = @lab.projects.find(params[:id])
+          previous_association_ids = @project.association_ids
 
           if @project.update_attributes(strong_params)
+            LogEntry.log_update(current_user, @project, previous_association_ids)
+
             render_json_success
           else
             render_json_errors(@project)
@@ -91,6 +96,8 @@ class ProjectsController < ApplicationController
           @project = @lab.projects.find(params[:id])
 
           if @project.destroy
+            LogEntry.log_destroy(current_user, @project)
+
             render_json_success
           else
             render_json_errors(@project)
