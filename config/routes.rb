@@ -46,6 +46,8 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show, :create, :update, :destroy] do
       resources :permissions, :controller => :lab_user_links,
                               :only       => [:index, :show, :update, :destroy]
+
+      post '/permissions/:id' => 'lab_user_links#create'
     end
 
     resources :labs, only: [:index, :show] do

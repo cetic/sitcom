@@ -11,11 +11,21 @@ class Api::LabUserLinksController < Api::BaseController
   def show
   end
 
+  def create
+    @lab_user_link = @user.lab_user_links.where(:lab_id => params[:id]).first_or_initialize
+
+    if @lab_user_link.update_attributes(strong_params)
+      render 'show'
+    else
+      render_errors(@lab_user_link.errors.messages)
+    end
+  end
+
   def update
     if @lab_user_link.update_attributes(strong_params)
       render 'show'
     else
-      render_errors(@user.errors.messages)
+      render_errors(@lab_user_link.errors.messages)
     end
   end
 
