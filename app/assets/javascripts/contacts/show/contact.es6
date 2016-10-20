@@ -7,6 +7,7 @@ import ItemsBlock         from './items_block.es6'
 import NotesBlock         from '../../shared/notes_block.es6'
 import PreviousNextNav    from '../../shared/previous_next_nav.es6'
 import CustomFieldsBlock  from '../../shared/custom_fields_block.es6'
+import LogEntries         from '../../shared/log_entries.es6'
 
 class Contact extends React.Component {
   constructor(props) {
@@ -122,6 +123,7 @@ class Contact extends React.Component {
           { this.renderOrganizations() }
           { this.renderProjects() }
           { this.renderEvents() }
+          { this.renderLogEntries() }
         </div>
       )
     }
@@ -252,6 +254,14 @@ class Contact extends React.Component {
         <NotesBlock notable={this.state.contact}
                     canWrite={this.props.permissions.canWriteContacts}
                     currentUserId={this.props.currentUserId} />
+      )
+    }
+  }
+
+  renderLogEntries() {
+    if(this.state.loaded) {
+      return (
+        <LogEntries item={this.state.contact} />
       )
     }
   }

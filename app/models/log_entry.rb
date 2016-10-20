@@ -46,7 +46,7 @@ class LogEntry < ApplicationRecord
 
   # Special process to log notes
   def self.log_create_note(current_user, note)
-    log_note(:create, current_user, note)
+    log_note(:update, current_user, note)
   end
 
   def self.log_update_note(current_user, note)
@@ -61,8 +61,8 @@ class LogEntry < ApplicationRecord
         :user_id   => current_user.id,
         :user_name => current_user.name,
         :lab_id    => note.notable.lab_id,
-        :action    => :destroy,
-        :content   => { 'note' => [note.text, ''] }
+        :action    => :update,
+        :content   => { 'note' => [note.text, nil] }
       )
     end
   end
@@ -94,7 +94,7 @@ class LogEntry < ApplicationRecord
     end
 
     item.association_ids.keys.each do |association_name|
-      if previous_association_ids[association_name] != item.association_ids[association_name]
+      if !previous_association_ids[association_name].nil? && previous_association_ids[association_name] != item.association_ids[association_name]
         previous_changes.merge!(
           association_name => [
             previous_association_ids[association_name],

@@ -79,6 +79,7 @@ Rails.application.routes.draw do
   resources :labs, :path => '', :only => [] do
     resources :contacts do
       resources :notes
+      resources :log_entries
       resources :custom_fields
 
       collection do
@@ -91,6 +92,7 @@ Rails.application.routes.draw do
 
     resources :organizations do
       resources :notes
+      resources :log_entries
 
       collection do
         get :options
@@ -103,6 +105,7 @@ Rails.application.routes.draw do
 
     resources :projects do
       resources :notes
+      resources :log_entries
 
       collection do
         get :options
@@ -113,6 +116,7 @@ Rails.application.routes.draw do
 
     resources :events do
       resources :notes
+      resources :log_entries
 
       collection do
         get :options
