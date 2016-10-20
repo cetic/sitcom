@@ -37,6 +37,8 @@ class NotesController < ApplicationController
 
         if @note.privacy.private? || can_write
           if @note.save
+            LogEntry.log_create_note(current_user, @note)
+
             render_json_success
           else
             render_json_errors(@note)
@@ -52,6 +54,8 @@ class NotesController < ApplicationController
     respond_to do |format|
       format.json do
         if @note.update_attributes(strong_params)
+          LogEntry.log_update_note(current_user, @note)
+
           render_json_success
         else
           render_json_errors(@note)
@@ -64,6 +68,8 @@ class NotesController < ApplicationController
     respond_to do |format|
       format.json do
         if @note.destroy
+          LogEntry.log_destroy_note(current_user, @note)
+
           render_json_success
         else
           render_json_errors(@note)

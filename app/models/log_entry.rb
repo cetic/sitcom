@@ -34,14 +34,37 @@ class LogEntry < ApplicationRecord
 
   def self.log_destroy(current_user, item)
     LogEntry.create(
-      :user_id   => current_user.id,
-      :user_name => current_user.name,
       :item_id   => item.id,
       :item_type => item.class.name,
+      :user_id   => current_user.id,
+      :user_name => current_user.name,
       :lab_id    => item.lab_id,
       :action    => :destroy,
       :content   => {}
     )
+  end
+
+  # Special process to log notes
+  def self.log_create_note(current_user, note)
+    log_note(:create, current_user, note)
+  end
+
+  def self.log_update_note(current_user, note)
+    log_note(:update, current_user, note)
+  end
+
+  def self.log_destroy_note(current_user, note)
+    if note.privacy.public?
+      LogEntry.create(
+        :item_id   => note.notable_id,
+        :item_type => note.notable_type,
+        :user_id   => current_user.id,
+        :user_name => current_user.name,
+        :lab_id    => note.notable.lab_id,
+        :action    => :destroy,
+        :content   => { 'note' => [note.text, ''] }
+      )
+    end
   end
 
   private
@@ -69,6 +92,18 @@ class LogEntry < ApplicationRecord
         :lab_id    => item.lab_id,
         :action    => action,
         :content   => previous_changes
+      )
+    end
+  end
+
+  def self.log_note(action, current_user, note)
+    if note.privacy.public?
+      note.notable.log_entries.create(
+        :user_id   => current_user.id,
+        :user_name => current_user.name,
+        :lab_id    => note.notable.lab_id,
+        :action    => action,
+        :content   => { 'note' => note.text_previous_change }
       )
     end
   end
