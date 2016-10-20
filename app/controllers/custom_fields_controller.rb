@@ -10,10 +10,13 @@ class CustomFieldsController < ApplicationController
     }).first_or_initialize
 
     @custom_field_link.assign_attributes(strong_params)
-    @custom_field_link.save!
 
-    @item.__elasticsearch__.index_document
-    @item.cable_update
+    if @custom_field_link.save
+      LogEntry.log_update_custom_field(current_user, @custom_field_link)
+
+      @item.__elasticsearch__.index_document
+      @item.cable_update
+    end
 
     render :status => 200, body: nil
   end

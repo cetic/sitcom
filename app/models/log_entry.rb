@@ -67,6 +67,25 @@ class LogEntry < ApplicationRecord
     end
   end
 
+  def self.log_update_custom_field(current_user, custom_field_link)
+    custom_field_name = custom_field_link.custom_field.name
+    custom_field_type = custom_field_link.custom_field.field_type
+
+    if custom_field_type.bool?
+      value_diff = custom_field_link.bool_value_previous_change
+    else
+      value_diff = custom_field_link.text_value_previous_change
+    end
+
+    custom_field_link.item.log_entries.create(
+      :user_id   => current_user.id,
+      :user_name => current_user.name,
+      :lab_id    => custom_field_link.item.lab_id,
+      :action    => :update,
+      :content   => { 'custom_field' => { custom_field_name => value_diff } }
+    )
+  end
+
   private
 
   def self.log(action, current_user, item, previous_association_ids = {})
