@@ -1,27 +1,37 @@
 class Api::BaseController < ActionController::Base
-  before_action :find_user
+
+  PER_PAGE = 10
+
+  before_action :find_current_user
 
   private
 
-  def find_user
-    @user = User.find_by_api_key(params[:api_key])
+  def find_current_user
+    @current_user = User.find_by_api_key(params[:api_key])
 
-    unless @user
+    unless @current_user
       render_errors(["Invalid or missing API Key."])
     end
   end
 
   def find_lab
-    @lab = @user.labs.find(params[:lab_id])
+    @lab = @current_user.labs.find(params[:lab_id])
   end
 
   def render_errors(errors)
     render :json => {
-      :errors => errors
+      :success => false,
+      :errors  => errors
     }
   end
 
   def render_permission_error
     render_errors(['Access denied'])
+  end
+
+  def ensure_admin
+    unless @current_user.admin?
+      render_permission_error
+    end
   end
 end

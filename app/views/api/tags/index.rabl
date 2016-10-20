@@ -1,2 +1,6 @@
-collection @tags
-attributes :name, :color
+object false
+
+child @tags do
+  collection @tags
+  attributes :name, :color
+end

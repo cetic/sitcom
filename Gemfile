@@ -29,6 +29,7 @@ gem 'sidekiq'
 
 # Utils
 gem 'enumerize'
+gem 'kaminari'
 gem 'factory_girl'
 gem 'faker'
 gem 'rabl'

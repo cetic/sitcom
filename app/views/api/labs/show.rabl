@@ -1,6 +1,6 @@
 object false
 
-child @labs do
-  collection @labs
+child @lab do
+  object @labs
   extends 'api/labs/lab'
 end

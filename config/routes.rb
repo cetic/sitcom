@@ -43,22 +43,25 @@ Rails.application.routes.draw do
   # API
 
   namespace :api do
-    resources :users do
-      resources :permissions
+    resources :users, only: [:index, :show, :create, :update, :destroy] do
+      resources :permissions, :controller => :lab_user_links
     end
 
-    resources :labs do
-      resources :contacts do
-        resources :organizations
-        resources :projects
-        resources :events
-        resources :tags
+    resources :labs, only: [:index, :show] do
+      resources :contacts, only: [:index, :show, :create, :update, :destroy] do
+        resources :organizations, only: [:index, :show]
+        resources :projects,      only: [:index, :show]
+        resources :events,        only: [:index, :show]
+        resources :tags,          only: [:index, :create]
+
+        delete '/tags' => 'tags#destroy'
       end
 
-      resources :organizations
-      resources :projects
-      resources :events
-      resources :tags
+      resources :organizations, only: [:index, :show]
+      resources :projects,      only: [:index, :show]
+      resources :events,        only: [:index, :show]
+
+      resources :tags, only: [:index]
     end
   end
 
