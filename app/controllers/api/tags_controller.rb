@@ -20,7 +20,7 @@ class Api::TagsController < Api::BaseController
       @contact = @lab.contacts.find(params[:contact_id])
 
       params[:names].each do |name|
-        ContactTagService.new(@contact).add_tag(name)
+        ContactTagService.new(@current_user, @contact).add_tag(name)
       end
 
       @contact.reload
@@ -40,7 +40,7 @@ class Api::TagsController < Api::BaseController
         tag = @lab.tags.find_by_name(name)
 
         if tag
-          ContactTagService.new(@contact).remove_tag(tag.id)
+          ContactTagService.new(@current_user, @contact).remove_tag(tag.id)
         end
       end
 
