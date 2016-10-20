@@ -2,6 +2,10 @@ class Api::BaseController < ActionController::Base
 
   PER_PAGE = 10
 
+  rescue_from 'ActiveRecord::RecordNotFound' do |exception|
+    render_errors('Item not found.')
+  end
+
   before_action :find_current_user
 
   private

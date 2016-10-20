@@ -16,7 +16,7 @@ class Api::UsersController < Api::BaseController
     if @user.save
       render 'show'
     else
-      render_errors(@user.errors.messages)
+      render_errors(@user.errors.full_messages)
     end
   end
 

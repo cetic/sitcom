@@ -44,7 +44,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :users, only: [:index, :show, :create, :update, :destroy] do
-      resources :permissions, :controller => :lab_user_links
+      resources :permissions, :controller => :lab_user_links,
+                              :only       => [:index, :show, :update, :destroy]
     end
 
     resources :labs, only: [:index, :show] do

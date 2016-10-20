@@ -2,7 +2,7 @@ class Api::LabUserLinksController < Api::BaseController
 
   before_action :ensure_admin
   before_action :find_user
-  before_action :find_lab_user_link, :only => [:show, :udate, :destroy]
+  before_action :find_lab_user_link, :only => [:show, :update, :destroy]
 
   def index
     @lab_user_links = @user.lab_user_links
