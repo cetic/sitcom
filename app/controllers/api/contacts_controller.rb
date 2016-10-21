@@ -66,8 +66,7 @@ class Api::ContactsController < Api::BaseController
       :picture,
       :organization_ids => [],
       :project_ids      => [],
-      :event_ids        => [],
-      :field_ids        => []
+      :event_ids        => []
     )
   end
 

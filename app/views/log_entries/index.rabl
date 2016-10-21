@@ -83,4 +83,3 @@ node :changes do |l|
 
   changes
 end
-

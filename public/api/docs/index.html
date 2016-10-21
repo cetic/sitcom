@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>Sitcom API Reference</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -91,7 +91,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -99,12 +99,9 @@
       </span>
     </a>
     <div class="tocify-wrapper">
-      <img src="images/logo.png" />
+
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -121,375 +118,1423 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>This is the API docs of <a href="https://github.com/cetic/sitcom">Sitcom</a> CRM.</p>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+          <h1 id="authentication">Authentication</h1>
 
-<p>This example API documentation page was created with <a href="https://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
+<p>A <code class="prettyprint">api_key</code> parameter must be passed to all requests. Api keys are available to administrators in Sitcom.</p>
 
-<h1 id="authentication">Authentication</h1>
+          <h1 id="labs">Labs</h1>
 
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h2 id="get-all-labs">Get all labs</h2>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
-<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-</code></pre>
-
-<blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-<h1 id="kittens">Kittens</h1>
-
-<h2 id="get-all-kittens">Get All Kittens</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
-<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint retrieves all kittens.</p>
+<p>This endpoint retrieves all labs.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://example.com/api/kittens</code></p>
+<p><code class="prettyprint">GET /api/labs</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
+<th>Type</th>
+<th>Required</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
 </tr>
 </tbody></table>
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
+<h2 id="get-one-lab">Get one lab</h2>
 
-<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
-<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can&rsquo;t use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<p>This endpoint retrieves a specific lab.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">GET /api/labs/:id</code></p>
 
-<h3 id="url-parameters">URL Parameters</h3>
+<h3 id="query-parameters">Query Parameters</h3>
 
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Description</th>
+<th>Type</th>
+<th>Required</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>Yes</td>
 </tr>
 </tbody></table>
 
-<h1 id="labs">Labs</h1>
-
-<h2 id="get-all">Get all</h2>
-
-<p>GET /api/labs</p>
-
-<h2 id="get-one">Get one</h2>
-
-<p>GET /api/labs/:id</p>
-
-<h1 id="users">Users</h1>
+          <h1 id="users">Users</h1>
 
 <h2 id="get-all-users">Get all users</h2>
 
-<p>GET /api/users</p>
+<p>This endpoint retrieves all users.</p>
 
-<h2 id="get-one-user">Get one user</h2>
+<h3 id="http-request">HTTP Request</h3>
 
-<p>GET /api/users/:id</p>
+<p><code class="prettyprint">GET /api/users</code></p>
 
-<h2 id="create-a-user">Create a user</h2>
-
-<p>POST /api/users</p>
-
-<h2 id="update-a-user">Update a user</h2>
-
-<p>PUT /api/users/:id</p>
-
-<h2 id="delete-a-user">Delete a user</h2>
-
-<p>DELETE /api/users/:id</p>
-
-<h1 id="permissions">Permissions</h1>
-
-<h2 id="get-all-permissions-of-a-user">Get all permissions of a user</h2>
-
-<p>GET /api/users/:user_id/permissions</p>
-
-<h2 id="get-permissions-of-a-user-on-a-lab">Get permissions of a user on a lab</h2>
-
-<p>GET /api/users/:user_id/permissions/:lab_id</p>
-
-<h2 id="update-permissions-of-a-user-on-a-lab">Update permissions of a user on a lab</h2>
-
-<p>PUT /api/users/:user_id/permissions/:lab_id</p>
-
-<h2 id="remove-access-of-a-user-to-a-lab">Remove access of a user to a lab</h2>
-
-<p>DELETE /api/users/:user_id/permissions/:lab_id</p>
-
-<h1 id="contacts">Contacts</h1>
-
-<h2 id="get-all-contacts">Get all contacts</h2>
-
-<p>GET /api/labs/:lab_id/contacts</p>
-
-<h2 id="get-a-contact">Get a contact</h2>
-
-<p>GET /api/labs/:lab_id/contacts/:id</p>
-
-<h2 id="create-a-contact">Create a contact</h2>
-
-<p>POST /api/labs/:lab_id/contacts</p>
-
-<h2 id="update-a-contact">Update a contact</h2>
-
-<p>PUT /api/labs/:lab_id/contacts/:id</p>
-
-<h2 id="delete-a-contact">Delete a contact</h2>
-
-<p>DELETE /api/labs/:lab_id/contacts/:id</p>
-
-<h1 id="tags">Tags</h1>
-
-<h2 id="get-all-tags">Get all tags</h2>
-
-<p>GET /api/labs/:lab_id/tags</p>
-
-<h2 id="get-all-tags-of-a-contact">Get all tags of a contact</h2>
-
-<p>GET /api/labs/:lab_id/contacts/:contact_id/tags</p>
-
-<h2 id="add-some-tags-to-a-contact">Add some tags to a contact</h2>
-
-<p>POST /api/labs/:lab_id/contacts/:contact_id/tags</p>
-
-<h2 id="remove-some-tags-from-a-contact">Remove some tags from a contact</h2>
-
-<p>DELETE /api/labs/:lab_id/contacts/:contact_id/tags</p>
-
-<h1 id="organizations">Organizations</h1>
-
-<h2 id="get-all-organizations">Get all organizations</h2>
-
-<p>GET /api/labs/:lab_id/organizations</p>
-
-<h2 id="get-an-organization">Get an organization</h2>
-
-<p>GET /api/labs/:lab_id/organizations/:id</p>
-
-<h2 id="get-all-organizations-of-a-contact">Get all organizations of a contact</h2>
-
-<p>GET /api/labs/:lab_id/contacts/:contact_id/organizations</p>
-
-<h2 id="get-an-organization-of-a-contact">Get an organization of a contact</h2>
-
-<p>GET /api/labs/:lab_id/contacts/:contact_id/organizations/:id</p>
-
-<h1 id="projects">Projects</h1>
-
-<h2 id="get-all-projects">Get all projects</h2>
-
-<p>GET /api/labs/:lab_id/projects</p>
-
-<h2 id="get-a-project">Get a project</h2>
-
-<p>GET /api/labs/:lab_id/projects/:id</p>
-
-<h2 id="get-all-projects-of-a-contact">Get all projects of a contact</h2>
-
-<p>GET /api/labs/:lab_id/contacts/:contact_id/projects</p>
-
-<h2 id="get-a-project-of-a-contact">Get a project of a contact</h2>
-
-<p>GET /api/labs/:lab_id/contacts/:contact_id/projects/:id</p>
-
-<h1 id="events">Events</h1>
-
-<h2 id="get-all-events">Get all events</h2>
-
-<p>GET /api/labs/:lab_id/events</p>
-
-<h2 id="get-an-event">Get an event</h2>
-
-<p>GET /api/labs/:lab_id/events/:id</p>
-
-<h2 id="get-all-events-of-a-contact">Get all events of a contact</h2>
-
-<p>GET /api/labs/:lab_id/contacts/:contact_id/events</p>
-
-<h2 id="get-an-event-of-a-contact">Get an event of a contact</h2>
-
-<p>GET /api/labs/:lab_id/contacts/:contact_id/events/:id</p>
-
-          <h1 id="errors">Errors</h1>
-
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the `includes` folder and add them to the top of your `index.md`&rsquo;s frontmatter. Files are included in the order listed.</aside>
-
-<p>The Kittn API uses the following error codes:</p>
+<h3 id="query-parameters">Query Parameters</h3>
 
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>400</td>
-<td>Bad Request &ndash; Your request sucks</td>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-one-user">Get one user</h2>
+
+<p>This endpoint retrieves a specific user.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/users/:id</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
 </tr>
 <tr>
-<td>401</td>
-<td>Unauthorized &ndash; Your API key is wrong</td>
+<td>id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-a-user">Create a user</h2>
+
+<p>This endpoint creates a new user.</p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
 </tr>
 <tr>
-<td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
+<td>name</td>
+<td>String</td>
+<td>Yes</td>
 </tr>
 <tr>
-<td>404</td>
-<td>Not Found &ndash; The specified kitten could not be found</td>
+<td>email</td>
+<td>String</td>
+<td>Yes</td>
 </tr>
 <tr>
-<td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
+<td>password</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST /api/users</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
 </tr>
 <tr>
-<td>406</td>
-<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
+<td>id</td>
+<td>Integer</td>
+<td>Yes</td>
 </tr>
 <tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
+<td>name</td>
+<td>String</td>
+<td>Yes</td>
 </tr>
 <tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
+<td>email</td>
+<td>String</td>
+<td>Yes</td>
 </tr>
 <tr>
-<td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slow down!</td>
+<td>password</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+<h2 id="update-a-user">Update a user</h2>
+
+<p>This endpoint updates an existing user.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">PUT /api/users/:id</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
 </tr>
 <tr>
-<td>500</td>
-<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
+<td>id</td>
+<td>Integer</td>
+<td>Yes</td>
 </tr>
 <tr>
-<td>503</td>
-<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintanance. Please try again later.</td>
+<td>name</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>email</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>password</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+<h2 id="delete-a-user">Delete a user</h2>
+
+<p>This endpoint deletes an existing user.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">DELETE /api/users/:id</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+          <h1 id="permissions">Permissions</h1>
+
+<h2 id="get-all-permissions-of-a-user">Get all permissions of a user</h2>
+
+<p>This endpoint retrieves all permissions of a user (for all his accessible labs).</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/users/:user_id/permissions</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-permissions-of-a-user-on-a-lab">Get permissions of a user on a lab</h2>
+
+<p>This endpoint retrieves the permissions of a user on a lab.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/users/:user_id/permissions/:lab_id</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+<h2 id="grant-a-user-access-to-a-lab">Grant a user access to a lab</h2>
+
+<p>This endpoint grants a user access to a lab.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST /api/users/:user_id/permissions/:lab_id</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>permission[can_read_contacts]</td>
+<td>Boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>permission[can_write_contacts]</td>
+<td>Boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>permission[can_read_organizations ]</td>
+<td>Boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>permission[can_write_organizations]</td>
+<td>Boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>permission[can_read_projects]</td>
+<td>Boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>permission[can_write_projects]</td>
+<td>Boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>permission[can_read_events]</td>
+<td>Boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>permission[can_write_events]</td>
+<td>Boolean</td>
+<td>No</td>
+</tr>
+</tbody></table>
+
+<h2 id="update-permissions-of-a-user-on-a-lab">Update permissions of a user on a lab</h2>
+
+<p>This endpoint updates a user&rsquo;s permissions to a lab.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">PUT /api/users/:user_id/permissions/:lab_id</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>permission[can_read_contacts]</td>
+<td>Boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>permission[can_write_contacts]</td>
+<td>Boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>permission[can_read_organizations ]</td>
+<td>Boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>permission[can_write_organizations]</td>
+<td>Boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>permission[can_read_projects]</td>
+<td>Boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>permission[can_write_projects]</td>
+<td>Boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>permission[can_read_events]</td>
+<td>Boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>permission[can_write_events]</td>
+<td>Boolean</td>
+<td>No</td>
+</tr>
+</tbody></table>
+
+<h2 id="revoke-access-of-a-user-to-a-lab">Revoke access of a user to a lab</h2>
+
+<p>This endpoint revokes a user&rsquo;s access to a lab.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">DELETE /api/users/:user_id/permissions/:lab_id</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+          <h1 id="contacts">Contacts</h1>
+
+<h2 id="get-all-contacts">Get all contacts</h2>
+
+<p>This endpoint retrieves all contacts.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/labs/:lab_id/contacts</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>page</td>
+<td>Integer</td>
+<td>No</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-a-contact">Get a contact</h2>
+
+<p>This endpoint retrieves a specific contact.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/labs/:lab_id/contacts/:id</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-a-contact">Create a contact</h2>
+
+<p>This endpoint creates a new contact.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST /api/labs/:lab_id/contacts</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>contact[first_name]</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>contact[last_name]</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>contact[active]</td>
+<td>Boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[email]</td>
+<td>String</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[phone]</td>
+<td>String</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[address_street]</td>
+<td>String</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[address_zip_code]</td>
+<td>String</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[address_city]</td>
+<td>String</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[address_country]</td>
+<td>String</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[twitter_url]</td>
+<td>String</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[linkedin_url]</td>
+<td>String</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[facebook_url]</td>
+<td>String</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[picture]</td>
+<td>File</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[organization_ids][]</td>
+<td>Integer[]</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[project_ids][]</td>
+<td>Integer[]</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[event_ids][]</td>
+<td>Integer[]</td>
+<td>No</td>
+</tr>
+</tbody></table>
+
+<h2 id="update-a-contact">Update a contact</h2>
+
+<p>This endpoint updates an existing contact.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">PUT /api/labs/:lab_id/contacts/:id</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>contact[first_name]</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>contact[last_name]</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>contact[active]</td>
+<td>Boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[email]</td>
+<td>String</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[phone]</td>
+<td>String</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[address_street]</td>
+<td>String</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[address_zip_code]</td>
+<td>String</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[address_city]</td>
+<td>String</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[address_country]</td>
+<td>String</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[twitter_url]</td>
+<td>String</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[linkedin_url]</td>
+<td>String</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[facebook_url]</td>
+<td>String</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[picture]</td>
+<td>File</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[organization_ids][]</td>
+<td>Integer[]</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[project_ids][]</td>
+<td>Integer[]</td>
+<td>No</td>
+</tr>
+<tr>
+<td>contact[event_ids][]</td>
+<td>Integer[]</td>
+<td>No</td>
+</tr>
+</tbody></table>
+
+<h2 id="delete-a-contact">Delete a contact</h2>
+
+<p>This endpoint deletes an existing contact.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">DELETE /api/labs/:lab_id/contacts/:id</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+          <h1 id="tags">Tags</h1>
+
+<h2 id="get-all-tags-of-a-lab">Get all tags of a lab</h2>
+
+<p>This endpoint retrieves all tags of a lab.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/labs/:lab_id/tags</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-all-tags-of-a-contact">Get all tags of a contact</h2>
+
+<p>This endpoint retrieves all tags of a specific contact.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/labs/:lab_id/contacts/:contact_id/tags</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>contact_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+<h2 id="add-some-tags-to-a-contact">Add some tags to a contact</h2>
+
+<p>This endpoint adds one or many tags to a contact.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST /api/labs/:lab_id/contacts/:contact_id/tags</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>contact_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>names[]</td>
+<td>String[]</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+<h2 id="delete-some-tags-from-a-contact">Delete some tags from a contact</h2>
+
+<p>This endpoint deletes one or many tags from a contact.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">DELETE /api/labs/:lab_id/contacts/:contact_id/tags</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>contact_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>names[]</td>
+<td>String[]</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+          <h1 id="organizations">Organizations</h1>
+
+<h2 id="get-all-organizations">Get all organizations</h2>
+
+<p>This endpoint retrieves all organizations.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/labs/:lab_id/organizations</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>page</td>
+<td>Integer</td>
+<td>No</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-an-organization">Get an organization</h2>
+
+<p>This endpoint retrieves a specific organization.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/labs/:lab_id/organizations/:id</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>organization_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-all-organizations-of-a-contact">Get all organizations of a contact</h2>
+
+<p>This endpoint retrieves all organizations of a specific contact.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/labs/:lab_id/contacts/:contact_id/organizations</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>contact_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>page</td>
+<td>Integer</td>
+<td>No</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-an-organization-of-a-contact">Get an organization of a contact</h2>
+
+<p>This endpoint retrieves a specific organization of a specific contact.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/labs/:lab_id/contacts/:contact_id/organizations/:id</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>contact_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>organization_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+          <h1 id="projects">Projects</h1>
+
+<h2 id="get-all-projects">Get all projects</h2>
+
+<p>This endpoint retrieves all projects.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/labs/:lab_id/projects</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>page</td>
+<td>Integer</td>
+<td>No</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-a-project">Get a project</h2>
+
+<p>This endpoint retrieves a specific project.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/labs/:lab_id/projects/:id</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>project_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-all-projects-of-a-contact">Get all projects of a contact</h2>
+
+<p>This endpoint retrieves all projects of a specific contact.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/labs/:lab_id/contacts/:contact_id/projects</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>contact_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>page</td>
+<td>Integer</td>
+<td>No</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-a-project-of-a-contact">Get a project of a contact</h2>
+
+<p>This endpoint retrieves a specific project of a specific contact.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/labs/:lab_id/contacts/:contact_id/projects/:id</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>contact_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>project_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+          <h1 id="events">Events</h1>
+
+<h2 id="get-all-events">Get all events</h2>
+
+<p>This endpoint retrieves all events.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/labs/:lab_id/events</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>page</td>
+<td>Integer</td>
+<td>No</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-an-event">Get an event</h2>
+
+<p>This endpoint retrieves a specific event.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/labs/:lab_id/events/:id</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>event_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-all-events-of-a-contact">Get all events of a contact</h2>
+
+<p>This endpoint retrieves all events of a specific contact.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/labs/:lab_id/contacts/:contact_id/events</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>contact_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>page</td>
+<td>Integer</td>
+<td>No</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-an-event-of-a-contact">Get an event of a contact</h2>
+
+<p>This endpoint retrieves a specific event of a specific contact.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET /api/labs/:lab_id/contacts/:contact_id/events/:id</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lab_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>contact_id</td>
+<td>Integer</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>event_id</td>
+<td>Integer</td>
+<td>Yes</td>
 </tr>
 </tbody></table>
 
@@ -497,9 +1542,6 @@ Remember — a happy kitten is an authenticated kitten!
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
           </div>
       </div>
     </div>
