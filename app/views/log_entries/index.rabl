@@ -2,21 +2,35 @@ collection @log_entries
 
 attributes :id #:user_id, :user_name, :action, :item_type, :item_id, :content, :created_at
 
-node :text do |l|
-  type_name = case l.item_type
+node :name do |l|
+  l.user_name
+end
+
+node :action do |l|
+  if l.action == 'destroy'
+    "a supprimé"
+  elsif l.action == 'create'
+    "a ajouté"
+  elsif l.action == 'update'
+    "a modifié"
+  end
+end
+
+node :target do |l|
+  case l.item_type
     when 'Contact'      then "le contact"
     when 'Organization' then "l'organisation"
     when 'Project'      then "le projet"
     when 'Event'        then "l'événement"
   end
+end
 
-  if l.action == 'destroy'
-    "#{l.user_name} a supprimé #{type_name}."
-  elsif l.action == 'create'
-    "#{l.user_name} a ajouté #{type_name}."
-  elsif l.action == 'update'
-    "#{l.user_name} a modifié #{type_name}."
-  end
+node :on do |l|
+  l.updated_at.strftime('%d/%m/%Y à %H:%M')
+end
+
+node :ago do |l|
+  "il y a #{time_ago_in_words(l.updated_at)}"
 end
 
 node :changes do |l|
@@ -79,6 +93,14 @@ node :changes do |l|
     translate(key, l.content, changes, 'happens_on',       'Date')
     translate(key, l.content, changes, 'place',            'Lieu')
     translate(key, l.content, changes, 'note',             'Note')
+
+    # deal with boolean values
+    changes.each do |k, v|
+      changes[k][0] = 'Oui' if changes[k] && changes[k][0] == true
+      changes[k][0] = 'Non' if changes[k] && changes[k][0] == false
+      changes[k][1] = 'Oui' if changes[k] && changes[k][1] == true
+      changes[k][1] = 'Non' if changes[k] && changes[k][1] == false
+    end
   end
 
   changes

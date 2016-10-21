@@ -3,6 +3,7 @@
 //= require bootstrap
 //= require lodash
 //= require react_ujs
+//= require vendor
 //= require_self
 //= require_tree .
 

@@ -3,6 +3,7 @@ import GeneralEdit     from './general_edit.es6'
 import ContactsBlock   from '../../shared/contacts_block.es6'
 import NotesBlock      from '../../shared/notes_block.es6'
 import PreviousNextNav from '../../shared/previous_next_nav.es6'
+import LogEntries      from '../../shared/log_entries.es6'
 
 class Organization extends React.Component {
   constructor(props) {
@@ -102,11 +103,12 @@ class Organization extends React.Component {
     else {
       return (
         <div className="item-show organization">
-          {this.renderLoading()}
-          {this.renderPreviousNextNav()}
-          {this.renderGeneral()}
-          {this.renderContacts()}
-          {this.renderNotes()}
+          { this.renderLoading() }
+          { this.renderPreviousNextNav() }
+          { this.renderGeneral() }
+          { this.renderContacts() }
+          { this.renderNotes() }
+          { this.renderLogEntries() }
         </div>
       )
     }
@@ -178,6 +180,14 @@ class Organization extends React.Component {
     }
   }
 
+  renderLogEntries() {
+    if(this.state.loaded) {
+      return (
+        <LogEntries item={this.state.organization}
+                    loadingImagePath={this.props.loadingImagePath} />
+      )
+    }
+  }
 }
 
 module.exports = Organization

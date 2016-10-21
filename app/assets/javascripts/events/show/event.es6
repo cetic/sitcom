@@ -3,6 +3,7 @@ import GeneralEdit     from './general_edit.es6'
 import ContactsBlock   from '../../shared/contacts_block.es6'
 import NotesBlock      from '../../shared/notes_block.es6'
 import PreviousNextNav from '../../shared/previous_next_nav.es6'
+import LogEntries      from '../../shared/log_entries.es6'
 
 class Event extends React.Component {
   constructor(props) {
@@ -102,11 +103,12 @@ class Event extends React.Component {
     else {
       return (
         <div className="item-show event">
-          {this.renderLoading()}
-          {this.renderPreviousNextNav()}
-          {this.renderGeneral()}
-          {this.renderContacts()}
-          {this.renderNotes()}
+          { this.renderLoading() }
+          { this.renderPreviousNextNav() }
+          { this.renderGeneral() }
+          { this.renderContacts() }
+          { this.renderNotes() }
+          { this.renderLogEntries() }
         </div>
       )
     }
@@ -174,6 +176,15 @@ class Event extends React.Component {
         <NotesBlock notable={this.state.event}
                     canWrite={this.props.permissions.canWriteEvents}
                     currentUserId={this.props.currentUserId} />
+      )
+    }
+  }
+
+  renderLogEntries() {
+    if(this.state.loaded) {
+      return (
+        <LogEntries item={this.state.event}
+                    loadingImagePath={this.props.loadingImagePath} />
       )
     }
   }

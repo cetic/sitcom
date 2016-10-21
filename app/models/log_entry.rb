@@ -77,13 +77,15 @@ class LogEntry < ApplicationRecord
       value_diff = custom_field_link.text_value_previous_change
     end
 
-    custom_field_link.item.log_entries.create(
-      :user_id   => current_user.id,
-      :user_name => current_user.name,
-      :lab_id    => custom_field_link.item.lab_id,
-      :action    => :update,
-      :content   => { 'custom_field' => { custom_field_name => value_diff } }
-    )
+    if !value_diff.nil? && value_diff[0].to_s.strip != value_diff[1].to_s.strip
+      custom_field_link.item.log_entries.create(
+        :user_id   => current_user.id,
+        :user_name => current_user.name,
+        :lab_id    => custom_field_link.item.lab_id,
+        :action    => :update,
+        :content   => { 'custom_field' => { custom_field_name => value_diff } }
+      )
+    end
   end
 
   private

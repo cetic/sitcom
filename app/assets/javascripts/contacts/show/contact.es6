@@ -261,7 +261,8 @@ class Contact extends React.Component {
   renderLogEntries() {
     if(this.state.loaded) {
       return (
-        <LogEntries item={this.state.contact} />
+        <LogEntries item={this.state.contact}
+                    loadingImagePath={this.props.loadingImagePath} />
       )
     }
   }
