@@ -634,10 +634,16 @@
 
     ul {
       margin-top: 10px;
-      padding-left: 16px;
+      padding-left: 0px;
       list-style-type: none;
 
+      li.no-history {
+        text-align: center;
+      }
+
       .action {
+        margin-left: 16px;
+
         strong {
           color: #1976d2;
         }
@@ -655,7 +661,7 @@
       }
 
       table.content {
-        width: 90%;
+        width: 88%;
         float: right;
         margin-top: 12px;
         margin-right: 20px;

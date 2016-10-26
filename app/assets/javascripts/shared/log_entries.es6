@@ -10,7 +10,9 @@ class LogEntries extends React.Component {
   }
 
   componentDidMount() {
-
+    if(this.props.item.wasDeleted) {
+      this.open()
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -32,22 +34,26 @@ class LogEntries extends React.Component {
     return this.props.item.path + '/log_entries'
   }
 
-  reloadFromBackend(callback) {
+  reloadFromBackend(scroll = false, callback) {
     $.get(this.logEntriesPath(), {}, (data) => {
       this.setState({
         logEntries: data,
         loaded:     true
       }, () => {
-        $(window).scrollTo($('.log-entries'), 500, { offset: { top: -80 }})
-        if(callback)
+        if(scroll) {
+          $(window).scrollTo($('.log-entries'), 500, { offset: { top: -80 }})
+        }
+
+        if(callback) {
           callback()
+        }
       })
     })
   }
 
   open() {
     this.setState({ open: true }, () =>
-      this.reloadFromBackend()
+      this.reloadFromBackend(true)
     )
   }
 
@@ -85,7 +91,7 @@ class LogEntries extends React.Component {
         <div>
           <div className="row">
             <div className="col-md-12">
-              <h3>History</h3>
+              <h3>Historique</h3>
             </div>
           </div>
           <div className="row">
@@ -94,11 +100,7 @@ class LogEntries extends React.Component {
                 { this.renderEntries() }
               </ul>
 
-              <div className="center">
-                <span className="display-log-entries" onClick={this.close.bind(this)}>
-                  Masquer l'historique
-                </span>
-              </div>
+              { this.renderHideHistory() }
             </div>
           </div>
         </div>
@@ -106,10 +108,31 @@ class LogEntries extends React.Component {
     }
   }
 
+  renderHideHistory() {
+    if(!this.props.item.wasDeleted) {
+      return (
+        <div className="center">
+          <span className="display-log-entries" onClick={this.close.bind(this)}>
+            Masquer l'historique
+          </span>
+        </div>
+      )
+    }
+  }
+
   renderEntries() {
-    return _.map(this.state.logEntries, (entry) => {
-      return this.renderEntry(entry)
-    })
+    if(this.state.logEntries.length == 0) {
+      return (
+        <li className="no-history">
+          Pas d'historique
+        </li>
+      )
+    }
+    else {
+      return _.map(this.state.logEntries, (entry) => {
+        return this.renderEntry(entry)
+      })
+    }
   }
 
   renderEntry(entry) {

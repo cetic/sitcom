@@ -75,7 +75,10 @@ class Project extends React.Component {
 
   reloadFromBackend(callback) {
     var notFoundCallback = () => {
-      this.setState({ notFound: true })
+      this.setState({
+        loaded:   true,
+        notFound: true
+      })
     }
 
     http.get(this.projectPath(), {}, (data) => {
@@ -95,8 +98,14 @@ class Project extends React.Component {
   render() {
     if(this.state.notFound) {
       return (
-        <div className="alert alert-danger">
-          Ce projet n'existe pas.
+        <div>
+          <div className="alert alert-danger">
+            Ce projet n'existe pas ou n'existe plus.
+          </div>
+
+          <div className="item-show project">
+            { this.renderLogEntries() }
+          </div>
         </div>
       )
     }
@@ -182,8 +191,16 @@ class Project extends React.Component {
 
   renderLogEntries() {
     if(this.state.loaded) {
+      // take current project or forge one if doesn't exist anymore
+      var project = this.state.project || {
+        wasDeleted: true,
+        id:         this.props.id,
+        path:       this.projectPath(),
+        updatedAt:  null
+      }
+
       return (
-        <LogEntries item={this.state.project}
+        <LogEntries item={project}
                     loadingImagePath={this.props.loadingImagePath} />
       )
     }

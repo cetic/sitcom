@@ -93,10 +93,11 @@ class ProjectsController < ApplicationController
     if PermissionsService.new(current_user, @lab).can_write?('projects')
       respond_to do |format|
         format.json do
-          @project = @lab.projects.find(params[:id])
+          @project                 = @lab.projects.find(params[:id])
+          previous_association_ids = @project.association_ids
 
           if @project.destroy
-            LogEntry.log_destroy(current_user, @project)
+            LogEntry.log_destroy(current_user, @project, previous_association_ids)
 
             render_json_success
           else

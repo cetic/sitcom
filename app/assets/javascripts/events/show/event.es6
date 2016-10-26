@@ -75,7 +75,10 @@ class Event extends React.Component {
 
   reloadFromBackend(callback) {
     var notFoundCallback = () => {
-      this.setState({ notFound: true })
+      this.setState({
+        loaded:   true,
+        notFound: true
+      })
     }
 
     http.get(this.eventPath(), {}, (data) => {
@@ -95,8 +98,14 @@ class Event extends React.Component {
   render() {
     if(this.state.notFound) {
       return (
-        <div className="alert alert-danger">
-          Cet évènement n'existe pas.
+        <div>
+          <div className="alert alert-danger">
+            Cet événement n'existe pas ou n'existe plus.
+          </div>
+
+          <div className="item-show event">
+            { this.renderLogEntries() }
+          </div>
         </div>
       )
     }
@@ -182,8 +191,16 @@ class Event extends React.Component {
 
   renderLogEntries() {
     if(this.state.loaded) {
+      // take current event or forge one if doesn't exist anymore
+      var event = this.state.event || {
+        wasDeleted: true,
+        id:         this.props.id,
+        path:       this.eventPath(),
+        updatedAt:  null
+      }
+
       return (
-        <LogEntries item={this.state.event}
+        <LogEntries item={event}
                     loadingImagePath={this.props.loadingImagePath} />
       )
     }

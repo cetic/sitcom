@@ -32,7 +32,7 @@ class LogEntry < ApplicationRecord
     log(:update, current_user, item, previous_association_ids)
   end
 
-  def self.log_destroy(current_user, item)
+  def self.log_destroy(current_user, item, previous_association_ids)
     LogEntry.create(
       :item_id   => item.id,
       :item_type => item.class.name,
@@ -42,6 +42,25 @@ class LogEntry < ApplicationRecord
       :action    => :destroy,
       :content   => {}
     )
+
+    # Create update log for associated items
+    [:organization_ids, :project_ids, :event_ids, :contact_ids].each do |association_type|
+      if previous_association_ids[association_type]
+        previous_association_ids[association_type].each do |association_id|
+          associatedItemClass = Object.const_get(association_type[0..-4].camelize)
+          associated_item     = associatedItemClass.find(association_id)
+          old_associated_ids  = associated_item.send("#{item.class.name.underscore}_ids")
+
+          associated_item.log_entries.create(
+            :user_id   => current_user.id,
+            :user_name => current_user.name,
+            :lab_id    => item.lab_id,
+            :action    => :update,
+            :content   => { "#{item.class.name.underscore}_ids" => [old_associated_ids + [item.id], old_associated_ids] }
+          )
+        end
+      end
+    end
   end
 
   # Special process to log notes

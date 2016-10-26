@@ -94,10 +94,11 @@ class ContactsController < ApplicationController
     if PermissionsService.new(current_user, @lab).can_write?('contacts')
       respond_to do |format|
         format.json do
-          @contact = @lab.contacts.find(params[:id])
+          @contact                 = @lab.contacts.find(params[:id])
+          previous_association_ids = @contact.association_ids
 
           if @contact.destroy
-            LogEntry.log_destroy(current_user, @contact)
+            LogEntry.log_destroy(current_user, @contact, previous_association_ids)
             cleanup_orphan_tags
 
             render_json_success

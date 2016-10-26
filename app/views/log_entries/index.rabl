@@ -34,28 +34,6 @@ node :ago do |l|
 end
 
 node :changes do |l|
-  def translate(current_key, old_hash, new_hash, old_key, new_key)
-    if current_key == old_key
-      new_hash.merge!({ new_key => old_hash[old_key] })
-      new_hash.delete(old_key)
-    end
-  end
-
-  def translate_ids(current_key, old_hash, new_hash, klass, old_key, new_key)
-    if current_key == old_key
-      before_ids = old_hash[old_key].first
-      after_ids  = old_hash[old_key].last
-
-      new_hash.merge!({ new_key => [
-          klass.where(:id => before_ids-after_ids).collect(&:name),
-          klass.where(:id => after_ids-before_ids).collect(&:name)
-        ]
-      })
-
-      new_hash.delete(old_key)
-    end
-  end
-
   changes = l.content.deep_dup
 
   l.content.keys.each do |key|
@@ -104,4 +82,57 @@ node :changes do |l|
   end
 
   changes
+end
+
+def translate(current_key, old_hash, new_hash, old_key, new_key)
+  if current_key == old_key
+    new_hash.merge!({ new_key => old_hash[old_key] })
+    new_hash.delete(old_key)
+  end
+end
+
+def translate_ids(current_key, old_hash, new_hash, klass, old_key, new_key)
+  if current_key == old_key
+    before_ids = old_hash[old_key].first
+    after_ids  = old_hash[old_key].last
+
+    added_ids   = after_ids  - before_ids
+    removed_ids = before_ids - after_ids
+
+    added_names   = added_ids.collect   { |id| find_name(klass, id) }
+    removed_names = removed_ids.collect { |id| find_name(klass, id) }
+
+    new_hash.merge!({ new_key => [ removed_names, added_names ] })
+
+    new_hash.delete(old_key)
+  end
+end
+
+def find_name(klass, item_id)
+  name = klass.where(:id => item_id).first.try(:name)
+
+  if name.present?
+    name
+  else
+    if klass.name == 'Contact'
+      first_name = find_field(klass, item_id, 'first_name')
+      last_name  = find_field(klass, item_id, 'last_name')
+
+      "#{first_name} #{last_name}"
+    else
+      find_field(klass, item_id, 'name')
+    end
+  end
+end
+
+def find_field(klass, item_id, field)
+  log_entry = LogEntry.where(:item_type => klass.name, :item_id => item_id)
+                      .order(:created_at => :desc)
+                      .detect { |log_entry| log_entry.content.keys.include?(field) }
+
+  if log_entry
+    log_entry.content[field].last
+  else
+    ''
+  end
 end

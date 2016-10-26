@@ -93,10 +93,11 @@ class OrganizationsController < ApplicationController
     if PermissionsService.new(current_user, @lab).can_write?('organizations')
       respond_to do |format|
         format.json do
-          @organization = @lab.organizations.find(params[:id])
+          @organization            = @lab.organizations.find(params[:id])
+          previous_association_ids = @organization.association_ids
 
           if @organization.destroy
-            LogEntry.log_destroy(current_user, @organization)
+            LogEntry.log_destroy(current_user, @organization, previous_association_ids)
 
             render_json_success
           else

@@ -80,7 +80,10 @@ class Contact extends React.Component {
 
   reloadFromBackend(callback) {
     var notFoundCallback = () => {
-      this.setState({ notFound: true })
+      this.setState({
+        loaded:   true,
+        notFound: true
+      })
     }
 
     http.get(this.contactPath(), {}, (data) => {
@@ -106,8 +109,14 @@ class Contact extends React.Component {
   render() {
     if(this.state.notFound) {
       return (
-        <div className="alert alert-danger">
-          Ce contact n'existe pas.
+        <div>
+          <div className="alert alert-danger">
+            Ce contact n'existe pas ou n'existe plus.
+          </div>
+
+          <div className="item-show contact">
+            { this.renderLogEntries() }
+          </div>
         </div>
       )
     }
@@ -243,7 +252,7 @@ class Contact extends React.Component {
                     removeConfirmMessage="Délier cet évènement du contact ?"
                     emptyMessage="Aucun évènement."
                     optionsPath={this.props.projectOptionsPath}
-                    canWrite={this.props.permissions.canWriteContacts}  />
+                    canWrite={this.props.permissions.canWriteContacts} />
       )
     }
   }
@@ -260,8 +269,16 @@ class Contact extends React.Component {
 
   renderLogEntries() {
     if(this.state.loaded) {
+      // take current contact or forge one if doesn't exist anymore
+      var contact = this.state.contact || {
+        wasDeleted: true,
+        id:         this.props.id,
+        path:       this.contactPath(),
+        updatedAt:  null
+      }
+
       return (
-        <LogEntries item={this.state.contact}
+        <LogEntries item={contact}
                     loadingImagePath={this.props.loadingImagePath} />
       )
     }

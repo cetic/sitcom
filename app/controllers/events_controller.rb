@@ -93,10 +93,11 @@ class EventsController < ApplicationController
     if PermissionsService.new(current_user, @lab).can_write?('events')
       respond_to do |format|
         format.json do
-          @event = @lab.events.find(params[:id])
+          @event                   = @lab.events.find(params[:id])
+          previous_association_ids = @event.association_ids
 
           if @event.destroy
-            LogEntry.log_destroy(current_user, @event)
+            LogEntry.log_destroy(current_user, @event, previous_association_ids)
 
             render_json_success
           else

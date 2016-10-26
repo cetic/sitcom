@@ -75,7 +75,10 @@ class Organization extends React.Component {
 
   reloadFromBackend(callback) {
     var notFoundCallback = () => {
-      this.setState({ notFound: true })
+      this.setState({
+        loaded:   true,
+        notFound: true
+      })
     }
 
     http.get(this.organizationPath(), {}, (data) => {
@@ -95,8 +98,14 @@ class Organization extends React.Component {
   render() {
     if(this.state.notFound) {
       return (
-        <div className="alert alert-danger">
-          Cette organisation n'existe pas.
+        <div>
+          <div className="alert alert-danger">
+            Cette organisation n'existe pas ou n'existe plus.
+          </div>
+
+          <div className="item-show organization">
+            { this.renderLogEntries() }
+          </div>
         </div>
       )
     }
@@ -182,8 +191,16 @@ class Organization extends React.Component {
 
   renderLogEntries() {
     if(this.state.loaded) {
+      // take current organization or forge one if doesn't exist anymore
+      var organization = this.state.organization || {
+        wasDeleted: true,
+        id:         this.props.id,
+        path:       this.organizationPath(),
+        updatedAt:  null
+      }
+
       return (
-        <LogEntries item={this.state.organization}
+        <LogEntries item={organization}
                     loadingImagePath={this.props.loadingImagePath} />
       )
     }
