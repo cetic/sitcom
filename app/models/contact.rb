@@ -95,7 +95,7 @@ class Contact < ApplicationRecord
     Event.where(:id => saved_event_ids).each(&:cable_update)
 
     # elasticsearch
-    ReindexContactWorker.perform_async(id, 'delete', saved_organization_ids, saved_project_ids, saved_event_ids)
+    ReindexContactWorker.perform_async(saved_id, 'delete', saved_organization_ids, saved_project_ids, saved_event_ids)
   end
 
   # Methods
