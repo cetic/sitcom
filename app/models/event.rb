@@ -14,7 +14,7 @@ class Event < ApplicationRecord
 
   belongs_to :lab
 
-  has_many :contact_event_links, :dependent => :destroy
+  has_many :contact_event_links # dependent destroy is made in around_destroy_callback
   has_many :contacts, :through => :contact_event_links
 
   has_many :notes, :as => :notable
@@ -58,6 +58,9 @@ class Event < ApplicationRecord
     saved_contact_ids = contacts.pluck(:id)
 
     yield
+
+    # dependent destroy
+    contact_event_links.destroy_all
 
     # websockets
     cable_destroy

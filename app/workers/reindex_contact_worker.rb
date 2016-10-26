@@ -2,7 +2,7 @@ class ReindexContactWorker
 
   include Sidekiq::Worker
 
-  def perform(id, action = 'update', organization_ids = [], event_ids = [], project_ids = [])
+  def perform(id, action = 'update', organization_ids = [], project_ids = [], event_ids = [])
     if action == 'update'
       contact = Contact.find(id)
 

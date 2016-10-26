@@ -14,7 +14,7 @@ class Organization < ApplicationRecord
 
   belongs_to :lab
 
-  has_many :contact_organization_links, :dependent => :destroy
+  has_many :contact_organization_links # dependent destroy is made in around_destroy_callback
   has_many :contacts, :through => :contact_organization_links
 
   has_many :notes, :as => :notable
@@ -58,6 +58,9 @@ class Organization < ApplicationRecord
     saved_contact_ids = contacts.pluck(:id)
 
     yield
+
+    # dependent destroy
+    contact_organization_links.destroy_all
 
     # websockets
     cable_destroy
