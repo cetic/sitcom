@@ -6,9 +6,9 @@ class Api::OrganizationsController < Api::BaseController
     if PermissionsService.new(@current_user, @lab).can_read?('organizations')
       if params[:contact_id]
         @contact       = @lab.contacts.find(params[:contact_id])
-        @organizations = @contact.organizations.page(params[:page]).per(PER_PAGE)
+        @organizations = @contact.organizations.order(:name).page(params[:page]).per(PER_PAGE)
       else
-        @organizations = @lab.organizations.page(params[:page]).per(PER_PAGE)
+        @organizations = @lab.organizations.order(:name).page(params[:page]).per(PER_PAGE)
       end
     else
       render_permission_error

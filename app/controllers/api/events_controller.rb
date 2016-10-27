@@ -6,9 +6,9 @@ class Api::EventsController < Api::BaseController
     if PermissionsService.new(@current_user, @lab).can_read?('events')
       if params[:contact_id]
         @contact = @lab.contacts.find(params[:contact_id])
-        @events  = @contact.events.page(params[:page]).per(PER_PAGE)
+        @events  = @contact.events.order(:name).page(params[:page]).per(PER_PAGE)
       else
-        @events = @lab.events.page(params[:page]).per(PER_PAGE)
+        @events = @lab.events.order(:name).page(params[:page]).per(PER_PAGE)
       end
     else
       render_permission_error

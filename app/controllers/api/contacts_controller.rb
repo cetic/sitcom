@@ -5,7 +5,7 @@ class Api::ContactsController < Api::BaseController
 
   def index
     if PermissionsService.new(@current_user, @lab).can_read?('contacts')
-      @contacts = @lab.contacts.page(params[:page]).per(PER_PAGE)
+      @contacts = @lab.contacts.order(:first_name, :last_name).page(params[:page]).per(PER_PAGE)
     else
       render_permission_error
     end

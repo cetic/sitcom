@@ -19,11 +19,14 @@ class Api::TagsController < Api::BaseController
     if PermissionsService.new(@current_user, @lab).can_write?('contacts')
       @contact = @lab.contacts.find(params[:contact_id])
 
-      params[:names].each do |name|
-        ContactTagService.new(@current_user, @contact).add_tag(name)
+      if params[:names]
+        params[:names].each do |name|
+          ContactTagService.new(@current_user, @contact).add_tag(name)
+        end
+
+        @contact.reload
       end
 
-      @contact.reload
       @tags = @contact.tags
 
       render 'index'
@@ -36,15 +39,18 @@ class Api::TagsController < Api::BaseController
     if PermissionsService.new(@current_user, @lab).can_write?('contacts')
       @contact = @lab.contacts.find(params[:contact_id])
 
-      params[:names].each do |name|
-        tag = @lab.tags.find_by_name(name)
+      if params[:names]
+        params[:names].each do |name|
+          tag = @lab.tags.find_by_name(name)
 
-        if tag
-          ContactTagService.new(@current_user, @contact).remove_tag(tag.id)
+          if tag
+            ContactTagService.new(@current_user, @contact).remove_tag(tag.id)
+          end
         end
+
+        @contact.reload
       end
 
-      @contact.reload
       @tags = @contact.tags
 
       render 'index'
