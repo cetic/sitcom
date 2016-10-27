@@ -7,6 +7,8 @@ class Tag < ActiveRecord::Base
   has_many :contact_tag_links, :dependent => :destroy
   has_many :contacts,          :through   => :contact_tag_links
 
+  has_many :log_entries, :as => :item # no dependent destroy/nullify because we want to keep them after deletion
+
   # Validations
 
   validates :name, :presence => true
@@ -37,5 +39,9 @@ class Tag < ActiveRecord::Base
       :name  => name,
       :color => color
     })
+  end
+
+  def association_ids
+    {}
   end
 end

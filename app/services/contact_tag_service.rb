@@ -17,6 +17,9 @@ class ContactTagService
         :name  => tag_name,
         :color => Tag.random_color(@lab)
       )
+
+      # Log the creation of tag (useful to get name and color in history of contacts)
+      LogEntry.log_create(@current_user, tag)
     else
       tag = existing_tag.first
     end
@@ -58,7 +61,12 @@ class ContactTagService
     LogEntry.log_update(@current_user, @contact, previous_associations_ids)
 
     # Remove tag if it's the last one
-    tag.destroy! if tag.contact_tag_links.empty?
+    if tag.contact_tag_links.empty?
+      if tag.destroy
+        # Log the deletion of tag (useful to get name and color in history of contacts)
+        LogEntry.log_destroy(@current_user, tag, {})
+      end
+    end
 
     # reindex contact
     @contact.__elasticsearch__.index_document
