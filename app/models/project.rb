@@ -14,7 +14,7 @@ class Project < ApplicationRecord
 
   belongs_to :lab
 
-  has_many :contact_project_links, :dependent => :destroy
+  has_many :contact_project_links # dependent destroy is made in around_destroy_callback
   has_many :contacts, :through => :contact_project_links
 
   has_many :notes, :as => :notable
@@ -55,6 +55,9 @@ class Project < ApplicationRecord
     saved_contact_ids = contacts.pluck(:id)
 
     yield
+
+    # dependent destroy
+    contact_project_links.destroy_all
 
     # websockets
     cable_destroy

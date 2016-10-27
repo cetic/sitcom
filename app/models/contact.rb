@@ -18,16 +18,16 @@ class Contact < ApplicationRecord
   has_many :contact_tag_links, :dependent => :destroy
   has_many :tags, :through => :contact_tag_links
 
-  has_many :contact_organization_links, :dependent => :destroy
-  has_many :organizations, :through => :contact_organization_links
-
   has_many :contact_field_links, :dependent => :destroy
   has_many :fields, :through => :contact_field_links
 
-  has_many :contact_event_links, :dependent => :destroy
+  has_many :contact_organization_links # dependent destroy is made in around_destroy_callback
+  has_many :organizations, :through => :contact_organization_links
+
+  has_many :contact_event_links # dependent destroy is made in around_destroy_callback
   has_many :events, :through => :contact_event_links
 
-  has_many :contact_project_links, :dependent => :destroy
+  has_many :contact_project_links # dependent destroy is made in around_destroy_callback
   has_many :projects, :through => :contact_project_links
 
   has_many :notes, :as => :notable
@@ -78,8 +78,13 @@ class Contact < ApplicationRecord
   def around_destroy_callback
     saved_id               = id
     saved_organization_ids = organizations.pluck(:id)
-    saved_event_ids        = events.pluck(:id)
     saved_project_ids      = projects.pluck(:id)
+    saved_event_ids        = events.pluck(:id)
+
+    # dependent destroy
+    contact_organization_links.destroy_all
+    contact_project_links.destroy_all
+    contact_event_links.destroy_all
 
     yield
 
@@ -90,7 +95,7 @@ class Contact < ApplicationRecord
     Event.where(:id => saved_event_ids).each(&:cable_update)
 
     # elasticsearch
-    ReindexContactWorker.perform_async(saved_id, 'delete', saved_organization_ids, saved_event_ids, saved_project_ids)
+    ReindexContactWorker.perform_async(saved_id, 'delete', saved_organization_ids, saved_project_ids, saved_event_ids)
   end
 
   # Methods
