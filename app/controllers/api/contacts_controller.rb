@@ -85,4 +85,8 @@ class Api::ContactsController < Api::BaseController
     )
   end
 
+  def cleanup_orphan_tags
+    ContactTagService.cleanup_orphan_tags(@lab)
+  end
+
 end
