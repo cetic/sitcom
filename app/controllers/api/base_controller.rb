@@ -22,6 +22,12 @@ class Api::BaseController < ActionController::Base
     @lab = @current_user.labs.find(params[:lab_id])
   end
 
+  def render_success(params = {})
+    render :json => {
+      :success => true
+    }.merge(params)
+  end
+
   def render_errors(errors)
     render :json => {
       :success => false,
