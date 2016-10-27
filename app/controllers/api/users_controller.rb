@@ -16,7 +16,7 @@ class Api::UsersController < Api::BaseController
     if @user.save
       render 'show'
     else
-      render_errors(@user.errors.full_messages)
+      render_errors(@user.errors.messages)
     end
   end
 
@@ -29,8 +29,11 @@ class Api::UsersController < Api::BaseController
   end
 
   def destroy
-    @user.destroy
-    render :nothing => true
+    if @user.destroy
+      render_success
+    else
+      render_errors(@user.errors.messages)
+    end
   end
 
   private

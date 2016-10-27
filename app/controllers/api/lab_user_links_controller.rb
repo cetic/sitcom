@@ -30,8 +30,11 @@ class Api::LabUserLinksController < Api::BaseController
   end
 
   def destroy
-    @lab_user_link.destroy
-    render :nothing => true
+    if @lab_user_link.destroy
+      render_success
+    else
+      render_errors(@user.errors.messages)
+    end
   end
 
   private

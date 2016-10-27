@@ -22,6 +22,8 @@ class Api::ContactsController < Api::BaseController
       @contact = @lab.contacts.new(strong_params)
 
       if @contact.save
+        LogEntry.log_create(@current_user, @contact)
+
         render 'show'
       else
         render_errors(@contact.errors.messages)
@@ -33,7 +35,12 @@ class Api::ContactsController < Api::BaseController
 
   def update
     if PermissionsService.new(@current_user, @lab).can_write?('contacts')
+      previous_association_ids = @contact.association_ids
+
       if @contact.update_attributes(strong_params)
+        LogEntry.log_update(@current_user, @contact, previous_association_ids)
+        cleanup_orphan_tags
+
         render 'show'
       else
         render_errors(@contact.errors.messages)
@@ -45,8 +52,16 @@ class Api::ContactsController < Api::BaseController
 
   def destroy
     if PermissionsService.new(@current_user, @lab).can_write?('contacts')
-      @contact.destroy
-      render :nothing => true
+      previous_association_ids = @contact.association_ids
+
+      if @contact.destroy
+        LogEntry.log_destroy(@current_user, @contact, previous_association_ids)
+        cleanup_orphan_tags
+
+        render_success
+      else
+        render_errors(@contact.errors.messages)
+      end
     else
       render_permission_error
     end
