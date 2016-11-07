@@ -50,7 +50,6 @@ group :development do
   gem 'capistrano-passenger'
   gem 'capistrano-sidekiq'
 
-  gem 'sqlite3'
   gem 'listen'
 end
 
