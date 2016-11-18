@@ -16,7 +16,11 @@ class ApplicationController < ActionController::Base
 
   def find_lab_from_cookies
     if cookies.permanent.signed[:current_lab_id]
-      @lab = Lab.find(cookies.permanent.signed[:current_lab_id])
+      @lab = Lab.where(:id => cookies.permanent.signed[:current_lab_id]).first
+
+      if !@lab
+        @lab = current_user.labs.first
+      end
     end
   end
 

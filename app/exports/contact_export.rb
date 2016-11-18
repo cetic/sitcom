@@ -27,11 +27,11 @@ class ContactExport < BaseExport
     end
 
     list = list.merge({
-      'Organisations'        => lambda { |item| item.organizations.collect(&:name).join(', ') },
-      "Domaines d'expertise" => lambda { |item| item.fields.collect(&:name).join(', ') },
-      'Évènements'           => lambda { |item| item.events.collect(&:name).join(', ') },
-      'Projets'              => lambda { |item| item.projects.collect(&:name).join(', ') },
-      'Notes publiques'      => lambda { |item| item.notes.collect(&:text).join(', ') }
+      'Organisations'   => lambda { |item| item.organizations.collect(&:name).join(', ') },
+      "Expertises"      => lambda { |item| item.fields.collect(&:name).join(', ') },
+      'Évènements'      => lambda { |item| item.events.collect(&:name).join(', ') },
+      'Projets'         => lambda { |item| item.projects.collect(&:name).join(', ') },
+      'Notes publiques' => lambda { |item| item.notes.collect(&:text).join(', ') }
     })
 
     list
