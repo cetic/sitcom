@@ -15,7 +15,6 @@ class GeneralEdit extends React.Component {
       phone:           this.props.contact.phone,
       email:           this.props.contact.email,
       fieldIds:        this.props.contact.fieldIds,
-      tagIds:          this.props.contact.tagIds,
       errors:          ''
     }
   }
@@ -32,8 +31,7 @@ class GeneralEdit extends React.Component {
         addressCountry:  this.state.addressCountry,
         phone:           this.state.phone,
         email:           this.state.email,
-        fieldIds:        this.state.fieldIds,
-        tagIds:          this.state.tagIds
+        fieldIds:        this.state.fieldIds
       }
     }
 
@@ -107,12 +105,6 @@ class GeneralEdit extends React.Component {
     })
   }
 
-  updateTagIds(value) {
-    this.setState({
-      tagIds: value.split(',')
-    })
-  }
-
   render() {
     return (
       <div className="general edit">
@@ -135,7 +127,6 @@ class GeneralEdit extends React.Component {
             </h1>
             <div className="fields">
               { this.renderFields() }
-              { this.renderTags() }
             </div>
           </div>
         </div>
@@ -206,15 +197,6 @@ class GeneralEdit extends React.Component {
                    optionsPath={this.props.fieldOptionsPath}
                    updateValue={this.updateFieldIds.bind(this)}
                    label="Expertises" />
-    )
-  }
-
-  renderTags() {
-    return (
-      <ItemsSelect itemIds={this.state.tagIds.join(',')}
-                   optionsPath={this.props.tagOptionsPath}
-                   updateValue={this.updateTagIds.bind(this)}
-                   label="Groupes" />
     )
   }
 

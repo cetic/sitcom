@@ -38,10 +38,7 @@ class AdvancedSearch extends BaseAdvancedSearch {
           {this.renderIdsListFilter('event',        'Evènements'   )}
         </fieldset>
 
-        <fieldset>
-          <legend>Champs personnalisés</legend>
-          {this.renderCustomFieldsFilters()}
-        </fieldset>
+        {this.renderCustomFieldsFilters()}
       </div>
     )
   }
@@ -83,9 +80,18 @@ class AdvancedSearch extends BaseAdvancedSearch {
   }
 
   renderCustomFieldsFilters() {
-    return _.map(this.props.contactCustomFields, (customField) => {
+    var customFieldsFilders = _.map(this.props.contactCustomFields, (customField) => {
       return this.renderCustomFieldFilter(customField)
     })
+
+    if(customFieldsFilders.length > 0) {
+      return(
+        <fieldset>
+          <legend>Champs personnalisés</legend>
+            {customFieldsFilders}
+        </fieldset>
+      )
+    }
   }
 
   renderCustomFieldFilter(customField) {

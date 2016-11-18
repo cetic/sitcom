@@ -6,6 +6,7 @@ class ItemsSelect extends React.Component {
 
     this.state = {
       options: [],
+      loaded:  false,
       itemIds: this.props.itemIds || ''
     }
   }
@@ -25,9 +26,12 @@ class ItemsSelect extends React.Component {
   }
 
   reloadOptionsFromBackend(callback) {
+    this.setState({ loaded: false })
+
     http.get(this.props.optionsPath, {}, (data) => {
       this.setState({
-        options: data
+        options: data,
+        loaded:  true
       }, callback)
     })
   }
@@ -63,7 +67,7 @@ class ItemsSelect extends React.Component {
   }
 
   render() {
-    if(this.state.options.length) {
+    if(this.state.loaded) {
       return (
         <div>
           { this.renderLabel() }
