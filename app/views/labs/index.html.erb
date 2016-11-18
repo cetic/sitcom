@@ -13,13 +13,20 @@
     <div class="col-md-6 col-md-offset-3 well panel">
       <h1>Labs</h1>
 
-      <ul>
-        <% @labs.each do |lab| %>
-          <li>
-            <%= link_to "&bull; ".html_safe + lab.name, lab_path(lab) %>
-          </li>
-        <% end %>
-      </ul>
+      <% if @labs.any? %>
+        <ul>
+          <% @labs.each do |lab| %>
+            <li>
+              <%= link_to "&bull; ".html_safe + lab.name, lab_path(lab) %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <div class="blank-slate">
+          <p>Aucun lab n'est lié à votre compte.</p>
+          <p>Contactez votre administrateur si vous pensez que ce n'est pas normal.</p>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
