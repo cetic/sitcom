@@ -88,7 +88,7 @@ class AdvancedSearch extends BaseAdvancedSearch {
       return(
         <fieldset>
           <legend>Champs personnalisés</legend>
-            {customFieldsFilders}
+          {customFieldsFilders}
         </fieldset>
       )
     }
