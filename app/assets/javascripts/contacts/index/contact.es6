@@ -168,7 +168,7 @@ class Contact extends React.Component {
 
   renderDelete(tag) {
     var iconClass = 'fa fa-times'
-    iconClass += this.props.permissions.canWriteContacts ? '' : 'not-visible'
+    iconClass += this.props.permissions.canWriteContacts ? '' : ' not-visible'
 
     return (
       <i className={iconClass}
