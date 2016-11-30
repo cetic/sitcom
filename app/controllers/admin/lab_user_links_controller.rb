@@ -13,11 +13,11 @@ class Admin::LabUserLinksController < Admin::BaseController
       attributes = data[lab_user_link.id.to_s]
 
       PermissionsService::MODULES.keys.each do |item_key|
-        can_read  = attributes.present? && attributes["can_read_#{item_key}"]  == '1'
-        can_write = attributes.present? && attributes["can_write_#{item_key}"] == '1'
+        can_write =               attributes.present? && attributes["can_write_#{item_key}"] == '1'
+        can_read  = can_write || (attributes.present? && attributes["can_read_#{item_key}"]  == '1')
 
-        lab_user_link.send("can_read_#{item_key}=",  can_read)
         lab_user_link.send("can_write_#{item_key}=", can_write)
+        lab_user_link.send("can_read_#{item_key}=",  can_read)
 
         lab_user_link.save!
       end
