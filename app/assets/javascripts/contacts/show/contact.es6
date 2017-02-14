@@ -251,7 +251,7 @@ class Contact extends React.Component {
                     contactPath={this.contactPath()}
                     removeConfirmMessage="Délier cet évènement du contact ?"
                     emptyMessage="Aucun évènement."
-                    optionsPath={this.props.projectOptionsPath}
+                    optionsPath={this.props.eventOptionsPath}
                     canWrite={this.props.permissions.canWriteContacts} />
       )
     }
