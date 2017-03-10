@@ -141,7 +141,7 @@ class Tags extends React.Component {
           { this.renderTagSelectionItems() }
           <li>
             <input type="text"
-                   placeholder="Create new group"
+                   placeholder="Créer un nouveau groupe"
                    ref="newTagInput"
                    onKeyDown={this.addTagFromInput.bind(this)} />
           </li>
