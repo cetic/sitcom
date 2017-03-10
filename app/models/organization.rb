@@ -57,10 +57,10 @@ class Organization < ApplicationRecord
     saved_id          = id
     saved_contact_ids = contacts.pluck(:id)
 
-    yield
-
     # dependent destroy
     contact_organization_links.destroy_all
+
+    yield
 
     # websockets
     cable_destroy

@@ -54,10 +54,10 @@ class Project < ApplicationRecord
     saved_id          = id
     saved_contact_ids = contacts.pluck(:id)
 
-    yield
-
     # dependent destroy
     contact_project_links.destroy_all
+
+    yield
 
     # websockets
     cable_destroy
