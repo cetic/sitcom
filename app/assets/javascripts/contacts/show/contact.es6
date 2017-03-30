@@ -39,11 +39,12 @@ class Contact extends React.Component {
 
   componentDidUpdate(prevProps) {
     if(prevProps.id != this.props.id) {
-      if(this.state.contact == undefined) {
+      if(this.state.contact == undefined || this.state.contact.id != this.props.id) {
         this.reloadFromBackend()
       }
       else {
         window.scrollTo(0, 0)
+
         this.setState({
           contact: this.props.contact,
           loaded:  this.props.contact != undefined
