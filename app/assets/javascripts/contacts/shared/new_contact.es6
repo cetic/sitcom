@@ -38,12 +38,17 @@ class NewContact extends React.Component {
     this.setState({ email: e.target.value })
   }
 
+  isDataValid() {
+    const isNameValid  = this.state.firstName != '' && this.state.lastName != ''
+    const isEmailValid = this.state.email == '' || EmailValidator.validate(this.state.email)
+
+    return isNameValid && isEmailValid
+  }
+
   backendCreateNewContactAndRedirect(e) {
     e.preventDefault()
 
-    if(this.state.firstName != '' &&
-       this.state.lastName != ''  &&
-       (this.state.email == '' || EmailValidator.validate(this.state.email))) {
+    if(this.isDataValid()) {
       var params = {
         contact: {
           firstName: this.state.firstName,
