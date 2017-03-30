@@ -3,9 +3,8 @@
     <%= lab.name %>
   </td>
 
-  <td>
-    <%= link_to "#{lab.custom_fields.count} champs personnalisés", admin_lab_custom_fields_path(lab), :class => '' %>
-  </td>
+  <td><%= link_to "#{lab.fields.count} expertises",                  admin_lab_fields_path(lab),        :class => '' %></td>
+  <td><%= link_to "#{lab.custom_fields.count} champs personnalisés", admin_lab_custom_fields_path(lab), :class => '' %></td>
 
   <td class="actions">
     <%= link_to fa('edit'),   edit_admin_lab_path(lab), :class => 'btn btn-xs btn-primary' %>

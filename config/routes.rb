@@ -31,10 +31,10 @@ Rails.application.routes.draw do
 
     resources :labs do
       resources :custom_fields
-    end
 
-    resources :fields do
-      resources :children, controller: 'fields'
+      resources :fields do
+        resources :children, controller: 'fields'
+      end
     end
 
     root to: 'users#index', as: :root

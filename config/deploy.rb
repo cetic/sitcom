@@ -19,15 +19,3 @@ set :bundle_binstubs, nil
 set :bundle_bins,     %w(gem rake rails sidekiq sidekiqctl)
 
 before 'deploy:assets:precompile', 'deploy:npm:install'
-
-namespace :deploy do
-  namespace :npm do
-    task :install do
-      stage = fetch(:stage).to_s
-
-      on roles(:app) do
-        execute "cd #{release_path} && #{fetch(:rbenv_prefix)} bundle exec rake npm:install RAILS_ENV=#{stage}"
-      end
-    end
-  end
-end

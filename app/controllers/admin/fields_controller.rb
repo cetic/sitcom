@@ -1,25 +1,29 @@
 class Admin::FieldsController < Admin::BaseController
+
+  before_action :find_lab
   before_action :find_field, :only => [ :edit, :update, :destroy ]
 
   def index
-    @fields = Field.where(parent_id: nil).order(:name)
+    @fields = @lab.fields.where(parent_id: nil)
+                         .order(:name)
   end
 
   def new
     if params[:field_id]
-      @field = Field.find(params[:field_id]).children.new
+      @field = @lab.fields.find(params[:field_id]).children.new
     else
-      @field = Field.new
+      @field = @lab.fields.new
     end
 
     render 'form'
   end
 
   def create
-    @field = Field.new(strong_params)
+    @field     = @lab.fields.new(strong_params)
+    @field.lab = @lab
 
     if @field.save
-      redirect_to admin_fields_path
+      redirect_to admin_lab_fields_path(@lab)
     else
       set_flash_now_errors(@field)
       render 'form'
@@ -32,7 +36,7 @@ class Admin::FieldsController < Admin::BaseController
 
   def update
     if @field.update(strong_params)
-      redirect_to admin_fields_path
+      redirect_to admin_lab_fields_path(@lab)
     else
       set_flash_now_errors(@field)
       render 'form'
@@ -41,13 +45,17 @@ class Admin::FieldsController < Admin::BaseController
 
   def destroy
     @field.destroy
-    redirect_to admin_fields_path
+    redirect_to admin_lab_fields_path(@lab)
   end
 
   protected
 
+  def find_lab
+    @lab = Lab.find_by_slug(params[:lab_id])
+  end
+
   def find_field
-    @field = Field.find(params[:id])
+    @field = @lab.fields.find(params[:id])
   end
 
   private

@@ -2,6 +2,8 @@ class Lab < ApplicationRecord
 
   # Associations
 
+  has_many :fields
+
   has_many :lab_user_links, :dependent => :destroy
   has_many :users, :through => :lab_user_links
 

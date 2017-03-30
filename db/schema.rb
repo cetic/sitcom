@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161019093223) do
+ActiveRecord::Schema.define(version: 20170330075727) do
 
   create_table "contact_event_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "contact_id"
@@ -117,10 +117,12 @@ ActiveRecord::Schema.define(version: 20161019093223) do
   end
 
   create_table "fields", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "lab_id"
     t.integer  "parent_id"
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["lab_id"], name: "index_fields_on_lab_id", using: :btree
     t.index ["parent_id"], name: "index_fields_on_parent_id", using: :btree
   end
 

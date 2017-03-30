@@ -2,6 +2,8 @@ class Field < ApplicationRecord
 
   # Associations
 
+  belongs_to :lab
+
   belongs_to :parent, :class_name => 'Field',
                       :optional   => true
 
@@ -15,7 +17,7 @@ class Field < ApplicationRecord
   # Validations
 
   validates :name, :presence   => { :message => "Le nom est obligatoire."  },
-                   :uniqueness => { :message => "Ce nom est déjà utilisé.", :scope => :parent_id }
+                   :uniqueness => { :message => "Ce nom est déjà utilisé.", :scope => [:lab_id, :parent_id] }
 
   # Callbacks
 
@@ -47,8 +49,8 @@ class Field < ApplicationRecord
 
   # Class Methods
 
-  def self.root_options(allow_blank = false)
-    options = where(parent_id: nil).order(:name).collect do |field|
+  def self.root_options(lab, allow_blank = false)
+    options = lab.fields.where(parent_id: nil).order(:name).collect do |field|
       [ field.name, field.id ]
     end
 

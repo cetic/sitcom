@@ -2,19 +2,19 @@
   <div class="row">
     <div class="panel col-md-6 col-md-offset-3">
       <ol class="breadcrumb">
-        <li><%= link_to 'Expertises', admin_fields_path %></li>
+        <li><%= link_to 'Expertises', admin_lab_fields_path(@lab) %></li>
         <li class="active"><%= params[:action].in?(['new', 'create']) ? 'Créer une expertise' : 'Modifier une expertise' %></li>
       </ol>
 
       <%= render 'shared/flash' %>
 
-      <%= form_for([:admin, @field], :html => { :class => 'form-horizontal' }) do |f| %>
+      <%= form_for([:admin, @lab, @field], :html => { :class => 'form-horizontal' }) do |f| %>
         <fieldset>
           <div class="form-group">
             <%= f.label :parent_id, 'Parent', :class => 'control-label col-md-3' %>
 
             <div class="col-md-9">
-              <%= f.select :parent_id, Field.root_options(true), {}, :class => 'form-control' %>
+              <%= f.select :parent_id, Field.root_options(@lab, true), {}, :class => 'form-control' %>
             </div>
           </div>
 
@@ -28,7 +28,7 @@
         </fieldset>
 
         <div class="actions">
-          <%= link_to 'Annuler', admin_fields_path, :class => 'btn btn-default' %>
+          <%= link_to 'Annuler', admin_lab_fields_path(@lab), :class => 'btn btn-default' %>
           <%= f.submit 'Enregistrer', :class => 'btn btn-primary' %>
         </div>
       <% end %>

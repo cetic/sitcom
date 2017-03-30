@@ -18,10 +18,6 @@
             <li class="<%= params[:controller] == 'admin/labs' || params[:controller] == 'admin/custom_fields' ? 'selected' : '' %>">
               <a href="<%= admin_labs_path %>">Labs</a>
             </li>
-
-            <li class="<%= params[:controller] == 'admin/fields' ? 'selected' : '' %>">
-              <a href="<%= admin_fields_path %>">Expertises</a>
-            </li>
           </ul>
         <% elsif @lab %>
           <div class="navbar-header">
