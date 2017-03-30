@@ -32,6 +32,7 @@ task :clone_to_development do
     execute "bundle exec rake db:create"
     execute "mysql -u #{dev_env_mysql_username} #{passwd_option} #{dev_env_mysql_database} < tmp/#{env_name}.sql"
     execute "bundle exec rake db:migrate"
+    execute "bundle exec rake environment elasticsearch:import:all FORCE=true"
   end
 
   # # public/system and private/system

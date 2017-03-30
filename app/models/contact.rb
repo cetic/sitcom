@@ -104,6 +104,10 @@ class Contact < ApplicationRecord
     [ first_name, last_name ].join(' ')
   end
 
+  def sort_name
+    [ last_name, first_name ].join(' ')
+  end
+
   def path
     Rails.application.routes.url_helpers.lab_contact_path(lab, self)
   end
