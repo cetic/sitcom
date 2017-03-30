@@ -1,3 +1,5 @@
+import * as EmailValidator from 'email-validator'
+
 class NewContact extends React.Component {
   constructor(props) {
     super(props)
@@ -5,6 +7,7 @@ class NewContact extends React.Component {
     this.state = {
       firstName: '',
       lastName:  '',
+      email:  '',
       errors:    ''
     }
   }
@@ -31,10 +34,16 @@ class NewContact extends React.Component {
     this.setState({ lastName: e.target.value })
   }
 
+  updateEmail(e) {
+    this.setState({ email: e.target.value })
+  }
+
   backendCreateNewContactAndRedirect(e) {
     e.preventDefault()
 
-    if(this.state.firstName != '' && this.state.lastName != '') {
+    if(this.state.firstName != '' &&
+       this.state.lastName != ''  &&
+       (this.state.email == '' || EmailValidator.validate(this.state.email))) {
       var params = {
         contact: {
           firstName: this.state.firstName,
@@ -101,6 +110,20 @@ class NewContact extends React.Component {
                              required="required"
                              type="text"
                              id="last-name"/>
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label className="control-label col-md-4" htmlFor="email">
+                      Email
+                    </label>
+                    <div className="col-md-8">
+                      <input value={this.state.email}
+                             onChange={this.updateEmail.bind(this)}
+                             ref="email"
+                             className="form-control"
+                             type="email"
+                             id="email"/>
                     </div>
                   </div>
                 </div>
