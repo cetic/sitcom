@@ -29,7 +29,7 @@ class Project < ApplicationRecord
   # Callbacks
 
   after_commit   :after_create_callback, on: :create
-  after_commit   :after_update_callback, on: :update
+  around_update  :around_update_callback
   around_destroy :around_destroy_callback
 
   def after_create_callback
@@ -41,10 +41,14 @@ class Project < ApplicationRecord
     ReindexProjectWorker.perform_async(id)
   end
 
-  def after_update_callback
+  def around_update_callback
+    saved_contact_ids = contacts.pluck(:id)
+
+    yield
+
     # websockets
     cable_update
-    contacts.each(&:cable_update)
+    Contact.where(:id => saved_contact_ids).each(&:cable_update)
 
     # elasticsearch
     ReindexProjectWorker.perform_async(id)

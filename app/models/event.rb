@@ -32,7 +32,7 @@ class Event < ApplicationRecord
   # Callbacks
 
   after_commit   :after_create_callback, on: :create
-  after_commit   :after_update_callback, on: :update
+  around_update  :around_update_callback
   around_destroy :around_destroy_callback
 
   def after_create_callback
@@ -44,10 +44,14 @@ class Event < ApplicationRecord
     ReindexEventWorker.perform_async(id)
   end
 
-  def after_update_callback
+  def around_update_callback
+    saved_contact_ids = contacts.pluck(:id)
+
+    yield
+
     # websockets
     cable_update
-    contacts.each(&:cable_update)
+    Contact.where(:id => saved_contact_ids).each(&:cable_update)
 
     # elasticsearch
     ReindexEventWorker.perform_async(id)

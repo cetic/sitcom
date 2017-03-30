@@ -49,9 +49,9 @@ class Contact < ApplicationRecord
 
   # Callbacks
 
-  after_commit   :after_create_callback, on: :create
-  after_commit   :after_update_callback, on: :update
-  around_destroy :around_destroy_callback
+  after_commit    :after_create_callback, on: :create
+  around_update   :around_update_callback
+  around_destroy  :around_destroy_callback
 
   def after_create_callback
     # websockets
@@ -64,12 +64,18 @@ class Contact < ApplicationRecord
     ReindexContactWorker.perform_async(id)
   end
 
-  def after_update_callback
+  def around_update_callback
+    saved_organization_ids = organizations.pluck(:id)
+    saved_project_ids      = projects.pluck(:id)
+    saved_event_ids        = events.pluck(:id)
+
+    yield
+
     # websockets
     cable_update
-    organizations.each(&:cable_update)
-    projects.each(&:cable_update)
-    events.each(&:cable_update)
+    Organization.where(:id => saved_organization_ids).each(&:cable_update)
+    Project.where(     :id => saved_project_ids     ).each(&:cable_update)
+    Event.where(       :id => saved_event_ids       ).each(&:cable_update)
 
     # elasticsearch
     ReindexContactWorker.perform_async(id)
@@ -91,8 +97,8 @@ class Contact < ApplicationRecord
     # websockets
     cable_destroy
     Organization.where(:id => saved_organization_ids).each(&:cable_update)
-    Project.where(:id => saved_project_ids).each(&:cable_update)
-    Event.where(:id => saved_event_ids).each(&:cable_update)
+    Project.where(     :id => saved_project_ids     ).each(&:cable_update)
+    Event.where(       :id => saved_event_ids       ).each(&:cable_update)
 
     # elasticsearch
     ReindexContactWorker.perform_async(saved_id, 'delete', saved_organization_ids, saved_project_ids, saved_event_ids)
