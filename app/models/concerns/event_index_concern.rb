@@ -69,6 +69,7 @@ module EventIndexConcern
       {
         :id   => link.id,
         :role => link.role,
+        :path => link.path,
 
         :contact => link.contact.as_indexed_json({
           :simple => true
@@ -82,6 +83,7 @@ module EventIndexConcern
       {
         :id   => link.id,
         :role => link.role,
+        :path => link.path,
 
         :organization => link.organization.as_indexed_json({
           :simple => true
@@ -95,6 +97,7 @@ module EventIndexConcern
       {
         :id   => link.id,
         :role => link.role,
+        :path => link.path,
 
         :project => link.project.as_indexed_json({
           :simple => true

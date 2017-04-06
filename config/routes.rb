@@ -136,6 +136,13 @@ Rails.application.routes.draw do
         get :options
       end
     end
+
+    resources :contact_organization_links, :only => [:update]
+    resources :contact_event_links,        :only => [:update]
+    resources :contact_project_links,      :only => [:update]
+    resources :event_organization_links,   :only => [:update]
+    resources :organization_project_links, :only => [:update]
+    resources :event_project_links,        :only => [:update]
   end
 
   root to: 'labs#index'

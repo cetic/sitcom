@@ -97,6 +97,7 @@ module ContactIndexConcern
       {
         :id   => link.id,
         :role => link.role,
+        :path => link.path,
 
         :organization => link.organization.as_indexed_json({
           :simple => true
@@ -110,6 +111,7 @@ module ContactIndexConcern
       {
         :id   => link.id,
         :role => link.role,
+        :path => link.path,
 
         :event => link.event.as_indexed_json({
           :simple => true
@@ -123,6 +125,7 @@ module ContactIndexConcern
       {
         :id   => link.id,
         :role => link.role,
+        :path => link.path,
 
         :project => link.project.as_indexed_json({
           :simple => true

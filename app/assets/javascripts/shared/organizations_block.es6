@@ -1,5 +1,7 @@
 import Select from 'react-select'
 
+import Organization from './organizations_block/organization.es6'
+
 class OrganizationsBlock extends React.Component {
   constructor(props) {
     super(props)
@@ -72,7 +74,7 @@ class OrganizationsBlock extends React.Component {
   renderOrganizations() {
     if(this.props.parent.organizationLinks.length) {
       var organizationDivs = _.map(this.props.parent.organizationLinks, (organizationLink) => {
-        return this.renderItem(organizationLink)
+        return this.renderOrganization(organizationLink)
       })
 
       return (
@@ -92,29 +94,14 @@ class OrganizationsBlock extends React.Component {
     }
   }
 
-  renderItem(organizationLink) {
+  renderOrganization(organizationLink) {
     return (
-      <div className="col-md-6 association organization" key={organizationLink.organization.id}>
-        <div className="association-inside">
-          <img className="img-thumbnail" src={organizationLink.organization.thumbPictureUrl} />
-          <h4>
-            <Link to={organizationLink.organization.scopedPath}>{organizationLink.organization.name}</Link>
-          </h4>
-
-          {this.renderRemoveIcon(organizationLink.organization)}
-        </div>
-      </div>
+      <Organization key={organizationLink.organization.id}
+                    organizationLink={organizationLink}
+                    canWrite={this.props.canWrite}
+                    removeOrganization={this.removeOrganization.bind(this)}
+                    linkName={this.props.linkName} />
     )
-  }
-
-  renderRemoveIcon(organization) {
-    if(this.props.canWrite) {
-      return (
-        <i className="fa fa-times remove-icon"
-          onClick={this.removeOrganization.bind(this, organization)}>
-        </i>
-      )
-    }
   }
 
   renderSelect() {

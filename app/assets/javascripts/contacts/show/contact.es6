@@ -221,6 +221,7 @@ class Contact extends React.Component {
                             parentType="contact"
                             parentPath={this.contactPath()}
                             optionsPath={this.props.organizationOptionsPath}
+                            linkName="contactOrganizationLink"
                             canWrite={this.props.permissions.canWriteContacts} />
       )
     }

@@ -67,6 +67,7 @@ module ProjectIndexConcern
       {
         :id   => link.id,
         :role => link.role,
+        :path => link.path,
 
         :contact => link.contact.as_indexed_json({
           :simple => true
@@ -80,6 +81,7 @@ module ProjectIndexConcern
       {
         :id   => link.id,
         :role => link.role,
+        :path => link.path,
 
         :organization => link.organization.as_indexed_json({
           :simple => true
@@ -93,6 +95,7 @@ module ProjectIndexConcern
       {
         :id   => link.id,
         :role => link.role,
+        :path => link.path,
 
         :event => link.event.as_indexed_json({
           :simple => true
