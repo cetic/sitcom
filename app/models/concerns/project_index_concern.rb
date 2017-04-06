@@ -54,35 +54,50 @@ module ProjectIndexConcern
       ActiveSupport::HashWithIndifferentAccess.new(fields)
     else
       ActiveSupport::HashWithIndifferentAccess.new(fields.merge({
-        :contacts      => contacts_as_indexed_json,
-        :organizations => organizations_as_indexed_json,
-        :events        => events_as_indexed_json,
-        :notes         => notes_as_indexed_json
+        :contact_links      => contact_links_as_indexed_json,
+        :organization_links => organization_links_as_indexed_json,
+        :event_links        => event_links_as_indexed_json,
+        :notes             => notes_as_indexed_json
       }))
     end
   end
 
-  def contacts_as_indexed_json
-    contacts.collect do |contact|
-      contact.as_indexed_json({
-        :simple => true
-      })
+  def contact_links_as_indexed_json
+    contact_project_links.collect do |link|
+      {
+        :id   => link.id,
+        :role => link.role,
+
+        :contact => link.contact.as_indexed_json({
+          :simple => true
+        })
+      }
     end
   end
 
-  def organizations_as_indexed_json
-    organizations.collect do |organization|
-      organization.as_indexed_json({
-        :simple => true
-      })
+  def organization_links_as_indexed_json
+    organization_project_links.collect do |link|
+      {
+        :id   => link.id,
+        :role => link.role,
+
+        :organization => link.organization.as_indexed_json({
+          :simple => true
+        })
+      }
     end
   end
 
-  def events_as_indexed_json
-    events.collect do |event|
-      event.as_indexed_json({
-        :simple => true
-      })
+  def event_links_as_indexed_json
+    event_project_links.collect do |link|
+      {
+        :id   => link.id,
+        :role => link.role,
+
+        :event => link.event.as_indexed_json({
+          :simple => true
+        })
+      }
     end
   end
 

@@ -200,7 +200,8 @@ class Event extends React.Component {
       return (
         <ItemsBlock label="Projets"
                     fieldName="projectIds"
-                    items={this.state.event.projects}
+                    itemLinks={this.state.event.projectLinks}
+                    itemType="project"
                     parent={this.state.event}
                     parentPath={this.eventPath()}
                     backendParentParam="event"

@@ -54,7 +54,7 @@ class ContactsBlock extends React.Component {
       <div className="associations-block contacts-block">
         <div className="row">
           <div className="col-md-12">
-            <h3>Contacts ({this.props.parent.contacts.length})</h3>
+            <h3>Contacts ({this.props.parent.contactLinks.length})</h3>
           </div>
         </div>
 
@@ -65,9 +65,9 @@ class ContactsBlock extends React.Component {
   }
 
   renderContacts() {
-    if(this.props.parent.contacts.length) {
-      var contactDivs = _.map(this.props.parent.contacts, (contact) => {
-        return this.renderItem(contact)
+    if(this.props.parent.contactLinks.length) {
+      var contactDivs = _.map(this.props.parent.contactLinks, (contactLink) => {
+        return this.renderItem(contactLink)
       })
 
       return (
@@ -87,7 +87,9 @@ class ContactsBlock extends React.Component {
     }
   }
 
-  renderItem(contact) {
+  renderItem(contactLink) {
+    const contact = contactLink.contact
+
     return (
       <div className="col-md-6 association contact" key={contact.id}>
         <div className="association-inside">

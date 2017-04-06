@@ -13,6 +13,12 @@ class OrganizationsBlock extends React.Component {
     this.reloadOptionsFromBackend()
   }
 
+  organizationIds() {
+    return _.map(this.props.parent.organizationLinks, (link) => {
+      return link.organization.id
+    })
+  }
+
   reloadOptionsFromBackend() {
     http.get(this.props.optionsPath, {}, (data) => {
       this.setState({
@@ -23,7 +29,7 @@ class OrganizationsBlock extends React.Component {
 
   removeOrganization(organization) {
     if(confirm("Délier cette organisation ?")) {
-      var organizationIds = _.filter(this.props.parent.organizationIds, (organizationId) => {
+      var organizationIds = _.filter(this.organizationIds(), (organizationId) => {
         return organizationId != organization.id
       })
 
@@ -33,7 +39,7 @@ class OrganizationsBlock extends React.Component {
 
   addOrganization(option) {
     this.saveOnBackend(
-      _.uniq(_.concat(this.props.parent.organizationIds, option.value))
+      _.uniq(_.concat(this.organizationIds(), option.value))
     )
   }
 
@@ -53,7 +59,7 @@ class OrganizationsBlock extends React.Component {
       <div className="associations-block organizations-block">
         <div className="row">
           <div className="col-md-12">
-            <h3>Organisations ({this.props.parent.organizations.length})</h3>
+            <h3>Organisations ({this.props.parent.organizationLinks.length})</h3>
           </div>
         </div>
 
@@ -64,9 +70,9 @@ class OrganizationsBlock extends React.Component {
   }
 
   renderOrganizations() {
-    if(this.props.parent.organizations.length) {
-      var organizationDivs = _.map(this.props.parent.organizations, (organization) => {
-        return this.renderItem(organization)
+    if(this.props.parent.organizationLinks.length) {
+      var organizationDivs = _.map(this.props.parent.organizationLinks, (organizationLink) => {
+        return this.renderItem(organizationLink)
       })
 
       return (
@@ -86,16 +92,16 @@ class OrganizationsBlock extends React.Component {
     }
   }
 
-  renderItem(organization) {
+  renderItem(organizationLink) {
     return (
-      <div className="col-md-6 association organization" key={organization.id}>
+      <div className="col-md-6 association organization" key={organizationLink.organization.id}>
         <div className="association-inside">
-          <img className="img-thumbnail" src={organization.thumbPictureUrl} />
+          <img className="img-thumbnail" src={organizationLink.organization.thumbPictureUrl} />
           <h4>
-            <Link to={organization.scopedPath}>{organization.name}</Link>
+            <Link to={organizationLink.organization.scopedPath}>{organizationLink.organization.name}</Link>
           </h4>
 
-          {this.renderRemoveIcon(organization)}
+          {this.renderRemoveIcon(organizationLink.organization)}
         </div>
       </div>
     )
@@ -114,7 +120,7 @@ class OrganizationsBlock extends React.Component {
   renderSelect() {
     if(this.props.canWrite) {
       var filteredOptions = _.reject(this.state.options, (option) => {
-        return _.includes(this.props.parent.organizationIds, option.value)
+        return _.includes(this.organizationIds(), option.value)
       })
 
       return (

@@ -112,13 +112,13 @@ class Contact extends React.Component {
   }
 
   renderOrganizations() {
-    return _.map(this.props.contact.organizations, (organization, i) => {
+    return _.map(this.props.contact.organizationLinks, (organizationLink, i) => {
       return (
-        <span key={organization.id}>
-          <Link to={'/organizations/' + organization.id}>
-            { organization.name }
+        <span key={organizationLink.organization.id}>
+          <Link to={'/organizationLink.organizations/' + organizationLink.organization.id}>
+            { organizationLink.organization.name }
           </Link>
-          { this.props.contact.organizations.length - 1 == i ? '' : ', '}
+          { this.props.contact.organizationLinks.length - 1 == i ? '' : ', '}
         </span>
       )
     })
@@ -177,7 +177,7 @@ class Contact extends React.Component {
   }
 
   renderProjects() {
-    var l = this.props.contact.projects.length
+    var l = this.props.contact.projectLinks.length
 
     if(l) {
       return (
@@ -190,7 +190,7 @@ class Contact extends React.Component {
   }
 
   renderEvents() {
-    var l = this.props.contact.events.length
+    var l = this.props.contact.eventLinks.length
 
     if(l) {
       return (

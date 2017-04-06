@@ -19,6 +19,7 @@ class Event extends React.Component {
 
           <span className="associations">
             { this.renderContacts() }
+            { this.renderOrganizations() }
           </span>
 
           <br/>
@@ -46,13 +47,26 @@ class Event extends React.Component {
   }
 
   renderContacts() {
-    var l = this.props.event.contacts.length
+    var l = this.props.event.contactLinks.length
 
     if(l) {
       return (
-        <a className="association contacts"
+        <a className="association contactLinks"
            href="javascript:;">
-          <em>{ l }</em> { l == 1 ? 'participant' : 'participants' }
+          <em>{ l }</em> { l == 1 ? 'contact' : 'contacts' }
+        </a>
+      )
+    }
+  }
+
+  renderOrganizations() {
+    var l = this.props.event.organizationLinks.length
+
+    if(l) {
+      return (
+        <a className="association organizations"
+           href="javascript:;">
+          <em>{ l }</em> { l == 1 ? 'organisation' : 'organisations' }
         </a>
       )
     }

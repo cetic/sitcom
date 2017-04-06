@@ -231,7 +231,8 @@ class Contact extends React.Component {
       return (
         <ItemsBlock label="Projets"
                     fieldName="projectIds"
-                    items={this.state.contact.projects}
+                    itemLinks={this.state.contact.projectLinks}
+                    itemType="project"
                     parent={this.state.contact}
                     parentPath={this.contactPath()}
                     backendParentParam="contact"
@@ -248,7 +249,8 @@ class Contact extends React.Component {
       return (
         <ItemsBlock label="Évènements"
                     fieldName="eventIds"
-                    items={this.state.contact.events}
+                    itemLinks={this.state.contact.eventLinks}
+                    itemType="event"
                     parent={this.state.contact}
                     parentPath={this.contactPath()}
                     backendParentParam="contact"

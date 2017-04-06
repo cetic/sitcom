@@ -187,7 +187,8 @@ class Organization extends React.Component {
       return (
         <ItemsBlock label="Projets"
                     fieldName="projectIds"
-                    items={this.state.organization.projects}
+                    itemLinks={this.state.organization.projectLinks}
+                    itemType="project"
                     parent={this.state.organization}
                     parentPath={this.organizationPath()}
                     backendParentParam="organization"
@@ -204,7 +205,8 @@ class Organization extends React.Component {
       return (
         <ItemsBlock label="Évènements"
                     fieldName="eventIds"
-                    items={this.state.organization.events}
+                    itemLinks={this.state.organization.eventLinks}
+                    itemType="event"
                     parent={this.state.organization}
                     parentPath={this.organizationPath()}
                     backendParentParam="organization"

@@ -81,38 +81,53 @@ module ContactIndexConcern
       ActiveSupport::HashWithIndifferentAccess.new(fields)
     else
       ActiveSupport::HashWithIndifferentAccess.new(fields.merge({
-        :organizations => organizations_as_indexed_json,
-        :events        => events_as_indexed_json,
-        :projects      => projects_as_indexed_json,
-        :fields        => fields_as_indexed_json,
-        :notes         => notes_as_indexed_json,
-        :tags          => tags_as_indexed_json,
-        :custom_fields => custom_fields_as_json
+        :organization_links => organization_links_as_indexed_json,
+        :event_links        => event_links_as_indexed_json,
+        :project_links      => project_links_as_indexed_json,
+        :fields             => fields_as_indexed_json,
+        :notes              => notes_as_indexed_json,
+        :tags               => tags_as_indexed_json,
+        :custom_fields      => custom_fields_as_json
       }))
     end
   end
 
-  def organizations_as_indexed_json
-    organizations.collect do |organization|
-      organization.as_indexed_json({
-        :simple => true
-      })
+  def organization_links_as_indexed_json
+    contact_organization_links.collect do |link|
+      {
+        :id   => link.id,
+        :role => link.role,
+
+        :organization => link.organization.as_indexed_json({
+          :simple => true
+        })
+      }
     end
   end
 
-  def events_as_indexed_json
-    events.collect do |event|
-      event.as_indexed_json({
-        :simple => true
-      })
+  def event_links_as_indexed_json
+    contact_event_links.collect do |link|
+      {
+        :id   => link.id,
+        :role => link.role,
+
+        :event => link.event.as_indexed_json({
+          :simple => true
+        })
+      }
     end
   end
 
-  def projects_as_indexed_json
-    projects.collect do |project|
-      project.as_indexed_json({
-        :simple => true
-      })
+  def project_links_as_indexed_json
+    contact_project_links.collect do |link|
+      {
+        :id   => link.id,
+        :role => link.role,
+
+        :project => link.project.as_indexed_json({
+          :simple => true
+        })
+      }
     end
   end
 

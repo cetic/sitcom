@@ -53,7 +53,7 @@ class ItemsBlock extends React.Component {
       <div className="associations-block items-block">
         <div className="row">
           <div className="col-md-12">
-            <h3>{this.props.label} ({this.props.items.length})</h3>
+            <h3>{this.props.label} ({this.props.itemLinks.length})</h3>
           </div>
         </div>
 
@@ -64,9 +64,9 @@ class ItemsBlock extends React.Component {
   }
 
   renderItems() {
-    if(this.props.items.length) {
-      var itemDivs = _.map(this.props.items, (item) => {
-        return this.renderItem(item)
+    if(this.props.itemLinks.length) {
+      var itemDivs = _.map(this.props.itemLinks, (itemLink) => {
+        return this.renderItem(itemLink)
       })
 
       return (
@@ -86,7 +86,9 @@ class ItemsBlock extends React.Component {
     }
   }
 
-  renderItem(item) {
+  renderItem(itemLink) {
+    const item = itemLink[this.props.itemType]
+
     return (
       <div className="col-md-6 association item" key={item.id}>
         <div className="association-inside">

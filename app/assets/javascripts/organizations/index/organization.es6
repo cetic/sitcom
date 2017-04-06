@@ -35,13 +35,13 @@ class Organization extends React.Component {
   }
 
   renderContacts() {
-    return _.map(this.props.organization.contacts, (contact, i) => {
+    return _.map(this.props.organization.contactLinks, (contactLink, i) => {
       return (
-        <span key={contact.id}>
-          <Link to={'/contacts/' + contact.id}>
-            { contact.name }
+        <span key={contactLink.contact.id}>
+          <Link to={'/contacts/' + contactLink.contact.id}>
+            { contactLink.contact.name }
           </Link>
-          { this.props.organization.contacts.length - 1 == i ? '' : ', '}
+          { this.props.organization.contactLinks.length - 1 == i ? '' : ', '}
         </span>
       )
     })
