@@ -1,9 +1,11 @@
-import GeneralShow     from './general_show.es6'
-import GeneralEdit     from './general_edit.es6'
-import ContactsBlock   from '../../shared/contacts_block.es6'
-import NotesBlock      from '../../shared/notes_block.es6'
-import PreviousNextNav from '../../shared/previous_next_nav.es6'
-import LogEntries      from '../../shared/log_entries.es6'
+import GeneralShow        from './general_show.es6'
+import GeneralEdit        from './general_edit.es6'
+import ContactsBlock      from '../../shared/contacts_block.es6'
+import OrganizationsBlock from '../../shared/organizations_block.es6'
+import ItemsBlock         from '../../shared/items_block.es6'
+import NotesBlock         from '../../shared/notes_block.es6'
+import PreviousNextNav    from '../../shared/previous_next_nav.es6'
+import LogEntries         from '../../shared/log_entries.es6'
 
 class Project extends React.Component {
   constructor(props) {
@@ -116,6 +118,8 @@ class Project extends React.Component {
           { this.renderPreviousNextNav() }
           { this.renderGeneral() }
           { this.renderContacts() }
+          { this.renderOrganizations() }
+          { this.renderEvents() }
           { this.renderNotes() }
           { this.renderLogEntries() }
         </div>
@@ -179,6 +183,34 @@ class Project extends React.Component {
     }
   }
 
+  renderOrganizations() {
+    if(this.state.loaded) {
+      return (
+        <OrganizationsBlock parent={this.state.project}
+                            parentType="project"
+                            parentPath={this.projectPath()}
+                            optionsPath={this.props.organizationOptionsPath}
+                            canWrite={this.props.permissions.canWriteProjects} />
+      )
+    }
+  }
+
+  renderEvents() {
+    if(this.state.loaded) {
+      return (
+        <ItemsBlock label="Évènements"
+                    fieldName="eventIds"
+                    items={this.state.project.events}
+                    parent={this.state.project}
+                    parentPath={this.projectPath()}
+                    backendParentParam="project"
+                    removeConfirmMessage="Délier cet évènement du projet ?"
+                    emptyMessage="Aucun évènement."
+                    optionsPath={this.props.eventOptionsPath}
+                    canWrite={this.props.permissions.canWriteProjects} />
+      )
+    }
+  }
   renderNotes() {
     if(this.state.loaded) {
       return (

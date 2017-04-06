@@ -1,6 +1,7 @@
 import GeneralShow     from './general_show.es6'
 import GeneralEdit     from './general_edit.es6'
 import ContactsBlock   from '../../shared/contacts_block.es6'
+import ItemsBlock      from '../../shared/items_block.es6'
 import NotesBlock      from '../../shared/notes_block.es6'
 import PreviousNextNav from '../../shared/previous_next_nav.es6'
 import LogEntries      from '../../shared/log_entries.es6'
@@ -116,6 +117,8 @@ class Organization extends React.Component {
           { this.renderPreviousNextNav() }
           { this.renderGeneral() }
           { this.renderContacts() }
+          { this.renderProjects() }
+          { this.renderEvents() }
           { this.renderNotes() }
           { this.renderLogEntries() }
         </div>
@@ -175,6 +178,40 @@ class Organization extends React.Component {
                        parentPath={this.organizationPath()}
                        optionsPath={this.props.contactOptionsPath}
                        canWrite={this.props.permissions.canWriteOrganizations} />
+      )
+    }
+  }
+
+  renderProjects() {
+    if(this.state.loaded) {
+      return (
+        <ItemsBlock label="Projets"
+                    fieldName="projectIds"
+                    items={this.state.organization.projects}
+                    parent={this.state.organization}
+                    parentPath={this.organizationPath()}
+                    backendParentParam="organization"
+                    removeConfirmMessage="Délier ce projet de l'organisation ?"
+                    emptyMessage="Aucun projet."
+                    optionsPath={this.props.projectOptionsPath}
+                    canWrite={this.props.permissions.canWriteOrganizations} />
+      )
+    }
+  }
+
+  renderEvents() {
+    if(this.state.loaded) {
+      return (
+        <ItemsBlock label="Évènements"
+                    fieldName="eventIds"
+                    items={this.state.organization.events}
+                    parent={this.state.organization}
+                    parentPath={this.organizationPath()}
+                    backendParentParam="organization"
+                    removeConfirmMessage="Délier cet évènement de l'organisation ?"
+                    emptyMessage="Aucun évènement."
+                    optionsPath={this.props.eventOptionsPath}
+                    canWrite={this.props.permissions.canWriteOrganizations} />
       )
     }
   }

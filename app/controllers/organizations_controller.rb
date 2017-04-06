@@ -143,7 +143,9 @@ class OrganizationsController < ApplicationController
     params.require(:organization).permit(
       :name, :status, :description, :website_url,
       :picture,
-      :contact_ids => []
+      :contact_ids => [],
+      :event_ids   => [],
+      :project_ids => []
     )
   end
 

@@ -127,7 +127,9 @@ class ProjectsController < ApplicationController
     params.require(:project).permit(
       :name, :description, :start_date, :end_date,
       :picture,
-      :contact_ids => []
+      :contact_ids      => [],
+      :organization_ids => [],
+      :event_ids        => []
     )
   end
 

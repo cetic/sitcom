@@ -1,9 +1,11 @@
-import GeneralShow     from './general_show.es6'
-import GeneralEdit     from './general_edit.es6'
-import ContactsBlock   from '../../shared/contacts_block.es6'
-import NotesBlock      from '../../shared/notes_block.es6'
-import PreviousNextNav from '../../shared/previous_next_nav.es6'
-import LogEntries      from '../../shared/log_entries.es6'
+import GeneralShow        from './general_show.es6'
+import GeneralEdit        from './general_edit.es6'
+import ContactsBlock      from '../../shared/contacts_block.es6'
+import OrganizationsBlock from '../../shared/organizations_block.es6'
+import ItemsBlock         from '../../shared/items_block.es6'
+import NotesBlock         from '../../shared/notes_block.es6'
+import PreviousNextNav    from '../../shared/previous_next_nav.es6'
+import LogEntries         from '../../shared/log_entries.es6'
 
 class Event extends React.Component {
   constructor(props) {
@@ -116,6 +118,8 @@ class Event extends React.Component {
           { this.renderPreviousNextNav() }
           { this.renderGeneral() }
           { this.renderContacts() }
+          { this.renderOrganizations() }
+          { this.renderProjects() }
           { this.renderNotes() }
           { this.renderLogEntries() }
         </div>
@@ -175,6 +179,35 @@ class Event extends React.Component {
                        parentPath={this.eventPath()}
                        optionsPath={this.props.contactOptionsPath}
                        canWrite={this.props.permissions.canWriteEvents} />
+      )
+    }
+  }
+
+  renderOrganizations() {
+    if(this.state.loaded) {
+      return (
+        <OrganizationsBlock parent={this.state.event}
+                            parentType="event"
+                            parentPath={this.eventPath()}
+                            optionsPath={this.props.organizationOptionsPath}
+                            canWrite={this.props.permissions.canWriteEvents} />
+      )
+    }
+  }
+
+  renderProjects() {
+    if(this.state.loaded) {
+      return (
+        <ItemsBlock label="Projets"
+                    fieldName="projectIds"
+                    items={this.state.event.projects}
+                    parent={this.state.event}
+                    parentPath={this.eventPath()}
+                    backendParentParam="event"
+                    removeConfirmMessage="Délier ce projet de l'événement ?"
+                    emptyMessage="Aucun projet."
+                    optionsPath={this.props.projectOptionsPath}
+                    canWrite={this.props.permissions.canWriteEvents} />
       )
     }
   }

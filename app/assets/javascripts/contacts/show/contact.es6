@@ -3,7 +3,7 @@ import GeneralEdit        from './general_edit.es6'
 import SocialShow         from './social_show.es6'
 import SocialEdit         from './social_edit.es6'
 import OrganizationsBlock from '../../shared/organizations_block.es6'
-import ItemsBlock         from './items_block.es6'
+import ItemsBlock         from '../../shared/items_block.es6'
 import NotesBlock         from '../../shared/notes_block.es6'
 import PreviousNextNav    from '../../shared/previous_next_nav.es6'
 import CustomFieldsBlock  from '../../shared/custom_fields_block.es6'
@@ -232,8 +232,9 @@ class Contact extends React.Component {
         <ItemsBlock label="Projets"
                     fieldName="projectIds"
                     items={this.state.contact.projects}
-                    contact={this.state.contact}
-                    contactPath={this.contactPath()}
+                    parent={this.state.contact}
+                    parentPath={this.contactPath()}
+                    backendParentParam="contact"
                     removeConfirmMessage="Délier ce projet du contact ?"
                     emptyMessage="Aucun projet."
                     optionsPath={this.props.projectOptionsPath}
@@ -248,8 +249,9 @@ class Contact extends React.Component {
         <ItemsBlock label="Évènements"
                     fieldName="eventIds"
                     items={this.state.contact.events}
-                    contact={this.state.contact}
-                    contactPath={this.contactPath()}
+                    parent={this.state.contact}
+                    parentPath={this.contactPath()}
+                    backendParentParam="contact"
                     removeConfirmMessage="Délier cet évènement du contact ?"
                     emptyMessage="Aucun évènement."
                     optionsPath={this.props.eventOptionsPath}

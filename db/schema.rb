@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170330075727) do
+ActiveRecord::Schema.define(version: 20170406081204) do
 
   create_table "contact_event_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "contact_id"
+    t.string   "role",       default: ""
     t.integer  "event_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.index ["contact_id"], name: "index_contact_event_links_on_contact_id", using: :btree
     t.index ["event_id"], name: "index_contact_event_links_on_event_id", using: :btree
   end
@@ -32,18 +33,20 @@ ActiveRecord::Schema.define(version: 20170330075727) do
 
   create_table "contact_organization_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "contact_id"
+    t.string   "role",            default: ""
     t.integer  "organization_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.index ["contact_id"], name: "index_contact_organization_links_on_contact_id", using: :btree
     t.index ["organization_id"], name: "index_contact_organization_links_on_organization_id", using: :btree
   end
 
   create_table "contact_project_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "contact_id"
+    t.string   "role",       default: ""
     t.integer  "project_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.index ["contact_id"], name: "index_contact_project_links_on_contact_id", using: :btree
     t.index ["project_id"], name: "index_contact_project_links_on_project_id", using: :btree
   end
@@ -101,6 +104,26 @@ ActiveRecord::Schema.define(version: 20170330075727) do
     t.datetime "updated_at",                                   null: false
     t.index ["item_type"], name: "index_custom_fields_on_item_type", using: :btree
     t.index ["lab_id"], name: "index_custom_fields_on_lab_id", using: :btree
+  end
+
+  create_table "event_organization_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "event_id"
+    t.string   "role",            default: ""
+    t.integer  "organization_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["event_id"], name: "index_event_organization_links_on_event_id", using: :btree
+    t.index ["organization_id"], name: "index_event_organization_links_on_organization_id", using: :btree
+  end
+
+  create_table "event_project_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "event_id"
+    t.string   "role",       default: ""
+    t.integer  "project_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["event_id"], name: "index_event_project_links_on_event_id", using: :btree
+    t.index ["project_id"], name: "index_event_project_links_on_project_id", using: :btree
   end
 
   create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
@@ -176,6 +199,16 @@ ActiveRecord::Schema.define(version: 20170330075727) do
     t.datetime "updated_at",                 null: false
     t.index ["notable_id"], name: "index_notes_on_notable_id", using: :btree
     t.index ["user_id"], name: "index_notes_on_user_id", using: :btree
+  end
+
+  create_table "organization_project_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "organization_id"
+    t.string   "role",            default: ""
+    t.integer  "project_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["organization_id"], name: "index_organization_project_links_on_organization_id", using: :btree
+    t.index ["project_id"], name: "index_organization_project_links_on_project_id", using: :btree
   end
 
   create_table "organizations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
@@ -256,6 +289,10 @@ ActiveRecord::Schema.define(version: 20170330075727) do
   add_foreign_key "contacts", "labs"
   add_foreign_key "custom_field_links", "custom_fields"
   add_foreign_key "custom_fields", "labs"
+  add_foreign_key "event_organization_links", "events"
+  add_foreign_key "event_organization_links", "organizations"
+  add_foreign_key "event_project_links", "events"
+  add_foreign_key "event_project_links", "projects"
   add_foreign_key "events", "labs"
   add_foreign_key "fields", "fields", column: "parent_id"
   add_foreign_key "lab_user_links", "labs"
@@ -263,6 +300,8 @@ ActiveRecord::Schema.define(version: 20170330075727) do
   add_foreign_key "log_entries", "labs"
   add_foreign_key "log_entries", "users"
   add_foreign_key "notes", "users"
+  add_foreign_key "organization_project_links", "organizations"
+  add_foreign_key "organization_project_links", "projects"
   add_foreign_key "organizations", "labs"
   add_foreign_key "projects", "labs"
   add_foreign_key "saved_searches", "labs"

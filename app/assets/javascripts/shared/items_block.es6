@@ -24,7 +24,7 @@ class ItemsBlock extends React.Component {
 
   removeItem(item) {
     if(confirm(this.props.removeConfirmMessage)) {
-      var itemIds = _.filter(this.props.contact[this.props.fieldName], (itemId) => {
+      var itemIds = _.filter(this.props.parent[this.props.fieldName], (itemId) => {
         return itemId != item.id
       })
 
@@ -34,18 +34,18 @@ class ItemsBlock extends React.Component {
 
   addItem(option) {
     this.saveOnBackend(
-      _.uniq(_.concat(this.props.contact[this.props.fieldName], option.value))
+      _.uniq(_.concat(this.props.parent[this.props.fieldName], option.value))
     )
   }
 
   saveOnBackend(itemIds) {
     var params = {
-      contact: {}
+      [`${this.props.backendParentParam}`]: {
+        [`${this.props.fieldName}`]: itemIds.length ? itemIds : [''] // [''] is a way for the rails server to keep the empty array
+      }
     }
 
-    params.contact[this.props.fieldName] = itemIds.length ? itemIds : [''] // [''] is a way for the rails server to keep the empty array
-
-    http.put(this.props.contactPath, params)
+    http.put(this.props.parentPath, params)
   }
 
   render() {
@@ -97,11 +97,7 @@ class ItemsBlock extends React.Component {
 
           {this.renderRemoveIcon(item)}
           {this.renderDates(item)}
-
-          <div className="members">
-            <i className="fa fa-group"></i>
-            {item.contactIds.length}
-          </div>
+          {this.renderContactsCount(item)}
         </div>
       </div>
     )
@@ -130,10 +126,21 @@ class ItemsBlock extends React.Component {
     }
   }
 
+  renderContactsCount(item) {
+    if(item.contactIds) {
+      return (
+        <div className="members">
+          <i className="fa fa-group"></i>
+          {item.contactIds.length}
+        </div>
+      )
+    }
+  }
+
   renderSelect() {
     if(this.props.canWrite) {
       var filteredOptions = _.reject(this.state.options, (option) => {
-        return _.includes(this.props.contact[this.props.fieldName], option.value)
+        return _.includes(this.props.parent[this.props.fieldName], option.value)
       })
 
       return (

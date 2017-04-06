@@ -127,7 +127,9 @@ class EventsController < ApplicationController
     params.require(:event).permit(
       :name, :description, :place, :happens_on, :website_url,
       :picture,
-      :contact_ids => []
+      :contact_ids      => [],
+      :organization_ids => [],
+      :project_ids      => []
     )
   end
 

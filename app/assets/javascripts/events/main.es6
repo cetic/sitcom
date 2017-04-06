@@ -61,6 +61,8 @@ class Main extends BaseMain {
              search={this.props.location.search}
              loadingImagePath={this.props.route.loadingImagePath}
              contactOptionsPath={this.props.route.contactOptionsPath}
+             organizationOptionsPath={this.props.route.organizationOptionsPath}
+             projectOptionsPath={this.props.route.projectOptionsPath}
              events={this.filteredItems()}
              router={this.props.router} />
     )

@@ -41,7 +41,9 @@ module ProjectIndexConcern
       :preview_picture_url => picture_url(:preview),
       :thumb_picture_url   => picture_url(:thumb),
 
-      :contact_ids => contact_ids,
+      :contact_ids      => contact_ids,
+      :organization_ids => organization_ids,
+      :event_ids        => event_ids,
 
       :sort_name => name,
 
@@ -52,8 +54,10 @@ module ProjectIndexConcern
       ActiveSupport::HashWithIndifferentAccess.new(fields)
     else
       ActiveSupport::HashWithIndifferentAccess.new(fields.merge({
-        :contacts => contacts_as_indexed_json,
-        :notes    => notes_as_indexed_json
+        :contacts      => contacts_as_indexed_json,
+        :organizations => organizations_as_indexed_json,
+        :events        => events_as_indexed_json,
+        :notes         => notes_as_indexed_json
       }))
     end
   end
@@ -61,6 +65,22 @@ module ProjectIndexConcern
   def contacts_as_indexed_json
     contacts.collect do |contact|
       contact.as_indexed_json({
+        :simple => true
+      })
+    end
+  end
+
+  def organizations_as_indexed_json
+    organizations.collect do |organization|
+      organization.as_indexed_json({
+        :simple => true
+      })
+    end
+  end
+
+  def events_as_indexed_json
+    events.collect do |event|
+      event.as_indexed_json({
         :simple => true
       })
     end
