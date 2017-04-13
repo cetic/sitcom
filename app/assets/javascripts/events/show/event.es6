@@ -177,6 +177,7 @@ class Event extends React.Component {
         <ContactsBlock parent={this.state.event}
                        parentType="event"
                        parentPath={this.eventPath()}
+                       linkName="contactEventLink"
                        optionsPath={this.props.contactOptionsPath}
                        canWrite={this.props.permissions.canWriteEvents} />
       )

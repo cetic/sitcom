@@ -1,5 +1,7 @@
 import Select from 'react-select'
 
+import Contact from './contacts_block/contact.es6'
+
 class ContactsBlock extends React.Component {
 
   constructor(props) {
@@ -67,7 +69,7 @@ class ContactsBlock extends React.Component {
   renderContacts() {
     if(this.props.parent.contactLinks.length) {
       var contactDivs = _.map(this.props.parent.contactLinks, (contactLink) => {
-        return this.renderItem(contactLink)
+        return this.renderContact(contactLink)
       })
 
       return (
@@ -87,31 +89,14 @@ class ContactsBlock extends React.Component {
     }
   }
 
-  renderItem(contactLink) {
-    const contact = contactLink.contact
-
+  renderContact(contactLink) {
     return (
-      <div className="col-md-6 association contact" key={contact.id}>
-        <div className="association-inside">
-          <img className="img-thumbnail" src={contact.thumbPictureUrl} />
-          <h4>
-            <Link to={contact.scopedPath}>{contact.name}</Link>
-          </h4>
-
-          {this.renderRemoveIcon(contact)}
-        </div>
-      </div>
+      <Contact key={contactLink.contact.id}
+               contactLink={contactLink}
+               canWrite={this.props.canWrite}
+               removeContact={this.removeContact.bind(this)}
+               linkName={this.props.linkName} />
     )
-  }
-
-  renderRemoveIcon(contact) {
-    if(this.props.canWrite) {
-      return (
-        <i className="fa fa-times remove-icon"
-           onClick={this.removeContact.bind(this, contact)}>
-        </i>
-      )
-    }
   }
 
   renderSelect() {

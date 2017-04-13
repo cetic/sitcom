@@ -177,6 +177,7 @@ class Project extends React.Component {
         <ContactsBlock parent={this.state.project}
                        parentType="project"
                        parentPath={this.projectPath()}
+                       linkName="contactProjectLink"
                        optionsPath={this.props.contactOptionsPath}
                        canWrite={this.props.permissions.canWriteProjects} />
       )

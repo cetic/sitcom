@@ -176,6 +176,7 @@ class Organization extends React.Component {
         <ContactsBlock parent={this.state.organization}
                        parentType="organization"
                        parentPath={this.organizationPath()}
+                       linkName="contactOrganizationLink"
                        optionsPath={this.props.contactOptionsPath}
                        canWrite={this.props.permissions.canWriteOrganizations} />
       )
