@@ -1,5 +1,7 @@
 import Select from 'react-select'
 
+import Item from './items_block/item.es6'
+
 class ItemsBlock extends React.Component {
 
   constructor(props) {
@@ -87,56 +89,14 @@ class ItemsBlock extends React.Component {
   }
 
   renderItem(itemLink) {
-    const item = itemLink[this.props.itemType]
-
     return (
-      <div className="col-md-6 association item" key={item.id}>
-        <div className="association-inside">
-          <img className="img-thumbnail" src={item.thumbPictureUrl} />
-          <h4>
-            <Link to={item.scopedPath}>{item.name}</Link>
-          </h4>
-
-          {this.renderRemoveIcon(item)}
-          {this.renderDates(item)}
-          {this.renderContactsCount(item)}
-        </div>
-      </div>
+      <Item key={itemLink.id}
+            itemLink={itemLink}
+            itemType={this.props.itemType}
+            canWrite={this.props.canWrite}
+            removeItem={this.removeItem.bind(this)}
+            linkName={this.props.linkName} />
     )
-  }
-
-  renderRemoveIcon(item) {
-    if(this.props.canWrite) {
-      return (
-        <i className="fa fa-times remove-icon"
-           onClick={this.removeItem.bind(this, item)}></i>
-      )
-    }
-  }
-
-  renderDates(item) {
-    if(this.props.fieldName == 'projectIds') {
-      return (
-        <span className="dates">{item.startDate} &rarr; {item.endDate}</span>
-      )
-    }
-
-    if(this.props.fieldName == 'eventIds') {
-      return (
-        <span className="dates">{item.happensOn}</span>
-      )
-    }
-  }
-
-  renderContactsCount(item) {
-    if(item.contactIds) {
-      return (
-        <div className="members">
-          <i className="fa fa-group"></i>
-          {item.contactIds.length}
-        </div>
-      )
-    }
   }
 
   renderSelect() {

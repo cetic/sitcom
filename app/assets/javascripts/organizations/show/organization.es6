@@ -196,7 +196,8 @@ class Organization extends React.Component {
                     removeConfirmMessage="Délier ce projet de l'organisation ?"
                     emptyMessage="Aucun projet."
                     optionsPath={this.props.projectOptionsPath}
-                    canWrite={this.props.permissions.canWriteOrganizations} />
+                    canWrite={this.props.permissions.canWriteOrganizations}
+                    linkName="organizationProjectLink"  />
       )
     }
   }
@@ -214,7 +215,8 @@ class Organization extends React.Component {
                     removeConfirmMessage="Délier cet évènement de l'organisation ?"
                     emptyMessage="Aucun évènement."
                     optionsPath={this.props.eventOptionsPath}
-                    canWrite={this.props.permissions.canWriteOrganizations} />
+                    canWrite={this.props.permissions.canWriteOrganizations}
+                    linkName="eventOrganizationLink"  />
       )
     }
   }

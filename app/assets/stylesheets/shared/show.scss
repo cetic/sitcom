@@ -505,6 +505,11 @@
           opacity: 0.0;
           transition: opacity .8s cubic-bezier(.25,.8,.25, 1);
         }
+
+        a.edit-role {
+          opacity: 0.0;
+          transition: opacity .8s cubic-bezier(.25,.8,.25, 1);
+        }
       }
 
       .association-inside:hover {
@@ -512,6 +517,11 @@
         transition: box-shadow .8s cubic-bezier(.25,.8,.25, 1);
 
         i.remove-icon {
+          opacity: 1.0;
+          transition: opacity .8s cubic-bezier(.25,.8,.25, 1);
+        }
+
+        a.edit-role {
           opacity: 1.0;
           transition: opacity .8s cubic-bezier(.25,.8,.25, 1);
         }

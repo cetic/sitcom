@@ -240,7 +240,8 @@ class Contact extends React.Component {
                     removeConfirmMessage="Délier ce projet du contact ?"
                     emptyMessage="Aucun projet."
                     optionsPath={this.props.projectOptionsPath}
-                    canWrite={this.props.permissions.canWriteContacts} />
+                    canWrite={this.props.permissions.canWriteContacts}
+                    linkName="contactProjectLink" />
       )
     }
   }
@@ -258,7 +259,8 @@ class Contact extends React.Component {
                     removeConfirmMessage="Délier cet évènement du contact ?"
                     emptyMessage="Aucun évènement."
                     optionsPath={this.props.eventOptionsPath}
-                    canWrite={this.props.permissions.canWriteContacts} />
+                    canWrite={this.props.permissions.canWriteContacts}
+                    linkName="contactEventLink"  />
       )
     }
   }

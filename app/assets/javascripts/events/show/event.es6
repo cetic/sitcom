@@ -190,6 +190,7 @@ class Event extends React.Component {
         <OrganizationsBlock parent={this.state.event}
                             parentType="event"
                             parentPath={this.eventPath()}
+                            linkName="eventOrganizationLink"
                             optionsPath={this.props.organizationOptionsPath}
                             canWrite={this.props.permissions.canWriteEvents} />
       )
@@ -209,7 +210,8 @@ class Event extends React.Component {
                     removeConfirmMessage="Délier ce projet de l'événement ?"
                     emptyMessage="Aucun projet."
                     optionsPath={this.props.projectOptionsPath}
-                    canWrite={this.props.permissions.canWriteEvents} />
+                    canWrite={this.props.permissions.canWriteEvents}
+                    linkName="eventProjectLink"  />
       )
     }
   }
