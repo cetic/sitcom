@@ -22,8 +22,8 @@ class MailchimpExportButton extends React.Component {
         listName: listName
       }
 
-      $.post(url, humps.decamelizeKeys(params), (data) => {
-        alert(data)
+      $.post(url, humps.decamelizeKeys(params), () => {
+
       })
     }
   }
