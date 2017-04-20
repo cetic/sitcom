@@ -48,6 +48,6 @@ class Admin::LabsController < Admin::BaseController
   private
 
   def strong_params
-    params.require(:lab).permit(:name)
+    params.require(:lab).permit(:name, :mailchimp_api_key)
   end
 end

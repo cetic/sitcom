@@ -10,6 +10,10 @@
 
       <%= form_for([:admin, @lab], :html => { :class => 'form-horizontal' }) do |f| %>
         <fieldset>
+          <% if @lab.persisted? %>
+            <legend>Général</legend>
+          <% end %>
+
           <div class="form-group">
             <%= f.label :name, 'Nom', :class => 'control-label col-md-3' %>
 
@@ -18,6 +22,21 @@
             </div>
           </div>
         </fieldset>
+
+        <% if @lab.persisted? %>
+          <fieldset>
+            <legend>Mailchimp</legend>
+
+            <div class="form-group">
+
+              <%= f.label :mailchimp_api_key, "Clé d'API", :class => 'control-label col-md-3' %>
+
+              <div class="col-md-9">
+                <%= f.text_field :mailchimp_api_key, :class => 'form-control' %>
+              </div>
+            </div>
+          </fieldset>
+        <% end %>
 
         <div class="actions">
           <%= link_to 'Annuler', admin_labs_path, :class => 'btn btn-default' %>
