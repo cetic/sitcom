@@ -275,7 +275,8 @@ class BaseMain extends React.Component {
                    quickSearch={filters.quickSearch}
                    updateQuickSearch={this.updateQuickSearch.bind(this)}
                    filters={filters}
-                   exportUrl={this.exportUrl} />
+                   exportUrl={this.exportUrl}
+                   mailchimpExportUrl={this.mailchimpExportUrl} />
     )
   }
 

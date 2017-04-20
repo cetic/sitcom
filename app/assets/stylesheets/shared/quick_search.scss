@@ -50,12 +50,26 @@
     }
   }
 
+  .fa-envelope-o {
+    position: absolute;
+    font-size: 13px;
+    top: 14px;
+    color: whitesmoke;
+    left: 485px;
+    opacity: 0.9;
+    cursor: pointer;
+
+    &.disabled {
+      color: #2c63b3;
+    }
+  }
+
   .results {
     position: absolute;
     font-size: 11px;
     top: 13px;
     color: whitesmoke;
-    left: 483px;
+    left: 510px;
     opacity: 0.9;
   }
 

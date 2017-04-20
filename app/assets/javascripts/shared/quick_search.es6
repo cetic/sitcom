@@ -1,14 +1,8 @@
-import ExportButton from '../shared/export_button.es6'
-import TagsSelector from './tags_selector.es6'
+import ExportButton          from '../shared/export_button.es6'
+import MailchimpExportButton from './quick_search/mailchimp_export_button.es6'
+import TagsSelector          from './tags_selector.es6'
 
 class QuickSearch extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-
-    }
-  }
 
   componentDidMount() {
     $(this.refs.search).focus()
@@ -40,9 +34,7 @@ class QuickSearch extends React.Component {
   render() {
     return (
       <div className="quick-search row">
-        <span className="title">
-          { this.props.title }
-        </span>
+        <span className="title">{this.props.title}</span>
 
         <input ref="search"
                type="search"
@@ -53,10 +45,11 @@ class QuickSearch extends React.Component {
 
         <i className="glyphicon glyphicon-search"></i>
 
-        { this.renderResetIcon() }
-        { this.renderResults() }
-        { this.renderExportButton() }
-        { this.renderTags() }
+        {this.renderResetIcon()}
+        {this.renderResults()}
+        {this.renderExportButton()}
+        {this.renderMailchimpExportButton()}
+        {this.renderTags()}
       </div>
     )
   }
@@ -75,6 +68,16 @@ class QuickSearch extends React.Component {
         <ExportButton selectedIds={this.props.selectedItemIds}
                       filters={this.props.filters}
                       exportUrl={this.props.exportUrl} />
+      )
+    }
+  }
+
+  renderMailchimpExportButton() {
+    if(this.props.isMailchimpConfigured && this.props.results != 0 && this.props.loaded) {
+      return (
+        <MailchimpExportButton selectedIds={this.props.selectedItemIds}
+                               filters={this.props.filters}
+                               mailchimpExportUrl={this.props.mailchimpExportUrl} />
       )
     }
   }

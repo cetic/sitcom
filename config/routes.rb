@@ -83,8 +83,9 @@ Rails.application.routes.draw do
       resources :custom_fields
 
       collection do
-        get :options
-        get :export
+        get  :options
+        get  :export
+        post :mailchimp_export
 
         resources :saved_searches, :item_type => 'contact'
       end

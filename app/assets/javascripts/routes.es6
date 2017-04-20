@@ -85,7 +85,8 @@ class Routes extends React.Component {
                                 tagOptionsPath={this.props.tagOptionsPath}
                                 fieldOptionsPath={this.props.fieldOptionsPath}
                                 organizationStatusesOptionsPath={this.props.organizationStatusesOptionsPath}
-                                loadingImagePath={this.props.loadingImagePath}>
+                                loadingImagePath={this.props.loadingImagePath}
+                                isMailchimpConfigured={this.props.isMailchimpConfigured}>
 
           <Route path=":id" component={DispatcherWithRouter} />
         </Route>

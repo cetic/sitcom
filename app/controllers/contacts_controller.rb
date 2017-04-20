@@ -128,6 +128,20 @@ class ContactsController < ApplicationController
     end
   end
 
+  def mailchimp_export
+    if PermissionsService.new(current_user, @lab).can_write?('contacts')
+      contacts = ContactSearch.new(current_user, params.merge({
+        :lab_id => @lab.id
+      })).run
+
+      Mailchimp::CreateListFromContactsWorker.perform_async(@lab.id, params[:list_name], contacts.map(&:id))
+
+      render :nothing => true
+    else
+      render_permission_error
+    end
+  end
+
   private
 
   # Encapsulate new picture in "contact" (don't know how to make it in JS)

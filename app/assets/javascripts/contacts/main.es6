@@ -10,12 +10,13 @@ class Main extends BaseMain {
   constructor(props) {
     super(props)
 
-    this.title          = 'Contacts'
-    this.itemType       = 'contact'
-    this.newButtonLabel = 'Nouveau contact'
-    this.SavedSearches  = SavedSearches
-    this.AdvancedSearch = AdvancedSearch
-    this.exportUrl      = `${this.props.route.contactsPath}/export`
+    this.title              = 'Contacts'
+    this.itemType           = 'contact'
+    this.newButtonLabel     = 'Nouveau contact'
+    this.SavedSearches      = SavedSearches
+    this.AdvancedSearch     = AdvancedSearch
+    this.exportUrl          = `${this.props.route.contactsPath}/export`
+    this.mailchimpExportUrl = `${this.props.route.contactsPath}/mailchimp_export`
 
     this.state = {
       items:           [],
@@ -83,9 +84,11 @@ class Main extends BaseMain {
                    updateQuickSearch={this.updateQuickSearch.bind(this)}
                    filters={filters}
                    exportUrl={this.exportUrl}
+                   mailchimpExportUrl={this.mailchimpExportUrl}
                    selectedItemIds={this.state.selectedItemIds}
                    tagOptionsPath={this.props.route.tagOptionsPath}
-                   unselectAllContacts={this.unselectAllItems.bind(this)} />
+                   unselectAllContacts={this.unselectAllItems.bind(this)}
+                   isMailchimpConfigured={this.props.route.isMailchimpConfigured} />
     )
   }
 
