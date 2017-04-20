@@ -2,6 +2,7 @@
   :permissions                        => current_user.permissions_for_lab(@lab),
   :current_user_id                    => current_user.id,
   :lab_id                             => @lab.id,
+  :is_mailchimp_configured            => @lab.mailchimp_configured?,
   :contact_custom_fields              => @lab.custom_fields_as_json('Contact'),
   :lab_path                           => lab_path(@lab),
   :contacts_path                      => lab_contacts_path(@lab),

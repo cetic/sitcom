@@ -48,4 +48,15 @@ class Lab < ApplicationRecord
     end
   end
 
+  def mailchimp_configured?
+    mailchimp_api_key.present?    &&
+    mailchimp_company.present?    &&
+    mailchimp_from_email.present? &&
+    mailchimp_address1.present?   &&
+    mailchimp_city.present?       &&
+    mailchimp_state.present?      &&
+    mailchimp_zip.present?        &&
+    mailchimp_country.present?
+  end
+
 end

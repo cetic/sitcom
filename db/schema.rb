@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420084008) do
+ActiveRecord::Schema.define(version: 20170420101555) do
 
   create_table "contact_event_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "contact_id"
@@ -170,8 +170,16 @@ ActiveRecord::Schema.define(version: 20170420084008) do
     t.string   "name"
     t.string   "slug"
     t.string   "mailchimp_api_key"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.string   "mailchimp_company"
+    t.string   "mailchimp_from_email"
+    t.string   "mailchimp_address1"
+    t.string   "mailchimp_address2"
+    t.string   "mailchimp_city"
+    t.string   "mailchimp_state"
+    t.string   "mailchimp_zip"
+    t.string   "mailchimp_country"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "log_entries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|

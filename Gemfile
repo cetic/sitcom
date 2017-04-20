@@ -40,6 +40,7 @@ gem 'dotenv-rails'
 gem 'roo'
 gem 'acts_as_list'
 gem 'puma', '~> 3.0'
+gem 'gibbon'
 
 # Deployment
 group :development do

@@ -1,0 +1,77 @@
+<fieldset>
+  <legend>Mailchimp</legend>
+
+  <div class="form-group">
+    <%= f.label :mailchimp_api_key, "Clé d'API", :class => 'control-label col-md-3' %>
+
+    <div class="col-md-9">
+      <%= f.text_field :mailchimp_api_key, :class => 'form-control' %>
+      <a href="https://admin.mailchimp.com/account/api" target="_BLANK">Clés d'API Mailchimp</a>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :mailchimp_company, "Nom / société", :class => 'control-label col-md-3' %>
+
+    <div class="col-md-9">
+      <%= f.text_field :mailchimp_company, :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :mailchimp_from_email, "Email 'de'", :class => 'control-label col-md-3' %>
+
+    <div class="col-md-9">
+      <%= f.text_field :mailchimp_from_email, :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :mailchimp_address1, "Adresse (ligne 1)", :class => 'control-label col-md-3' %>
+
+    <div class="col-md-9">
+      <%= f.text_field :mailchimp_address1, :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :mailchimp_address2, "Adresse (ligne 2)", :class => 'control-label col-md-3' %>
+
+    <div class="col-md-9">
+      <%= f.text_field :mailchimp_address2, :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :mailchimp_city, "Localité", :class => 'control-label col-md-3' %>
+
+    <div class="col-md-9">
+      <%= f.text_field :mailchimp_city, :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :mailchimp_state, "Etat / province", :class => 'control-label col-md-3' %>
+
+    <div class="col-md-9">
+      <%= f.text_field :mailchimp_state, :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :mailchimp_zip, "Code postal", :class => 'control-label col-md-3' %>
+
+    <div class="col-md-9">
+      <%= f.text_field :mailchimp_zip, :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :mailchimp_country, "Pays", :class => 'control-label col-md-3' %>
+
+    <div class="col-md-9">
+      <%= f.text_field :mailchimp_country, :class => 'form-control' %>
+    </div>
+  </div>
+
+</fieldset>
