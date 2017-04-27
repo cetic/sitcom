@@ -1,6 +1,7 @@
 import * as EmailValidator from 'email-validator'
 
 class NewContact extends React.Component {
+
   constructor(props) {
     super(props)
 
@@ -158,6 +159,7 @@ class NewContact extends React.Component {
       )
     }
   }
+
 }
 
 module.exports = NewContact
