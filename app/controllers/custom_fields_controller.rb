@@ -36,6 +36,12 @@ class CustomFieldsController < ApplicationController
   def find_item
     if params[:contact_id]
       @item = @lab.contacts.find(params[:contact_id])
+    elsif params[:organization_id]
+      @item = @lab.organizations.find(params[:organization_id])
+    elsif params[:project_id]
+      @item = @lab.projects.find(params[:project_id])
+    elsif params[:event_id]
+      @item = @lab.events.find(params[:event_id])
     else
       raise "unsupported item type"
     end

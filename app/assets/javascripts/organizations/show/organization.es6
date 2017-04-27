@@ -1,10 +1,11 @@
-import GeneralShow     from './general_show.es6'
-import GeneralEdit     from './general_edit.es6'
-import ContactsBlock   from '../../shared/contacts_block.es6'
-import ItemsBlock      from '../../shared/items_block.es6'
-import NotesBlock      from '../../shared/notes_block.es6'
-import PreviousNextNav from '../../shared/previous_next_nav.es6'
-import LogEntries      from '../../shared/log_entries.es6'
+import GeneralShow       from './general_show.es6'
+import GeneralEdit       from './general_edit.es6'
+import ContactsBlock     from '../../shared/contacts_block.es6'
+import ItemsBlock        from '../../shared/items_block.es6'
+import CustomFieldsBlock from '../../shared/custom_fields_block.es6'
+import NotesBlock        from '../../shared/notes_block.es6'
+import PreviousNextNav   from '../../shared/previous_next_nav.es6'
+import LogEntries        from '../../shared/log_entries.es6'
 
 class Organization extends React.Component {
   constructor(props) {
@@ -116,6 +117,7 @@ class Organization extends React.Component {
           { this.renderLoading() }
           { this.renderPreviousNextNav() }
           { this.renderGeneral() }
+          { this.renderCustomFields() }
           { this.renderContacts() }
           { this.renderProjects() }
           { this.renderEvents() }
@@ -167,6 +169,16 @@ class Organization extends React.Component {
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)} />
         )
       }
+    }
+  }
+
+  renderCustomFields() {
+    if(this.state.loaded) {
+      return (
+        <CustomFieldsBlock item={this.state.organization}
+                           itemType="organization"
+                           canWrite={this.props.permissions.canWriteOrganizations} />
+      )
     }
   }
 

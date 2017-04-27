@@ -19,6 +19,12 @@ module EventIndexConcern
 
         indexes :notes, :type => 'nested'
 
+        indexes :custom_fields, :type => 'nested' do
+          indexes :id,        :index => 'not_analyzed'
+          indexes :value
+          indexes :raw_value, :index => 'not_analyzed'
+        end
+
         indexes :sort_name, :analyzer => :sortable_string_analyzer
 
         indexes :updated_at, :type => 'date'
@@ -59,7 +65,8 @@ module EventIndexConcern
         :contact_links      => contact_links_as_indexed_json,
         :organization_links => organization_links_as_indexed_json,
         :project_links      => project_links_as_indexed_json,
-        :notes             => notes_as_indexed_json
+        :notes              => notes_as_indexed_json,
+        :custom_fields      => custom_fields_as_json
       }))
     end
   end

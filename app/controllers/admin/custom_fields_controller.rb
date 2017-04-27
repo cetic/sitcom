@@ -3,7 +3,10 @@ class Admin::CustomFieldsController < Admin::BaseController
   before_action :find_lab
 
   def index
-    @custom_fields = @lab.custom_fields.order(:position)
+    @contact_custom_fields      = @lab.custom_fields.where(item_type: 'Contact'     ).order(:position)
+    @organization_custom_fields = @lab.custom_fields.where(item_type: 'Organization').order(:position)
+    @project_custom_fields      = @lab.custom_fields.where(item_type: 'Project'     ).order(:position)
+    @event_custom_fields        = @lab.custom_fields.where(item_type: 'Event'       ).order(:position)
   end
 
   def new
@@ -60,7 +63,7 @@ class Admin::CustomFieldsController < Admin::BaseController
     params[:custom_field][:options] ||= []
 
     params.require(:custom_field).permit(
-      :name, :field_type, :options => []
+      :item_type, :name, :field_type, :options => []
     )
   end
 

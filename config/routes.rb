@@ -94,6 +94,7 @@ Rails.application.routes.draw do
     resources :organizations do
       resources :notes
       resources :log_entries
+      resources :custom_fields
 
       collection do
         get :options
@@ -107,6 +108,7 @@ Rails.application.routes.draw do
     resources :projects do
       resources :notes
       resources :log_entries
+      resources :custom_fields
 
       collection do
         get :options
@@ -118,6 +120,7 @@ Rails.application.routes.draw do
     resources :events do
       resources :notes
       resources :log_entries
+      resources :custom_fields
 
       collection do
         get :options

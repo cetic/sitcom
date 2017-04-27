@@ -27,6 +27,8 @@ class EventSearch < BaseSearch
       add_notes_search(options)
     end
 
+    add_custom_fields_search(options)
+
     Event.search(options)
   end
 end

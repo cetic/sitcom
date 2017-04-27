@@ -9,20 +9,42 @@
 
       <%= link_to 'Ajouter un champs personnalisé', new_admin_lab_custom_field_path(@lab), :class => 'btn btn-primary pull-right btn-new' %>
 
-      <% if @custom_fields.any? %>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Nom</th>
-              <th>Type</th>
-              <th class="actions">Actions</th>
-            </tr>
-          </thead>
+      <h3>Contacts</h3>
 
-          <tbody>
-            <%= render @custom_fields %>
-          </tbody>
-        </table>
+      <% if @contact_custom_fields.any? %>
+        <%= render 'custom_fields', custom_fields: @contact_custom_fields %>
+      <% else %>
+        <p>Aucun.</p>
+      <% end %>
+
+      <hr />
+
+      <h3>Organisations</h3>
+
+      <% if @organization_custom_fields.any? %>
+        <%= render 'custom_fields', custom_fields: @organization_custom_fields %>
+      <% else %>
+        <p>Aucun.</p>
+      <% end %>
+
+      <hr />
+
+      <h3>Projets</h3>
+
+      <% if @project_custom_fields.any? %>
+        <%= render 'custom_fields', custom_fields: @project_custom_fields %>
+      <% else %>
+        <p>Aucun.</p>
+      <% end %>
+
+      <hr />
+
+      <h3>Evènements</h3>
+
+      <% if @event_custom_fields.any? %>
+        <%= render 'custom_fields', custom_fields: @event_custom_fields %>
+      <% else %>
+        <p>Aucun.</p>
       <% end %>
     </div>
   </div>

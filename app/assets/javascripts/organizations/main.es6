@@ -27,7 +27,13 @@ class Main extends BaseMain {
   }
 
   getFilters() {
-    return {
+    var customFieldFilters = {}
+
+    _.each(this.props.route.organizationCustomFields, (customField) => {
+      customFieldFilters[`customField${customField.id}`] = this.props.location.query[`customField${customField.id}`] || ''
+    })
+
+    return Object.assign(customFieldFilters, {
       quickSearch: this.props.location.query.quickSearch || '',
       name:        this.props.location.query.name        || '',
       status:      this.props.location.query.status      || '',
@@ -35,7 +41,7 @@ class Main extends BaseMain {
       websiteUrl:  this.props.location.query.websiteUrl  || '',
       notes:       this.props.location.query.notes       || '',
       contactIds:  this.props.location.query.contactIds,
-    }
+    })
   }
 
   renderItems() {

@@ -2,6 +2,7 @@ class Event < ApplicationRecord
 
   # Concerns
 
+  include CustomFieldsConcern
   include CommonIndexConcern
   include EventIndexConcern
   include CableActionsConcern
@@ -24,6 +25,9 @@ class Event < ApplicationRecord
   has_many :projects, :through => :event_project_links
 
   has_many :notes, :as => :notable
+
+  has_many :custom_field_links, :dependent => :destroy,
+                                :as        => :item
 
   has_many :log_entries, :as => :item # no dependent destroy/nullify because we want to keep them after deletion
 

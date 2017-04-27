@@ -51,4 +51,17 @@ class CustomField < ApplicationRecord
     end
   end
 
+  # Class Methods
+
+  class << self
+    def item_type_options
+      [
+        ['Lié aux contacts',      'Contact'     ],
+        ['Lié aux organisations', 'Organization'],
+        ['Lié aux projets',       'Project'     ],
+        ['Lié aux évènements',    'Event'       ]
+      ]
+    end
+  end
+
 end

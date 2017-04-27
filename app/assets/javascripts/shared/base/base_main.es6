@@ -253,10 +253,12 @@ class BaseMain extends React.Component {
   }
 
   renderAdvancedSearch(filters) {
+    const customFields = this.props.route[`${this.itemType}CustomFields`]
+
     return (
       <this.AdvancedSearch filters={filters}
                            updateFilters={this.updateFilters.bind(this)}
-                           contactCustomFields={this.props.route.contactCustomFields}
+                           customFields={customFields}
                            tagOptionsPath={this.props.route.tagOptionsPath}
                            fieldOptionsPath={this.props.route.fieldOptionsPath}
                            contactOptionsPath={this.props.route.contactOptionsPath}

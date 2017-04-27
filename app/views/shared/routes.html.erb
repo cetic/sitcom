@@ -3,7 +3,12 @@
   :current_user_id                    => current_user.id,
   :lab_id                             => @lab.id,
   :is_mailchimp_configured            => @lab.mailchimp_configured?,
+
   :contact_custom_fields              => @lab.custom_fields_as_json('Contact'),
+  :organization_custom_fields         => @lab.custom_fields_as_json('Organization'),
+  :project_custom_fields              => @lab.custom_fields_as_json('Project'),
+  :event_custom_fields                => @lab.custom_fields_as_json('Event'),
+
   :lab_path                           => lab_path(@lab),
   :contacts_path                      => lab_contacts_path(@lab),
   :organizations_path                 => lab_organizations_path(@lab),
