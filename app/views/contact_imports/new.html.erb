@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <div class="row">
+    <h2>Import de contacts</h2>
+
+    <%= form_tag lab_contact_imports_path(@lab), :multipart => true do |f| %>
+      <%= file_field_tag 'csv_file' %>
+
+      <%= submit_tag 'Importer' %>
+    <% end %>
+  </div>
+</div>

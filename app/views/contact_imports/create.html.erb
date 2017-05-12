@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="row">
+    <h2>Import de contacts</h2>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Prénom</th>
+          <th>Nom</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @contact_import.rows.each do |row| %>
+          <tr>
+            <td><%= row.first_name %></td>
+            <td><%= row.last_name %></td>
+            <td><%= row.email %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= form_tag lab_contact_imports_path(@lab) do |f| %>
+      <%= hidden_field_tag 'csv_data', @csv_data %>
+
+      <%= submit_tag 'Importer' %>
+    <% end %>
+  </div>
+</div>

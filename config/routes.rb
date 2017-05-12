@@ -147,6 +147,8 @@ Rails.application.routes.draw do
     resources :event_organization_links,   :only => [:update]
     resources :organization_project_links, :only => [:update]
     resources :event_project_links,        :only => [:update]
+
+    resources :contact_imports, :only => [:new, :create]
   end
 
   root to: 'labs#index'
