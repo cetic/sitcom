@@ -5,18 +5,18 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Prénom</th>
-          <th>Nom</th>
-          <th>Email</th>
+          <% ContactImport::COLUMNS.values.each do |column_name| %>
+            <th><%= column_name %></th>
+          <% end %>
         </tr>
       </thead>
 
       <tbody>
         <% @contact_import.rows.each do |row| %>
           <tr>
-            <td><%= row.first_name %></td>
-            <td><%= row.last_name %></td>
-            <td><%= row.email %></td>
+            <% ContactImport::COLUMNS.keys.each do |attr_name| %>
+              <td><%= row.send(attr_name.to_sym) %></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>

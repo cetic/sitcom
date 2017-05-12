@@ -1,4 +1,3 @@
-Nom;Prénom
-Malisart;Aurélien;sitcom@aurels.be
-Hoste;Michaël;michael.hoste@gmail.com
-Doe;John;john.doe@yopmail.com
+Nom,Prénom,Email,Brol,Adresse (rue),Adresse (code postal),Adresse (ville),Adresse (pays),Téléphone,Twitter (URL),LinkedIn (URL),Facebook (URL)
+Doe,John,john.doe@yopmail.com,Rue A
+Dupond,Albert,albert.dupond@gmail.com,rue B
