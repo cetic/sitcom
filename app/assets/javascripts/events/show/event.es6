@@ -3,6 +3,7 @@ import GeneralEdit        from './general_edit.es6'
 import ContactsBlock      from '../../shared/contacts_block.es6'
 import OrganizationsBlock from '../../shared/organizations_block.es6'
 import ItemsBlock         from '../../shared/items_block.es6'
+import CustomFieldsBlock  from '../../shared/custom_fields_block.es6'
 import NotesBlock         from '../../shared/notes_block.es6'
 import PreviousNextNav    from '../../shared/previous_next_nav.es6'
 import LogEntries         from '../../shared/log_entries.es6'
@@ -117,6 +118,7 @@ class Event extends React.Component {
           { this.renderLoading() }
           { this.renderPreviousNextNav() }
           { this.renderGeneral() }
+          { this.renderCustomFields() }
           { this.renderContacts() }
           { this.renderOrganizations() }
           { this.renderProjects() }
@@ -168,6 +170,16 @@ class Event extends React.Component {
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)} />
         )
       }
+    }
+  }
+
+  renderCustomFields() {
+    if(this.state.loaded) {
+      return (
+        <CustomFieldsBlock item={this.state.event}
+                           itemType="event"
+                           canWrite={this.props.permissions.canWriteEvents} />
+      )
     }
   }
 

@@ -1,4 +1,5 @@
-import ItemsSelect from '../../shared/items_select.es6'
+import ItemsSelect         from '../../shared/items_select.es6'
+import CustomFieldsFilters from '../../shared/custom_fields_filters.es6'
 
 class BaseAdvancedSearch extends React.Component {
 
@@ -52,6 +53,16 @@ class BaseAdvancedSearch extends React.Component {
         </div>
       </div>
     )
+  }
+
+  renderCustomFieldsFilters() {
+    if(this.props.customFields.length > 0) {
+      return (
+        <CustomFieldsFilters customFields={this.props.customFields}
+                             filters={this.props.filters}
+                             updateFilters={this.props.updateFilters} />
+      )
+    }
   }
 
 }

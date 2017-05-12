@@ -26,13 +26,19 @@ class Main extends BaseMain {
   }
 
   getFilters() {
-    return {
+    var customFieldFilters = {}
+
+    _.each(this.props.route.projectCustomFields, (customField) => {
+      customFieldFilters[`customField${customField.id}`] = this.props.location.query[`customField${customField.id}`] || ''
+    })
+
+    return Object.assign(customFieldFilters, {
       quickSearch: this.props.location.query.quickSearch || '',
       name:        this.props.location.query.name        || '',
       description: this.props.location.query.description || '',
       notes:       this.props.location.query.notes       || '',
       contactIds:  this.props.location.query.contactIds,
-    }
+    })
   }
 
   renderItems() {

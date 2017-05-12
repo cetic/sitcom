@@ -40,6 +40,8 @@ class ProjectSearch < BaseSearch
       add_notes_search(options)
     end
 
+    add_custom_fields_search(options)
+
     Project.search(options)
   end
 end

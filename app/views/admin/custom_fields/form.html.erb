@@ -12,6 +12,16 @@
 
       <%= form_for([:admin, @lab, @custom_field], :html => { :class => 'form-horizontal' }) do |f| %>
         <fieldset>
+          <% unless @custom_field.persisted? %>
+            <div class="form-group">
+              <%= f.label :item_type, 'Liaison', :class => 'control-label col-md-3' %>
+
+              <div class="col-md-9">
+                <%= f.select :item_type, CustomField.item_type_options, {}, :class => 'form-control' %>
+              </div>
+            </div>
+          <% end %>
+
           <div class="form-group">
             <%= f.label :name, 'Nom', :class => 'control-label col-md-3' %>
 

@@ -1,7 +1,4 @@
-import BaseAdvancedSearch    from '../../shared/base/base_advanced_search.es6'
-import TextCustomFieldFilter from './advanced_search/text_custom_field_filter.es6'
-import BoolCustomFieldFilter from './advanced_search/bool_custom_field_filter.es6'
-import EnumCustomFieldFilter from './advanced_search/enum_custom_field_filter.es6'
+import BaseAdvancedSearch from '../../shared/base/base_advanced_search.es6'
 
 class AdvancedSearch extends BaseAdvancedSearch {
 
@@ -77,48 +74,6 @@ class AdvancedSearch extends BaseAdvancedSearch {
         </div>
       </div>
     )
-  }
-
-  renderCustomFieldsFilters() {
-    var customFieldsFilders = _.map(this.props.contactCustomFields, (customField) => {
-      return this.renderCustomFieldFilter(customField)
-    })
-
-    if(customFieldsFilders.length > 0) {
-      return(
-        <fieldset>
-          <legend>Champs personnalisés</legend>
-          {customFieldsFilders}
-        </fieldset>
-      )
-    }
-  }
-
-  renderCustomFieldFilter(customField) {
-    if(customField.fieldType == 'text') {
-      return (
-        <TextCustomFieldFilter key={customField.id}
-                               customField={customField}
-                               filters={this.props.filters}
-                               updateFilters={this.props.updateFilters} />
-      )
-    }
-    else if(customField.fieldType == 'bool') {
-      return (
-        <BoolCustomFieldFilter key={customField.id}
-                               customField={customField}
-                               filters={this.props.filters}
-                               updateFilters={this.props.updateFilters} />
-      )
-    }
-    else if(customField.fieldType == 'enum') {
-      return (
-        <EnumCustomFieldFilter key={customField.id}
-                               customField={customField}
-                               filters={this.props.filters}
-                               updateFilters={this.props.updateFilters} />
-      )
-    }
   }
 
 }

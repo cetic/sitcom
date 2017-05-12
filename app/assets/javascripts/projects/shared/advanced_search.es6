@@ -27,6 +27,8 @@ class AdvancedSearch extends BaseAdvancedSearch {
           <legend>Associations</legend>
           {this.renderIdsListFilter('contact', 'Contacts')}
         </fieldset>
+
+        {this.renderCustomFieldsFilters()}
       </div>
     )
   }

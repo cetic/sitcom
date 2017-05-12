@@ -74,6 +74,9 @@ class Routes extends React.Component {
                                 currentUserId={this.props.currentUserId}
                                 labId={this.props.labId}
                                 contactCustomFields={this.props.contactCustomFields}
+                                organizationCustomFields={this.props.organizationCustomFields}
+                                eventCustomFields={this.props.eventCustomFields}
+                                projectCustomFields={this.props.projectCustomFields}
                                 contactsPath={this.props.contactsPath}
                                 organizationsPath={this.props.organizationsPath}
                                 projectsPath={this.props.projectsPath}

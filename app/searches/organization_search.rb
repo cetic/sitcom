@@ -16,6 +16,8 @@ class OrganizationSearch < BaseSearch
       add_notes_search(options)
     end
 
+    add_custom_fields_search(options)
+
     Organization.search(options)
   end
 end
