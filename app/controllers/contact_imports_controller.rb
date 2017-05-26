@@ -23,8 +23,7 @@ class ContactImportsController < ApplicationController
       render 'new'
     elsif commit
       @contact_import.commit
-      flash[:success] = 'Les contacts ont été importés.'
-      redirect_to lab_contacts_path(@lab)
+      redirect_to new_lab_contact_import_path(@lab)
     end
   end
 

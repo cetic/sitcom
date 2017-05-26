@@ -1,0 +1,13 @@
+.table.import-preview {
+
+  td {
+    .found {
+      color: green;
+    }
+
+    .not-found {
+      color: orange;
+    }
+  }
+
+}

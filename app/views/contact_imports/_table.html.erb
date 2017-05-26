@@ -1,0 +1,26 @@
+<table class="table import-preview">
+  <thead>
+    <tr>
+      <% ContactImport::COLUMNS.values.each do |column_name| %>
+        <th><%= column_name %></th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @contact_import.rows.each do |row| %>
+      <tr>
+        <% ContactImport::COLUMNS.keys.each do |attr_name| %>
+          <% if attr_name == :organization %>
+            <td>
+              <% className = row.linked_organization_found? ? 'found' : 'not-found' %>
+              <span class="<%= className %>"><%= row.organization %></span>
+            </td>
+          <% else %>
+            <td><%= row.send(attr_name.to_sym) %></td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
