@@ -2,6 +2,8 @@ class EventSearch < BaseSearch
   def run_step
     options = get_base_options
 
+    add_own_ids_search(options)
+
     add_quick_search(options, [ 'name', 'place', 'description', 'website_url' ])
 
     [ 'name', 'place', 'description', 'website_url' ].each do |field|

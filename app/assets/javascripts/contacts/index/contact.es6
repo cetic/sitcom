@@ -28,7 +28,7 @@ class Contact extends React.Component {
   removeTag(tag) {
     if(confirm('Voulez-vous vraiment supprimer le tag ' + tag.name + ' ?')) {
       http.delete(this.tagsPath() + '/' + tag.id, {
-        contact_id: this.props.contact.id
+        contactId: this.props.contact.id
       })
     }
   }
@@ -157,7 +157,7 @@ class Contact extends React.Component {
         <li className="tag label label-default"
             key={tag.id}
             style={{ backgroundColor: tag.color, cursor: 'pointer' }}>
-          { this.renderDelete(tag) }
+          { this.renderDeleteTag(tag) }
           <span onClick={this.pushTagIdsFilter.bind(this, tag)}>
             { tag.name }
           </span>
@@ -166,7 +166,7 @@ class Contact extends React.Component {
     })
   }
 
-  renderDelete(tag) {
+  renderDeleteTag(tag) {
     var iconClass = 'fa fa-times'
     iconClass += this.props.permissions.canWriteContacts ? '' : ' not-visible'
 

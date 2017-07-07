@@ -202,6 +202,28 @@ class BaseMain extends React.Component {
     this.replaceFilters(newFilters)
   }
 
+  updateSelected(item, newValue) {
+    if(newValue == false && _.includes(this.state.selectedItemIds, item.id)) {
+      this.setState({
+        selectedItemIds: _.filter(this.state.selectedItemIds, (itemId) => { return itemId != item.id }),
+        selectedCount:   this.state.selectedCount - 1,
+      })
+    }
+    else if(newValue == true && !_.includes(this.state.selectedItemIds, item.id)) {
+      this.setState({
+        selectedItemIds: this.state.selectedItemIds.concat([item.id]),
+        selectedCount:   this.state.selectedCount + 1,
+      })
+    }
+  }
+
+  unselectAllItems() {
+    this.setState({
+      selectedItemIds: [],
+      selectedCount:   0,
+    })
+  }
+
   render() {
     const canRead = this.props.route.permissions[`canRead${_.upperFirst(this.itemType)}s`]
 
@@ -273,12 +295,17 @@ class BaseMain extends React.Component {
     return (
       <QuickSearch title={this.title}
                    loaded={this.state.loaded}
-                   results={this.state.filteredItemIds.length}
+                   results={this.state.filteredCount}
+                   selectedCount={this.state.selectedCount}
                    quickSearch={filters.quickSearch}
                    updateQuickSearch={this.updateQuickSearch.bind(this)}
                    filters={filters}
                    exportUrl={this.exportUrl}
-                   mailchimpExportUrl={this.mailchimpExportUrl} />
+                   mailchimpExportUrl={this.mailchimpExportUrl}
+                   selectedItemIds={this.state.selectedItemIds}
+                   tagOptionsPath={this.props.route.tagOptionsPath}
+                   unselectAllItems={this.unselectAllItems.bind(this)}
+                   isMailchimpConfigured={this.props.route.isMailchimpConfigured} />
     )
   }
 

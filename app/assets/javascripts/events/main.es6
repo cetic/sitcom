@@ -14,6 +14,7 @@ class Main extends BaseMain {
     this.newButtonLabel = 'Nouvel évènement'
     this.SavedSearches  = SavedSearches
     this.AdvancedSearch = AdvancedSearch
+    this.exportUrl      = `${this.props.route.eventsPath}/export`
 
     this.state = {
       items:           [],
@@ -46,9 +47,13 @@ class Main extends BaseMain {
     return (
       <Events permissions={this.props.route.permissions}
               events={this.filteredItems()}
+              selectedItemIds={this.state.selectedItemIds}
               loaded={this.state.loaded}
               search={this.props.location.search}
-              loadingImagePath={this.props.route.loadingImagePath} />
+              tagOptionsPath={this.props.route.tagOptionsPath}
+              loadingImagePath={this.props.route.loadingImagePath}
+              updateSelected={this.updateSelected.bind(this)}
+              pushTagIdsFilter={this.pushIdsListFilter.bind(this, 'tagIds')} />
     )
   }
 
@@ -66,6 +71,7 @@ class Main extends BaseMain {
              eventsPath={this.props.route.eventsPath}
              search={this.props.location.search}
              loadingImagePath={this.props.route.loadingImagePath}
+             tagOptionsPath={this.props.route.tagOptionsPath}
              contactOptionsPath={this.props.route.contactOptionsPath}
              organizationOptionsPath={this.props.route.organizationOptionsPath}
              projectOptionsPath={this.props.route.projectOptionsPath}

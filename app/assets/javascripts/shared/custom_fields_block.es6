@@ -5,19 +5,26 @@ import EnumCustomField from './custom_fields_block/enum_custom_field.es6'
 class CustomFieldsBlock extends React.Component {
 
   render() {
-    return (
-      <div className="custom-fields-block">
-        <div className="row">
-          <div className="col-md-12">
-            <h3>Champs personnalisés</h3>
+    if(this.props.item.customFields.length) {
+      return (
+        <div className="custom-fields-block">
+          <div className="row">
+            <div className="col-md-12">
+              <h3>Champs personnalisés</h3>
+            </div>
+          </div>
+
+          <div className="row">
+            { this.renderCustomFields() }
           </div>
         </div>
-
-        <div className="row">
-          { this.renderCustomFields() }
-        </div>
-      </div>
-    )
+      )
+    }
+    else {
+      return (
+        <div></div>
+      )
+    }
   }
 
   renderCustomFields() {

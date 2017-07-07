@@ -43,10 +43,17 @@ class Events extends React.Component {
 
   renderEvents() {
     return _.map(this.props.events, (event) => {
+      var selected = _.includes(this.props.selectedItemIds, event.id)
+
       return (
         <Event key={event.id}
+               permissions={this.props.permissions}
                event={event}
-               search={this.props.search} />
+               search={this.props.search}
+               tagOptionsPath={this.props.tagOptionsPath}
+               selected={selected}
+               updateSelected={this.props.updateSelected}
+               pushTagIdsFilter={this.props.pushTagIdsFilter} />
       )
     })
   }

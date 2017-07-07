@@ -25,7 +25,7 @@ class BoolCustomFieldFilter extends CustomFieldFilter {
                  checked={value == ''}
                  onChange={this.updateValue.bind(this, '')} />
 
-          &nbsp;<label htmlFor={trueId}>Tous</label>
+          &nbsp;<label htmlFor={bothId}>Tous</label>
 
           <input type="radio"
                  name={name}

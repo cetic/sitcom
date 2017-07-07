@@ -2,6 +2,8 @@ class ProjectSearch < BaseSearch
   def run_step
     options = get_base_options
 
+    add_own_ids_search(options)
+
     add_quick_search(options, [ 'name', 'description' ])
 
     [ 'name', 'description' ].each do |field|

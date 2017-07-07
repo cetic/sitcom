@@ -26,8 +26,8 @@ class Project < ApplicationRecord
 
   has_many :notes, :as => :notable
 
-  has_many :custom_field_links, :dependent => :destroy,
-                                :as        => :item
+  has_many :custom_field_links, :dependent => :destroy, :as => :item
+  has_many :custom_fields, :through => :custom_field_links
 
   has_many :log_entries, :as => :item # no dependent destroy/nullify because we want to keep them after deletion
 

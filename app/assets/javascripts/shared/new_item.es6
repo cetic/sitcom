@@ -26,7 +26,7 @@ class NewItem extends React.Component {
     this.setState({ fieldValue: e.target.value })
   }
 
-  backendCreateNewContactAndRedirect(e) {
+  backendCreateNewItemAndRedirect(e) {
     e.preventDefault()
 
     if(this.state.fieldValue != '') {
@@ -60,7 +60,7 @@ class NewItem extends React.Component {
       <div className={modalClasses} tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
-            <form onSubmit={this.backendCreateNewContactAndRedirect.bind(this)}>
+            <form onSubmit={this.backendCreateNewItemAndRedirect.bind(this)}>
               <div className="modal-header">
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 className="modal-title">{ this.props.modalTitle }</h4>

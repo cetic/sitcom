@@ -45,7 +45,7 @@ class TagsSelector extends React.Component {
         contact_ids: this.props.selectedItemIds
       }, (data) => {
         // this.reloadTags() => will already be remounted next time an item is selected
-        this.props.unselectAllContacts()
+        this.props.unselectAllItems()
       })
     }
   }
@@ -58,7 +58,7 @@ class TagsSelector extends React.Component {
       contact_ids: this.props.selectedItemIds
     }, (data) => {
       // this.reloadTags() => will already be remounted next time an item is selected
-      this.props.unselectAllContacts()
+      this.props.unselectAllItems()
     })
   }
 

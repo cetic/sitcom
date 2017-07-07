@@ -113,7 +113,7 @@ class QuickSearch extends React.Component {
       return (
         <TagsSelector tagOptionsPath={this.props.tagOptionsPath}
                       selectedItemIds={this.props.selectedItemIds}
-                      unselectAllContacts={this.props.unselectAllContacts} />
+                      unselectAllItems={this.props.unselectAllItems} />
       )
     }
   }

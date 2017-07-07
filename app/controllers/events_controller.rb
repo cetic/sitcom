@@ -114,6 +114,18 @@ class EventsController < ApplicationController
     @events = @lab.events.order(:name)
   end
 
+  def export
+    if PermissionsService.new(current_user, @lab).can_read?('events')
+      events = EventSearch.new(current_user, params.merge({
+        :lab_id => @lab.id
+      })).run
+
+      render_csv(EventExport.new(@lab, events).csv_data, 'events.csv')
+    else
+      render_permission_error
+    end
+  end
+
   private
 
   # Encapsulate new picture in "event" (don't know how to make it in JS)
