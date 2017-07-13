@@ -111,7 +111,8 @@ class QuickSearch extends React.Component {
   renderTags() {
     if(this.props.selectedCount > 0 && this.props.loaded) {
       return (
-        <TagsSelector tagOptionsPath={this.props.tagOptionsPath}
+        <TagsSelector itemType={this.props.itemType}
+                      tagOptionsPath={this.props.tagOptionsPath}
                       selectedItemIds={this.props.selectedItemIds}
                       unselectAllItems={this.props.unselectAllItems} />
       )

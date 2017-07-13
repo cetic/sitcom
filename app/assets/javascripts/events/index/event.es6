@@ -29,7 +29,8 @@ class Event extends React.Component {
   removeTag(tag) {
     if(confirm('Voulez-vous vraiment supprimer le tag ' + tag.name + ' ?')) {
       http.delete(this.tagsPath() + '/' + tag.id, {
-        eventId: this.props.event.id
+        itemId:   this.props.event.id,
+        itemType: 'Event'
       })
     }
   }

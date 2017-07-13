@@ -29,7 +29,8 @@ class Project extends React.Component {
   removeTag(tag) {
     if(confirm('Voulez-vous vraiment supprimer le tag ' + tag.name + ' ?')) {
       http.delete(this.tagsPath() + '/' + tag.id, {
-        projectId: this.props.project.id
+        itemId:   this.props.project.id,
+        itemType: 'Project'
       })
     }
   }
@@ -54,7 +55,8 @@ class Project extends React.Component {
           </span>
 
           <span className="dates">
-            <ProjectDates project={this.props.project} />
+            <ProjectDates startDate={this.props.project.startDate}
+                          endDate={this.props.project.endDate} />
           </span>
 
           { this.renderTagsContainer() }

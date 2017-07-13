@@ -165,6 +165,7 @@ class Organization extends React.Component {
                        permissions={this.props.permissions}
                        search={this.props.search}
                        organizationPath={this.organizationPath()}
+                       tagOptionsPath={this.props.tagOptionsPath}
                        router={this.props.router}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)} />
         )

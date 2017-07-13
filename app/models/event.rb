@@ -15,6 +15,9 @@ class Event < ApplicationRecord
 
   belongs_to :lab
 
+  has_many :item_tag_links, :dependent => :destroy, :as => :item
+  has_many :tags, :through => :item_tag_links
+
   has_many :contact_event_links # dependent destroy is made in around_destroy_callback
   has_many :contacts, :through => :contact_event_links
 

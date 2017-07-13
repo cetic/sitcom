@@ -15,7 +15,9 @@ class Tags extends React.Component {
   }
 
   reloadTags() {
-    http.get(this.props.tagOptionsPath, {}, (data) => {
+    http.get(this.props.tagOptionsPath, {
+      itemType: _.capitalize(this.props.itemType)
+    }, (data) => {
       this.setState({
         tags: data,
       })
@@ -46,8 +48,9 @@ class Tags extends React.Component {
   addTagFromInput(e) {
     if(e.keyCode == 13) { // enter
       http.post(this.props.tagsPath, {
-        name:        e.target.value,
-        contact_ids: [this.props.contactId]
+        name:     e.target.value,
+        itemIds:  [this.props.itemId],
+        itemType: _.capitalize(this.props.itemType)
       }, (data) => {
         $(this.refs.newTagInput).val('')
         $(this.refs.newTagInput).focus()
@@ -62,8 +65,9 @@ class Tags extends React.Component {
 
   addTag(tag) {
     http.post(this.props.tagsPath, {
-      name:        tag.label,
-      contact_ids: [this.props.contactId]
+      name:     tag.label,
+      itemIds:  [this.props.itemId],
+      itemType: _.capitalize(this.props.itemType)
     }, (data) => {
       // don't reload tags here because it already exists if we were able to add it
 
@@ -75,7 +79,8 @@ class Tags extends React.Component {
 
   removeTag(tag) {
     http.delete(this.props.tagsPath + '/' + tag.value, {
-      contact_id: this.props.contactId
+      itemId:   this.props.itemId,
+      itemType: _.capitalize(this.props.itemType)
     }, (data) => {
       this.reloadTags()
 
@@ -86,7 +91,7 @@ class Tags extends React.Component {
   }
 
   selectedTagLabels() {
-    return _.map(this.props.contactTags, 'name')
+    return _.map(this.props.itemTags, 'name')
   }
 
   render() {
@@ -99,7 +104,7 @@ class Tags extends React.Component {
   }
 
   renderTags() {
-    var sortedTags = _.sortBy(this.props.contactTags, 'name')
+    var sortedTags = _.sortBy(this.props.itemTags, 'name')
 
     return _.map(sortedTags, (tag) => {
       return (
@@ -114,7 +119,7 @@ class Tags extends React.Component {
   }
 
   renderNewTag() {
-    if(this.props.permissions.canWriteContacts) {
+    if(this.props.canWriteItems) {
       return (
         <li className="tag label label-default last">
           <div className="new-tag">
@@ -131,7 +136,7 @@ class Tags extends React.Component {
   }
 
   renderPlusName() {
-    return this.props.contactTags.length ? '' : ' Groupe'
+    return this.props.itemTags.length ? '' : ' Groupe'
   }
 
   renderTagSelection() {

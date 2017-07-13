@@ -28,7 +28,8 @@ class Contact extends React.Component {
   removeTag(tag) {
     if(confirm('Voulez-vous vraiment supprimer le tag ' + tag.name + ' ?')) {
       http.delete(this.tagsPath() + '/' + tag.id, {
-        contactId: this.props.contact.id
+        itemId:   this.props.contact.id,
+        itemType: 'Contact'
       })
     }
   }

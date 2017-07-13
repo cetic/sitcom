@@ -28,7 +28,8 @@ class Organization extends React.Component {
   removeTag(tag) {
     if(confirm('Voulez-vous vraiment supprimer le tag ' + tag.name + ' ?')) {
       http.delete(this.tagsPath() + '/' + tag.id, {
-        organizationId: this.props.organization.id
+        itemId:   this.props.organization.id,
+        itemType: 'Organization'
       })
     }
   }

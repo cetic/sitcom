@@ -1,4 +1,5 @@
 import CustomDropzone from '../../shared/custom_dropzone.es6'
+import Tags           from '../../shared/tags.es6'
 
 class GeneralShow extends React.Component {
   constructor(props) {
@@ -14,6 +15,10 @@ class GeneralShow extends React.Component {
       http.delete(this.props.organizationPath)
       this.props.router.replace('organizations'  + this.props.search)
     }
+  }
+
+  tagsPath() {
+    return this.props.tagOptionsPath.slice(0, -8); // remove '/options'
   }
 
   render() {
@@ -34,6 +39,8 @@ class GeneralShow extends React.Component {
             </h1>
 
             { this.renderWebsite() }
+
+            { this.renderTags() }
 
             <div className="description">
               {this.props.organization.description}
@@ -57,6 +64,18 @@ class GeneralShow extends React.Component {
         </div>
       )
     }
+  }
+
+  renderTags() {
+    return (
+      <Tags canWriteItems={this.props.permissions.canWriteOrganizations}
+            itemType="organization"
+            itemTags={this.props.organization.tags}
+            itemId={this.props.organization.id}
+            itemPath={this.props.organizationPath}
+            tagsPath={this.tagsPath()}
+            tagOptionsPath={this.props.tagOptionsPath} />
+    )
   }
 
   renderButtons() {

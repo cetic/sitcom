@@ -4,15 +4,17 @@ class TagsController < ApplicationController
 
   # create many tags at once
   def create
-    if PermissionsService.new(current_user, @lab).can_write?('contacts')
-      contacts = @lab.contacts.where(:id => params[:contact_ids])
+    item_types = params[:item_type].downcase + 's'
 
-      contacts.each do |contact|
-        ContactTagService.new(current_user, contact).add_tag(params[:name])
+    if PermissionsService.new(current_user, @lab).can_write?(item_types)
+      items = @lab.send(item_types).where(:id => params[:item_ids])
+
+      items.each do |item|
+        ItemTagService.new(current_user, item).add_tag(params[:name])
       end
 
       render_json_success({
-        :contacts => contacts.collect { |contact| contact.as_indexed_json }
+        :items => items.collect { |item| item.as_indexed_json }
       })
     else
       render_permission_error
@@ -21,19 +23,21 @@ class TagsController < ApplicationController
 
   # destroy only one tag
   def destroy
-    if PermissionsService.new(current_user, @lab).can_write?('contacts')
-      contact = @lab.contacts.find(params[:contact_id])
+    item_types = params[:item_type].downcase + 's'
 
-      ContactTagService.new(current_user, contact).remove_tag(params[:id])
+    if PermissionsService.new(current_user, @lab).can_write?(item_types)
+      item = @lab.send(item_types).find(params[:item_id])
 
-      render_json_success({ :contact => contact.as_indexed_json })
+      ItemTagService.new(current_user, item).remove_tag(params[:id])
+
+      render_json_success({ :item => item.as_indexed_json })
     else
       render_permission_error
     end
   end
 
   def options
-    @tags = @lab.tags.order(:name)
+    @tags = @lab.tags.where(:item_type => params[:item_type]).order(:name)
   end
 
   private

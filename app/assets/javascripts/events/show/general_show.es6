@@ -1,5 +1,6 @@
 import EventDate      from '../shared/event_date.es6'
 import CustomDropzone from '../../shared/custom_dropzone.es6'
+import Tags           from '../../shared/tags.es6'
 
 class GeneralShow extends React.Component {
   constructor(props) {
@@ -15,6 +16,10 @@ class GeneralShow extends React.Component {
       http.delete(this.props.eventPath)
       this.props.router.replace('events' + this.props.search)
     }
+  }
+
+  tagsPath() {
+    return this.props.tagOptionsPath.slice(0, -8); // remove '/options'
   }
 
   render() {
@@ -34,6 +39,8 @@ class GeneralShow extends React.Component {
             </h1>
 
             { this.renderWebsite() }
+
+            { this.renderTags() }
 
             <div className="dates">
               <EventDate event={this.props.event} />
@@ -65,6 +72,18 @@ class GeneralShow extends React.Component {
         </div>
       )
     }
+  }
+
+  renderTags() {
+    return (
+      <Tags canWriteItems={this.props.permissions.canWriteEvents}
+            itemType="event"
+            itemTags={this.props.event.tags}
+            itemId={this.props.event.id}
+            itemPath={this.props.eventPath}
+            tagsPath={this.tagsPath()}
+            tagOptionsPath={this.props.tagOptionsPath} />
+    )
   }
 
   renderButtons() {
