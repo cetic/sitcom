@@ -40,8 +40,6 @@ class GeneralShow extends React.Component {
 
             { this.renderWebsite() }
 
-            { this.renderTags() }
-
             <div className="dates">
               <EventDate event={this.props.event} />
             </div>
@@ -49,6 +47,8 @@ class GeneralShow extends React.Component {
             <div className="place">
               {this.props.event.place}
             </div>
+
+            { this.renderTags() }
 
             <div className="description">
               {this.props.event.description}

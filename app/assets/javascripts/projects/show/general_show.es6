@@ -43,9 +43,9 @@ class GeneralShow extends React.Component {
                             endDate={this.props.project.endDate} />
             </div>
 
-            { this.renderTags() }
-
             <div style={{ clear: 'both' }}></div>
+
+            { this.renderTags() }
 
             <div className="description">
               {this.props.project.description}

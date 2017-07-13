@@ -41,6 +41,9 @@ class Main extends BaseMain {
       websiteUrl:  this.props.location.query.websiteUrl  || '',
       notes:       this.props.location.query.notes       || '',
       contactIds:  this.props.location.query.contactIds,
+      projectIds:  this.props.location.query.projectIds,
+      eventIds:    this.props.location.query.eventIds,
+      tagIds:      this.props.location.query.tagIds
     })
   }
 

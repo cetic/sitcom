@@ -3,8 +3,8 @@ class FieldsController < ApplicationController
   before_action :find_lab
 
   def options
-    @fields = @lab.fields.where(parent_id: nil).order(:name).collect do |field|
-      [field, field.children.order(:name)]
+    @fields = @lab.fields.includes(:children).where(parent_id: nil).order(:name).collect do |field|
+      [field, field.children.sort_by { |field| field.name.downcase }]
     end.flatten
   end
 

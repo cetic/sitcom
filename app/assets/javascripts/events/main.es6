@@ -34,12 +34,15 @@ class Main extends BaseMain {
     })
 
     return Object.assign(customFieldFilters, {
-      quickSearch: this.props.location.query.quickSearch || '',
-      name:        this.props.location.query.name        || '',
-      description: this.props.location.query.description || '',
-      place:       this.props.location.query.place       || '',
-      notes:       this.props.location.query.notes       || '',
-      contactIds:  this.props.location.query.contactIds,
+      quickSearch:     this.props.location.query.quickSearch || '',
+      name:            this.props.location.query.name        || '',
+      description:     this.props.location.query.description || '',
+      place:           this.props.location.query.place       || '',
+      notes:           this.props.location.query.notes       || '',
+      contactIds:      this.props.location.query.contactIds,
+      organizationIds: this.props.location.query.organizationIds,
+      projectIds:      this.props.location.query.projectIds,
+      tagIds:          this.props.location.query.tagIds
     })
   }
 

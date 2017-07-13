@@ -10,7 +10,7 @@ class ProjectSearch < BaseSearch
       add_string_search(options, field)
     end
 
-    [ 'contact_ids' ].each do |field|
+    [ 'contact_ids', 'organization_ids', 'event_ids', 'tag_ids' ].each do |field|
       add_ids_search(options, field)
     end
 

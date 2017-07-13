@@ -15,6 +15,9 @@ module OrganizationIndexConcern
         indexes :description
         indexes :website_url
         indexes :contact_ids, :index => 'not_analyzed'
+        indexes :event_ids,   :index => 'not_analyzed'
+        indexes :project_ids, :index => 'not_analyzed'
+        indexes :tag_ids,     :index => 'not_analyzed'
 
         indexes :notes, :type => 'nested'
 
@@ -50,6 +53,7 @@ module OrganizationIndexConcern
       :contact_ids => contact_ids,
       :event_ids   => event_ids,
       :project_ids => project_ids,
+      :tag_ids     => tag_ids,
 
       :sort_name => name,
 
