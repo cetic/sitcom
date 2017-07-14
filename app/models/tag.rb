@@ -4,8 +4,7 @@ class Tag < ActiveRecord::Base
 
   belongs_to :lab
 
-  has_many :contact_tag_links, :dependent => :destroy
-  has_many :contacts,          :through   => :contact_tag_links
+  has_many :item_tag_links, :dependent => :destroy
 
   has_many :log_entries, :as => :item # no dependent destroy/nullify because we want to keep them after deletion
 
@@ -13,7 +12,7 @@ class Tag < ActiveRecord::Base
 
   validates :name, :presence => true
 
-  validates_uniqueness_of :name, :scope => :lab_id
+  validates_uniqueness_of :name, :scope => [ :lab_id, :item_type ]
 
   def self.random_color(lab)
     lab_colors = lab.tags.collect(&:color)

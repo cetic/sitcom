@@ -28,7 +28,9 @@ class ItemsSelect extends React.Component {
   reloadOptionsFromBackend(callback) {
     this.setState({ loaded: false })
 
-    http.get(this.props.optionsPath, {}, (data) => {
+    http.get(this.props.optionsPath, {
+      itemType: this.props.itemType
+    }, (data) => {
       this.setState({
         options: data,
         loaded:  true

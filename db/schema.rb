@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420101555) do
+ActiveRecord::Schema.define(version: 20170707150729) do
 
   create_table "contact_event_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "contact_id"
@@ -49,15 +49,6 @@ ActiveRecord::Schema.define(version: 20170420101555) do
     t.datetime "updated_at",              null: false
     t.index ["contact_id"], name: "index_contact_project_links_on_contact_id", using: :btree
     t.index ["project_id"], name: "index_contact_project_links_on_project_id", using: :btree
-  end
-
-  create_table "contact_tag_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
-    t.integer  "contact_id"
-    t.integer  "tag_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["contact_id"], name: "index_contact_tag_links_on_contact_id", using: :btree
-    t.index ["tag_id"], name: "index_contact_tag_links_on_tag_id", using: :btree
   end
 
   create_table "contacts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
@@ -147,6 +138,16 @@ ActiveRecord::Schema.define(version: 20170420101555) do
     t.datetime "updated_at", null: false
     t.index ["lab_id"], name: "index_fields_on_lab_id", using: :btree
     t.index ["parent_id"], name: "index_fields_on_parent_id", using: :btree
+  end
+
+  create_table "item_tag_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "item_id"
+    t.string   "item_type",  default: "Contact"
+    t.integer  "tag_id"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.index ["item_id"], name: "index_item_tag_links_on_item_id", using: :btree
+    t.index ["tag_id"], name: "index_item_tag_links_on_tag_id", using: :btree
   end
 
   create_table "lab_user_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
@@ -260,8 +261,9 @@ ActiveRecord::Schema.define(version: 20170420101555) do
     t.integer  "lab_id"
     t.string   "name"
     t.string   "color"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "item_type",  default: "Contact"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.index ["lab_id"], name: "index_tags_on_lab_id", using: :btree
   end
 
@@ -293,8 +295,6 @@ ActiveRecord::Schema.define(version: 20170420101555) do
   add_foreign_key "contact_organization_links", "organizations"
   add_foreign_key "contact_project_links", "contacts"
   add_foreign_key "contact_project_links", "projects"
-  add_foreign_key "contact_tag_links", "contacts"
-  add_foreign_key "contact_tag_links", "tags"
   add_foreign_key "contacts", "labs"
   add_foreign_key "custom_field_links", "custom_fields"
   add_foreign_key "custom_fields", "labs"
@@ -304,6 +304,8 @@ ActiveRecord::Schema.define(version: 20170420101555) do
   add_foreign_key "event_project_links", "projects"
   add_foreign_key "events", "labs"
   add_foreign_key "fields", "fields", column: "parent_id"
+  add_foreign_key "item_tag_links", "contacts", column: "item_id"
+  add_foreign_key "item_tag_links", "tags"
   add_foreign_key "lab_user_links", "labs"
   add_foreign_key "lab_user_links", "users"
   add_foreign_key "log_entries", "labs"

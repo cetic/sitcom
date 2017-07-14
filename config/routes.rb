@@ -112,6 +112,7 @@ Rails.application.routes.draw do
 
       collection do
         get :options
+        get :export
 
         resources :saved_searches, :item_type => 'project'
       end
@@ -124,6 +125,7 @@ Rails.application.routes.draw do
 
       collection do
         get :options
+        get :export
 
         resources :saved_searches, :item_type => 'event'
       end

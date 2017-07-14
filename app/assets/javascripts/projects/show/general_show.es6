@@ -1,5 +1,6 @@
 import ProjectDates   from '../shared/project_dates.es6'
 import CustomDropzone from '../../shared/custom_dropzone.es6'
+import Tags           from '../../shared/tags.es6'
 
 class GeneralShow extends React.Component {
   constructor(props) {
@@ -15,6 +16,10 @@ class GeneralShow extends React.Component {
       http.delete(this.props.projectPath)
       this.props.router.replace('projects' + this.props.search)
     }
+  }
+
+  tagsPath() {
+    return this.props.tagOptionsPath.slice(0, -8); // remove '/options'
   }
 
   render() {
@@ -34,10 +39,13 @@ class GeneralShow extends React.Component {
             </h1>
 
             <div className="dates">
-              <ProjectDates project={this.props.project} />
+              <ProjectDates startDate={this.props.project.startDate}
+                            endDate={this.props.project.endDate} />
             </div>
 
             <div style={{ clear: 'both' }}></div>
+
+            { this.renderTags() }
 
             <div className="description">
               {this.props.project.description}
@@ -81,6 +89,18 @@ class GeneralShow extends React.Component {
                       acceptedFiles="image/*">
         <img className="img-thumbnail" src={this.props.project.previewPictureUrl} />
       </CustomDropzone>
+    )
+  }
+
+  renderTags() {
+    return (
+      <Tags canWriteItems={this.props.permissions.canWriteProjects}
+            itemType="project"
+            itemTags={this.props.project.tags}
+            itemId={this.props.project.id}
+            itemPath={this.props.projectPath}
+            tagsPath={this.tagsPath()}
+            tagOptionsPath={this.props.tagOptionsPath} />
     )
   }
 }

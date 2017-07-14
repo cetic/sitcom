@@ -166,6 +166,7 @@ class Event extends React.Component {
                        permissions={this.props.permissions}
                        search={this.props.search}
                        eventPath={this.eventPath()}
+                       tagOptionsPath={this.props.tagOptionsPath}
                        router={this.props.router}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)} />
         )

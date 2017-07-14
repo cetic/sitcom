@@ -43,10 +43,17 @@ class Organizations extends React.Component {
 
   renderOrganizations() {
     return _.map(this.props.organizations, (organization) => {
+      var selected = _.includes(this.props.selectedItemIds, organization.id)
+
       return (
         <Organization key={organization.id}
+                      permissions={this.props.permissions}
                       organization={organization}
-                      search={this.props.search} />
+                      search={this.props.search}
+                      tagOptionsPath={this.props.tagOptionsPath}
+                      selected={selected}
+                      updateSelected={this.props.updateSelected}
+                      pushTagIdsFilter={this.props.pushTagIdsFilter} />
       )
     })
   }

@@ -41,6 +41,9 @@ class Main extends BaseMain {
       websiteUrl:  this.props.location.query.websiteUrl  || '',
       notes:       this.props.location.query.notes       || '',
       contactIds:  this.props.location.query.contactIds,
+      projectIds:  this.props.location.query.projectIds,
+      eventIds:    this.props.location.query.eventIds,
+      tagIds:      this.props.location.query.tagIds
     })
   }
 
@@ -48,9 +51,13 @@ class Main extends BaseMain {
     return (
       <Organizations permissions={this.props.route.permissions}
                      organizations={this.filteredItems()}
+                     selectedItemIds={this.state.selectedItemIds}
                      loaded={this.state.loaded}
                      search={this.props.location.search}
-                     loadingImagePath={this.props.route.loadingImagePath} />
+                     tagOptionsPath={this.props.route.tagOptionsPath}
+                     loadingImagePath={this.props.route.loadingImagePath}
+                     updateSelected={this.updateSelected.bind(this)}
+                     pushTagIdsFilter={this.pushIdsListFilter.bind(this, 'tagIds')} />
     )
   }
 
@@ -68,6 +75,7 @@ class Main extends BaseMain {
                     organizationsPath={this.props.route.organizationsPath}
                     search={this.props.location.search}
                     loadingImagePath={this.props.route.loadingImagePath}
+                    tagOptionsPath={this.props.route.tagOptionsPath}
                     contactOptionsPath={this.props.route.contactOptionsPath}
                     projectOptionsPath={this.props.route.projectOptionsPath}
                     eventOptionsPath={this.props.route.eventOptionsPath}

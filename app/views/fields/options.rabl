@@ -9,5 +9,5 @@ node :value do |field|
 end
 
 node :highlight do |field|
-  field.parent.blank?
+  field.parent_id.nil?
 end

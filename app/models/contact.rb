@@ -16,8 +16,8 @@ class Contact < ApplicationRecord
 
   belongs_to :lab
 
-  has_many :contact_tag_links, :dependent => :destroy
-  has_many :tags, :through => :contact_tag_links
+  has_many :item_tag_links, :dependent => :destroy, :as => :item
+  has_many :tags, :through => :item_tag_links
 
   has_many :contact_field_links, :dependent => :destroy
   has_many :fields, :through => :contact_field_links

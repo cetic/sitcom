@@ -43,10 +43,17 @@ class Projects extends React.Component {
 
   renderProjects() {
     return _.map(this.props.projects, (project) => {
+      var selected = _.includes(this.props.selectedItemIds, project.id)
+
       return (
         <Project key={project.id}
+                 permissions={this.props.permissions}
                  project={project}
-                 search={this.props.search} />
+                 search={this.props.search}
+                 tagOptionsPath={this.props.tagOptionsPath}
+                 selected={selected}
+                 updateSelected={this.props.updateSelected}
+                 pushTagIdsFilter={this.props.pushTagIdsFilter} />
       )
     })
   }

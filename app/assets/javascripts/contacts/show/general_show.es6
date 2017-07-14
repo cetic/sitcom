@@ -128,10 +128,11 @@ class GeneralShow extends React.Component {
 
   renderTags() {
     return (
-      <Tags permissions={this.props.permissions}
-            contactTags={this.props.contact.tags}
-            contactId={this.props.contact.id}
-            contactPath={this.props.contactPath}
+      <Tags canWriteItems={this.props.permissions.canWriteContacts}
+            itemType="contact"
+            itemTags={this.props.contact.tags}
+            itemId={this.props.contact.id}
+            itemPath={this.props.contactPath}
             tagsPath={this.tagsPath()}
             tagOptionsPath={this.props.tagOptionsPath} />
     )

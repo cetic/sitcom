@@ -15,7 +15,9 @@ class TagsSelector extends React.Component {
   }
 
   reloadTags() {
-    http.get(this.props.tagOptionsPath, {}, (data) => {
+    http.get(this.props.tagOptionsPath, {
+      itemType: _.capitalize(this.props.itemType)
+    }, (data) => {
       this.setState({
         tags: data,
       })
@@ -41,11 +43,12 @@ class TagsSelector extends React.Component {
       this.setState({ tagSelectionOpened: false })
 
       http.post(this.tagsPath(), {
-        name:        e.target.value,
-        contact_ids: this.props.selectedItemIds
+        name:     e.target.value,
+        itemIds:  this.props.selectedItemIds,
+        itemType: _.capitalize(this.props.itemType)
       }, (data) => {
         // this.reloadTags() => will already be remounted next time an item is selected
-        this.props.unselectAllContacts()
+        this.props.unselectAllItems()
       })
     }
   }
@@ -54,11 +57,12 @@ class TagsSelector extends React.Component {
     this.setState({ tagSelectionOpened: false })
 
     http.post(this.tagsPath(), {
-      name:        tag.label,
-      contact_ids: this.props.selectedItemIds
+      name:     tag.label,
+      itemIds:  this.props.selectedItemIds,
+      itemType: _.capitalize(this.props.itemType)
     }, (data) => {
       // this.reloadTags() => will already be remounted next time an item is selected
-      this.props.unselectAllContacts()
+      this.props.unselectAllItems()
     })
   }
 
