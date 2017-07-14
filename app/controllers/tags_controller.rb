@@ -4,7 +4,7 @@ class TagsController < ApplicationController
 
   # create many tags at once
   def create
-    item_types = params[:item_type].downcase + 's'
+    item_types = params[:item_type].downcase.pluralize
 
     if PermissionsService.new(current_user, @lab).can_write?(item_types)
       items = @lab.send(item_types).where(:id => params[:item_ids])
@@ -23,7 +23,7 @@ class TagsController < ApplicationController
 
   # destroy only one tag
   def destroy
-    item_types = params[:item_type].downcase + 's'
+    item_types = params[:item_type].downcase.pluralize
 
     if PermissionsService.new(current_user, @lab).can_write?(item_types)
       item = @lab.send(item_types).find(params[:item_id])

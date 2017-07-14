@@ -118,7 +118,8 @@ class Project < ApplicationRecord
     {
       :contact_ids      => contact_ids,
       :organization_ids => organization_ids,
-      :event_ids        => event_ids
+      :event_ids        => event_ids,
+      :tag_ids          => tag_ids
     }
   end
 end

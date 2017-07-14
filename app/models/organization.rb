@@ -121,7 +121,8 @@ class Organization < ApplicationRecord
     {
       :contact_ids => contact_ids,
       :project_ids => project_ids,
-      :event_ids   => event_ids
+      :event_ids   => event_ids,
+      :tag_ids     => tag_ids
     }
   end
 end

@@ -14,10 +14,6 @@ class ItemTagService
     existing_tag = @lab.tags.where(:name => tag_name, :item_type => @item_type)
 
     if existing_tag.empty?
-      puts "--------"
-      puts @item_type.inspect
-      puts "--------"
-
       tag = @lab.tags.create!(
         :name      => tag_name,
         :item_type => @item_type,

@@ -121,7 +121,8 @@ class Event < ApplicationRecord
     {
       :contact_ids      => contact_ids,
       :organization_ids => organization_ids,
-      :project_ids      => project_ids
+      :project_ids      => project_ids,
+      :tag_ids          => tag_ids
     }
   end
 end
