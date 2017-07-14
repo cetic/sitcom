@@ -22,5 +22,3 @@ See `DEPLOY.md` on how to deploy on a Ubuntu server.
 
 ## TODO
 
- * Adapter API pour tags/custom fields
- * Ajouter filtre avancés pour nouveaux liens (projects, events, tags, etc.)
