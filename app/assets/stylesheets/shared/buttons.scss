@@ -89,7 +89,7 @@
   position: absolute;
   right: 7px;
   top: 4px;
-  padding: 5px;
+  //padding: 5px;
 
   .btn {
     font-weight: bold;
@@ -103,7 +103,8 @@
   }
 
   .dropdown-toggle {
-    background: red; // FIXME
+    padding-left: 6px;
+    padding-right: 6px;
   }
 }
 

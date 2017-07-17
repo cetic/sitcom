@@ -30,7 +30,8 @@ $brand-primary: #1976d2;
 @import 'organizations/all';
 @import 'projects/all';
 @import 'events/all';
-@import 'contact_imports/all';
+
+@import 'contact_imports/form';
 
 @import 'admin/form';
 @import 'admin/users/index';

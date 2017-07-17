@@ -1,0 +1,62 @@
+#contact_imports-new,
+#contact_imports-create {
+  .row-fluid {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .panel {
+    margin-top: 20px;
+    background-color: white;
+  }
+
+  .alert {
+    ul {
+      list-style-type: none;
+      padding-left: 0px;
+    }
+  }
+
+  .notice {
+    padding: 20px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    background-color: whitesmoke;
+
+    p {
+      margin-bottom: 0px;
+    }
+  }
+
+  fieldset {
+    input {
+      border: 0px;
+      box-shadow: none;
+      padding-top: 8px;
+      line-height: 16px;
+    }
+  }
+
+  .table.import-preview {
+    td {
+      .found {
+        color: green;
+      }
+
+      .not-found {
+        color: orange;
+      }
+    }
+  }
+
+  .actions {
+    text-align: right;
+    margin-top: 20px;
+    margin-bottom: 12px;
+
+    .btn {
+      margin-left: 6px;
+    }
+  }
+}
