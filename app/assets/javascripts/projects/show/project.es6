@@ -166,6 +166,7 @@ class Project extends React.Component {
                        permissions={this.props.permissions}
                        search={this.props.search}
                        projectPath={this.projectPath()}
+                       tagOptionsPath={this.props.tagOptionsPath}
                        router={this.props.router}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)} />
         )

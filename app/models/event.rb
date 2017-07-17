@@ -15,6 +15,9 @@ class Event < ApplicationRecord
 
   belongs_to :lab
 
+  has_many :item_tag_links, :dependent => :destroy, :as => :item
+  has_many :tags, :through => :item_tag_links
+
   has_many :contact_event_links # dependent destroy is made in around_destroy_callback
   has_many :contacts, :through => :contact_event_links
 
@@ -26,8 +29,8 @@ class Event < ApplicationRecord
 
   has_many :notes, :as => :notable
 
-  has_many :custom_field_links, :dependent => :destroy,
-                                :as        => :item
+  has_many :custom_field_links, :dependent => :destroy, :as => :item
+  has_many :custom_fields, :through => :custom_field_links
 
   has_many :log_entries, :as => :item # no dependent destroy/nullify because we want to keep them after deletion
 
@@ -118,7 +121,8 @@ class Event < ApplicationRecord
     {
       :contact_ids      => contact_ids,
       :organization_ids => organization_ids,
-      :project_ids      => project_ids
+      :project_ids      => project_ids,
+      :tag_ids          => tag_ids
     }
   end
 end

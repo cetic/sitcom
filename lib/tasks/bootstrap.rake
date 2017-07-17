@@ -163,7 +163,7 @@ namespace :app do
     tags = ['groupe 1', 'groupe 2', 'groupe 3', 'groupe 4', 'groupe 5']
 
     100.times do
-      ContactTagService.new(User.all.to_a.sample, Contact.all.to_a.sample).add_tag(tags.sample)
+      ItemTagService.new(User.all.to_a.sample, Contact.all.to_a.sample).add_tag(tags.sample)
     end
 
     puts "Bootstrapping saved searches"

@@ -1,19 +1,20 @@
 module.exports = class extends React.Component {
 
   render() {
-    if(this.props.project.startDate || this.props.endDate) {
-      var startDateSpan = <span>{moment(this.props.project.startDate).format('DD/MM/YYYY')}</span>
-      var endDateSpan   = <span>{moment(this.props.project.endDate  ).format('DD/MM/YYYY')}</span>
+    var startDateSpan = <em>N/A</em>
+    var endDateSpan   = <em>N/A</em>
 
-      return (
-        <div>{startDateSpan}&nbsp;&rarr;&nbsp;{endDateSpan}</div>
-      )
+    if(this.props.startDate) {
+      var startDateSpan = <span>{moment(this.props.startDate).format('DD/MM/YYYY')}</span>
     }
-    else {
-      return (
-        <div />
-      )
+
+    if(this.props.endDate) {
+      var endDateSpan = <span>{moment(this.props.endDate).format('DD/MM/YYYY')}</span>
     }
+
+    return (
+      <div>{startDateSpan}&nbsp;&rarr;&nbsp;{endDateSpan}</div>
+    )
   }
 
 }

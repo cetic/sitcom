@@ -14,6 +14,7 @@ class Main extends BaseMain {
     this.newButtonLabel = 'Nouveau projet'
     this.SavedSearches  = SavedSearches
     this.AdvancedSearch = AdvancedSearch
+    this.exportUrl      = `${this.props.route.projectsPath}/export`
 
     this.state = {
       items:           [],
@@ -33,21 +34,27 @@ class Main extends BaseMain {
     })
 
     return Object.assign(customFieldFilters, {
-      quickSearch: this.props.location.query.quickSearch || '',
-      name:        this.props.location.query.name        || '',
-      description: this.props.location.query.description || '',
-      notes:       this.props.location.query.notes       || '',
-      contactIds:  this.props.location.query.contactIds,
-    })
+      quickSearch:     this.props.location.query.quickSearch || '',
+      name:            this.props.location.query.name        || '',
+      description:     this.props.location.query.description || '',
+      notes:           this.props.location.query.notes       || '',
+      contactIds:      this.props.location.query.contactIds,
+      organizationIds: this.props.location.query.organizationIds,
+      eventIds:        this.props.location.query.projectIds,
+      tagIds:          this.props.location.query.tagIds    })
   }
 
   renderItems() {
     return (
       <Projects permissions={this.props.route.permissions}
                 projects={this.filteredItems()}
+                selectedItemIds={this.state.selectedItemIds}
                 loaded={this.state.loaded}
                 search={this.props.location.search}
-                loadingImagePath={this.props.route.loadingImagePath} />
+                tagOptionsPath={this.props.route.tagOptionsPath}
+                loadingImagePath={this.props.route.loadingImagePath}
+                updateSelected={this.updateSelected.bind(this)}
+                pushTagIdsFilter={this.pushIdsListFilter.bind(this, 'tagIds')} />
     )
   }
 
@@ -65,6 +72,7 @@ class Main extends BaseMain {
                projectsPath={this.props.route.projectsPath}
                search={this.props.location.search}
                loadingImagePath={this.props.route.loadingImagePath}
+               tagOptionsPath={this.props.route.tagOptionsPath}
                contactOptionsPath={this.props.route.contactOptionsPath}
                organizationOptionsPath={this.props.route.organizationOptionsPath}
                eventOptionsPath={this.props.route.eventOptionsPath}

@@ -114,6 +114,18 @@ class ProjectsController < ApplicationController
     @projects = @lab.projects.order(:name)
   end
 
+  def export
+    if PermissionsService.new(current_user, @lab).can_read?('projects')
+      projects = ProjectSearch.new(current_user, params.merge({
+        :lab_id => @lab.id
+      })).run
+
+      render_csv(ProjectExport.new(@lab, projects).csv_data, 'projects.csv')
+    else
+      render_permission_error
+    end
+  end
+
   private
 
   # Encapsulate new picture in "project" (don't know how to make it in JS)

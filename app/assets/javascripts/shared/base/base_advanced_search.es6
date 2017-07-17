@@ -47,7 +47,8 @@ class BaseAdvancedSearch extends React.Component {
         <label className="col-sm-3 control-label">{labelName}</label>
 
         <div className="col-sm-9">
-          <ItemsSelect itemIds={this.props.filters[fieldName]}
+          <ItemsSelect itemType={this.itemType}
+                       itemIds={this.props.filters[fieldName]}
                        optionsPath={optionsPath}
                        updateValue={this.updateIdsListFilter.bind(this, fieldName)} />
         </div>

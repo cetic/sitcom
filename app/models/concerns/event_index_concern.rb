@@ -15,7 +15,10 @@ module EventIndexConcern
         indexes :place
         indexes :description
         indexes :website_url
-        indexes :contact_ids, :index => 'not_analyzed'
+        indexes :contact_ids,      :index => 'not_analyzed'
+        indexes :organization_ids, :index => 'not_analyzed'
+        indexes :project_ids,      :index => 'not_analyzed'
+        indexes :tag_ids,          :index => 'not_analyzed'
 
         indexes :notes, :type => 'nested'
 
@@ -52,6 +55,7 @@ module EventIndexConcern
       :contact_ids      => contact_ids,
       :organization_ids => organization_ids,
       :project_ids      => project_ids,
+      :tag_ids          => tag_ids,
 
       :sort_name => name,
 
@@ -66,6 +70,7 @@ module EventIndexConcern
         :organization_links => organization_links_as_indexed_json,
         :project_links      => project_links_as_indexed_json,
         :notes              => notes_as_indexed_json,
+        :tags               => tags_as_indexed_json,
         :custom_fields      => custom_fields_as_json
       }))
     end
@@ -116,6 +121,12 @@ module EventIndexConcern
   def notes_as_indexed_json
     notes.collect do |note|
       note.as_indexed_json
+    end
+  end
+
+  def tags_as_indexed_json
+    tags.collect do |tag|
+      tag.as_indexed_json
     end
   end
 end

@@ -4,7 +4,6 @@ import Contact        from './show/contact.es6'
 import NewContact     from './shared/new_contact.es6'
 import AdvancedSearch from './shared/advanced_search.es6'
 import SavedSearches  from '../shared/saved_searches.es6'
-import QuickSearch    from '../shared/quick_search.es6'
 
 class Main extends BaseMain {
   constructor(props) {
@@ -51,28 +50,6 @@ class Main extends BaseMain {
     })
   }
 
-  updateSelected(item, newValue) {
-    if(newValue == false && _.includes(this.state.selectedItemIds, item.id)) {
-      this.setState({
-        selectedItemIds: _.filter(this.state.selectedItemIds, (itemId) => { return itemId != item.id }),
-        selectedCount:   this.state.selectedCount - 1,
-      })
-    }
-    else if(newValue == true && !_.includes(this.state.selectedItemIds, item.id)) {
-      this.setState({
-        selectedItemIds: this.state.selectedItemIds.concat([item.id]),
-        selectedCount:   this.state.selectedCount + 1,
-      })
-    }
-  }
-
-  unselectAllItems() {
-    this.setState({
-      selectedItemIds: [],
-      selectedCount:   0,
-    })
-  }
-
   // @overrides
   renderNewButton() {
     if(this.props.route.permissions[`canWriteContacts`]) {
@@ -101,25 +78,6 @@ class Main extends BaseMain {
         </div>
       )
     }
-  }
-
-  // @overrides
-  renderQuickSearch(filters) {
-    return (
-      <QuickSearch title={this.title}
-                   loaded={this.state.loaded}
-                   results={this.state.filteredCount}
-                   selectedCount={this.state.selectedCount}
-                   quickSearch={filters.quickSearch}
-                   updateQuickSearch={this.updateQuickSearch.bind(this)}
-                   filters={filters}
-                   exportUrl={this.exportUrl}
-                   mailchimpExportUrl={this.mailchimpExportUrl}
-                   selectedItemIds={this.state.selectedItemIds}
-                   tagOptionsPath={this.props.route.tagOptionsPath}
-                   unselectAllContacts={this.unselectAllItems.bind(this)}
-                   isMailchimpConfigured={this.props.route.isMailchimpConfigured} />
-    )
   }
 
   renderItems() {
