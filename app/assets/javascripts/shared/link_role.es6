@@ -35,6 +35,13 @@ class LinkRole extends React.Component {
     })
   }
 
+  cancel() {
+    this.setState({
+      editMode: false,
+      role:     this.props.link.role
+    })
+  }
+
   render() {
     if(this.props.canWrite && this.state.editMode) {
       return (
@@ -47,7 +54,7 @@ class LinkRole extends React.Component {
 
           <a href="javascript:;"
              style={{ marginLeft: '5px' }}
-             onClick={this.setEditMode.bind(this, false)}>Annuler</a>
+             onClick={this.cancel.bind(this)}>Annuler</a>
         </div>
       )
     }
