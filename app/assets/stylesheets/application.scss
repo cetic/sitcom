@@ -31,18 +31,15 @@ $brand-primary: #1976d2;
 @import 'projects/all';
 @import 'events/all';
 
-@import 'admin/form';
+@import 'contact_imports/form';
 
+@import 'admin/form';
 @import 'admin/users/index';
 @import 'admin/users/form';
-
 @import 'admin/labs/index';
-
 @import 'admin/fields/index';
-
 @import 'admin/custom_fields/index';
 @import 'admin/custom_fields/form';
-
 @import 'admin/api_keys/show';
 
 @import "../../../node_modules/react-datepicker/dist/react-datepicker"

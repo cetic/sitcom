@@ -1,0 +1,21 @@
+<div class="container-fluid container-main">
+  <div class="row row-fluid">
+    <div class="panel col-md-12">
+      <ol class="breadcrumb">
+        <li><%= link_to 'Contacts', lab_contacts_path(@lab) %></li>
+        <li>Validation de l'importation</li>
+      </ol>
+
+      <%= render 'table' %>
+
+      <%= form_tag lab_contact_imports_path(@lab) do |f| %>
+        <%= hidden_field_tag 'csv_data', @csv_data %>
+
+        <div class="actions">
+          <%= link_to 'Annuler', lab_contacts_path(@lab), :class => 'btn btn-default' %>
+          <%= submit_tag 'Importer', :class => 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

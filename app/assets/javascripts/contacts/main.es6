@@ -50,6 +50,36 @@ class Main extends BaseMain {
     })
   }
 
+  // @overrides
+  renderNewButton() {
+    if(this.props.route.permissions[`canWriteContacts`]) {
+      const importPath = `${this.props.location.basename}/contact_imports/new`
+
+      return (
+        <div className="btn-group new">
+          <button type="button"
+                  className="btn btn-primary"
+                  onClick={this.openNewModal.bind(this)}>
+            {this.newButtonLabel}
+          </button>
+
+          <button type="button"
+                  className="btn btn-primary dropdown-toggle"
+                  data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+            <span className="caret"></span>
+          </button>
+
+          <ul className="dropdown-menu">
+            <li>
+              <a href={importPath}>Importer un CSV</a>
+            </li>
+          </ul>
+        </div>
+      )
+    }
+  }
+
   renderItems() {
     return (
       <Contacts permissions={this.props.route.permissions}

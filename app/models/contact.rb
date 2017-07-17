@@ -40,8 +40,8 @@ class Contact < ApplicationRecord
 
   # Validations
 
-  validates :first_name, :presence   => { :message => "Le prénom est obligatoire."  },
-                         :uniqueness => { :scope => :last_name, :message => 'Le nom indiqué existe déjà' }
+  validates :first_name, :presence   => { :message => "Le prénom est obligatoire."  }#,
+                         #:uniqueness => { :scope => :last_name, :message => 'Le nom indiqué existe déjà' }
 
   validates :last_name,  :presence => { :message => "Le nom de famille est obligatoire."  }
 

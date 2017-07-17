@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
+
+    Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
   end
 
   # Admin
@@ -149,6 +151,12 @@ Rails.application.routes.draw do
     resources :event_organization_links,   :only => [:update]
     resources :organization_project_links, :only => [:update]
     resources :event_project_links,        :only => [:update]
+
+    resources :contact_imports, :only => [:new, :create] do
+      collection do
+        get :sample
+      end
+    end
   end
 
   root to: 'labs#index'
