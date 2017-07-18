@@ -100,6 +100,10 @@ class Organization < ApplicationRecord
 
   # Methods
 
+  def sort_name
+    name
+  end
+
   def path
     Rails.application.routes.url_helpers.lab_organization_path(lab, self)
   end

@@ -57,7 +57,7 @@ module EventIndexConcern
       :project_ids      => project_ids,
       :tag_ids          => tag_ids,
 
-      :sort_name => name,
+      :sort_name => sort_name,
 
       :updated_at => updated_at
     }

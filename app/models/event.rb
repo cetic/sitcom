@@ -100,6 +100,14 @@ class Event < ApplicationRecord
 
   # Methods
 
+  def sort_name
+    if happens_on.present?
+      10_000_000_000 - happens_on.to_time.to_i # because always sorted ASC and we want sooner first
+    else
+      10_000_000_000
+    end
+  end
+
   def path
     Rails.application.routes.url_helpers.lab_event_path(lab, self)
   end
