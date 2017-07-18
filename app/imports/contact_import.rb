@@ -15,7 +15,7 @@ class ContactImport
     :facebook_url     => 'Facebook (URL)',
   }
 
-  class Row < Struct.new(*([:lab] + COLUMNS.keys))
+  class Row < Struct.new(*([:lab, :duplicate] + COLUMNS.keys))
     def linked_organization_found?
       linked_organization.present?
     end
@@ -28,9 +28,10 @@ class ContactImport
   attr_reader :rows, :errors
 
   def initialize(lab, csv_data = '')
-    @lab      = lab
-    @csv_data = csv_data
-    @errors   = Set.new
+    @lab          = lab
+    @lab_contacts = @lab.contacts.to_a
+    @csv_data     = csv_data
+    @errors       = Set.new
   end
 
   def parse
@@ -48,11 +49,13 @@ class ContactImport
           attr_name = COLUMNS.key(column_name)
 
           if attr_name.nil?
-            @errors << "Colonne inconnue: \"#{column_name}\""
+            @errors << "Colonne inconnue : \"#{column_name}\""
           else
             row.send("#{attr_name}=", value)
           end
         end
+
+        row.duplicate = @lab_contacts.select { |c| c.first_name == row.first_name.strip && c.last_name == row.last_name.strip }.any?
 
         rows << row
       end

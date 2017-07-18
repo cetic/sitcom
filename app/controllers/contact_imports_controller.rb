@@ -23,13 +23,13 @@ class ContactImportsController < ApplicationController
       render 'new'
     elsif commit
       @contact_import.commit
-      redirect_to new_lab_contact_import_path(@lab)
+      redirect_to new_lab_contact_import_path(@lab), :notice => "Les #{@contact_import.rows.count} contacts ont été importés avec succès."
     end
   end
 
   def sample
     send_data File.read('misc/contact-import.csv'), {
-      :filename    => 'sitcom-contact-import.csv',
+      :filename    => 'contacts-import.csv',
       :disposition => 'attachment',
       :type        => 'text/csv'
     }

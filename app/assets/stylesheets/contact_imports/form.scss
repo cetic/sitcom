@@ -38,7 +38,15 @@
     }
   }
 
-  .table.import-preview {
+  table.import-preview {
+    font-size: 12px;
+
+    thead {
+      th {
+        vertical-align: top;
+      }
+    }
+
     td {
       .found {
         color: green;
@@ -47,12 +55,37 @@
       .not-found {
         color: orange;
       }
+
+      .fa {
+        margin-left: 2px;
+        color: #bbbbbb;
+      }
+    }
+
+    tr.duplicate {
+      background-color: #fff0f0;
+    }
+
+    tr.duplicate-warning {
+      background-color: #fff0f0;
+      font-size: 10px;
+      color: #ff3636;
+
+      td {
+        border-top: 0px;
+        padding-top: 0px;
+      }
+
+      i.fa {
+        color: #ffa1a1;
+        font-size: 15px;
+      }
     }
   }
 
   .actions {
     text-align: right;
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 12px;
 
     .btn {

@@ -2,25 +2,36 @@
   <thead>
     <tr>
       <% ContactImport::COLUMNS.values.each do |column_name| %>
-        <th><%= column_name %></th>
+        <th><%= column_name.gsub(' (', '<br/>(').html_safe %></th>
       <% end %>
     </tr>
   </thead>
 
   <tbody>
     <% @contact_import.rows.each do |row| %>
-      <tr>
+      <tr class="<%= row.duplicate ? 'duplicate' : '' %>">
         <% ContactImport::COLUMNS.keys.each do |attr_name| %>
           <% if attr_name == :organization %>
             <td>
               <% className = row.linked_organization_found? ? 'found' : 'not-found' %>
+              <% text      = row.linked_organization_found? ? 'Organisation présente (elle sera associée)' : 'Organisation non-présente (elle ne sera pas associée)' %>
               <span class="<%= className %>"><%= row.organization %></span>
+              <i class="fa fa-info-circle" title="<%= text %>"></i>
             </td>
           <% else %>
             <td><%= row.send(attr_name.to_sym) %></td>
           <% end %>
         <% end %>
       </tr>
+
+      <% if row.duplicate %>
+        <tr class="duplicate-warning">
+          <td colspan="12">
+            <i class="fa fa-warning"></i>
+            Un contact du même nom existe déjà (homonyme). Êtes-vous sûr que ce n'est pas le même ?
+          </td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

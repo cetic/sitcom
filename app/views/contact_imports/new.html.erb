@@ -20,10 +20,22 @@
         </div>
       <% end %>
 
+      <% if flash[:notice] %>
+        <div class="alert alert-success" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+          <ul>
+            <li><%= flash[:notice] %></li>
+          </ul>
+        </div>
+      <% end %>
+
       <div class="notice">
         <p>
           Vous pouvez importer un ensemble de contacts à partir d'un fichier CSV.
-          Un exemple de fichier ayant la bonne structure se trouve ici : <%= link_to "sample.csv", sample_lab_contact_imports_path(@lab, :format => :csv) %>.
+          Un exemple de fichier ayant la bonne structure se trouve ici : <%= link_to "contacts-import.csv", sample_lab_contact_imports_path(@lab, :format => :csv) %>.
         </p>
       </div>
 
