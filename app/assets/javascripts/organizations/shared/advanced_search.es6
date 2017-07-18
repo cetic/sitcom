@@ -28,7 +28,7 @@ class AdvancedSearch extends BaseAdvancedSearch {
 
         <fieldset>
           <legend>Associations</legend>
-          {this.renderIdsListFilter('tag',     'Groupes'   )}
+          {this.renderIdsListFilter('tag',     'Tags'      )}
           {this.renderIdsListFilter('contact', 'Contacts'  )}
           {this.renderIdsListFilter('project', 'Projets'   )}
           {this.renderIdsListFilter('event',   'Evènements')}

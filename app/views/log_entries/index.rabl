@@ -47,7 +47,7 @@ node :changes do |l|
     translate_ids(key, l.content, changes, Project,      'project_ids',      'Projets')
     translate_ids(key, l.content, changes, Event,        'event_ids',        'Événements')
     translate_ids(key, l.content, changes, Field,        'field_ids',        "Expertises")
-    translate_ids(key, l.content, changes, Tag,          'tag_ids',          'Groupes')
+    translate_ids(key, l.content, changes, Tag,          'tag_ids',          'Tags')
 
     translate(key, l.content, changes, 'last_name',        'Nom')
     translate(key, l.content, changes, 'first_name',       'Prénom')

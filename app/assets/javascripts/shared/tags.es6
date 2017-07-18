@@ -136,7 +136,7 @@ class Tags extends React.Component {
   }
 
   renderPlusName() {
-    return this.props.itemTags.length ? '' : ' Groupe'
+    return this.props.itemTags.length ? '' : ' Tag'
   }
 
   renderTagSelection() {
@@ -146,7 +146,7 @@ class Tags extends React.Component {
           { this.renderTagSelectionItems() }
           <li>
             <input type="text"
-                   placeholder="Créer un nouveau groupe"
+                   placeholder="Créer un nouveau tag"
                    ref="newTagInput"
                    onKeyDown={this.addTagFromInput.bind(this)} />
           </li>

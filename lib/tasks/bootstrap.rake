@@ -160,7 +160,7 @@ namespace :app do
 
     puts "Bootstrapping tags"
 
-    tags = ['groupe 1', 'groupe 2', 'groupe 3', 'groupe 4', 'groupe 5']
+    tags = ['tag 1', 'tag 2', 'tag 3', 'tag 4', 'tag 5']
 
     100.times do
       ItemTagService.new(User.all.to_a.sample, Contact.all.to_a.sample).add_tag(tags.sample)

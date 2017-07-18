@@ -70,7 +70,7 @@ class TagsSelector extends React.Component {
     return (
       <div className="tags">
         <span onClick={ this.toggleTagSelection.bind(this) }>
-          Groupes
+          Tags
           <i className="fa fa-gear"></i>
         </span>
 
@@ -86,7 +86,7 @@ class TagsSelector extends React.Component {
           { this.renderTagSelectionItems() }
           <li>
             <input type="text"
-                   placeholder="Créer un nouveau groupe"
+                   placeholder="Créer un nouveau tag"
                    ref="newTagInput"
                    onKeyDown={this.addTagFromInput.bind(this)} />
           </li>
