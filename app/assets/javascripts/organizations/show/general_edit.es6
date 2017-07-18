@@ -4,6 +4,7 @@ class GeneralEdit extends React.Component {
 
     this.state = {
       name:        this.props.organization.name,
+      status:      this.props.organization.status,
       description: this.props.organization.description,
       websiteUrl:  this.props.organization.websiteUrl,
       errors:      ''
@@ -14,6 +15,7 @@ class GeneralEdit extends React.Component {
     var params = {
       organization: {
         name:        this.state.name,
+        status:      this.state.status,
         description: this.state.description,
         websiteUrl:  this.state.websiteUrl
       }
@@ -32,6 +34,12 @@ class GeneralEdit extends React.Component {
   updateName(e) {
     this.setState({
       name: e.target.value
+    })
+  }
+
+  updateStatus(e) {
+    this.setState({
+      status: e.target.value
     })
   }
 
@@ -68,6 +76,8 @@ class GeneralEdit extends React.Component {
               { this.renderName() }
             </h1>
 
+            { this.renderStatus() }
+
             { this.renderWebsite() }
             { this.renderDescription() }
           </div>
@@ -102,6 +112,7 @@ class GeneralEdit extends React.Component {
       <div className="name">
         <input type="text"
                className="name full"
+               placeholder="Nom de l'organisation"
                defaultValue={this.state.name}
                onChange={this.updateName.bind(this)} />
       </div>
@@ -129,6 +140,17 @@ class GeneralEdit extends React.Component {
                className="website-url"
                defaultValue={this.state.websiteUrl}
                onChange={this.updateWebsiteUrl.bind(this)} />
+      </div>
+    )
+  }
+
+  renderStatus() {
+    return (
+      <div className="status">
+        <input type="text"
+               placeholder="Statut"
+               defaultValue={this.state.status}
+               onChange={this.updateStatus.bind(this)} />
       </div>
     )
   }

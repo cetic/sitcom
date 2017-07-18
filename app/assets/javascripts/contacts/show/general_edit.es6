@@ -182,9 +182,11 @@ class GeneralEdit extends React.Component {
         <input type="text"
                className="first-name"
                defaultValue={this.state.firstName}
+               placeholder="Prénom"
                onChange={this.updateFirstName.bind(this)} />
         <input type="text"
                className="last-name"
+               placeholder="Nom"
                defaultValue={this.state.lastName}
                onChange={this.updateLastName.bind(this)} />
       </div>

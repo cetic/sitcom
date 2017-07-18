@@ -36,6 +36,7 @@ class GeneralShow extends React.Component {
           <div className="col-md-9">
             <h1>
               { this.props.organization.name }
+              <em className="status">{ this.props.organization.status }</em>
             </h1>
 
             { this.renderWebsite() }

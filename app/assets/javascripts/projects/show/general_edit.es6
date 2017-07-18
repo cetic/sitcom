@@ -116,6 +116,7 @@ class GeneralEdit extends React.Component {
       <div className="name">
         <input type="text"
                className="name full"
+               placeholder="Nom du projet"
                defaultValue={this.state.name}
                onChange={this.updateName.bind(this)} />
       </div>
