@@ -321,11 +321,29 @@ class BaseMain extends React.Component {
 
   renderNewButton() {
     if(this.props.route.permissions[`canWrite${_.upperFirst(this.itemType)}s`]) {
+      const importPath = `${this.props.location.basename}/item_imports/new?item_type=${this.itemType}`
+
       return (
-        <button className="btn btn-primary new"
-                onClick={this.openNewModal.bind(this)}>
-          {this.newButtonLabel}
-        </button>
+        <div className="btn-group new">
+          <button type="button"
+                  className="btn btn-primary"
+                  onClick={this.openNewModal.bind(this)}>
+            {this.newButtonLabel}
+          </button>
+
+          <button type="button"
+                  className="btn btn-primary dropdown-toggle"
+                  data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+            <span className="caret"></span>
+          </button>
+
+          <ul className="dropdown-menu">
+            <li>
+              <a href={importPath}>Importer un CSV</a>
+            </li>
+          </ul>
+        </div>
       )
     }
   }

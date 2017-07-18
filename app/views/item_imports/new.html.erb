@@ -2,7 +2,7 @@
   <div class="row">
     <div class="panel col-md-6 col-md-offset-3">
       <ol class="breadcrumb">
-        <li><%= link_to 'Contacts', lab_contacts_path(@lab) %></li>
+        <li><%= link_to @item_type_name.capitalize, send("lab_#{@item_type}s_path", @lab) %></li>
         <li>Importer</li>
       </ol>
 
@@ -34,12 +34,12 @@
 
       <div class="notice">
         <p>
-          Vous pouvez importer un ensemble de contacts à partir d'un fichier CSV.
-          Un exemple de fichier ayant la bonne structure se trouve ici : <%= link_to "contacts-import.csv", sample_lab_contact_imports_path(@lab, :format => :csv) %>.
+          Vous pouvez importer un ensemble <%= @of_items %> à partir d'un fichier CSV.
+          Un exemple de fichier ayant la bonne structure se trouve ici : <%= link_to "#{@item_type.pluralize}-import.csv", sample_lab_item_imports_path(@lab, { :item_type => @item_type, :format => :csv }) %>.
         </p>
       </div>
 
-      <%= form_tag lab_contact_imports_path(@lab), :class => 'form-horizontal', :multipart => true do |f| %>
+      <%= form_tag lab_item_imports_path(@lab, { :item_type => @item_type }), :class => 'form-horizontal', :multipart => true do |f| %>
         <fieldset>
           <div class="form-group">
             <%= label_tag 'csv_file', 'Fichier CSV', :class => 'control-label col-md-3' %>
@@ -51,7 +51,7 @@
         </fieldset>
 
         <div class="actions">
-          <%= link_to 'Annuler', lab_contacts_path(@lab), :class => 'btn btn-default' %>
+          <%= link_to 'Annuler', send("lab_#{@item_type}s_path", @lab), :class => 'btn btn-default' %>
           <%= submit_tag 'Analyser le fichier', :class => 'btn btn-primary' %>
         </div>
       <% end %>

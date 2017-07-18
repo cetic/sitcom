@@ -28,10 +28,9 @@ class ContactImport
   attr_reader :rows, :errors
 
   def initialize(lab, csv_data = '')
-    @lab          = lab
-    @lab_contacts = @lab.contacts.to_a
-    @csv_data     = csv_data
-    @errors       = Set.new
+    @lab      = lab
+    @csv_data = csv_data
+    @errors   = Set.new
   end
 
   def parse
@@ -55,7 +54,7 @@ class ContactImport
           end
         end
 
-        row.duplicate = @lab_contacts.select { |c| c.first_name == row.first_name.strip && c.last_name == row.last_name.strip }.any?
+        row.duplicate = @lab.contacts.where(:first_name => row.first_name.strip, :last_name => row.last_name.strip).any?
 
         rows << row
       end
@@ -80,7 +79,7 @@ class ContactImport
         end
       end
 
-      contact.save!
+      contact.save
     end
   end
 end

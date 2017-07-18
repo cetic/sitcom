@@ -152,7 +152,7 @@ Rails.application.routes.draw do
     resources :organization_project_links, :only => [:update]
     resources :event_project_links,        :only => [:update]
 
-    resources :contact_imports, :only => [:new, :create] do
+    resources :item_imports, :only => [:new, :create] do
       collection do
         get :sample
       end

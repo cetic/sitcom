@@ -1,16 +1,16 @@
 <table class="table import-preview">
   <thead>
     <tr>
-      <% ContactImport::COLUMNS.values.each do |column_name| %>
+      <% @item_import_class::COLUMNS.values.each do |column_name| %>
         <th><%= column_name.gsub(' (', '<br/>(').html_safe %></th>
       <% end %>
     </tr>
   </thead>
 
   <tbody>
-    <% @contact_import.rows.each do |row| %>
+    <% @item_import.rows.each do |row| %>
       <tr class="<%= row.duplicate ? 'duplicate' : '' %>">
-        <% ContactImport::COLUMNS.keys.each do |attr_name| %>
+        <% @item_import_class::COLUMNS.keys.each do |attr_name| %>
           <% if attr_name == :organization %>
             <td>
               <% className = row.linked_organization_found? ? 'found' : 'not-found' %>
@@ -28,7 +28,13 @@
         <tr class="duplicate-warning">
           <td colspan="12">
             <i class="fa fa-warning"></i>
-            Un contact du même nom existe déjà (homonyme). Êtes-vous sûr que ce n'est pas le même ?
+            Un<%= @item_type == 'organization' ? 'e' : '' %> <%= @item_type_name %> du même nom existe déjà (homonyme).
+
+            <% if @item_type == 'contact' %>
+              Un nouveau contact sera néanmoins créé sur base de ces valeurs.
+            <% else %>
+              Ces informations seront donc ignorées.
+            <% end %>
           </td>
         </tr>
       <% end %>
