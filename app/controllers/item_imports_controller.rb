@@ -42,7 +42,7 @@ class ItemImportsController < ApplicationController
   private
 
   def notice
-    "Les #{@item_import.rows.count} #{@item_type_name}#{@item_import.rows.count > 1 ? 's' : ''} ont été importés avec succès."
+    "Les #{@item_type_name}s ont été importés avec succès."
   end
 
   def find_lab
