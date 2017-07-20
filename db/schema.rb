@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170707150729) do
+ActiveRecord::Schema.define(version: 20170720122337) do
 
   create_table "contact_event_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "contact_id"
@@ -95,6 +95,19 @@ ActiveRecord::Schema.define(version: 20170707150729) do
     t.datetime "updated_at",                                   null: false
     t.index ["item_type"], name: "index_custom_fields_on_item_type", using: :btree
     t.index ["lab_id"], name: "index_custom_fields_on_lab_id", using: :btree
+  end
+
+  create_table "documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "user_id"
+    t.integer  "uploadable_id"
+    t.string   "uploadable_type"
+    t.string   "file"
+    t.text     "description",     limit: 65535
+    t.string   "privacy"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["uploadable_id"], name: "index_documents_on_uploadable_id", using: :btree
+    t.index ["user_id"], name: "index_documents_on_user_id", using: :btree
   end
 
   create_table "event_organization_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
@@ -298,6 +311,7 @@ ActiveRecord::Schema.define(version: 20170707150729) do
   add_foreign_key "contacts", "labs"
   add_foreign_key "custom_field_links", "custom_fields"
   add_foreign_key "custom_fields", "labs"
+  add_foreign_key "documents", "users"
   add_foreign_key "event_organization_links", "events"
   add_foreign_key "event_organization_links", "organizations"
   add_foreign_key "event_project_links", "events"

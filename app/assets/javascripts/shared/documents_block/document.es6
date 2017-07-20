@@ -1,30 +1,30 @@
-class Note extends React.Component {
+class Document extends React.Component {
 
   constructor(props) {
     super(props)
 
     this.state = {
-      editMode: false,
-      noteText: ''
+      editMode:    false,
+      description: ''
     }
   }
 
-  updateNoteText(e) {
+  updateDescription(e) {
     this.setState({
-      noteText: e.target.value
+      description: e.target.value
     })
   }
 
   remove() {
-    if(confirm("Supprimer définitivement cette note ?")) {
-      http.delete(`${this.props.note.path}`)
+    if(confirm("Supprimer définitivement ce document ?")) {
+      http.delete(`${this.props.document.path}`)
     }
   }
 
   edit() {
     this.setState({
-      editMode: true,
-      noteText: this.props.note.text
+      editMode:   true,
+      description: this.props.document.description
     }, () => {
       $(this.refs.textarea).focus()
     })
@@ -32,12 +32,12 @@ class Note extends React.Component {
 
   save() {
     var params = {
-      note: {
-        text: this.state.noteText
+      document: {
+        description: this.state.description
       }
     }
 
-    http.put(`${this.props.note.path}`, params, (data) => {
+    http.put(`${this.props.document.path}`, params, (data) => {
       if(data.success) {
         this.cancel()
       }
@@ -52,7 +52,7 @@ class Note extends React.Component {
 
   render() {
     return (
-      <div className="note">
+      <div className="document">
         {this.renderContent()}
       </div>
     )
@@ -61,10 +61,14 @@ class Note extends React.Component {
   renderContent() {
     if(this.state.editMode) {
       return (
-        <div>
-          <textarea ref="textarea"
-                    value={this.state.noteText}
-                    onChange={this.updateNoteText.bind(this)} />
+        <div className="file-description edit">
+          { this.renderFileName() }
+
+          <div className="document-description">
+            <textarea ref="textarea"
+                      value={this.state.description}
+                      onChange={this.updateDescription.bind(this)} />
+          </div>
 
           <div className="actions">
             <button onClick={this.cancel.bind(this)}
@@ -81,16 +85,31 @@ class Note extends React.Component {
       )
     }
     else {
+      var emptyClass  = this.props.document.description.length ? '' : 'empty'
+      var description = this.props.document.description.length ? this.props.document.description : "Pas de description"
+
       return (
-        <div>
-          <div className="note-text">
-            { this.props.note.text }
+        <div className="file-description">
+          { this.renderFileName() }
+
+          <div className="document-description">
+            <em className={emptyClass}>{ description }</em>
           </div>
 
           { this.renderButtons() }
         </div>
       )
     }
+  }
+
+  renderFileName() {
+    return (
+      <div className="document-name">
+        <a href={this.props.document.path} target="_blank">
+          <i className="fa fa-file"></i> { this.props.document.name }
+        </a>
+      </div>
+    )
   }
 
   renderButtons() {
@@ -115,4 +134,4 @@ class Note extends React.Component {
 
 }
 
-module.exports = Note
+module.exports = Document

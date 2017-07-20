@@ -19,13 +19,13 @@ class CustomDropzone extends React.Component {
 
     $(this.refs.dropzone).dropzone({
       url:                   this.props.url,
-      paramName:             'picture',
+      paramName:             this.props.paramName || 'picture',
       createImageThumbnails: false,
-      clickable:             ['.img-thumbnail', '.update-image'],
+      clickable:             this.props.clickable,
       acceptedFiles:         this.props.acceptedFiles,
-      method:                'put',
+      method:                this.props.method || 'put',
       accept:                (file, done)      => { done() },
-      success:               (file, message)   => { uploadPercentageSelector.hide(); this.props.afterSuccess() },
+      success:               (file, message)   => { uploadPercentageSelector.hide(); this.props.afterSuccess ? this.props.afterSuccess() : '' },
       error:                 (file, message)   => { alert(message); uploadTextSelector.hide(); uploadPercentageSelector.hide() },
       uploadprogress:        (file, progress)  => { uploadPercentageSelector.text("Upload en cours : " + progress.toFixed(0) + '%') },
       drop:                  (event)           => { uploadTextSelector.hide(); uploadPercentageSelector.show() },
@@ -44,7 +44,7 @@ class CustomDropzone extends React.Component {
         { this.props.children }
 
         <div className="update-image">
-          Modifier la photo
+          { this.props.uploadText || 'Modifier la photo' }
         </div>
 
         <div className="upload-text" ref="uploadText">

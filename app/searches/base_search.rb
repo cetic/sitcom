@@ -37,6 +37,24 @@ class BaseSearch
     end
   end
 
+  def self.reject_private_documents_from_collection(results)
+    results.collect do |result|
+      reject_private_documents_from_result(result)
+    end
+  end
+
+  def self.reject_private_documents_from_result(result)
+    result.merge({
+      'documents' => reject_private_documents(result['documents'])
+    })
+  end
+
+  def self.reject_private_documents(documents)
+    documents.reject do |document|
+      document['privacy'] == 'private'
+    end
+  end
+
   private
 
   def get_base_options

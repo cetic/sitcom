@@ -48,7 +48,7 @@ class Note < ApplicationRecord
     ActiveSupport::HashWithIndifferentAccess.new({
       :id      => id,
       :user_id => user_id,
-      :text    => text,
+      :text    => text.to_s,
       :privacy => privacy,
       :path    => path
     })

@@ -5,6 +5,7 @@ import SocialEdit         from './social_edit.es6'
 import OrganizationsBlock from '../../shared/organizations_block.es6'
 import ItemsBlock         from '../../shared/items_block.es6'
 import NotesBlock         from '../../shared/notes_block.es6'
+import DocumentsBlock     from '../../shared/documents_block.es6'
 import PreviousNextNav    from '../../shared/previous_next_nav.es6'
 import CustomFieldsBlock  from '../../shared/custom_fields_block.es6'
 import LogEntries         from '../../shared/log_entries.es6'
@@ -130,6 +131,7 @@ class Contact extends React.Component {
           { this.renderSocial() }
           { this.renderCustomFields() }
           { this.renderNotes() }
+          { this.renderDocuments() }
           { this.renderOrganizations() }
           { this.renderProjects() }
           { this.renderEvents() }
@@ -271,6 +273,16 @@ class Contact extends React.Component {
         <NotesBlock notable={this.state.contact}
                     canWrite={this.props.permissions.canWriteContacts}
                     currentUserId={this.props.currentUserId} />
+      )
+    }
+  }
+
+  renderDocuments() {
+    if(this.state.loaded) {
+      return (
+        <DocumentsBlock item={this.state.contact}
+                        canWrite={this.props.permissions.canWriteContacts}
+                        currentUserId={this.props.currentUserId} />
       )
     }
   }

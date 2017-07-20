@@ -29,6 +29,8 @@ class Project < ApplicationRecord
 
   has_many :notes, :as => :notable
 
+  has_many :documents, :as => :uploadable
+
   has_many :custom_field_links, :dependent => :destroy, :as => :item
   has_many :custom_fields, :through => :custom_field_links
 

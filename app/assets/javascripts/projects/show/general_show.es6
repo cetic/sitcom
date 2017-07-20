@@ -86,6 +86,7 @@ class GeneralShow extends React.Component {
   renderPicture() {
     return (
       <CustomDropzone url={this.props.projectPath}
+                      clickable={['.general .img-thumbnail', '.general .update-image']}
                       acceptedFiles="image/*">
         <img className="img-thumbnail" src={this.props.project.previewPictureUrl} />
       </CustomDropzone>

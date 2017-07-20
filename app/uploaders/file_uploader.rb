@@ -1,0 +1,3 @@
+class FileUploader < BasePrivateUploader
+
+end

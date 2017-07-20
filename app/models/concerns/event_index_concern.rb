@@ -22,6 +22,8 @@ module EventIndexConcern
 
         indexes :notes, :type => 'nested'
 
+        indexes :documents, :type => 'nested'
+
         indexes :custom_fields, :type => 'nested' do
           indexes :id,        :index => 'not_analyzed'
           indexes :value
@@ -70,6 +72,7 @@ module EventIndexConcern
         :organization_links => organization_links_as_indexed_json,
         :project_links      => project_links_as_indexed_json,
         :notes              => notes_as_indexed_json,
+        :documents          => documents_as_indexed_json,
         :tags               => tags_as_indexed_json,
         :custom_fields      => custom_fields_as_json
       }))
@@ -121,6 +124,12 @@ module EventIndexConcern
   def notes_as_indexed_json
     notes.collect do |note|
       note.as_indexed_json
+    end
+  end
+
+  def documents_as_indexed_json
+    documents.collect do |document|
+      document.as_indexed_json
     end
   end
 

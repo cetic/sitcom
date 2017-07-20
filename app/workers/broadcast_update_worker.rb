@@ -6,7 +6,11 @@ class BroadcastUpdateWorker
 
     ActionCable.server.broadcast(item.channel_name, {
       :action => 'update',
-      :item   => BaseSearch.reject_private_notes_from_result(item.as_indexed_json)
+      :item   => BaseSearch.reject_private_notes_from_result(
+                   BaseSearch.reject_private_documents_from_result(
+                     item.as_indexed_json
+                   )
+                 )
     })
   end
 end

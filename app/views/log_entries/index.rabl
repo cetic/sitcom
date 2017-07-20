@@ -71,6 +71,7 @@ node :changes do |l|
     translate(key, l.content, changes, 'happens_on',       'Date')
     translate(key, l.content, changes, 'place',            'Lieu')
     translate(key, l.content, changes, 'note',             'Note')
+    translate(key, l.content, changes, 'document',         'Document')
 
     # deal with boolean values
     changes.each do |k, v|

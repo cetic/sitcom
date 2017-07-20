@@ -86,6 +86,29 @@ class LogEntry < ApplicationRecord
     end
   end
 
+  # Special process to documents
+  def self.log_create_document(current_user, document)
+    log_document(:update, current_user, document)
+  end
+
+  def self.log_update_document(current_user, document)
+    log_document(:update, current_user, document)
+  end
+
+  def self.log_destroy_document(current_user, document)
+    if document.privacy.public?
+      LogEntry.create(
+        :item_id   => document.uploadable_id,
+        :item_type => document.uploadable_type,
+        :user_id   => current_user.id,
+        :user_name => current_user.name,
+        :lab_id    => document.uploadable.lab_id,
+        :action    => :update,
+        :content   => { 'document' => [document.file_identifier, nil] }
+      )
+    end
+  end
+
   def self.log_update_custom_field(current_user, custom_field_link)
     custom_field_name = custom_field_link.custom_field.name
     custom_field_type = custom_field_link.custom_field.field_type
@@ -144,6 +167,18 @@ class LogEntry < ApplicationRecord
         :lab_id    => note.notable.lab_id,
         :action    => action,
         :content   => { 'note' => note.text_previous_change }
+      )
+    end
+  end
+
+  def self.log_document(action, current_user, document)
+    if document.privacy.public?
+      document.uploadable.log_entries.create(
+        :user_id   => current_user.id,
+        :user_name => current_user.name,
+        :lab_id    => document.uploadable.lab_id,
+        :action    => action,
+        :content   => { 'document' => document.file_previous_change }
       )
     end
   end
