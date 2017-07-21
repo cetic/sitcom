@@ -26,6 +26,7 @@ module Mailchimp
     private
 
     def create_list(list_name)
+      # Create list
       response = gibbon.lists.create(
         :body => {
           'name'                => list_name,
@@ -36,23 +37,71 @@ module Mailchimp
         }
       )
 
+      # Create (merge) fields
+      {
+        'address_street'   => 'ADSTR',
+        'address_zip_code' => 'ADZIP',
+        'address_city'     => 'ADCIT',
+        'address_country'  => 'ADCOU',
+        'phone'            => 'PHONE',
+        'active'           => 'ACTIV',
+        'twitter_url'      => 'TWITT',
+        'linkedin_url'     => 'LINKE',
+        'facebook_url'     => 'FACEB',
+        'organizations'    => 'ORGAN',
+        'projects'         => 'PROJE',
+        'events'           => 'EVENT',
+        'tags'             => 'TAGSS'
+      }.each do |name, tag|
+        gibbon.lists(response.body[('id')]).merge_fields.create({
+          :body => {
+            :tag  => tag,
+            :name => name,
+            :type => 'text'
+          }
+        })
+      end
+
       response.body
     end
 
     def subscribe_contact_to_list(list_id, contact)
-      response = gibbon.lists(list_id).members(self.class.hashed(contact.email)).upsert({
-        :body => {
-          'email_address' => contact.email.strip,
-          'status'        => 'subscribed',
+      begin
+        response = gibbon.lists(list_id).members(self.class.hashed(contact.email)).upsert({
+          :body => {
+            'email_address' => contact.email.strip,
+            'status'        => 'subscribed',
 
-          'merge_fields' => {
-            'FNAME' => contact.first_name.to_s.strip,
-            'LNAME' => contact.last_name.to_s.strip,
+            'merge_fields' => {
+              'FNAME' => contact.first_name.to_s.strip,
+              'LNAME' => contact.last_name.to_s.strip,
+              'ADSTR' => contact.address_street.to_s.strip,
+              'ADZIP' => contact.address_zip_code.to_s.strip,
+              'ADCIT' => contact.address_city.to_s.strip,
+              'ADCOU' => contact.address_country.to_s.strip,
+              'PHONE' => contact.phone.to_s.strip,
+              'ACTIV' => contact.active.to_s,
+              'TWITT' => contact.twitter_url.to_s.strip,
+              'LINKE' => contact.linkedin_url.to_s.strip,
+              'FACEB' => contact.facebook_url.to_s.strip,
+              'ORGAN' => contact.organizations.collect(&:name).join(' | '),
+              'PROJE' => contact.projects.collect(&:name).join(' | '),
+              'EVENT' => contact.events.collect(&:name).join(' | '),
+              'TAGSS' => contact.tags.collect(&:name).join(' | ')
+            }
           }
-        }
-      })
+        })
 
-      response.body
+        text = "#{contact.name} - #{contact.email} succeed"
+        puts text
+        Rails.logger.error text
+
+        return response.body
+      rescue Gibbon::MailChimpError => exception
+        text = "#{contact.name} - #{contact.email} failed because of #{exception.detail}"
+        puts text
+        Rails.logger.error text
+      end
     end
 
     def lab_mailchimp_contact
