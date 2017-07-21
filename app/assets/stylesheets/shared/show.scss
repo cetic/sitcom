@@ -471,7 +471,7 @@
 
       .association-inside {
         position: relative;
-        overflow: hidden;
+        height: 87px;
         box-shadow: none;
         transition: box-shadow .8s cubic-bezier(.25,.8,.25, 1);
 
@@ -483,7 +483,7 @@
         }
 
         h4 {
-          margin-top: 15px;
+          padding-top: 15px;
           margin-bottom: 0px;
           line-height: 20px;
           white-space: nowrap;
@@ -493,6 +493,12 @@
           a {
             //color: #696969;
           }
+        }
+
+        input.form-control {
+          display: inline;
+          width: 188px;
+          padding: 6px 8px;
         }
 
         .dates {
@@ -525,6 +531,27 @@
         a.edit-role {
           opacity: 0.0;
           transition: opacity .8s cubic-bezier(.25,.8,.25, 1);
+        }
+
+        .suggestions {
+          z-index: 1;
+          position: absolute;
+          margin-left: 93px;
+          width: 188px;
+          border: 1px solid #cccccc;
+          background-color: white;
+          max-height: 120px;
+          overflow-y: auto;
+
+          .suggestion {
+            padding: 2px;
+            padding-left: 4px;
+            cursor: pointer;
+          }
+
+          .suggestion:hover {
+            background-color: #ecf4ff;
+          }
         }
       }
 

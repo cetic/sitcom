@@ -24,6 +24,26 @@ class ContactProjectLinksController < ApplicationController
     end
   end
 
+  def options
+    if PermissionsService.new(current_user, @lab).can_read?('contacts') ||
+       PermissionsService.new(current_user, @lab).can_read?('projects')
+
+      respond_to do |format|
+        format.json do
+          render :json => {
+            :roles => ContactProjectLink.includes(:contact)
+                                        .where(:contacts => { :lab_id => @lab.id })
+                                        .pluck(:role)
+                                        .reject(&:empty?)
+                                        .uniq
+                                        .sort
+          }
+        end
+      end
+    else
+      render_permission_error
+    end
+  end
 
   private
 

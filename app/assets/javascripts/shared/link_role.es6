@@ -3,10 +3,23 @@ class LinkRole extends React.Component {
   constructor(props) {
     super(props)
 
+    console.log(props)
+
     this.state = {
-      editMode: false,
-      role:     props.link.role
+      editMode:    false,
+      role:        props.link.role,
+      suggestions: []
     }
+  }
+
+  reloadSuggestions() {
+    let splitted = this.props.link.path.split('/')
+    splitted.pop()
+    let url = splitted.join('/')
+
+    http.get(`${url}/options.json`, {}, (data) => {
+      this.setState({ suggestions: data.roles })
+    })
   }
 
   updateRole(e) {
@@ -16,22 +29,34 @@ class LinkRole extends React.Component {
   saveOnEnter(e) {
     if(this.props.canWrite) {
       if(e.key == 'Enter') {
-        http.put(this.props.link.path, {
-          [`${this.props.linkName}`]: {
-            role: this.state.role
-          }
-        }, () => {
-          this.setState({ editMode: false })
-        })
+        this.saveOnBackend()
       }
     }
+  }
+
+  saveOnBackend() {
+    http.put(this.props.link.path, {
+      [`${this.props.linkName}`]: {
+        role: this.state.role
+      }
+    }, () => {
+      this.setState({ editMode: false })
+    })
   }
 
   setEditMode(editMode) {
     this.setState({ editMode: editMode }, () => {
       if(editMode) {
         $(this.refs.input).focus()
+
+        this.reloadSuggestions()
       }
+    })
+  }
+
+  assignSuggestion(suggestion) {
+    this.setState({ role: suggestion }, () => {
+      this.saveOnBackend()
     })
   }
 
@@ -42,19 +67,34 @@ class LinkRole extends React.Component {
     })
   }
 
+  filteredSuggestions() {
+    let filteredSuggestions =  _.filter(this.state.suggestions, (suggestion) => {
+      return suggestion.toLowerCase().indexOf(this.state.role) > -1
+    })
+
+    _.pull(filteredSuggestions, this.state.role);
+
+    return filteredSuggestions
+  }
+
   render() {
     if(this.props.canWrite && this.state.editMode) {
       return (
         <div>
           <input type="text"
                  ref="input"
+                 className="form-control"
                  value={this.state.role}
                  onChange={this.updateRole.bind(this)}
                  onKeyPress={this.saveOnEnter.bind(this)} />
 
+          { this.renderSuggestionsContainer() }
+
           <a href="javascript:;"
-             style={{ marginLeft: '5px' }}
-             onClick={this.cancel.bind(this)}>Annuler</a>
+             style={{ marginLeft: '7px' }}
+             onClick={this.cancel.bind(this)}>
+            Annuler
+          </a>
         </div>
       )
     }
@@ -70,7 +110,7 @@ class LinkRole extends React.Component {
 
   renderEditLink() {
     if(this.props.canWrite) {
-      const style = { marginLeft: _.trim(this.state.role).length > 0 ? '5px' : '0px' }
+      const style = { marginLeft: _.trim(this.state.role).length > 0 ? '7px' : '0px' }
 
       return (
         <a href="javascript:;"
@@ -81,8 +121,27 @@ class LinkRole extends React.Component {
     }
   }
 
+  renderSuggestionsContainer() {
+    if(this.filteredSuggestions().length) {
+      return (
+        <div className="suggestions">
+          { this.renderSuggestions() }
+        </div>
+      )
+    }
+  }
 
-
+  renderSuggestions() {
+    return _.map(this.filteredSuggestions(), (suggestion, index) => {
+      return (
+        <div className="suggestion"
+             key={index}
+             onClick={this.assignSuggestion.bind(this, suggestion)}>
+          { suggestion }
+        </div>
+      )
+    })
+  }
 }
 
 module.exports = LinkRole

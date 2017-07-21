@@ -149,12 +149,17 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :contact_organization_links, :only => [:update]
-    resources :contact_event_links,        :only => [:update]
-    resources :contact_project_links,      :only => [:update]
-    resources :event_organization_links,   :only => [:update]
-    resources :organization_project_links, :only => [:update]
-    resources :event_project_links,        :only => [:update]
+    # LINKS BETWEEN ITEMS
+    [ :contact_organization_links, :contact_event_links,
+      :contact_project_links, :event_organization_links,
+      :organization_project_links, :event_project_links
+    ].each do |item1_item2_link|
+      resources item1_item2_link, :only => [:update] do
+        collection do
+          get :options
+        end
+      end
+    end
 
     resources :item_imports, :only => [:new, :create] do
       collection do

@@ -3,7 +3,7 @@ class EventProjectLinksController < ApplicationController
   before_action :find_lab
 
   def update
-    if PermissionsService.new(current_user, @lab).can_write?('organizations') ||
+    if PermissionsService.new(current_user, @lab).can_write?('events') ||
        PermissionsService.new(current_user, @lab).can_write?('projects')
 
       respond_to do |format|
@@ -24,6 +24,26 @@ class EventProjectLinksController < ApplicationController
     end
   end
 
+  def options
+    if PermissionsService.new(current_user, @lab).can_read?('events') ||
+       PermissionsService.new(current_user, @lab).can_read?('projects')
+
+      respond_to do |format|
+        format.json do
+          render :json => {
+            :roles => EventProjectLinksController.includes(:event)
+                                                 .where(:events => { :lab_id => @lab.id })
+                                                 .pluck(:role)
+                                                 .reject(&:empty?)
+                                                 .uniq
+                                                 .sort
+          }
+        end
+      end
+    else
+      render_permission_error
+    end
+  end
 
   private
 
