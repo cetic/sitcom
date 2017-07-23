@@ -17,9 +17,60 @@ module Mailchimp
 
         contacts.each do |contact|
           if contact.email.present?
-            subscribe_contact_to_list(list['id'], contact)
+            upsert_contact_to_list(list['id'], contact)
           end
         end
+      end
+    end
+
+    def retrieve_lists
+      gibbon.lists.retrieve
+    end
+
+    def sitcom_list_id
+      list_id_from_name('SITCOM')
+    end
+
+    def list_id_from_name(list_name)
+      retrieve_lists.body['lists'].select { |list| list['name'] == list_name }.first['id']
+    end
+
+    def upsert_contact_to_list(list_id, contact)
+      begin
+        response = gibbon.lists(list_id).members(self.class.hashed(contact.email)).upsert({
+          :body => {
+            'email_address' => contact.email.strip,
+            'status'        => 'subscribed',
+
+            'merge_fields' => {
+              'FNAME' => contact.first_name.to_s.strip,
+              'LNAME' => contact.last_name.to_s.strip,
+              'ADSTR' => contact.address_street.to_s.strip,
+              'ADZIP' => contact.address_zip_code.to_s.strip,
+              'ADCIT' => contact.address_city.to_s.strip,
+              'ADCOU' => contact.address_country.to_s.strip,
+              'PHONE' => contact.phone.to_s.strip,
+              'ACTIV' => contact.active.to_s,
+              'TWITT' => contact.twitter_url.to_s.strip,
+              'LINKE' => contact.linkedin_url.to_s.strip,
+              'FACEB' => contact.facebook_url.to_s.strip,
+              'ORGAN' => contact.organizations.collect(&:name).join(' | '),
+              'PROJE' => contact.projects.collect(&:name).join(' | '),
+              'EVENT' => contact.events.collect(&:name).join(' | '),
+              'TAGSS' => contact.tags.collect(&:name).join(' | ')
+            }
+          }
+        })
+
+        text = "#{contact.name} - #{contact.email} succeed"
+        puts text
+        Rails.logger.error text
+
+        return response.body
+      rescue Gibbon::MailChimpError => exception
+        text = "#{contact.name} - #{contact.email} failed because of #{exception.detail}"
+        puts text
+        Rails.logger.error text
       end
     end
 
@@ -63,45 +114,6 @@ module Mailchimp
       end
 
       response.body
-    end
-
-    def subscribe_contact_to_list(list_id, contact)
-      begin
-        response = gibbon.lists(list_id).members(self.class.hashed(contact.email)).upsert({
-          :body => {
-            'email_address' => contact.email.strip,
-            'status'        => 'subscribed',
-
-            'merge_fields' => {
-              'FNAME' => contact.first_name.to_s.strip,
-              'LNAME' => contact.last_name.to_s.strip,
-              'ADSTR' => contact.address_street.to_s.strip,
-              'ADZIP' => contact.address_zip_code.to_s.strip,
-              'ADCIT' => contact.address_city.to_s.strip,
-              'ADCOU' => contact.address_country.to_s.strip,
-              'PHONE' => contact.phone.to_s.strip,
-              'ACTIV' => contact.active.to_s,
-              'TWITT' => contact.twitter_url.to_s.strip,
-              'LINKE' => contact.linkedin_url.to_s.strip,
-              'FACEB' => contact.facebook_url.to_s.strip,
-              'ORGAN' => contact.organizations.collect(&:name).join(' | '),
-              'PROJE' => contact.projects.collect(&:name).join(' | '),
-              'EVENT' => contact.events.collect(&:name).join(' | '),
-              'TAGSS' => contact.tags.collect(&:name).join(' | ')
-            }
-          }
-        })
-
-        text = "#{contact.name} - #{contact.email} succeed"
-        puts text
-        Rails.logger.error text
-
-        return response.body
-      rescue Gibbon::MailChimpError => exception
-        text = "#{contact.name} - #{contact.email} failed because of #{exception.detail}"
-        puts text
-        Rails.logger.error text
-      end
     end
 
     def lab_mailchimp_contact
