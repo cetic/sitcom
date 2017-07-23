@@ -20,7 +20,7 @@ class ExportButton extends React.Component {
 
   render() {
     return (
-      <i className="fa fa-cloud-download"
+      <i className="fa fa-file-excel-o"
          title="Exporter la sélection"
          onClick={this.export.bind(this)}>
       </i>

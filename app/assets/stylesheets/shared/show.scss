@@ -623,6 +623,20 @@
     }
   }
 
+  .contacts-block {
+    .contact-actions {
+      position: absolute;
+      right: 21px;
+      top: 19px;
+      z-index: 1;
+
+      .fa {
+        margin-left: 6px;
+        cursor: pointer;
+      }
+    }
+  }
+
   .documents-block {
     h3 {
       margin-bottom: 14px;

@@ -51,9 +51,32 @@ class ContactsBlock extends React.Component {
     http.put(this.props.parentPath, params)
   }
 
+  mailtoLink() {
+    let emails = _.map(this.props.parent.contactLinks, (contactLink) => {
+      return contactLink.contact.email
+    })
+
+    emails = _.reject(emails, (email) => { !email || email.length == 0 })
+
+    return `mailto:?bcc=${emails.join(',')}&subject=${this.props.parent.name}`
+  }
+
+  exportLink() {
+    let ids = _.map(this.props.parent.contactLinks, (contactLink) => {
+      return contactLink.contact.id
+    })
+
+    let splitted = this.props.optionsPath.split('/')
+    splitted.pop()
+
+    return `${splitted.join('/')}/export?ids=${ids.join(',')}`
+  }
+
   render() {
     return (
       <div className="associations-block contacts-block">
+        { this.renderContactActions() }
+
         <div className="row">
           <div className="col-md-12">
             <h3>Contacts ({this.props.parent.contactLinks.length})</h3>
@@ -64,6 +87,21 @@ class ContactsBlock extends React.Component {
         {this.renderSelect()}
       </div>
     )
+  }
+
+  renderContactActions() {
+    if(this.props.parent.contactLinks.length) {
+      return (
+        <div className="contact-actions">
+          <a href={this.mailtoLink()} target="_blank">
+            <i className="fa fa-envelope-o"></i>
+          </a>
+          <a href={this.exportLink()} target="_blank">
+            <i className="fa fa-file-excel-o"></i>
+          </a>
+        </div>
+      )
+    }
   }
 
   renderContacts() {

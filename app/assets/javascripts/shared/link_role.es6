@@ -3,8 +3,6 @@ class LinkRole extends React.Component {
   constructor(props) {
     super(props)
 
-    console.log(props)
-
     this.state = {
       editMode:    false,
       role:        props.link.role,

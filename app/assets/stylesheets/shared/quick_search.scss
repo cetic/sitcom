@@ -36,7 +36,7 @@
     cursor: pointer;
   }
 
-  .fa-cloud-download {
+  .fa-file-excel-o {
     position: absolute;
     font-size: 13px;
     top: 14px;
@@ -60,6 +60,7 @@
     cursor: pointer;
 
     &.disabled {
+      display: none;
       color: #2c63b3;
     }
   }
