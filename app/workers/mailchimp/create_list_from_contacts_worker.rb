@@ -6,7 +6,7 @@ module Mailchimp
       lab      = Lab.find(lab_id)
       contacts = lab.contacts.where(:id => contact_ids)
 
-      CreateListFromContactsService.new(lab).perform(
+      ContactsService.new(lab).create_list_from_contacts(
         list_name: list_name.strip,
         contacts:  contacts
       )

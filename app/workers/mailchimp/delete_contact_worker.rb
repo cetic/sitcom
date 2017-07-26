@@ -4,9 +4,9 @@ module Mailchimp
 
     def perform(lab_id, list_name, contact_email)
       lab     = Lab.find(lab_id)
-      list_id = Mailchimp::CreateListFromContactsService.list_id_from_name(list_name)
+      list_id = Mailchimp::ContactsService.list_id_from_name(list_name)
 
-      CreateListFromContactsService.new(lab).delete_contact_from_list(
+      ContactsService.new(lab).delete_contact_from_list(
         list_id,
         contact_email
       )

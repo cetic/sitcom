@@ -1,8 +1,8 @@
-# Mailchimp::CreateListFromContactsService.new(Lab.first).find_or_create_list_from_contacts("bonsoir",  Lab.first.contacts.where(id: 148))
-# Mailchimp::CreateListFromContactsService.new(Lab.first).find_or_create_list("bonsoir")
+# Mailchimp::ContactsService.new(Lab.first).find_or_create_list_from_contacts("bonsoir",  Lab.first.contacts.where(id: 148))
+# Mailchimp::ContactsService.new(Lab.first).find_or_create_list("bonsoir")
 
 module Mailchimp
-  class CreateListFromContactsService
+  class ContactsService
 
     attr_reader :lab, :gibbon
 
@@ -11,7 +11,7 @@ module Mailchimp
       @gibbon = Gibbon::Request.new(:api_key => @lab.mailchimp_api_key)
     end
 
-    def perform(list_name:, contacts:)
+    def create_list_from_contacts(list_name:, contacts:)
       if lab.mailchimp_configured?
         list = find_or_create_list(list_name)
 
@@ -69,6 +69,22 @@ module Mailchimp
         return response.body
       rescue Gibbon::MailChimpError => exception
         text = "#{contact.name} - #{contact.email} failed because of #{exception.detail}"
+        puts text
+        Rails.logger.error text
+      end
+    end
+
+    def delete_contact_from_list(list_id, contact_email)
+      begin
+        response = gibbon.lists(list_id).members(self.class.hashed(contact_email)).delete
+
+        text = "#{contact.name} - #{contact.email} successfully removed"
+        puts text
+        Rails.logger.error text
+
+        return response.body
+      rescue Gibbon::MailChimpError => exception
+        text = "#{contact.name} - #{contact.email} removal failed because of #{exception.detail}"
         puts text
         Rails.logger.error text
       end
