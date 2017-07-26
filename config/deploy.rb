@@ -18,4 +18,7 @@ set :rbenv_type, 'user'
 set :bundle_binstubs, nil
 set :bundle_bins,     %w(gem rake rails sidekiq sidekiqctl)
 
+set :sidekiq_processes,           2
+set :sidekiq_options_per_process, ["--concurrency 2 --queue websockets", "--concurrency 1 --queue default"]
+
 before 'deploy:assets:precompile', 'deploy:npm:install'

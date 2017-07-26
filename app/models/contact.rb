@@ -66,6 +66,9 @@ class Contact < ApplicationRecord
 
     # elasticsearch
     ReindexContactWorker.perform_async(id)
+
+    # mailchimp
+    mailchimp_upsert
   end
 
   def before_update_callback
@@ -83,10 +86,15 @@ class Contact < ApplicationRecord
 
     # elasticsearch
     ReindexContactWorker.perform_async(id)
+
+    # mailchimp
+    mailchimp_upsert
   end
 
   def around_destroy_callback
     saved_id               = id
+    saved_lab_id           = lab_id
+    saved_email            = email
     saved_organization_ids = organizations.pluck(:id)
     saved_project_ids      = projects.pluck(:id)
     saved_event_ids        = events.pluck(:id)
@@ -106,6 +114,11 @@ class Contact < ApplicationRecord
 
     # elasticsearch
     ReindexContactWorker.perform_async(saved_id, 'delete', saved_organization_ids, saved_project_ids, saved_event_ids)
+
+    # mailchimp
+    if Lab.find(saved_lab_id).mailchimp_configured?
+      Mailchimp::DeleteContactWorker.perform_async(saved_lab_id, 'SITCOM', saved_email)
+    end
   end
 
   # Methods
@@ -137,6 +150,12 @@ class Contact < ApplicationRecord
     else
       txt = "#{first_name.first}#{last_name.first}"
       "https://placeholdit.imgix.net/~text?txtsize=68&txt=#{txt}&w=200&h=200"
+    end
+  end
+
+  def mailchimp_upsert
+    if lab.mailchimp_configured?
+      Mailchimp::UpsertContactWorker.perform_async(lab_id, 'SITCOM', id)
     end
   end
 

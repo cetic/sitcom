@@ -7,3 +7,4 @@
   - sitcom
 :queues:
   - default
+  - websockets

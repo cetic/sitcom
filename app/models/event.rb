@@ -60,6 +60,9 @@ class Event < ApplicationRecord
 
     # elasticsearch
     ReindexEventWorker.perform_async(id)
+
+    # mailchimp
+    contacts.each(&:mailchimp_upsert)
   end
 
   def before_update_callback
@@ -77,6 +80,9 @@ class Event < ApplicationRecord
 
     # elasticsearch
     ReindexEventWorker.perform_async(id)
+
+    # mailchimp
+    Contact.where(:id => @saved_contact_ids).each(&:mailchimp_upsert)
   end
 
   def around_destroy_callback
@@ -98,6 +104,9 @@ class Event < ApplicationRecord
 
     # elasticsearch
     ReindexEventWorker.perform_async(saved_id, 'delete', saved_contact_ids)
+
+    # mailchimp
+    Contact.where(:id => saved_contact_ids).each(&:mailchimp_upsert)
   end
 
   # Methods
