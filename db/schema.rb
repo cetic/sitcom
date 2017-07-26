@@ -318,7 +318,6 @@ ActiveRecord::Schema.define(version: 20170720122337) do
   add_foreign_key "event_project_links", "projects"
   add_foreign_key "events", "labs"
   add_foreign_key "fields", "fields", column: "parent_id"
-  add_foreign_key "item_tag_links", "contacts", column: "item_id"
   add_foreign_key "item_tag_links", "tags"
   add_foreign_key "lab_user_links", "labs"
   add_foreign_key "lab_user_links", "users"
