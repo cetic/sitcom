@@ -21,7 +21,7 @@ class OrganizationExport < BaseExport
       'Projets'         => lambda { |item| item.project_links.collect { |link| link.project.name }.join(', ') },
       'Évènements'      => lambda { |item| item.event_links.collect   { |link| link.event.name   }.join(', ') },
       'Notes publiques' => lambda { |item| item.notes.collect(&:text).join(', ')                              }
-    }
+    })
 
     list
   end
