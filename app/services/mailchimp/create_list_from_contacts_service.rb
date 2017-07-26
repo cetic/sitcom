@@ -1,5 +1,5 @@
-# Mailchimp::CreateListFromContactsService.new(Lab.first).create_list_from_contacts("bonsoir",  Lab.first.contacts.where(id: 148))
-# Mailchimp::CreateListFromContactsService.new(Lab.first).create_list("bonsoir")
+# Mailchimp::CreateListFromContactsService.new(Lab.first).find_or_create_list_from_contacts("bonsoir",  Lab.first.contacts.where(id: 148))
+# Mailchimp::CreateListFromContactsService.new(Lab.first).find_or_create_list("bonsoir")
 
 module Mailchimp
   class CreateListFromContactsService
@@ -13,7 +13,7 @@ module Mailchimp
 
     def perform(list_name:, contacts:)
       if lab.mailchimp_configured?
-        list = create_list(list_name)
+        list = find_or_create_list(list_name)
 
         contacts.each do |contact|
           if contact.email.present?
@@ -32,7 +32,7 @@ module Mailchimp
     end
 
     def list_id_from_name(list_name)
-      retrieve_lists.body['lists'].select { |list| list['name'] == list_name }.first['id']
+      retrieve_lists.body['lists'].select { |list| list['name'] == list_name }.try(:first).try(:[], 'id']
     end
 
     def upsert_contact_to_list(list_id, contact)
@@ -76,41 +76,47 @@ module Mailchimp
 
     private
 
-    def create_list(list_name)
-      # Create list
-      response = gibbon.lists.create(
-        :body => {
-          'name'                => list_name,
-          'contact'             => lab_mailchimp_contact,
-          'campaign_defaults'   => lab_mailchimp_campaign_defaults,
-          'permission_reminder' => lab_mailchimp_permission_reminder,
-          'email_type_option'   => false
-        }
-      )
+    def find_or_create_list(list_name)
+      list_id = list_id_from_name(list_name)
 
-      # Create (merge) fields
-      {
-        'address_street'   => 'ADSTR',
-        'address_zip_code' => 'ADZIP',
-        'address_city'     => 'ADCIT',
-        'address_country'  => 'ADCOU',
-        'phone'            => 'PHONE',
-        'active'           => 'ACTIV',
-        'twitter_url'      => 'TWITT',
-        'linkedin_url'     => 'LINKE',
-        'facebook_url'     => 'FACEB',
-        'organizations'    => 'ORGAN',
-        'projects'         => 'PROJE',
-        'events'           => 'EVENT',
-        'tags'             => 'TAGSS'
-      }.each do |name, tag|
-        gibbon.lists(response.body[('id')]).merge_fields.create({
+      if list_id
+        response = gibbon.lists(list_id)
+      else
+        # Create list
+        response = gibbon.lists.create(
           :body => {
-            :tag  => tag,
-            :name => name,
-            :type => 'text'
+            'name'                => list_name,
+            'contact'             => lab_mailchimp_contact,
+            'campaign_defaults'   => lab_mailchimp_campaign_defaults,
+            'permission_reminder' => lab_mailchimp_permission_reminder,
+            'email_type_option'   => false
           }
-        })
+        )
+
+        # Create (merge) fields
+        {
+          'address_street'   => 'ADSTR',
+          'address_zip_code' => 'ADZIP',
+          'address_city'     => 'ADCIT',
+          'address_country'  => 'ADCOU',
+          'phone'            => 'PHONE',
+          'active'           => 'ACTIV',
+          'twitter_url'      => 'TWITT',
+          'linkedin_url'     => 'LINKE',
+          'facebook_url'     => 'FACEB',
+          'organizations'    => 'ORGAN',
+          'projects'         => 'PROJE',
+          'events'           => 'EVENT',
+          'tags'             => 'TAGSS'
+        }.each do |name, tag|
+          gibbon.lists(response.body[('id')]).merge_fields.create({
+            :body => {
+              :tag  => tag,
+              :name => name,
+              :type => 'text'
+            }
+          })
+        end
       end
 
       response.body

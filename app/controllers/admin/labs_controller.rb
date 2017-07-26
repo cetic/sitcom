@@ -27,7 +27,7 @@ class Admin::LabsController < Admin::BaseController
 
   def update
     if @lab.update(strong_params)
-      if @lab.mailchimp_api_key_previously_changed? && @lab.mailchimp_configured?
+      if @lab.previous_changes.keys.any? { |key| key.start_with?('mailchimp_') } && @lab.mailchimp_configured?
         Mailchimp::CreateListFromContactsWorker.perform_async(@lab.id, 'SITCOM', @lab.contacts.map(&:id))
       end
 
