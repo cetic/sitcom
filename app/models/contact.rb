@@ -116,7 +116,9 @@ class Contact < ApplicationRecord
     ReindexContactWorker.perform_async(saved_id, 'delete', saved_organization_ids, saved_project_ids, saved_event_ids)
 
     # mailchimp
-    Mailchimp::DeleteContactWorker.perform_async(saved_lab_id, 'SITCOM', saved_email)
+    if Lab.find(saved_lab_id).mailchimp_configured?
+      Mailchimp::DeleteContactWorker.perform_async(saved_lab_id, 'SITCOM', saved_email)
+    end
   end
 
   # Methods
@@ -152,7 +154,9 @@ class Contact < ApplicationRecord
   end
 
   def mailchimp_upsert
-    Mailchimp::UpsertContactWorker.perform_async(lab_id, 'SITCOM', id)
+    if lab.mailchimp_configured?
+      Mailchimp::UpsertContactWorker.perform_async(lab_id, 'SITCOM', id)
+    end
   end
 
   def association_ids

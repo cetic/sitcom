@@ -1,6 +1,8 @@
 class BroadcastUpdateWorker
   include Sidekiq::Worker
 
+  sidekiq_options :queue => :websockets
+
   def perform(class_name, id)
     item = class_name.constantize.find(id)
 

@@ -4,8 +4,7 @@ class Modal extends React.Component {
     super(props)
 
     this.state = {
-      name:   '',
-      errors: ''
+      name: '',
     }
   }
 
@@ -32,6 +31,7 @@ class Modal extends React.Component {
 
     if(_.trim(this.state.name).length) {
       this.props.export(_.trim(this.state.name))
+      this.setState({ name : '' })
       this.hideModal()
     }
   }

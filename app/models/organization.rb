@@ -82,7 +82,7 @@ class Organization < ApplicationRecord
     ReindexOrganizationWorker.perform_async(id)
 
     # mailchimp
-    contacts.each(&:mailchimp_upsert)
+    Contact.where(:id => @saved_contact_ids).each(&:mailchimp_upsert)
   end
 
   def around_destroy_callback
@@ -106,7 +106,7 @@ class Organization < ApplicationRecord
     ReindexOrganizationWorker.perform_async(saved_id, 'delete', saved_contact_ids)
 
     # mailchimp
-    contacts.each(&:mailchimp_upsert)
+    Contact.where(:id => saved_contact_ids).each(&:mailchimp_upsert)
   end
 
   # Methods

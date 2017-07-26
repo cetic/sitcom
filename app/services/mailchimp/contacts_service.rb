@@ -32,7 +32,7 @@ module Mailchimp
     end
 
     def list_id_from_name(list_name)
-      retrieve_lists.body['lists'].select { |list| list['name'] == list_name }.try(:first).try(:[], 'id']
+      retrieve_lists.body['lists'].select { |list| list['name'] == list_name }.try(:first).try(:[], 'id')
     end
 
     def upsert_contact_to_list(list_id, contact)
@@ -160,7 +160,7 @@ module Mailchimp
     end
 
     def lab_mailchimp_permission_reminder
-      "You are receiving this email, because you subscribed our product."
+      "Vous recevez ce mail car vous êtes abonnés à la mailing list des Living Labs in Wallonia."
     end
 
     class << self

@@ -22,7 +22,9 @@ class MailchimpExportButton extends React.Component {
       listName: listName
     }
 
-    $.post(url, humps.decamelizeKeys(params))
+    $.post(url, humps.decamelizeKeys(params), () =>
+      alert("Les contacts seront importés sur Mailchimp d'ici quelques minutes.")
+    )
   }
 
   openModal() {
