@@ -235,7 +235,7 @@ class BaseMain extends React.Component {
           <div className="row">
             {this.renderRightSidebar(filters)}
 
-            <div className={`col-md-8 col-${this.itemType}s`}>
+            <div className={`col-lg-8 col-md-12 col-${this.itemType}s`}>
               {this.renderQuickSearch(filters)}
               {this.renderNewButton()}
               {this.renderItemOrItems()}

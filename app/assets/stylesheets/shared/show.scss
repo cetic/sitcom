@@ -850,3 +850,145 @@
     }
   }
 }
+
+@media (max-width: $screen-md-max) {
+  .right-sidebar {
+    display: none;
+  }
+
+  .quick-search {
+
+  }
+
+  .items {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .item-show {
+    margin-top: 52px;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (max-width: $screen-sm-max) {
+  .items {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .item-show {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media (max-width: $screen-xs-max) {
+  nav.navbar {
+    padding-left: 0px;
+    padding-right: 0px;
+
+    .container .navbar-header,
+    .container .navbar-collapse,
+    .container-fluid .navbar-header,
+    .container-fluid .navbar-collapse {
+      margin-right: 0px;
+      margin-left: 0px;
+    }
+
+    .navbar-toggle {
+      margin-top: 11px;
+      margin-right: 17px;
+
+      .icon-bar {
+        background-color: white;
+      }
+    }
+
+    .navbar-toggle:hover, .navbar-toggle:focus {
+      background-color: #0144a4;
+    }
+
+    .user {
+      display: none;
+    }
+
+    #navbar {
+      width: 100%;
+      padding-right: 0px;
+
+      .sections {
+        float: none;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-right: 0px;
+
+        > li {
+          a {
+            padding: 16px 14px;
+            background-color: #1976d2;
+          }
+        }
+      }
+    }
+  }
+
+  .quick-search {
+    .title {
+      display: none;
+    }
+
+    > i.fa {
+      display: none;
+    }
+
+    i.fa-envelope-o {
+      display: none;
+    }
+
+    .glyphicon-search {
+      left: 19px;
+    }
+
+    .results {
+      display: none;
+    }
+
+    input {
+      width: 160px;
+    }
+  }
+
+  .modal .modal-dialog {
+    width: 100%;
+    margin-left: 0px;
+  }
+
+  .items {
+    padding-left: 0px;
+    padding-right: 0px;
+
+    .infos {
+      .name {
+        font-size: 16px !important;
+        line-height: 17px;
+      }
+
+      .association {
+        display: inline-block;
+      }
+
+      .dates, .date, .place {
+        font-size: 9px !important;
+      }
+    }
+  }
+
+  .item-show {
+    .general, .social, .items-block, .contacts-block, .organizations-block, .notes-block, .documents-block, .custom-fields-block, .log-entries {
+      margin-bottom: 10px;
+    }
+  }
+}
+

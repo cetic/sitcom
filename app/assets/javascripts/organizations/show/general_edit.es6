@@ -67,11 +67,11 @@ class GeneralEdit extends React.Component {
             { this.renderErrors() }
           </div>
 
-          <div className="col-md-3">
+          <div className="col-sm-3 col-xs-4">
             { this.renderPicture() }
           </div>
 
-          <div className="col-md-9">
+          <div className="col-sm-9">
             <h1>
               { this.renderName() }
             </h1>

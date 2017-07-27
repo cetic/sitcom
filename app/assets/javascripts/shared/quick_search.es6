@@ -34,7 +34,11 @@ class QuickSearch extends React.Component {
   render() {
     return (
       <div className="quick-search row">
-        <span className="title">{this.props.title}</span>
+        <Link to={`/${this.props.itemType}s`}>
+          <span className="title">
+            { this.props.title }
+          </span>
+        </Link>
 
         <input ref="search"
                type="search"

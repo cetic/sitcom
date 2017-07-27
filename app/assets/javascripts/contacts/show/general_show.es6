@@ -29,11 +29,11 @@ class GeneralShow extends React.Component {
         </Link>
 
         <div className="row">
-          <div className="col-md-3">
+          <div className="col-sm-3 col-xs-4">
             { this.renderPicture() }
           </div>
 
-          <div className="col-md-9">
+          <div className="col-sm-9">
             <h1>
               { this.props.contact.name }
 
