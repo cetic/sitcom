@@ -4,7 +4,8 @@ class NewNote extends React.Component {
     super(props)
 
     this.state = {
-      open: false,
+      open:        false,
+      newNoteName: '',
       newNoteText: ''
     }
   }
@@ -17,7 +18,8 @@ class NewNote extends React.Component {
 
   cancel() {
     this.setState({
-      open: false,
+      open:        false,
+      newNoteName: '',
       newNoteText: ''
     })
   }
@@ -25,6 +27,7 @@ class NewNote extends React.Component {
   save() {
     var params = {
       note: {
+        name:    this.state.newNoteName,
         text:    this.state.newNoteText,
         privacy: this.props.privacy
       }
@@ -34,6 +37,12 @@ class NewNote extends React.Component {
       if(data.success) {
         this.cancel()
       }
+    })
+  }
+
+  updateNewNoteName(e) {
+    this.setState({
+      newNoteName: e.target.value
     })
   }
 
@@ -64,7 +73,17 @@ class NewNote extends React.Component {
     if(this.state.open) {
       return (
         <div>
-          <textarea value={this.state.newNoteText}
+          <input className="form-control"
+                 type="text"
+                 ref="noteName"
+                 placeholder="Titre de la note"
+                 value={this.state.newNoteName}
+                 onChange={this.updateNewNoteName.bind(this)} />
+
+          <textarea className="form-control"
+                    ref="noteText"
+                    value={this.state.newNoteText}
+                    placeholder="Contenu"
                     onChange={this.updateNewNoteText.bind(this)} />
 
           <div className="actions">

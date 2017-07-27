@@ -149,7 +149,7 @@ class BaseSearch
               {
                 'multi_match' => {
                   'query'          => params[:notes],
-                  'fields'         => ['notes.text'],
+                  'fields'         => ['notes.text', 'notes.name'],
                   'type'           => 'phrase',
                   'max_expansions' => MAX_EXPANSIONS
                 }

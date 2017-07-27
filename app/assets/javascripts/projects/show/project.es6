@@ -233,7 +233,8 @@ class Project extends React.Component {
       return (
         <NotesBlock notable={this.state.project}
                     canWrite={this.props.permissions.canWriteProjects}
-                    currentUserId={this.props.currentUserId} />
+                    currentUserId={this.props.currentUserId}
+                    columns={2} />
       )
     }
   }

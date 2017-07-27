@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170720122337) do
+ActiveRecord::Schema.define(version: 20170726150656) do
 
   create_table "contact_event_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "contact_id"
@@ -216,6 +216,7 @@ ActiveRecord::Schema.define(version: 20170720122337) do
     t.integer  "user_id"
     t.integer  "notable_id"
     t.string   "notable_type"
+    t.string   "name"
     t.text     "text",         limit: 65535
     t.string   "privacy"
     t.datetime "created_at",                 null: false
@@ -318,6 +319,7 @@ ActiveRecord::Schema.define(version: 20170720122337) do
   add_foreign_key "event_project_links", "projects"
   add_foreign_key "events", "labs"
   add_foreign_key "fields", "fields", column: "parent_id"
+  add_foreign_key "item_tag_links", "contacts", column: "item_id"
   add_foreign_key "item_tag_links", "tags"
   add_foreign_key "lab_user_links", "labs"
   add_foreign_key "lab_user_links", "users"

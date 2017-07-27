@@ -116,9 +116,9 @@ class NotesController < ApplicationController
 
   def strong_params
     if params[:action] == 'create'
-      params.require(:note).permit(:text, :privacy)
+      params.require(:note).permit(:name, :text, :privacy)
     else
-      params.require(:note).permit(:text)
+      params.require(:note).permit(:name, :text)
     end
   end
 end

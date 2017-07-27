@@ -29,14 +29,17 @@ class NotesBlock extends React.Component {
   }
 
   render() {
+    let columnSize  = this.props.columns == 1 ? '12' : '6'
+    let columnClass = `col-md-${columnSize}`
+
     return (
       <div className="notes-block">
         <div className="row">
-          <div className="col-md-6">
+          <div className={columnClass}>
             {this.renderPublicColumn()}
           </div>
 
-          <div className="col-md-6">
+          <div className={columnClass}>
             {this.renderPrivateColumn()}
           </div>
         </div>

@@ -1,5 +1,7 @@
 class Note < ApplicationRecord
 
+  include ActionView::Helpers::TextHelper
+
   # Modules
 
   extend Enumerize
@@ -46,11 +48,13 @@ class Note < ApplicationRecord
 
   def as_indexed_json(options = {})
     ActiveSupport::HashWithIndifferentAccess.new({
-      :id      => id,
-      :user_id => user_id,
-      :text    => text.to_s,
-      :privacy => privacy,
-      :path    => path
+      :id             => id,
+      :user_id        => user_id,
+      :name           => name.to_s,
+      :text           => text.to_s,
+      :formatted_text => simple_format(text),
+      :privacy        => privacy,
+      :path           => path
     })
   end
 

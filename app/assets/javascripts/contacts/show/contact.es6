@@ -272,7 +272,8 @@ class Contact extends React.Component {
       return (
         <NotesBlock notable={this.state.contact}
                     canWrite={this.props.permissions.canWriteContacts}
-                    currentUserId={this.props.currentUserId} />
+                    currentUserId={this.props.currentUserId}
+                    columns={1} />
       )
     }
   }

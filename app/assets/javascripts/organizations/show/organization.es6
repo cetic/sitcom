@@ -239,7 +239,8 @@ class Organization extends React.Component {
       return (
         <NotesBlock notable={this.state.organization}
                     canWrite={this.props.permissions.canWriteOrganizations}
-                    currentUserId={this.props.currentUserId} />
+                    currentUserId={this.props.currentUserId}
+                    columns={2} />
       )
     }
   }

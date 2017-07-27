@@ -5,8 +5,15 @@ class Note extends React.Component {
 
     this.state = {
       editMode: false,
+      noteName: '',
       noteText: ''
     }
+  }
+
+  updateNoteName(e) {
+    this.setState({
+      noteName: e.target.value
+    })
   }
 
   updateNoteText(e) {
@@ -24,15 +31,17 @@ class Note extends React.Component {
   edit() {
     this.setState({
       editMode: true,
+      noteName: this.props.note.name,
       noteText: this.props.note.text
     }, () => {
-      $(this.refs.textarea).focus()
+      $(this.refs.noteName).focus()
     })
   }
 
   save() {
     var params = {
       note: {
+        name: this.state.noteName,
         text: this.state.noteText
       }
     }
@@ -62,8 +71,17 @@ class Note extends React.Component {
     if(this.state.editMode) {
       return (
         <div>
-          <textarea ref="textarea"
+          <input className="form-control"
+                 type="text"
+                 ref="noteName"
+                 placeholder="Titre de la note"
+                 value={this.state.noteName}
+                 onChange={this.updateNoteName.bind(this)} />
+
+          <textarea className="form-control"
+                    ref="noteText"
                     value={this.state.noteText}
+                    placeholder="Contenu"
                     onChange={this.updateNoteText.bind(this)} />
 
           <div className="actions">
@@ -83,8 +101,12 @@ class Note extends React.Component {
     else {
       return (
         <div>
-          <div className="note-text">
-            { this.props.note.text }
+          <div className="note-name">
+            { this.props.note.name }
+          </div>
+
+          <div className="note-text"
+               dangerouslySetInnerHTML={ {__html: this.props.note.formattedText } }>
           </div>
 
           { this.renderButtons() }

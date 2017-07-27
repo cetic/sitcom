@@ -234,7 +234,8 @@ class Event extends React.Component {
       return (
         <NotesBlock notable={this.state.event}
                     canWrite={this.props.permissions.canWriteEvents}
-                    currentUserId={this.props.currentUserId} />
+                    currentUserId={this.props.currentUserId}
+                    columns={2} />
       )
     }
   }

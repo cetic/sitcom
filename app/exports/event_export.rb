@@ -18,10 +18,10 @@ class EventExport < BaseExport
     end
 
     list = list.merge({
-      'Contacts'        => lambda { |item| item.contact_links.collect      { |link| link.contact.name      }.join(', ') },
-      'Organisations'   => lambda { |item| item.organization_links.collect { |link| link.organization.name }.join(', ') },
-      'Projets'         => lambda { |item| item.project_links.collect      { |link| link.project.name      }.join(', ') },
-      'Notes publiques' => lambda { |item| item.notes.collect(&:text).join(', ')                                        }
+      'Contacts'        => lambda { |item| item.contact_links.collect      { |link| link.contact.name             }.join(', ')  },
+      'Organisations'   => lambda { |item| item.organization_links.collect { |link| link.organization.name        }.join(', ')  },
+      'Projets'         => lambda { |item| item.project_links.collect      { |link| link.project.name             }.join(', ')  },
+      'Notes publiques' => lambda { |item| item.notes.collect              { |note| "#{note.name} — #{note.text}" }.join(' | ') }
     })
 
     list
