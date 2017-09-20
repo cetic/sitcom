@@ -54,12 +54,15 @@ class ContactImport
           end
         end
 
-        row.duplicate = @lab.contacts.where(:first_name => row.first_name.strip, :last_name => row.last_name.strip).any?
+        row.duplicate = @lab.contacts.where(
+          :first_name => row.first_name.to_s.strip,
+          :last_name  => row.last_name.to_s.strip
+        ).any?
 
         rows << row
       end
     rescue ArgumentError
-      @errors << "Impossible de traiter ce fichier. Est-il bien au format CSV ?"
+      @errors << "Impossible de traiter ce fichier. Est-il bien au format CSV avec encodage UTF-8 ?"
     end
 
     return self
