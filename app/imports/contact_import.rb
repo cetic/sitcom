@@ -45,12 +45,14 @@ class ContactImport
         row.lab  = @lab
 
         row_hash.each_pair do |column_name, value|
-          attr_name = COLUMNS.key(column_name)
+          unless column_name.nil?
+            attr_name = COLUMNS.key(column_name)
 
-          if attr_name.nil?
-            @errors << "Colonne inconnue : \"#{column_name}\""
-          else
-            row.send("#{attr_name}=", value)
+            if attr_name.nil?
+              @errors << "Colonne inconnue : \"#{column_name}\". Ligne: #{csv_row}"
+            else
+              row.send("#{attr_name}=", value)
+            end
           end
         end
 

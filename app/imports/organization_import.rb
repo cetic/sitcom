@@ -30,21 +30,23 @@ class OrganizationImport
         row.lab  = @lab
 
         row_hash.each_pair do |column_name, value|
-          attr_name = COLUMNS.key(column_name)
+          unless column_name.nil?
+            attr_name = COLUMNS.key(column_name)
 
-          if attr_name.nil?
-            @errors << "Colonne inconnue : \"#{column_name}\""
-          else
-            row.send("#{attr_name}=", value)
+            if attr_name.nil?
+              @errors << "Colonne inconnue : \"#{column_name}\""
+            else
+              row.send("#{attr_name}=", value)
+            end
           end
         end
 
-        row.duplicate = @lab.organizations.where(:name => row.name.strip).any?
+        row.duplicate = @lab.organizations.where(:name => row.name.to_s.strip).any?
 
         rows << row
       end
     rescue ArgumentError
-      @errors << "Impossible de traiter ce fichier. Est-il bien au format CSV ?"
+      @errors << "Impossible de traiter ce fichier. Est-il bien au format CSV avec encodage UTF-8 ?"
     end
 
     return self
