@@ -36,6 +36,10 @@ module Mailchimp
     end
 
     def upsert_contact_to_list(list_id, contact)
+      puts contact.id
+      puts contact.email
+      puts
+
       begin
         response = gibbon.lists(list_id).members(self.class.hashed(contact.email)).upsert({
           :body => {
