@@ -123,9 +123,9 @@ Then restart nginx:
 
     service nginx restart
 
-## Setup ElasticSearch
+## Setup ElasticSearch (2.1.2)
 
-Setup [repositories](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup-repositories.html).
+Setup [repositories](https://www.elastic.co/guide/en/elasticsearch/reference/2.1/setup-repositories.html).
 
 Then:
 
