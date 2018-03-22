@@ -31,12 +31,12 @@ class EventProjectLinksController < ApplicationController
       respond_to do |format|
         format.json do
           render :json => {
-            :roles => EventProjectLinksController.includes(:event)
-                                                 .where(:events => { :lab_id => @lab.id })
-                                                 .pluck(:role)
-                                                 .reject(&:empty?)
-                                                 .uniq
-                                                 .sort
+            :roles => EventProjectLink.includes(:event)
+                                      .where(:events => { :lab_id => @lab.id })
+                                      .pluck(:role)
+                                      .reject(&:empty?)
+                                      .uniq
+                                      .sort
           }
         end
       end

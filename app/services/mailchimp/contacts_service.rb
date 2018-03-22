@@ -113,30 +113,30 @@ module Mailchimp
           }
         )
 
-        # Create (merge) fields
-        {
-          'address_street'   => 'ADSTR',
-          'address_zip_code' => 'ADZIP',
-          'address_city'     => 'ADCIT',
-          'address_country'  => 'ADCOU',
-          'phone'            => 'PHONE',
-          'active'           => 'ACTIV',
-          'twitter_url'      => 'TWITT',
-          'linkedin_url'     => 'LINKE',
-          'facebook_url'     => 'FACEB',
-          'organizations'    => 'ORGAN',
-          'projects'         => 'PROJE',
-          'events'           => 'EVENT',
-          'tags'             => 'TAGSS'
-        }.each do |name, tag|
-          gibbon.lists(response.body[('id')]).merge_fields.create({
-            :body => {
-              :tag  => tag,
-              :name => name,
-              :type => 'text'
-            }
-          })
-        end
+        # # Create (merge) fields
+        # {
+        #   'address_street'   => 'ADSTR',
+        #   'address_zip_code' => 'ADZIP',
+        #   'address_city'     => 'ADCIT',
+        #   'address_country'  => 'ADCOU',
+        #   'phone'            => 'PHONE',
+        #   'active'           => 'ACTIV',
+        #   'twitter_url'      => 'TWITT',
+        #   'linkedin_url'     => 'LINKE',
+        #   'facebook_url'     => 'FACEB',
+        #   'organizations'    => 'ORGAN',
+        #   'projects'         => 'PROJE',
+        #   'events'           => 'EVENT',
+        #   'tags'             => 'TAGSS'
+        # }.each do |name, tag|
+        #   gibbon.lists(response.body[('id')]).merge_fields.create({
+        #     :body => {
+        #       :tag  => tag,
+        #       :name => name,
+        #       :type => 'text'
+        #     }
+        #   })
+        # end
       end
 
       response.body
