@@ -49,19 +49,19 @@ module Mailchimp
             'merge_fields' => {
               'FNAME' => contact.first_name.to_s.strip,
               'LNAME' => contact.last_name.to_s.strip,
-              'ADSTR' => contact.address_street.to_s.strip,
-              'ADZIP' => contact.address_zip_code.to_s.strip,
-              'ADCIT' => contact.address_city.to_s.strip,
-              'ADCOU' => contact.address_country.to_s.strip,
-              'PHONE' => contact.phone.to_s.strip,
-              'ACTIV' => contact.active.to_s,
-              'TWITT' => contact.twitter_url.to_s.strip,
-              'LINKE' => contact.linkedin_url.to_s.strip,
-              'FACEB' => contact.facebook_url.to_s.strip,
-              'ORGAN' => contact.organizations.collect(&:name).join(' | '),
-              'PROJE' => contact.projects.collect(&:name).join(' | '),
-              'EVENT' => contact.events.collect(&:name).join(' | '),
-              'TAGSS' => contact.tags.collect(&:name).join(' | ')
+              # 'ADSTR' => contact.address_street.to_s.strip,
+              # 'ADZIP' => contact.address_zip_code.to_s.strip,
+              # 'ADCIT' => contact.address_city.to_s.strip,
+              # 'ADCOU' => contact.address_country.to_s.strip,
+              # 'PHONE' => contact.phone.to_s.strip,
+              # 'ACTIV' => contact.active.to_s,
+              # 'TWITT' => contact.twitter_url.to_s.strip,
+              # 'LINKE' => contact.linkedin_url.to_s.strip,
+              # 'FACEB' => contact.facebook_url.to_s.strip,
+              # 'ORGAN' => contact.organizations.collect(&:name).join(' | '),
+              # 'PROJE' => contact.projects.collect(&:name).join(' | '),
+              # 'EVENT' => contact.events.collect(&:name).join(' | '),
+              # 'TAGSS' => contact.tags.collect(&:name).join(' | ')
             }
           }
         })

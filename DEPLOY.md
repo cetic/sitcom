@@ -160,3 +160,20 @@ In **/etc/logrotate.d/sitcom**:
 Test it:
 
     sudo logrotate /etc/logrotate.conf
+
+## Configure Monit
+
+    check process elasticsearch with pidfile /var/run/elasticsearch/elasticsearch.pid
+       start program = "/bin/systemctl start elasticsearch"
+       stop  program = "/bin/systemctl stop elasticsearch"
+       if 5 restarts within 5 cycles then timeout
+       if failed host 127.0.0.1 port 9200 protocol http then restart
+    
+    check process sidekiq0 with pidfile /home/deploy/apps/sitcom/shared/tmp/pids/sidekiq-0.pid
+      start program = "/bin/su - deploy -c 'cd /home/deploy/apps/sitcom/current && bundle exec sidekiq -d -e cetic -i 0 -P tmp/pids/sidekiq-0.pid -c 2 -q websockets'" with timeout 90 seconds
+      stop  program = "/bin/su - deploy -c 'cd /home/deploy/apps/sitcom/current && bundle exec sidekiqctl stop tmp/pids/sidekiq-0.pid'"                                with timeout 90 seconds
+    
+    
+    check process sidekiq1 with pidfile /home/deploy/apps/sitcom/shared/tmp/pids/sidekiq-1.pid
+      start program = "/bin/su - deploy -c 'cd /home/deploy/apps/sitcom/current; PATH=bin:/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:$PATH bundle exec sidekiq -d -e cetic -i 1 -P tmp/pids/sidekiq-1.pid -c 1 -q default'" with timeout 90 seconds
+      stop  program = "/bin/su - deploy -c 'cd /home/deploy/apps/sitcom/current; PATH=bin:/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:$PATH bundle exec sidekiqctl stop tmp/pids/sidekiq-1.pid'"                             with timeout 90 seconds
