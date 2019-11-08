@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 gem 'rails', '5.1.7'
 gem 'mysql2', '0.4.10'
 
+# Webpacker
+gem 'webpacker', '~> 4.x'
+
 # Authorization
 gem 'devise', '4.4.3'
 
