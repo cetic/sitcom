@@ -165,7 +165,7 @@ GEM
     minitest (5.11.3)
     multi_json (1.13.1)
     multipart-post (2.0.0)
-    mysql2 (0.4.4)
+    mysql2 (0.5.2)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.2.0)
@@ -216,7 +216,6 @@ GEM
       railties (>= 3.2)
       tilt
     redis (3.3.1)
-    ref (2.0.0)
     responders (2.2.0)
       railties (>= 4.2.0, < 5.1)
     rmagick (2.15.4)
@@ -247,9 +246,6 @@ GEM
     sshkit (1.11.1)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    therubyracer (0.12.3)
-      libv8 (~> 3.16.14.15)
-      ref
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.5)
@@ -294,7 +290,7 @@ DEPENDENCIES
   libv8
   listen
   lodash-rails
-  mysql2
+  mysql2 (= 0.5.2)
   puma (~> 3.0)
   rabl
   rails (~> 5.0.0)
@@ -304,9 +300,8 @@ DEPENDENCIES
   roo
   sass-rails (~> 5.0)
   sidekiq
-  therubyracer
   uglifier (>= 1.3.0)
   uuidtools
 
 BUNDLED WITH
-   1.16.1
+   1.17.2

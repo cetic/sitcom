@@ -1,7 +1,11 @@
 source 'https://rubygems.org'
 
+# Development on OSX :
+# gem install libv8 -v 3.16.14.19 -- --with-system-v8
+# gem install mysql2 -v '0.5.2' -- --with-cflags=\"-I/usr/local/opt/openssl/include\" --with-ldflags=\"-L/usr/local/opt/openssl/lib\"
+
 gem 'rails', '~> 5.0.0'
-gem 'mysql2'
+gem 'mysql2', '0.5.2'
 
 # Authorization
 gem 'devise'
@@ -55,6 +59,6 @@ group :development do
 end
 
 group :production do
-  gem 'therubyracer'
+  # gem 'therubyracer'
   gem 'libv8'
 end
