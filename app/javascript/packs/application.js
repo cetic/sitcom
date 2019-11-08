@@ -15,7 +15,6 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-
 var componentRequireContext = require.context("components", true)
 var ReactRailsUJS = require("react_ujs")
 ReactRailsUJS.useContext(componentRequireContext)
@@ -28,9 +27,9 @@ global.Link        = require('react-router').Link
 global.hashHistory = require('react-router').hashHistory
 global.humps       = require('humps')
 global.moment      = require('moment')
+global._           = require('lodash')
 
-global.http   = require('../components/shared/http_service.jsx')
-//global.Routes = require('../src/routes.jsx')
+global.http        = require('../components/shared/http_service.jsx').default
 
 global.Admin                    = {}
 global.Admin.CustomFieldsEditor = require('../components/admin/custom_fields/custom_fields_editor.jsx')

@@ -3,15 +3,16 @@ source 'https://rubygems.org'
 gem 'rails', '5.1.7'
 gem 'mysql2', '0.4.10'
 
-# Webpacker
-gem 'webpacker', '~> 4.x'
-
 # Authorization
 gem 'devise', '4.4.3'
 
 # ElasticSearch
 gem 'elasticsearch-model', '0.1.9'
 gem 'elasticsearch-rails', '0.1.9'
+
+# Webpacker + React
+gem 'webpacker', '~> 4.x'
+gem 'react-rails', '1.8.2'
 
 # Assets
 gem 'sass-rails', '~> 5.0'
@@ -20,7 +21,6 @@ gem 'jquery-rails'
 gem 'bootstrap-sass', '3.3.7'
 gem 'font-awesome-rails'
 gem 'lodash-rails'
-gem 'react-rails', '1.8.2'
 
 # File Attachments
 gem 'rmagick'
