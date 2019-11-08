@@ -97,10 +97,10 @@ class LogEntries extends React.Component {
           <div className="row">
             <div className="col-md-12">
               <ul>
-                { this.renderEntries() }
+                { this.renderEntries() }
               </ul>
 
-              { this.renderHideHistory() }
+              { this.renderHideHistory() }
             </div>
           </div>
         </div>

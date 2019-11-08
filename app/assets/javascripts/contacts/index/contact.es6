@@ -116,7 +116,7 @@ class Contact extends React.Component {
     return _.map(this.props.contact.organizationLinks, (organizationLink, i) => {
       return (
         <span key={organizationLink.organization.id}>
-          <Link to={'/organizationLink.organizations/' + organizationLink.organization.id}>
+          <Link to={'/organizations/' + organizationLink.organization.id}>
             { organizationLink.organization.name }
           </Link>
           { this.props.contact.organizationLinks.length - 1 == i ? '' : ', '}

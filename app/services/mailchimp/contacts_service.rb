@@ -82,13 +82,13 @@ module Mailchimp
       begin
         response = gibbon.lists(list_id).members(self.class.hashed(contact_email)).delete
 
-        text = "#{contact.name} - #{contact.email} successfully removed"
+        text = "#{contact_email} successfully removed"
         puts text
         Rails.logger.error text
 
         return response.body
       rescue Gibbon::MailChimpError => exception
-        text = "#{contact.name} - #{contact.email} removal failed because of #{exception.detail}"
+        text = "#{contact_email} removal failed because of #{exception.detail}"
         puts text
         Rails.logger.error text
       end
