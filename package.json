@@ -27,6 +27,7 @@
     "email-validator": "^1.0.7",
     "envify": "^3.4.1",
     "humps": "^1.1.0",
+    "lodash": "^4.17.15",
     "moment": "^2.14.1",
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
@@ -36,6 +37,7 @@
     "react-infinite": "^0.9.2",
     "react-router": "^2.6.1",
     "react-select": "1.0.0-beta14",
+    "react_ujs": "^2.6.0",
     "wolfy87-eventemitter": "^5.1.0"
   },
   "devDependencies": {
