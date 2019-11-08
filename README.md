@@ -9,8 +9,12 @@ bundle install
 bundle exec rails db:migrate:reset
 bundle exec rails db:seed
 bundle exec rake environment elasticsearch:import:all FORCE=true
-npm i
+yarn
 bundle exec rails server
+```
+
+```sh
+./bin/webpack-dev-server
 ```
 
 ```sh
