@@ -4,8 +4,8 @@ source 'https://rubygems.org'
 # gem install libv8 -v 3.16.14.19 -- --with-system-v8
 # gem install mysql2 -v '0.5.2' -- --with-cflags=\"-I/usr/local/opt/openssl/include\" --with-ldflags=\"-L/usr/local/opt/openssl/lib\"
 
-gem 'rails', '~> 5.0.0'
-gem 'mysql2', '0.5.2'
+gem 'rails',  '~> 5.0.0'
+gem 'mysql2', '0.4.10'
 
 # Authorization
 gem 'devise'
