@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.0'
-gem 'mysql2'
+gem 'rails', '5.0.7.2'
+gem 'mysql2', '0.4.10'
 
 # Authorization
-gem 'devise'
+gem 'devise', '4.4.3'
 
 # ElasticSearch
 gem 'elasticsearch-model'
@@ -44,7 +44,7 @@ gem 'gibbon'
 
 # Deployment
 group :development do
-  gem 'capistrano'
+  gem 'capistrano', '3.7.2'
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'capistrano-bundler'
@@ -55,6 +55,5 @@ group :development do
 end
 
 group :production do
-  gem 'therubyracer'
   gem 'libv8'
 end

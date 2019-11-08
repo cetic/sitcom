@@ -1,10 +1,10 @@
-lock '3.5.0'
+lock '3.7.2'
 
 set :repo_url,      'git@github.com:cetic/sitcom.git'
 set :keep_releases, 30
 
 set :application, 'sitcom'
-set :rbenv_ruby,  File.read('.ruby-version').strip
+set :rbenv_ruby,  '2.3.1' # File.read('.ruby-version').strip
 
 set :use_sudo,  false
 set :log_level, :debug
