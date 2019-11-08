@@ -37,3 +37,10 @@
 node_modules
 .DS_Store
 .docker
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

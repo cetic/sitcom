@@ -21,7 +21,6 @@ gem 'bootstrap-sass', '3.3.7'
 gem 'font-awesome-rails'
 gem 'lodash-rails'
 gem 'react-rails', '1.8.2'
-#gem 'browserify-rails'
 
 # File Attachments
 gem 'rmagick'
