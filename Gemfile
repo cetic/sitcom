@@ -55,5 +55,5 @@ group :development do
 end
 
 group :production do
-  gem 'libv8'
+  gem 'libv8' # Development on OSX: gem install libv8 -v 3.16.14.19 -- --with-system-v8
 end
