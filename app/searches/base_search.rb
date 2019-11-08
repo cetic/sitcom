@@ -219,9 +219,6 @@ class BaseSearch
   end
 
   def add_custom_bool_field_search(options, custom_field, value)
-
-    #raise value
-
     options['query']['filtered']['filter']['and'] << {
       'nested' => {
         'path' => 'custom_fields',
