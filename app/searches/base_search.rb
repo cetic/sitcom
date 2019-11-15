@@ -97,11 +97,10 @@ class BaseSearch
 
   def add_quick_search(options, fields)
     if params[:quick_search].present?
-      options['query']['bool']['query'] = {
+      options['query']['bool']['filter'] << {
         'multi_match' => {
           'query'  => params[:quick_search],
-          'fields' => fields,
-          'type'   => 'phrase_prefix',
+          'fields' => fields
         }
       }
     end
@@ -145,23 +144,22 @@ class BaseSearch
                 'multi_match' => {
                   'query'  => params[:notes],
                   'fields' => ['notes.text', 'notes.name'],
-                  'type'   => 'phrase',
                 }
               },
 
               {
-                'should' => [
-                  {
-                    'term' => { 'notes.privacy' => 'public' }
-                  },
+                'bool' => {
+                  'should' => [
+                    { 'term' => { 'notes.privacy' => 'public' } },
 
-                  {
-                    'must' => [
-                      { 'term' => { 'notes.privacy' => 'private' } },
-                      { 'term' => { 'notes.user_id' => user.id   } }
-                    ]
-                  }
-                ]
+                    'bool' => {
+                      'must' => [
+                        { 'term' => { 'notes.privacy' => 'private' } },
+                        { 'term' => { 'notes.user_id' => user.id   } }
+                      ]
+                    }
+                  ]
+                }
               }
             ]
           }
