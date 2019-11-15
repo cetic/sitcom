@@ -23,7 +23,7 @@ gem 'react-rails', '1.8.2'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
-gem 'bootstrap-sass', '3.3.7'
+gem 'bootstrap-sass', '3.4.1'
 gem 'font-awesome-rails'
 
 # File Attachments
