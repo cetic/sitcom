@@ -25,4 +25,4 @@ RSpec.configure do |config|
 
 end
 
-FactoryGirl.find_definitions
+FactoryBot.find_definitions

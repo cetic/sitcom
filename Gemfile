@@ -32,7 +32,7 @@ gem 'sidekiq'
 # Utils
 gem 'enumerize'
 gem 'kaminari'
-gem 'factory_girl', '4.7.0'
+gem 'factory_bot'
 gem 'faker'
 gem 'rabl'
 gem 'uuidtools'

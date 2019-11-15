@@ -133,8 +133,8 @@ GEM
       activesupport (>= 3.2)
     erubi (1.9.0)
     execjs (2.7.0)
-    factory_girl (4.7.0)
-      activesupport (>= 3.0.0)
+    factory_bot (5.1.1)
+      activesupport (>= 4.2.0)
     faker (2.7.0)
       i18n (>= 1.6, < 1.8)
     faraday (0.17.0)
@@ -341,7 +341,7 @@ DEPENDENCIES
   elasticsearch-model (= 0.1.9)
   elasticsearch-rails (= 0.1.9)
   enumerize
-  factory_girl (= 4.7.0)
+  factory_bot
   faker
   font-awesome-rails
   gibbon

@@ -1,4 +1,4 @@
-FactoryGirl.find_definitions
+FactoryBot.find_definitions
 
 # https://github.com/stympy/faker/issues/266
 Rails.application.config.i18n.available_locales += %w(en)
@@ -85,35 +85,35 @@ namespace :app do
     puts "Bootstrapping contacts"
 
     100.times do
-      FactoryGirl.create(:contact, :lab => Lab.all.to_a.sample) rescue puts "    contact name already used"
+      FactoryBot.create(:contact, :lab => Lab.all.to_a.sample) rescue puts "    contact name already used"
     end
 
     puts "Bootstrapping organizations"
 
     50.times do
-      FactoryGirl.create(:organization, :lab => Lab.all.to_a.sample) rescue puts "    organization name already used"
+      FactoryBot.create(:organization, :lab => Lab.all.to_a.sample) rescue puts "    organization name already used"
     end
 
     puts "Bootstrapping fields"
 
     10.times do
-      field = FactoryGirl.create(:field, :parent_id => nil)
+      field = FactoryBot.create(:field, :parent_id => nil)
 
       (1 + rand(6)).times do
-        FactoryGirl.create(:field, :parent_id => field.id) rescue puts "    field name already used"
+        FactoryBot.create(:field, :parent_id => field.id) rescue puts "    field name already used"
       end
     end
 
     puts "Bootstrapping events"
 
     30.times do
-      FactoryGirl.create(:event, :lab => Lab.all.to_a.sample) rescue puts "    event name already used"
+      FactoryBot.create(:event, :lab => Lab.all.to_a.sample) rescue puts "    event name already used"
     end
 
     puts "Bootstrapping projects"
 
     30.times do
-      FactoryGirl.create(:project, :lab => Lab.all.to_a.sample) rescue puts "    project name already used"
+      FactoryBot.create(:project, :lab => Lab.all.to_a.sample) rescue puts "    project name already used"
     end
 
     puts "Bootstrapping notes and associations"
@@ -121,7 +121,7 @@ namespace :app do
     notables = Contact.all.to_a + Organization.all.to_a + Event.all.to_a + Project.all.to_a
 
     200.times do
-      FactoryGirl.create(:note, :notable => notables.sample)
+      FactoryBot.create(:note, :notable => notables.sample)
     end
 
     puts "Bootstrapping contacts-organizations associations"
