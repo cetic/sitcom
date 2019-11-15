@@ -128,7 +128,9 @@ class Contact < ApplicationRecord
   end
 
   def sort_name
-    [ last_name, first_name ].join(' ')
+    ActiveSupport::Inflector.transliterate(
+      [ last_name, first_name ].join(' ').downcase
+    )
   end
 
   def path

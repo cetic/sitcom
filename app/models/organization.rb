@@ -112,7 +112,7 @@ class Organization < ApplicationRecord
   # Methods
 
   def sort_name
-    name
+    ActiveSupport::Inflector.transliterate(name.downcase)
   end
 
   def path

@@ -12,8 +12,8 @@ gem 'puma', '~> 3.11'
 gem 'devise', '4.7.1'
 
 # ElasticSearch
-gem 'elasticsearch-model', '0.1.9'
-gem 'elasticsearch-rails', '0.1.9'
+gem 'elasticsearch-model', '6.1.0'
+gem 'elasticsearch-rails', '6.1.0'
 
 # Webpacker + React
 gem 'webpacker', '~> 4.x'

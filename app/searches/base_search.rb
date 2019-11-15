@@ -1,6 +1,5 @@
 class BaseSearch
-  STEP           = 10000
-  MAX_EXPANSIONS = 2147483647 # 2^31 - 1 (max value for ElasticSearch)
+  STEP = 10000
 
   attr_reader :params, :user
 
@@ -60,12 +59,10 @@ class BaseSearch
   def get_base_options
     options = {
       'query' => {
-        'filtered' => {
-          'filter' => {
-            'and' => [
-              { 'term' => { 'lab_id' => params[:lab_id] } },
-            ]
-          },
+        'bool' => {
+          'filter' => [
+            'term' => { 'lab_id' => params[:lab_id] },
+          ],
         },
       },
 
@@ -77,7 +74,7 @@ class BaseSearch
 
     if params[:only_ids]
       options = options.merge({
-        'fields' => []
+        'stored_fields' => [] # ask only for ids
       })
     end
 
@@ -89,7 +86,7 @@ class BaseSearch
       ids = params[:ids].split(',').map(&:to_i)
 
       if ids.any?
-        options['query']['filtered']['filter']['and'] << {
+        options['query']['bool']['filter'] << {
           'terms' => {
             'id' => ids
           }
@@ -100,12 +97,11 @@ class BaseSearch
 
   def add_quick_search(options, fields)
     if params[:quick_search].present?
-      options['query']['filtered']['query'] = {
+      options['query']['bool']['query'] = {
         'multi_match' => {
           'query'          => params[:quick_search],
           'fields'         => fields,
           'type'           => 'phrase_prefix',
-          'max_expansions' => MAX_EXPANSIONS
         }
       }
     end
@@ -113,12 +109,11 @@ class BaseSearch
 
   def add_string_search(options, field)
     if params[field].present?
-      options['query']['filtered']['filter']['and'] << {
+      options['query']['bool']['filter'] << {
         'multi_match' => {
-          'query'          => params[field],
-          'fields'         => [field.to_s],
-          'type'           => 'phrase_prefix',
-          'max_expansions' => MAX_EXPANSIONS
+          'query'  => params[field],
+          'fields' => [field.to_s],
+          'type'   => 'phrase_prefix',
         }
       }
     end
@@ -129,7 +124,7 @@ class BaseSearch
       ids = params[field.to_sym].split(',').map(&:to_i)
 
       if ids.any?
-        options['query']['filtered']['filter']['and'] << {
+        options['query']['bool']['filter'] << {
           'terms' => {
             field => ids
           }
@@ -139,7 +134,7 @@ class BaseSearch
   end
 
   def add_notes_search(options)
-    options['query']['filtered']['filter']['and'] << {
+    options['query']['bool']['filter'] << {
       'nested' => {
         'path' => 'notes',
 
@@ -148,21 +143,20 @@ class BaseSearch
             'must' => [
               {
                 'multi_match' => {
-                  'query'          => params[:notes],
-                  'fields'         => ['notes.text', 'notes.name'],
-                  'type'           => 'phrase',
-                  'max_expansions' => MAX_EXPANSIONS
+                  'query'  => params[:notes],
+                  'fields' => ['notes.text', 'notes.name'],
+                  'type'   => 'phrase',
                 }
               },
 
               {
-                'or' => [
+                'should' => [
                   {
                     'term' => { 'notes.privacy' => 'public' }
                   },
 
                   {
-                    'and' => [
+                    'must' => [
                       { 'term' => { 'notes.privacy' => 'private' } },
                       { 'term' => { 'notes.user_id' => user.id   } }
                     ]
@@ -192,7 +186,7 @@ class BaseSearch
   end
 
   def add_custom_text_field_search(options, custom_field, value)
-    options['query']['filtered']['filter']['and'] << {
+    options['query']['bool']['filter'] << {
       'nested' => {
         'path' => 'custom_fields',
 
@@ -205,10 +199,9 @@ class BaseSearch
 
               {
                 'multi_match' => {
-                  'query'          => value.to_s,
-                  'fields'         => ['custom_fields.value'],
-                  'type'           => 'phrase',
-                  'max_expansions' => MAX_EXPANSIONS
+                  'query'  => value.to_s,
+                  'fields' => ['custom_fields.value'],
+                  'type'   => 'phrase',
                 }
               }
             ]
@@ -219,7 +212,7 @@ class BaseSearch
   end
 
   def add_custom_bool_field_search(options, custom_field, value)
-    options['query']['filtered']['filter']['and'] << {
+    options['query']['bool']['filter'] << {
       'nested' => {
         'path' => 'custom_fields',
 
