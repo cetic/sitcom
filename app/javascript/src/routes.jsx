@@ -1,7 +1,7 @@
 import { createHistory }                from 'history'
 import { useRouterHistory, withRouter } from 'react-router'
 
-import Storage       from './storage.jsx'
+import Storage       from './storage.js'
 
 import Contacts      from './contacts/main.jsx'
 import Organizations from './organizations/main.jsx'
