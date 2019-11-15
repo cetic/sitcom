@@ -77,15 +77,13 @@ GEM
       sass (>= 3.3.4)
     builder (3.2.3)
     byebug (11.0.1)
-    capistrano (3.7.2)
+    capistrano (3.11.2)
       airbrussh (>= 1.0.0)
-      capistrano-harrow
       i18n
       rake (>= 10.0.0)
       sshkit (>= 1.9.0)
     capistrano-bundler (1.6.0)
       capistrano (~> 3.1)
-    capistrano-harrow (0.5.3)
     capistrano-passenger (0.2.0)
       capistrano (~> 3.0)
     capistrano-rails (1.4.0)
@@ -94,8 +92,8 @@ GEM
     capistrano-rbenv (2.1.4)
       capistrano (~> 3.1)
       sshkit (~> 1.3)
-    capistrano-sidekiq (0.10.0)
-      capistrano
+    capistrano-sidekiq (1.0.2)
+      capistrano (>= 3.9.0)
       sidekiq (>= 3.4)
     carrierwave (2.0.2)
       activemodel (>= 5.0.0)
@@ -104,7 +102,6 @@ GEM
       image_processing (~> 1.1)
       mimemagic (>= 0.3.0)
       mini_mime (>= 0.1.3)
-    coffee-script-source (1.12.2)
     color-generator (0.0.4)
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
@@ -247,14 +244,13 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
-    react-rails (1.8.2)
+    react-rails (2.6.0)
       babel-transpiler (>= 0.7.0)
-      coffee-script-source (~> 1.8)
       connection_pool
       execjs
       railties (>= 3.2)
       tilt
-    redis (3.3.5)
+    redis (4.1.3)
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -279,18 +275,22 @@ GEM
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
-    sass-rails (5.1.0)
-      railties (>= 5.2.0)
-      sass (~> 3.1)
-      sprockets (>= 2.8, < 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
-      tilt (>= 1.1, < 3)
-    sidekiq (5.2.7)
-      connection_pool (~> 2.2, >= 2.2.2)
-      rack (>= 1.5.0)
-      rack-protection (>= 1.5.0)
-      redis (>= 3.3.5, < 5)
-    sprockets (3.7.2)
+    sass-rails (6.0.0)
+      sassc-rails (~> 2.1, >= 2.1.1)
+    sassc (2.2.1)
+      ffi (~> 1.9)
+    sassc-rails (2.1.2)
+      railties (>= 4.0.0)
+      sassc (>= 2.0)
+      sprockets (> 3.0)
+      sprockets-rails
+      tilt
+    sidekiq (6.0.3)
+      connection_pool (>= 2.2.2)
+      rack (>= 2.0.0)
+      rack-protection (>= 2.0.0)
+      redis (>= 4.1.0)
+    sprockets (4.0.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.2.1)
@@ -328,7 +328,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   bootstrap-sass (= 3.3.7)
   byebug
-  capistrano (= 3.7.2)
+  capistrano (= 3.11.2)
   capistrano-bundler
   capistrano-passenger
   capistrano-rails
@@ -349,16 +349,16 @@ DEPENDENCIES
   kaminari
   libv8
   listen (>= 3.0.5, < 3.2)
-  mysql2
-  puma (~> 3.11)
+  mysql2 (= 0.5.2)
+  puma (= 3.12.1)
   rabl
   rails (= 6.0.1)
-  react-rails (= 1.8.2)
-  redis (~> 3.0)
+  react-rails
+  redis
   rmagick
   roo
   rubocop
-  sass-rails (~> 5.0)
+  sass-rails
   sidekiq
   uglifier (>= 1.3.0)
   uuidtools
