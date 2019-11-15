@@ -4,7 +4,7 @@ ruby '2.5.7'
 
 gem 'rails',  '6.0.1'
 gem 'mysql2', '0.5.2'
-gem 'puma',   '3.12.1'
+gem 'puma',   '4.3.0'
 gem 'devise', '4.7.1'
 
 # ElasticSearch
@@ -19,7 +19,7 @@ gem 'react-rails'
 gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
-gem 'bootstrap-sass', '3.3.7'
+gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 
 # File Attachments
