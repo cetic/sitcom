@@ -15,21 +15,28 @@ class ProjectSearch < BaseSearch
     end
 
     if params['from'] && params['to']
-      options['query']['bool']['filter'] << {
-        'range' => {
-          'start_date' => {
-            'gte' => params['from'],
-            'lte' => params['to']
-          }
-        }
-      }
+      options['query']['bool']['must'] ||= []
 
-      options['query']['bool']['filter'] << {
-        'range' => {
-          'end_date' => {
-            'gte' => params['from'],
-            'lte' => params['to']
-          }
+      options['query']['bool']['must'] << {
+        'bool' => {
+          'should' => [
+            {
+              'range' => {
+                'start_date' => {
+                  'gte' => params['from'],
+                  'lte' => params['to']
+                }
+              }
+            },
+            {
+              'range' => {
+                'end_date' => {
+                  'gte' => params['from'],
+                  'lte' => params['to']
+                }
+              }
+            }
+          ]
         }
       }
     end

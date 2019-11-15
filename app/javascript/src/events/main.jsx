@@ -39,6 +39,8 @@ export default class Main extends BaseMain {
       description:     this.props.location.query.description || '',
       place:           this.props.location.query.place       || '',
       notes:           this.props.location.query.notes       || '',
+      from:            this.props.location.query.from        || '',
+      to:              this.props.location.query.to          || '',
       contactIds:      this.props.location.query.contactIds,
       organizationIds: this.props.location.query.organizationIds,
       projectIds:      this.props.location.query.projectIds,

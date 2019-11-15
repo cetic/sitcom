@@ -33,15 +33,20 @@ export default class Main extends BaseMain {
       customFieldFilters[`customField${customField.id}`] = this.props.location.query[`customField${customField.id}`] || ''
     })
 
+    console.log(this.props.location.query)
+
     return Object.assign(customFieldFilters, {
       quickSearch:     this.props.location.query.quickSearch || '',
       name:            this.props.location.query.name        || '',
       description:     this.props.location.query.description || '',
       notes:           this.props.location.query.notes       || '',
+      from:            this.props.location.query.from        || '',
+      to:              this.props.location.query.to          || '',
       contactIds:      this.props.location.query.contactIds,
       organizationIds: this.props.location.query.organizationIds,
       eventIds:        this.props.location.query.projectIds,
-      tagIds:          this.props.location.query.tagIds    })
+      tagIds:          this.props.location.query.tagIds,
+    })
   }
 
   renderItems() {
