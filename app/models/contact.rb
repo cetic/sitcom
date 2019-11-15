@@ -6,7 +6,6 @@ class Contact < ApplicationRecord
   include CommonIndexConcern
   include ContactIndexConcern
   include CableActionsConcern
-  include GravatarConcern
 
   # Uploaders
 
@@ -147,11 +146,25 @@ class Contact < ApplicationRecord
   end
 
   def picture_url(size = nil)
-    if picture.present?
-      size ? picture.url(size) : picture.url
-    else
-      txt = "#{first_name.first}#{last_name.first}"
-      "https://placeholdit.imgix.net/~text?txtsize=68&txt=#{txt}&w=200&h=200"
+    if picture.present? # carrierwave
+      if size
+        picture.url(size)
+      else
+        picture.url
+      end
+    else # gravatar
+      if size == :thumb
+        size = 100
+      elsif size == :preview
+        size = 200
+      else
+        size == 200
+      end
+
+      hashable = self.email.present? ? self.email : self.name
+
+      gravatar_id = Digest::MD5.hexdigest(hashable.downcase)
+      "https://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}&d=retro"
     end
   end
 

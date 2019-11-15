@@ -150,9 +150,12 @@ class ContactsController < ApplicationController
 
   # Encapsulate new picture in "contact" (don't know how to make it in JS)
   def clean_params
-    params[:contact] ||= {}
-    params[:contact][:picture] = params[:picture]
-    params.delete(:picture)
+    if params[:picture]
+      params[:contact] ||= {}
+
+      params[:contact][:picture] = params[:picture]
+      params.delete(:picture)
+    end
   end
 
   def strong_params

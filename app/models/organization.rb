@@ -6,6 +6,7 @@ class Organization < ApplicationRecord
   include CommonIndexConcern
   include OrganizationIndexConcern
   include CableActionsConcern
+  include GravatarConcern
 
   # Uploaders
 
@@ -121,15 +122,6 @@ class Organization < ApplicationRecord
 
   def scoped_path
     "#{self.class.name.parameterize.pluralize}/#{id}"
-  end
-
-  def picture_url(size = nil)
-    if picture.present?
-      size ? picture.url(size) : picture.url
-    else
-      txt = "#{name.first}"
-      "https://placeholdit.imgix.net/~text?txtsize=68&txt=#{txt}&w=200&h=200"
-    end
   end
 
   def association_ids

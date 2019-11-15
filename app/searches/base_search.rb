@@ -1,5 +1,6 @@
 class BaseSearch
-  STEP = 10000
+
+  STEP = 10_000 # should be <= 10_000 (https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-from-size.html)
 
   attr_reader :params, :user
 
@@ -68,13 +69,12 @@ class BaseSearch
 
       'sort' => [ { 'sort_name' => { 'order' => 'asc' }} ],
 
-      'from' => params[:offset].to_i,
       'size' => STEP
     }
 
     if params[:only_ids]
       options = options.merge({
-        'stored_fields' => [] # ask only for ids
+        'stored_fields' => [] # ask only for hits ids
       })
     end
 

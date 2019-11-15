@@ -1,19 +1,24 @@
 module GravatarConcern
   extend ActiveSupport::Concern
 
-  included do
-    # Scopes, relations, validations, etc.
-  end
+  def picture_url(size = nil)
+    if picture.present? # carrierwave
+      if size
+        picture.url(size)
+      else
+        picture.url
+      end
+    else # gravatar
+      if size == :thumb
+        size = 100
+      elsif size == :preview
+        size = 200
+      else
+        size == 200
+      end
 
-  module ClassMethods
-    # Class methods
-    private
-    # Private class methods (only for concern)
-  end
-
-  def gravatar_url(options = {})
-    options = { :size => 50, :type => 'retro' }.merge(options)
-    gravatar_id = Digest::MD5.hexdigest(self.email.downcase)
-    "//gravatar.com/avatar/#{gravatar_id}.png?s=#{options[:size]}&d=#{options[:type]}"
+      gravatar_id = Digest::MD5.hexdigest(name.downcase)
+      "https://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}&d=retro"
+    end
   end
 end

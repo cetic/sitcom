@@ -30,7 +30,7 @@ module OrganizationIndexConcern
           indexes :raw_value, :type => 'keyword'
         end
 
-        indexes :sort_name, :type => 'keyword' #, :analyzer => :sortable_string_analyzer
+        indexes :sort_name, :type => 'keyword'
 
         indexes :updated_at, :type => 'date'
       end
