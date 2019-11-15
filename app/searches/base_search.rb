@@ -99,9 +99,9 @@ class BaseSearch
     if params[:quick_search].present?
       options['query']['bool']['query'] = {
         'multi_match' => {
-          'query'          => params[:quick_search],
-          'fields'         => fields,
-          'type'           => 'phrase_prefix',
+          'query'  => params[:quick_search],
+          'fields' => fields,
+          'type'   => 'phrase_prefix',
         }
       }
     end
@@ -110,10 +110,10 @@ class BaseSearch
   def add_string_search(options, field)
     if params[field].present?
       options['query']['bool']['filter'] << {
-        'multi_match' => {
-          'query'  => params[field],
-          'fields' => [field.to_s],
-          'type'   => 'phrase_prefix',
+        'match_phrase_prefix' => {
+          field.to_s => {
+            "query" => params[field]
+          },
         }
       }
     end
@@ -179,8 +179,11 @@ class BaseSearch
       value        = params["custom_field#{custom_field_id}"]
 
       if value.present?
-        method_name = "add_custom_#{custom_field.field_type}_field_search".to_sym
-        send(method_name, options, custom_field, value)
+        if custom_field.field_type == 'text'
+          add_custom_text_field_search(options, custom_field, value)
+        elsif custom_field.field_type.in? ['bool', 'enum']
+          add_custom_term_field_search(options, custom_field, value)
+        end
       end
     end
   end
@@ -198,10 +201,10 @@ class BaseSearch
               },
 
               {
-                'multi_match' => {
-                  'query'  => value.to_s,
-                  'fields' => ['custom_fields.value'],
-                  'type'   => 'phrase',
+                'match' => {
+                  'custom_fields.value' => {
+                    'query' => value.to_s,
+                  },
                 }
               }
             ]
@@ -211,7 +214,7 @@ class BaseSearch
     }
   end
 
-  def add_custom_bool_field_search(options, custom_field, value)
+  def add_custom_term_field_search(options, custom_field, value)
     options['query']['bool']['filter'] << {
       'nested' => {
         'path' => 'custom_fields',
@@ -227,7 +230,4 @@ class BaseSearch
       }
     }
   end
-
-  alias_method :add_custom_enum_field_search, :add_custom_bool_field_search
-
 end
