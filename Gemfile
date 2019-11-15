@@ -2,21 +2,18 @@ source 'https://rubygems.org'
 
 ruby '2.5.7'
 
-gem 'rails', '5.2.3'
+gem 'rails', '6.0.1'
 gem 'mysql2'
-
-# Server
 gem 'puma', '~> 3.11'
 
 # Authorization
 gem 'devise', '4.7.1'
-
 # ElasticSearch
 gem 'elasticsearch-model', '0.1.9'
 gem 'elasticsearch-rails', '0.1.9'
 
 # Webpacker + React
-gem 'webpacker', '~> 4.x'
+gem 'webpacker',   '~> 4.x'
 gem 'react-rails', '1.8.2'
 
 # Assets
@@ -62,6 +59,7 @@ group :development do
   gem 'capistrano-sidekiq'
 
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'rubocop'
 end
 
 group :production do

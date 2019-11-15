@@ -11,11 +11,13 @@
     },
     {
       "name": "Aurélien Malisart",
-      "email": "aurelien.malisart@gmail.com"
+      "email": "aurelien@phonoid.com"
     }
   ],
   "dependencies": {
     "@babel/preset-react": "^7.7.0",
+    "@rails/actioncable": "^6.0.1",
+    "@rails/ujs": "^6.0.1",
     "@rails/webpacker": "^4.0.7",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "babel-preset-react": "^6.11.1",
