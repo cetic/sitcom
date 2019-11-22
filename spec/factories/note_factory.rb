@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :note do
     association :notable # can be event, project, organization or contact
 

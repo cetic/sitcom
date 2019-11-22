@@ -1,4 +1,4 @@
-lock '3.7.2'
+lock '3.11.2'
 
 set :repo_url,      'git@github.com:cetic/sitcom.git'
 set :keep_releases, 30

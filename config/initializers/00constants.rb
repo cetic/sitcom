@@ -1,7 +1,7 @@
 if Rails.env.development?
   if ENV['USER'] == 'aurels'
     APP_PORT     = 80
-    APP_HOSTNAME = "sitcom.dev"
+    APP_HOSTNAME = "sitcom.test"
     MAIL_FROM    = 'noreply@sitcom.dev'
   else
     APP_PORT     = 3000

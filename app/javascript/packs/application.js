@@ -16,8 +16,9 @@
 // const imagePath = (name) => images(name, true)
 
 var componentRequireContext = require.context("src", true)
-var ReactRailsUJS = require("react_ujs")
-ReactRailsUJS.useContext(componentRequireContext)
+var ReactUJS                = require("react_ujs")
+
+ReactUJS.useContext(componentRequireContext)
 
 global.React       = require('react')
 global.ReactDOM    = require('react-dom')
@@ -33,6 +34,3 @@ global.http        = require('../src/shared/http_service.jsx').default
 
 global.Admin                    = {}
 global.Admin.CustomFieldsEditor = require('../src/admin/custom_fields/custom_fields_editor.jsx')
-
-
-

@@ -8,12 +8,13 @@ License : MIT.
 bundle install
 bundle exec rails db:migrate:reset
 bundle exec rails db:seed
+bundle exec rails app:bootstrap
 bundle exec rake environment elasticsearch:import:all FORCE=true
-yarn
 bundle exec rails server
 ```
 
 ```sh
+yarn
 ./bin/webpack-dev-server
 ```
 
@@ -30,6 +31,3 @@ docker run --name elasticsearch-sitcom --restart=always -d -p 9201:9200 -p 9301:
 ## Production
 
 See `DEPLOY.md` on how to deploy on a Ubuntu server.
-
-## TODO
-
