@@ -17,7 +17,9 @@ module GravatarConcern
         size == 200
       end
 
-      gravatar_id = Digest::MD5.hexdigest(name.downcase)
+      hashable = (defined?(self.email) && self.email.present?) ? self.email : self.name
+
+      gravatar_id = Digest::MD5.hexdigest(hashable.downcase)
       "https://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}&d=retro"
     end
   end

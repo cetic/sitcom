@@ -10,6 +10,7 @@ class Contact < ApplicationRecord
   # Uploaders
 
   mount_uploader :picture, PictureUploader
+  include GravatarConcern # Must stay here because override previous line!
 
   # Associations
 
@@ -41,10 +42,8 @@ class Contact < ApplicationRecord
 
   # Validations
 
-  validates :first_name, :presence   => { :message => "Le prénom est obligatoire."  }#,
-                         #:uniqueness => { :scope => :last_name, :message => 'Le nom indiqué existe déjà' }
-
-  validates :last_name,  :presence => { :message => "Le nom de famille est obligatoire."  }
+  validates :first_name, :presence => { :message => "Le prénom est obligatoire."         }
+  validates :last_name,  :presence => { :message => "Le nom de famille est obligatoire." }
 
   validates :email, :format      => { :with => Devise.email_regexp, :message => "L'adresse email est invalide" },
                     :allow_blank => true
@@ -143,29 +142,6 @@ class Contact < ApplicationRecord
   def address(html = false)
     separator = html ? '<br />' : "\n"
     [address_street, address_zip_code, address_city, address_country].reject(&:blank?).join(separator)
-  end
-
-  def picture_url(size = nil)
-    if picture.present? # carrierwave
-      if size
-        picture.url(size)
-      else
-        picture.url
-      end
-    else # gravatar
-      if size == :thumb
-        size = 100
-      elsif size == :preview
-        size = 200
-      else
-        size == 200
-      end
-
-      hashable = self.email.present? ? self.email : self.name
-
-      gravatar_id = Digest::MD5.hexdigest(hashable.downcase)
-      "https://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}&d=retro"
-    end
   end
 
   def mailchimp_upsert
