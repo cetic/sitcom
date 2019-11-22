@@ -2,8 +2,8 @@ import EventEmitter from 'wolfy87-eventemitter'
 
 export default class Storage {
   constructor(props) {
-    this.route    = props.route
-    this.ee       = new EventEmitter()
+    this.route = props.route
+    this.ee    = new EventEmitter()
 
     this.bindCable('contact')
     this.bindCable('organization')
@@ -32,8 +32,8 @@ export default class Storage {
   }
 
   onCableUpdate(data, itemType, itemId) {
-    var items    = this[`${itemType}s`]
-    var index    = _.findIndex(items, (item) => { return itemId == item.id })
+    var items = this[`${itemType}s`]
+    var index = _.findIndex(items, (item) => { return itemId == item.id })
 
     if(index != -1) {
       items[index] = data.item

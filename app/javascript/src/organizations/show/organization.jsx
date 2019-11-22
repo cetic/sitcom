@@ -83,7 +83,7 @@ export default class Organization extends React.Component {
       })
     }
 
-    http.get(this.organizationPath(), {}, (data) => {
+    http.get(this.organizationPath() + '.json', {}, (data) => {
       this.setState({
         organization: data,
         loaded:  true

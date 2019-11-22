@@ -119,7 +119,7 @@ export default class BaseMain extends React.Component {
 
     const itemsPath = this.props.route[`${this.itemType}sPath`]
 
-    http.get(itemsPath, {}, (data) => {
+    http.get(itemsPath + '.json', {}, (data) => {
       var items = data[`${this.itemType}s`]
 
       this.setState({
@@ -148,7 +148,7 @@ export default class BaseMain extends React.Component {
       const itemsPath = this.props.route[`${this.itemType}sPath`]
       var   query     = _.assign({}, { onlyIds: true }, this.getFilters())
 
-      http.get(itemsPath, query, (data) => {
+      http.get(itemsPath + '.json', query, (data) => {
         this.setState({
           filteredItemIds: data[`${this.itemType}Ids`],
           filteredCount:   data[`${this.itemType}Ids`].length,

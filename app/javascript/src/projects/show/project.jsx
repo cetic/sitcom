@@ -84,7 +84,7 @@ export default class Project extends React.Component {
       })
     }
 
-    http.get(this.projectPath(), {}, (data) => {
+    http.get(this.projectPath() + '.json', {}, (data) => {
       this.setState({
         project: data,
         loaded:  true

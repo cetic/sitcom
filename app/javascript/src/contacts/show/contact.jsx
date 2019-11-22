@@ -88,7 +88,7 @@ export default class Contact extends React.Component {
       })
     }
 
-    http.get(this.contactPath(), {}, (data) => {
+    http.get(this.contactPath() + '.json', {}, (data) => {
       this.setState({
         contact: data,
         loaded:  true

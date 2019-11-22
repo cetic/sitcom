@@ -84,7 +84,7 @@ export default class Event extends React.Component {
       })
     }
 
-    http.get(this.eventPath(), {}, (data) => {
+    http.get(this.eventPath() + '.json', {}, (data) => {
       this.setState({
         event:   data,
         loaded:  true

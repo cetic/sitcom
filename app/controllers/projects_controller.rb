@@ -5,6 +5,10 @@ class ProjectsController < ApplicationController
 
   def index
     respond_to do |format|
+      format.html do
+        render './shared/routes'
+      end
+
       format.json do
         if PermissionsService.new(current_user, @lab).can_read?('projects')
           projects = ProjectSearch.new(current_user, params.merge({
@@ -24,15 +28,15 @@ class ProjectsController < ApplicationController
           render_permission_error
         end
       end
-
-      format.html do
-        render './shared/routes'
-      end
     end
   end
 
   def show
     respond_to do |format|
+      format.html do
+        render './shared/routes'
+      end
+
       format.json do
         if PermissionsService.new(current_user, @lab).can_read?('projects')
           @project = @lab.projects.find(params[:id])
@@ -44,10 +48,6 @@ class ProjectsController < ApplicationController
         else
           render_permission_error
         end
-      end
-
-      format.html do
-        render './shared/routes'
       end
     end
   end

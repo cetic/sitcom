@@ -14,7 +14,7 @@ class EventSearch < BaseSearch
       add_ids_search(options, field)
     end
 
-    if params['from'] && params['to']
+    if params['from'].present? && params['to'].present?
       options['query']['bool']['filter'] << {
         'range' => {
           'happens_on' => {

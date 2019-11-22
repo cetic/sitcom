@@ -31,7 +31,7 @@ export default class SavedSearches extends React.Component {
   reloadFromBackend(callback) {
     this.setState({ loaded: false })
 
-    http.get(this.props.savedSearchesPath, {}, (data) => {
+    http.get(this.props.savedSearchesPath + '.json', {}, (data) => {
       this.setState({
         savedSearches: data,
         loaded:        true

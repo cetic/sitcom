@@ -14,7 +14,7 @@ class ProjectSearch < BaseSearch
       add_ids_search(options, field)
     end
 
-    if params['from'] && params['to']
+    if params['from'].present? && params['to'].present?
       options['query']['bool']['must'] ||= []
 
       options['query']['bool']['must'] << {

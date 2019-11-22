@@ -4,6 +4,10 @@ class SavedSearchesController < ApplicationController
 
   def index
     respond_to do |format|
+      format.html do
+        render './shared/routes'
+      end
+
       format.json do
         if PermissionsService.new(current_user, @lab).can_read?(params[:item_type].pluralize)
           @saved_searches = @lab.saved_searches.where(
@@ -13,10 +17,6 @@ class SavedSearchesController < ApplicationController
         else
           render_permission_error
         end
-      end
-
-      format.html do
-        render './shared/routes'
       end
     end
   end

@@ -5,6 +5,10 @@ class OrganizationsController < ApplicationController
 
   def index
     respond_to do |format|
+      format.html do
+        render './shared/routes'
+      end
+
       format.json do
         if PermissionsService.new(current_user, @lab).can_read?('organizations')
           organizations = OrganizationSearch.new(current_user, params.merge({
@@ -24,15 +28,15 @@ class OrganizationsController < ApplicationController
           render_permission_error
         end
       end
-
-      format.html do
-        render './shared/routes'
-      end
     end
   end
 
   def show
     respond_to do |format|
+      format.html do
+        render './shared/routes'
+      end
+
       format.json do
         if PermissionsService.new(current_user, @lab).can_read?('organizations')
           @organization = @lab.organizations.find(params[:id])
@@ -44,10 +48,6 @@ class OrganizationsController < ApplicationController
         else
           render_permission_error
         end
-      end
-
-      format.html do
-        render './shared/routes'
       end
     end
   end
