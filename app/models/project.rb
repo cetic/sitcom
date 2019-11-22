@@ -6,11 +6,11 @@ class Project < ApplicationRecord
   include CommonIndexConcern
   include ProjectIndexConcern
   include CableActionsConcern
-  include GravatarConcern
 
   # Uploaders
 
   mount_uploader :picture, PictureUploader
+  include GravatarConcern # Must stay here because override previous line!
 
   # Associations
 

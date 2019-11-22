@@ -109,7 +109,9 @@ export default class GeneralShow extends React.Component {
       <CustomDropzone url={this.props.organizationPath}
                       clickable={['.general .img-thumbnail', '.general .update-image']}
                       acceptedFiles="image/*">
-        <img className="img-thumbnail" src={this.props.organization.previewPictureUrl} />
+        <img className="img-thumbnail"
+             src={this.props.organization.previewPictureUrl}
+             style={{ minHeight: this.props.previewPictureUrl ? 'inherit' : '150px' }} />
       </CustomDropzone>
     )
   }
