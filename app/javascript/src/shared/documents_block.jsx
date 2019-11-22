@@ -14,8 +14,8 @@ export default class DocumentsBlock extends React.Component {
     this.reloadPrivateDocumentsFromBackend()
   }
 
-  componentWillReceiveProps(newProps) {
-    if(newProps.item.updatedAt != this.props.item.updatedAt) {
+  componentDidUpdate(prevProps, prevState) {
+    if(this.props.item.updatedAt != prevProps.item.updatedAt || this.props.item.id != prevProps.item.id) {
       this.reloadPrivateDocumentsFromBackend()
     }
   }

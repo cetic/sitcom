@@ -29,8 +29,10 @@ export default class CustomFieldsBlock extends React.Component {
 
   renderCustomFields() {
     return _.map(this.props.item.customFields, (customField) => {
+      const key = `a-${this.props.item.id}-${customField.id}`
+
       return (
-        <div className="col-md-6" key={customField.id}>
+        <div className="col-md-6" key={key}>
           { this.renderCustomField(customField) }
         </div>
       )
@@ -38,9 +40,11 @@ export default class CustomFieldsBlock extends React.Component {
   }
 
   renderCustomField(customField) {
+    const key = `b-${this.props.item.id}-${customField.id}`
+
     if(customField.fieldType == 'text') {
       return (
-        <TextCustomField key={customField.id}
+        <TextCustomField key={key}
                          item={this.props.item}
                          customField={customField}
                          canWrite={this.props.canWrite} />
@@ -48,7 +52,7 @@ export default class CustomFieldsBlock extends React.Component {
     }
     else if(customField.fieldType == 'bool') {
       return (
-        <BoolCustomField key={customField.id}
+        <BoolCustomField key={key}
                          item={this.props.item}
                          customField={customField}
                          canWrite={this.props.canWrite} />
@@ -56,7 +60,7 @@ export default class CustomFieldsBlock extends React.Component {
     }
     else if(customField.fieldType == 'enum') {
       return (
-        <EnumCustomField key={customField.id}
+        <EnumCustomField key={key}
                          item={this.props.item}
                          customField={customField}
                          canWrite={this.props.canWrite} />

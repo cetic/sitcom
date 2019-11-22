@@ -14,8 +14,8 @@ export default class NotesBlock extends React.Component {
     this.reloadPrivateNotesFromBackend()
   }
 
-  componentWillReceiveProps(newProps) {
-    if(newProps.notable.updatedAt != this.props.notable.updatedAt) {
+  componentDidUpdate(prevProps, prevState) {
+    if(this.props.notable.updatedAt != prevProps.notable.updatedAt || this.props.notable.id != prevProps.notable.id) {
       this.reloadPrivateNotesFromBackend()
     }
   }
