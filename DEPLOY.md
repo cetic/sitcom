@@ -192,6 +192,43 @@ Test it:
 
     logrotate /etc/logrotate.conf
 
+## Configure sidekiq
+
+`/lib/systemd/system/sidekiq.service`:
+
+    [Unit]
+    Description=sidekiq
+    After=syslog.target network.target
+
+    [Service]
+    Type=simple
+    WorkingDirectory=/home/deploy/apps/sitcom/current
+    ExecStart=/bin/bash -lc '/home/deploy/.rbenv/shims/bundle exec sidekiq -e production'
+
+    ExecReload=/usr/bin/kill -TSTP $MAINPID
+
+    User=deploy
+    Group=deploy
+    UMask=0002
+
+    Environment=MALLOC_ARENA_MAX=2
+
+    RestartSec=1
+    Restart=on-failure
+
+    StandardOutput=syslog
+    StandardError=syslog
+
+    SyslogIdentifier=sidekiq
+
+    [Install]
+    WantedBy=multi-user.target
+
+Then :
+
+  systemctl enable sidekiq
+  systemctl start sidekiq
+
 ## Configure Monit
 
     check process elasticsearch with pidfile /var/run/elasticsearch/elasticsearch.pid

@@ -54,7 +54,6 @@ group :development do
   gem 'capistrano-rbenv'
   gem 'capistrano-bundler'
   gem 'capistrano-passenger'
-  gem 'capistrano-sidekiq'
 
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rubocop'

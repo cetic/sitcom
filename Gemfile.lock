@@ -92,9 +92,6 @@ GEM
     capistrano-rbenv (2.1.4)
       capistrano (~> 3.1)
       sshkit (~> 1.3)
-    capistrano-sidekiq (1.0.2)
-      capistrano (>= 3.9.0)
-      sidekiq (>= 3.4)
     carrierwave (2.0.2)
       activemodel (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -329,7 +326,6 @@ DEPENDENCIES
   capistrano-passenger
   capistrano-rails
   capistrano-rbenv
-  capistrano-sidekiq
   carrierwave
   color-generator
   devise (= 4.7.1)
