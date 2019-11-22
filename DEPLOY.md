@@ -1,8 +1,10 @@
 # Server Deployment Docs
 
-For Ubuntu 16.04 LTS (Xenial).
+For Debian 9 (buster).
 
-## Create a SSH key pair for **deploy** user
+## Create a **deploy** user
+
+    adduser deploy
 
 Then, create SSH keys (no passphrase):
 
@@ -22,12 +24,11 @@ As root:
     apt-get update
     apt-get upgrade
 
-    apt-get install zlib1g zlib1g-dev build-essential git-core curl emacs imagemagick nginx screen
-    apt-get install mysql-client libmysqlclient-dev libopenssl-ruby1.9.1 libssl-dev libreadline-dev
-    apt-get install mysql-server monit unattended-upgrades logrotate memcached redis-server
-    apt-get install nodejs npm
-    apt-get install libcurl4-gnutls-dev libxml2 libxml2-dev libxslt1-dev ruby-dev
-    apt-get install libmagickcore-dev libmagickwand-dev
+    apt install zlib1g zlib1g-dev build-essential git-core curl emacs imagemagick nginx screen
+    apt install libmariadb-dev-compat libmariadb-dev libssl-dev libreadline-dev
+    apt install mariadb-server monit unattended-upgrades logrotate memcached redis-server
+    apt install libcurl4-gnutls-dev libxml2 libxml2-dev libxslt1-dev ruby-dev
+    apt install libmagickcore-dev libmagickwand-dev
 
 Set a [generated password](https://strongpasswordgenerator.com) for mysql root and save it somewhere.
 
@@ -39,9 +40,15 @@ As root:
 
 ## Install nodejs
 
-https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions
+https://github.com/nodesource/distributions/blob/master/README.md
+
+    curl -sL https://deb.nodesource.com/setup_13.x | bash -
+    apt-get install -y nodejs
 
 ## Install `rbenv` and `ruby` (as deploy)
+
+    su deploy
+    cd ~
 
     git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
     echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
@@ -168,12 +175,12 @@ Test it:
        stop  program = "/bin/systemctl stop elasticsearch"
        if 5 restarts within 5 cycles then timeout
        if failed host 127.0.0.1 port 9200 protocol http then restart
-    
+
     check process sidekiq0 with pidfile /home/deploy/apps/sitcom/shared/tmp/pids/sidekiq-0.pid
       start program = "/bin/su - deploy -c 'cd /home/deploy/apps/sitcom/current && bundle exec sidekiq -d -e cetic -i 0 -P tmp/pids/sidekiq-0.pid -c 2 -q websockets'" with timeout 90 seconds
       stop  program = "/bin/su - deploy -c 'cd /home/deploy/apps/sitcom/current && bundle exec sidekiqctl stop tmp/pids/sidekiq-0.pid'"                                with timeout 90 seconds
-    
-    
+
+
     check process sidekiq1 with pidfile /home/deploy/apps/sitcom/shared/tmp/pids/sidekiq-1.pid
       start program = "/bin/su - deploy -c 'cd /home/deploy/apps/sitcom/current; PATH=bin:/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:$PATH bundle exec sidekiq -d -e cetic -i 1 -P tmp/pids/sidekiq-1.pid -c 1 -q default'" with timeout 90 seconds
       stop  program = "/bin/su - deploy -c 'cd /home/deploy/apps/sitcom/current; PATH=bin:/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:$PATH bundle exec sidekiqctl stop tmp/pids/sidekiq-1.pid'"                             with timeout 90 seconds
