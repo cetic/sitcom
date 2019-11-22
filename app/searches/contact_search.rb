@@ -10,12 +10,12 @@ class ContactSearch < BaseSearch
       add_string_search(options, field)
     end
 
-    [ 'organization_ids', 'field_ids', 'event_ids', 'project_ids', 'tag_ids' ].each do |field|
+    [ 'organization_ids', 'event_ids', 'project_ids', 'tag_ids', 'field_ids' ].each do |field|
       add_ids_search(options, field)
     end
 
     if params[:active].present?
-      options['query']['filtered']['filter']['and'] << {
+      options['query']['bool']['filter'] << {
         'term' => {
           'active' => params[:active] == 'true'
         }

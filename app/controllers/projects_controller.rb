@@ -134,9 +134,12 @@ class ProjectsController < ApplicationController
 
   # Encapsulate new picture in "project" (don't know how to make it in JS)
   def clean_params
-    params[:project] ||= {}
-    params[:project][:picture] = params[:picture]
-    params.delete(:picture)
+    if params[:picture]
+      params[:project] ||= {}
+
+      params[:project][:picture] = params[:picture]
+      params.delete(:picture)
+    end
   end
 
   def strong_params

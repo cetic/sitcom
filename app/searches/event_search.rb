@@ -15,7 +15,7 @@ class EventSearch < BaseSearch
     end
 
     if params['from'] && params['to']
-      options['query']['filtered']['filter']['and'] << {
+      options['query']['bool']['filter'] << {
         'range' => {
           'happens_on' => {
             'gte' => params['from'],

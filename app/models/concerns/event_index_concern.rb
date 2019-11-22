@@ -8,29 +8,30 @@ module EventIndexConcern
 
     settings CommonIndexConcern::SETTINGS_HASH do
       mappings do
-        indexes :id,          :index => 'not_analyzed'
-        indexes :lab_id,      :index => 'not_analyzed'
-        indexes :name
-        indexes :happens_on, :type => 'date'
-        indexes :place
-        indexes :description
-        indexes :website_url
-        indexes :contact_ids,      :index => 'not_analyzed'
-        indexes :organization_ids, :index => 'not_analyzed'
-        indexes :project_ids,      :index => 'not_analyzed'
-        indexes :tag_ids,          :index => 'not_analyzed'
+        indexes :id,               :type => 'long'
+        indexes :lab_id,           :type => 'long'
+        indexes :name,             :type => 'text'
+        indexes :happens_on,       :type => 'date'
+        indexes :place,            :type => 'text'
+        indexes :description,      :type => 'text'
+        indexes :website_url,      :type => 'text'
+
+        indexes :contact_ids,      :type => 'long'
+        indexes :organization_ids, :type => 'long'
+        indexes :project_ids,      :type => 'long'
+        indexes :tag_ids,          :type => 'long'
 
         indexes :notes, :type => 'nested'
 
         indexes :documents, :type => 'nested'
 
         indexes :custom_fields, :type => 'nested' do
-          indexes :id,        :index => 'not_analyzed'
-          indexes :value
-          indexes :raw_value, :index => 'not_analyzed'
+          indexes :id,        :type => 'long'
+          indexes :value,     :type => 'text'
+          indexes :raw_value, :type => 'keyword'
         end
 
-        indexes :sort_name, :analyzer => :sortable_string_analyzer
+        indexes :sort_name, :type => 'keyword'
 
         indexes :updated_at, :type => 'date'
       end
