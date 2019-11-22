@@ -38,12 +38,32 @@ As root:
 
     unattended-upgrades
 
+## Add some SWAP
+
+    fallocate -l 8G /swapfile
+    chmod 600 /swapfile
+    mkswap /swapfile
+    swapon /swapfile
+    swapon -s
+    free
+
+Make it persistent on `/etc/fstab`:
+
+    /swapfile   none    swap    sw    0   0
+
 ## Install nodejs
 
 https://github.com/nodesource/distributions/blob/master/README.md
 
     curl -sL https://deb.nodesource.com/setup_13.x | bash -
     apt install -y nodejs
+
+## Install yarn
+
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+    apt update
+    apt install yarn
 
 ## Install `rbenv` and `ruby` (as deploy)
 
@@ -149,7 +169,7 @@ Then restart nginx:
 
     bundle exec cap production deploy:check
 
-Create the env file in `/home/deploy/apps/sitcom/shared/.env.production`. Then:
+Create the env file in `/home/deploy/apps/sitcom/shared/.env`. Then:
 
     bundle exec cap production deploy
 
