@@ -116,6 +116,7 @@ Create a file in **/etc/nginx/sites-available/sitcom** :
 
     server {
       listen 80;
+      listen 443;
       server_name sitcom.cetic.be;
 
       access_log /var/log/nginx/sitcom.access.log;
@@ -207,3 +208,8 @@ Test it:
     check process sidekiq1 with pidfile /home/deploy/apps/sitcom/shared/tmp/pids/sidekiq-1.pid
       start program = "/bin/su - deploy -c 'cd /home/deploy/apps/sitcom/current; PATH=bin:/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:$PATH bundle exec sidekiq -d -e cetic -i 1 -P tmp/pids/sidekiq-1.pid -c 1 -q default'" with timeout 90 seconds
       stop  program = "/bin/su - deploy -c 'cd /home/deploy/apps/sitcom/current; PATH=bin:/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:$PATH bundle exec sidekiqctl stop tmp/pids/sidekiq-1.pid'"                             with timeout 90 seconds
+
+## Certbot / https
+
+    apt install python-certbot-nginx certbot
+    certbot --nginx -d sitcom.cetic.be
