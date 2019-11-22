@@ -21,8 +21,8 @@ Upload the public key to BitBucket/Github:
 
 As root:
 
-    apt-get update
-    apt-get upgrade
+    apt update
+    apt upgrade
 
     apt install zlib1g zlib1g-dev build-essential git-core curl emacs imagemagick nginx screen
     apt install libmariadb-dev-compat libmariadb-dev libssl-dev libreadline-dev
@@ -43,7 +43,7 @@ As root:
 https://github.com/nodesource/distributions/blob/master/README.md
 
     curl -sL https://deb.nodesource.com/setup_13.x | bash -
-    apt-get install -y nodejs
+    apt install -y nodejs
 
 ## Install `rbenv` and `ruby` (as deploy)
 
@@ -57,12 +57,11 @@ https://github.com/nodesource/distributions/blob/master/README.md
     git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
     exec $SHELL -l
 
-    export RUBY_VERSION=2.3.1
+    export RUBY_VERSION=2.6.5
     rbenv install $RUBY_VERSION
     rbenv global $RUBY_VERSION
     gem install bundler
     rbenv rehash
-
     wget https://raw.github.com/ryanb/dotfiles/master/gemrc -O .gemrc
     echo 'export RAILS_ENV="production"' >> ~/.bash_profile
 
@@ -70,9 +69,7 @@ https://github.com/nodesource/distributions/blob/master/README.md
 
 Launch the MySQL CLI client:
 
-    mysql -u root -p
-
-Use a [generated password](https://strongpasswordgenerator.com) and store it somewhere. Then:
+    mysql
 
     mysql> create database `sitcom` character set 'utf8mb4' collate 'utf8mb4_unicode_ci';
     mysql> create user deploy;
@@ -83,8 +80,15 @@ Use a [generated password](https://strongpasswordgenerator.com) and store it som
 
 ### Passenger
 
-Install [Phusion Passenger](https://www.phusionpassenger.com/library/install/nginx/install/oss/xenial/).
-Or https://www.phusionpassenger.com/library/install/nginx/install/oss/jessie/
+https://www.phusionpassenger.com/docs/advanced_guides/install_and_upgrade/standalone/install/oss/buster.html
+
+    apt install -y dirmngr gnupg
+    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
+    apt install -y apt-transport-https ca-certificates
+    sh -c 'echo deb https://oss-binaries.phusionpassenger.com/apt/passenger buster main > /etc/apt/    sources.list.d/passenger.list'
+    apt update
+    apt install -y passenger libnginx-mod-http-passenger
+    /usr/bin/passenger-config validate-install
 
 ### Server block
 
@@ -128,19 +132,18 @@ Enable the server block:
 
 Then restart nginx:
 
-    service nginx restart
+    systemctl restart nginx
 
 ## Setup ElasticSearch (2.1.2)
 
-Setup [repositories](https://www.elastic.co/guide/en/elasticsearch/reference/2.1/setup-repositories.html).
-
-Then:
-
-    apt-get update
-    apt-get upgrade
-    apt-get update && sudo apt-get install elasticsearch
-    apt-get install openjdk-8-jre
-    service elasticsearch start
+    apt install default-jdk
+    apt install apt-transport-https
+    wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+    add-apt-repository "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
+    apt update
+    apt install elasticsearch
+    systemctl enable elasticsearch.service
+    systemctl start elasticsearch.service
 
 ### Deploy for the first time
 
@@ -166,7 +169,7 @@ In **/etc/logrotate.d/sitcom**:
 
 Test it:
 
-    sudo logrotate /etc/logrotate.conf
+    logrotate /etc/logrotate.conf
 
 ## Configure Monit
 
