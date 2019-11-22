@@ -1,5 +1,4 @@
 set :sidekiq_roles, -> { :app }
-set :sidekiq_systemd_unit_name, "sidekiq"
 
 namespace :sidekiq do
   task :quiet do

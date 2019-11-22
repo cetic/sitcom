@@ -194,7 +194,7 @@ Test it:
 
 ## Configure sidekiq
 
-`/lib/systemd/system/sidekiq.service`:
+`/home/deploy/.config/systemd/user/sidekiq.service`:
 
     [Unit]
     Description=sidekiq
@@ -206,10 +206,6 @@ Test it:
     ExecStart=/bin/bash -lc '/home/deploy/.rbenv/shims/bundle exec sidekiq -e production'
 
     ExecReload=/usr/bin/kill -TSTP $MAINPID
-
-    User=deploy
-    Group=deploy
-    UMask=0002
 
     Environment=MALLOC_ARENA_MAX=2
 
@@ -224,16 +220,22 @@ Test it:
     [Install]
     WantedBy=multi-user.target
 
-Then :
+Set the Storage directive of the [Journal] section of
+`/etc/systemd/journald.conf` to persistent (instead of auto or volatile).
+Reboot after editing the configuration.
 
-  systemctl enable sidekiq
-  systemctl start sidekiq
+Then as `deploy` :
+
+  systemctl --user enable sidekiq
+  systemctl --user start sidekiq
+  systemctl --user status sidekiq
+  journalctl --user -fu sidekiq
 
 ## Configure Monit
 
     check process elasticsearch with pidfile /var/run/elasticsearch/elasticsearch.pid
-       start program = "/bin/systemctl start elasticsearch"
-       stop  program = "/bin/systemctl stop elasticsearch"
+       start program = "systemctl start elasticsearch"
+       stop  program = "systemctl stop elasticsearch"
        if 5 restarts within 5 cycles then timeout
        if failed host 127.0.0.1 port 9200 protocol http then restart
 
