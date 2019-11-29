@@ -36,19 +36,23 @@ task :clone_to_development do
     execute "bundle exec rake environment elasticsearch:import:all FORCE=true"
   end
 
-  # # public/system and private/system
+  # public/system and private/system
 
-  # ['public', 'private'].each do |privacy|
-  #   on roles(:app) do
-  #     archive_name = "#{privacy}-system-#{env_name}.tar.bz2"
-  #     execute "cd #{deploy_to}/shared/#{privacy} && tar -jcf #{archive_name} system"
-  #     download! "#{deploy_to}/shared/#{privacy}/#{archive_name}",  "#{privacy}/#{privacy}-system.tar.bz2"
-  #   end
+  ['public', 'private'].each do |privacy|
+    run_locally do
+      execute "mkdir -p #{privacy}"
+    end
 
-  #   run_locally do
-  #     execute "cd #{privacy} && tar -jxf #{privacy}-system.tar.bz2"
-  #     execute "rm #{privacy}/#{privacy}-system.tar.bz2"
-  #   end
-  # end
+    on roles(:app) do
+      archive_name = "#{privacy}-system-#{env_name}.tar.bz2"
+      execute "cd #{deploy_to}/shared/#{privacy} && tar -jcf #{archive_name} system"
+      download! "#{deploy_to}/shared/#{privacy}/#{archive_name}", "#{privacy}/#{privacy}-system.tar.bz2"
+    end
+
+    run_locally do
+      execute "cd #{privacy} && tar -jxf #{privacy}-system.tar.bz2"
+      execute "rm #{privacy}/#{privacy}-system.tar.bz2"
+    end
+  end
 
 end
