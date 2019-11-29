@@ -128,7 +128,7 @@ Create a file in **/etc/nginx/sites-available/sitcom** :
 
       passenger_enabled on;
       passenger_ruby /home/deploy/.rbenv/shims/ruby;
-      passenger_app_env production;
+      passenger_app_env staging;
       passenger_friendly_error_pages on;
 
       location ~ ^/(assets)/  {
