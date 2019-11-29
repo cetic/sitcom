@@ -138,6 +138,13 @@ Create a file in **/etc/nginx/sites-available/sitcom** :
         add_header  Cache-Control public;
       }
 
+      location ~ ^/(packs)/  {
+        root /home/deploy/apps/sitcom/current/public;
+        gzip_static on;
+        expires     max;
+        add_header  Cache-Control public;
+      }
+
       location /cable {
         passenger_app_group_name sitcom_action_cable;
         passenger_force_max_concurrent_requests_per_process 0;
