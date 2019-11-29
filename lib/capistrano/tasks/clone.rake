@@ -1,4 +1,4 @@
-# bundle exec cap cetic clone_to_development
+# bundle exec cap staging clone_to_development
 # bundle exec cap production clone_to_development
 
 task :clone_to_development do

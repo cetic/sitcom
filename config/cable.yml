@@ -10,6 +10,6 @@ production:
   adapter: redis
   url: redis://localhost:6379/0
 
-cetic:
+staging:
   adapter: redis
   url: redis://localhost:6379/0

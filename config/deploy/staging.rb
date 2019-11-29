@@ -1,5 +1,6 @@
 require 'dotenv'
-Dotenv.load('.env.deploy.cetic')
+
+Dotenv.load('.env.deploy.staging')
 
 server ENV['DEPLOY_HOSTNAME'], port:  ENV['DEPLOY_SSH_PORT'],
                                user:  ENV['DEPLOY_SSH_USER'],
