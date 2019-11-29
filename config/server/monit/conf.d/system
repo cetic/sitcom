@@ -1,0 +1,11 @@
+check system server
+    if loadavg (5min)  > 3 then alert
+    if loadavg (15min) > 1 then alert
+    if memory usage > 80% for 4 cycles then alert
+    if swap usage   > 20% for 4 cycles then alert
+    # Test the user part of CPU usage
+    if cpu usage (user) > 80% for 2 cycles then alert
+    # Test the system part of CPU usage
+    if cpu usage (system) > 20% for 2 cycles then alert
+    # Test the i/o wait part of CPU usage
+    if cpu usage (wait) > 80% for 2 cycles then alert

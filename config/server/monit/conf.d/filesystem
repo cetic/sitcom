@@ -1,0 +1,2 @@
+check filesystem rootfs with path /dev/vda1
+        if space usage > 80% then alert

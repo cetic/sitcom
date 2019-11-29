@@ -1,0 +1,5 @@
+check process elasticsearch with pidfile /var/run/elasticsearch/elasticsearch.pid
+   start program = "systemctl start elasticsearch"
+   stop  program = "systemctl stop elasticsearch"
+   if 5 restarts within 5 cycles then timeout
+   if failed host 127.0.0.1 port 9200 protocol http then restart

@@ -219,24 +219,11 @@ Unsefull commands :
 
 ## Configure Monit
 
-    check process elasticsearch with pidfile /var/run/elasticsearch/elasticsearch.pid
-       start program = "systemctl start elasticsearch"
-       stop  program = "systemctl stop elasticsearch"
-       if 5 restarts within 5 cycles then timeout
-       if failed host 127.0.0.1 port 9200 protocol http then restart
+* Copy config files from `config/server/monit/conf.d` to `/etc/monit/conf.d`.
 
-    check process sidekiq with pidfile /home/deploy/apps/sitcom/shared/tmp/pids/sidekiq-0.pid
-       start program = "/bin/su - deploy -c 'systemctl start sidekiq'" with timeout 90 seconds
-       stop  program = "/bin/su - deploy -c 'systemctl stop sidekiq'" with timeout 90 seconds
+Activate web UI in `/etc/monit/monitrc` :
 
-    check process sidekiq0 with pidfile /home/deploy/apps/sitcom/shared/tmp/pids/sidekiq-0.pid
-      start program = "/bin/su - deploy -c 'cd /home/deploy/apps/sitcom/current && bundle exec sidekiq -d -e production -i 0 -P tmp/pids/sidekiq-0.pid -c 2 -q websockets'" with timeout 90 seconds
-      stop  program = "/bin/su - deploy -c 'cd /home/deploy/apps/sitcom/current && bundle exec sidekiqctl stop tmp/pids/sidekiq-0.pid'"                                with timeout 90 seconds
-
-
-    check process sidekiq1 with pidfile /home/deploy/apps/sitcom/shared/tmp/pids/sidekiq-1.pid
-      start program = "/bin/su - deploy -c 'cd /home/deploy/apps/sitcom/current; PATH=bin:/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:$PATH bundle exec sidekiq -d -e production -i 1 -P tmp/pids/sidekiq-1.pid -c 1 -q default'" with timeout 90 seconds
-      stop  program = "/bin/su - deploy -c 'cd /home/deploy/apps/sitcom/current; PATH=bin:/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:$PATH bundle exec sidekiqctl stop tmp/pids/sidekiq-1.pid'"                             with timeout 90 seconds
+    set httpd port 2812 and allow monit:PasswordToChange
 
 ## Certbot / https
 
