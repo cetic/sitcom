@@ -110,48 +110,9 @@ https://www.phusionpassenger.com/docs/advanced_guides/install_and_upgrade/standa
     apt install -y passenger libnginx-mod-http-passenger
     /usr/bin/passenger-config validate-install
 
-### Server block
+### Nginx itself
 
-Create a file in **/etc/nginx/sites-available/sitcom** :
-
-    server {
-      listen 80;
-      listen 443;
-      server_name sitcom.cetic.be;
-
-      access_log /var/log/nginx/sitcom.access.log;
-      sendfile on;
-      root /home/deploy/apps/sitcom/current/public;
-
-      gzip on;
-      gzip_disable "msie6";
-
-      passenger_enabled on;
-      passenger_ruby /home/deploy/.rbenv/shims/ruby;
-      passenger_app_env staging;
-      passenger_friendly_error_pages on;
-
-      location ~ ^/(assets)/  {
-        root /home/deploy/apps/sitcom/current/public;
-        gzip_static on;
-        expires     max;
-        add_header  Cache-Control public;
-      }
-
-      location ~ ^/(packs)/  {
-        root /home/deploy/apps/sitcom/current/public;
-        gzip_static on;
-        expires     max;
-        add_header  Cache-Control public;
-      }
-
-      location /cable {
-        passenger_app_group_name sitcom_action_cable;
-        passenger_force_max_concurrent_requests_per_process 0;
-      }
-
-      client_max_body_size 300M;
-    }
+Copy `config/server/nginx/sites-available/sitcom` to `/etc/nginx/sites-available/sitcom`.
 
 Enable the server block:
 
