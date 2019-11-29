@@ -61,7 +61,7 @@ export default class Contact extends React.Component {
         var itemId    = camelData.action == 'destroy' ? camelData.itemId : camelData.item.id
 
         if(itemId == this.props.id) {
-          if(camelData.action == 'update') {
+          if(camelData.action == 'update' || camelData.action == 'create') {
             this.setState({ contact: camelData.item })
           }
           else {

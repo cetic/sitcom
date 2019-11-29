@@ -37,11 +37,12 @@ export default class Event extends React.Component {
 
   componentDidUpdate(prevProps) {
     if(prevProps.id != this.props.id) {
-      if(this.state.event == undefined) {
+      if(this.state.event == undefined || this.state.event.id != this.props.id) {
         this.reloadFromBackend()
       }
       else {
         window.scrollTo(0, 0)
+
         this.setState({
           event:  this.props.event,
           loaded: this.props.event != undefined
@@ -57,7 +58,7 @@ export default class Event extends React.Component {
         var itemId    = camelData.action == 'destroy' ? camelData.itemId : camelData.item.id
 
         if(itemId == this.props.id) {
-          if(camelData.action == 'update') {
+          if(camelData.action == 'update' || camelData.action == 'create') {
             this.setState({ event: camelData.item })
           }
           else {

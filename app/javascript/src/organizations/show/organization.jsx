@@ -36,11 +36,12 @@ export default class Organization extends React.Component {
 
   componentDidUpdate(prevProps) {
     if(prevProps.id != this.props.id) {
-      if(this.state.organization == undefined) {
+      if(this.state.organization == undefined || this.state.organization.id != this.props.id) {
         this.reloadFromBackend()
       }
       else {
         window.scrollTo(0, 0)
+
         this.setState({
           organization: this.props.organization,
           loaded:       this.props.organization != undefined
@@ -56,7 +57,7 @@ export default class Organization extends React.Component {
         var itemId    = camelData.action == 'destroy' ? camelData.itemId : camelData.item.id
 
         if(itemId == this.props.id) {
-          if(camelData.action == 'update') {
+          if(camelData.action == 'update' || camelData.action == 'create') {
             this.setState({ organization: camelData.item })
           }
           else {

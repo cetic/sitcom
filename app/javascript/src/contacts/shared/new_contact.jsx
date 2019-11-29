@@ -9,7 +9,8 @@ export default class NewContact extends React.Component {
       firstName: '',
       lastName:  '',
       email:     '',
-      errors:    ''
+      errors:    '',
+      loading:   false
     }
   }
 
@@ -58,20 +59,21 @@ export default class NewContact extends React.Component {
         }
       }
 
+      this.setState({ loading: true });
+
       http.post(this.props.contactsPath, params, (data) => {
         if(!data.success) {
           this.setState({ errors: data.errors })
         }
         else {
-          setTimeout(() => {
-            this.props.router.push(`contacts/${data.contactId}`)
-            this.hideModal()
-            this.setState({
-              firstName: '',
-              lastName:  '',
-              email:     ''
-            })
-          }, window.backendRefreshDelay)
+          this.props.router.push(`contacts/${data.contactId}`)
+          this.hideModal()
+          this.setState({
+            firstName: '',
+            lastName:  '',
+            email:     '',
+            loading:   false
+          })
         }
       })
     }
@@ -139,7 +141,7 @@ export default class NewContact extends React.Component {
 
               <div className="modal-footer">
                 <button type="button" className="btn btn-default" data-dismiss="modal">Fermer</button>
-                <input  type="submit" className="btn btn-primary" value="Créer"/>
+                <input  type="submit" className="btn btn-primary" disabled={this.state.loading} value="Créer"/>
               </div>
             </form>
           </div>

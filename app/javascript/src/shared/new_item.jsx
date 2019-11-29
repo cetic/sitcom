@@ -4,7 +4,8 @@ export default class NewItem extends React.Component {
 
     this.state = {
       fieldValue:  '',
-      errors:      ''
+      errors:      '',
+      loading:     false
     }
   }
 
@@ -14,7 +15,7 @@ export default class NewItem extends React.Component {
 
   bindFocusOnInput() {
     $('.' + this.props.modalClassName).on('shown.bs.modal', () => {
-      $(this.refs.title).focus()
+      $(this.refs.name).focus()
     })
   }
 
@@ -39,15 +40,14 @@ export default class NewItem extends React.Component {
           this.setState({ errors: data.errors })
         }
         else {
-          setTimeout(() => {
-            var id = data[`${this.props.modelName}Id`]
-            this.props.router.push(`${this.props.modelName}s/${id}`)
-            this.hideModal()
+          var id = data[`${this.props.modelName}Id`]
+          this.props.router.push(`${this.props.modelName}s/${id}`)
+          this.hideModal()
 
-            this.setState({
-              fieldValue: '',
-            })
-          }, window.backendRefreshDelay)
+          this.setState({
+            fieldValue: '',
+            loading:    false
+          })
         }
       })
     }
@@ -76,7 +76,7 @@ export default class NewItem extends React.Component {
                     <div className="col-md-8">
                       <input value={this.state.fieldValue}
                              onChange={this.updateField.bind(this)}
-                             ref="firstName"
+                             ref="name"
                              className="form-control"
                              required="required"
                              type="text"
@@ -88,7 +88,7 @@ export default class NewItem extends React.Component {
 
               <div className="modal-footer">
                 <button type="button" className="btn btn-default" data-dismiss="modal">Fermer</button>
-                <input  type="submit" className="btn btn-primary" value="Créer"/>
+                <input  type="submit" className="btn btn-primary" disabled={this.state.loading} value="Créer"/>
               </div>
             </form>
           </div>

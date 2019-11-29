@@ -37,11 +37,12 @@ export default class Project extends React.Component {
 
   componentDidUpdate(prevProps) {
     if(prevProps.id != this.props.id) {
-      if(this.state.project == undefined) {
+      if(this.state.project == undefined || this.state.project.id != this.props.id) {
         this.reloadFromBackend()
       }
       else {
         window.scrollTo(0, 0)
+
         this.setState({
           project: this.props.project,
           loaded:  this.props.project != undefined
@@ -57,7 +58,7 @@ export default class Project extends React.Component {
         var itemId    = camelData.action == 'destroy' ? camelData.itemId : camelData.item.id
 
         if(itemId == this.props.id) {
-          if(camelData.action == 'update') {
+          if(camelData.action == 'update' || camelData.action == 'create') {
             this.setState({ project: camelData.item })
           }
           else {
