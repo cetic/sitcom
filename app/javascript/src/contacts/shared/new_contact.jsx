@@ -8,7 +8,7 @@ export default class NewContact extends React.Component {
     this.state = {
       firstName: '',
       lastName:  '',
-      email:  '',
+      email:     '',
       errors:    ''
     }
   }
@@ -53,7 +53,8 @@ export default class NewContact extends React.Component {
       var params = {
         contact: {
           firstName: this.state.firstName,
-          lastName:  this.state.lastName
+          lastName:  this.state.lastName,
+          email:     this.state.email
         }
       }
 
@@ -67,7 +68,8 @@ export default class NewContact extends React.Component {
             this.hideModal()
             this.setState({
               firstName: '',
-              lastName:  ''
+              lastName:  '',
+              email:     ''
             })
           }, window.backendRefreshDelay)
         }

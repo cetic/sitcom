@@ -13,7 +13,7 @@ export default class PreviousNextNav extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(prevProps.currentItemId != this.props.currentItemId) {
+    if(prevProps.currentItemId != this.props.currentItemId || prevProps.items.length != this.props.items.length) {
       this.setCurrentItemIndex()
     }
   }
