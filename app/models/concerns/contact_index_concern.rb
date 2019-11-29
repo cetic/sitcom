@@ -10,9 +10,9 @@ module ContactIndexConcern
       mappings do
         indexes :id,               :type => 'long'
         indexes :lab_id,           :type => 'long'
-        indexes :name,             :type => 'text'
-        indexes :first_name,       :type => 'text'
-        indexes :last_name,        :type => 'text'
+        indexes :name,             :type => 'search_as_you_type'
+        indexes :first_name,       :type => 'search_as_you_type'
+        indexes :last_name,        :type => 'search_as_you_type'
         indexes :active,           :type => 'boolean'
         indexes :email,            :type => 'text'
         indexes :phone,            :type => 'text'
