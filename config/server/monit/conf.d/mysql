@@ -1,4 +1,4 @@
 check process mysql with pidfile /var/run/mysqld/mysqld.pid
-   start program = "systemctl start mysql"
-   stop  program = "systemctl stop mysql"
+   start program = "/bin/systemctl start mysql"
+   stop  program = "/bin/systemctl stop mysql"
    if 5 restarts within 5 cycles then timeout

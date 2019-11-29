@@ -1,0 +1,7 @@
+check process sidekiq-default with pidfile /home/deploy/apps/sitcom/shared/tmp/pids/sidekiq-default.pid
+   start program = "/bin/su - deploy -c '/bin/systemctl --user start sidekiq-default'"
+   stop  program = "/bin/su - deploy -c '/bin/systemctl --user stop sidekiq-default'"
+
+check process sidekiq-websockets with pidfile /home/deploy/apps/sitcom/shared/tmp/pids/sidekiq-websockets.pid
+    start program = "/bin/su - deploy -c '/bin/systemctl --user start sidekiq-websockets'"
+    stop  program = "/bin/su - deploy -c '/bin/systemctl --user stop sidekiq-websockets'"

@@ -6,7 +6,7 @@ After=syslog.target network.target
 Type=simple
 WorkingDirectory=/home/deploy/apps/sitcom/current
 ExecStart=/bin/bash -lc '/home/deploy/.rbenv/shims/bundle exec sidekiq -e production -c 2 -q websockets'
-
+ExecStartPost=/bin/bash -lc '/bin/echo $MAINPID > /home/deploy/apps/sitcom/shared/tmp/pids/sidekiq-websockets.pid'
 ExecReload=/usr/bin/kill -TSTP $MAINPID
 
 Environment=MALLOC_ARENA_MAX=2
