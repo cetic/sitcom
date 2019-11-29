@@ -38,7 +38,7 @@ namespace :sidekiq do
   end
 end
 
-after 'deploy:starting',  'sidekiq:quiet'
+# after 'deploy:starting',  'sidekiq:quiet'
 after 'deploy:updated',   'sidekiq:stop'
 after 'deploy:published', 'sidekiq:start'
 after 'deploy:failed',    'sidekiq:restart'
