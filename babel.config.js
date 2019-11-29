@@ -77,7 +77,7 @@ module.exports = function(api) {
       isProductionEnv && [
         require('babel-plugin-transform-react-remove-prop-types').default,
         {
-          removeImport: true
+          removeImport: false
         }
       ]
     ].filter(Boolean)
