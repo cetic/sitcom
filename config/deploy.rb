@@ -11,7 +11,7 @@ set :log_level, :debug
 set :pty,       false
 
 set :linked_files, %w{.env}
-set :linked_dirs,  %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system private/system misc/private}
+set :linked_dirs,  %w{log tmp/pids tmp/cache tmp/sockets public/packs .bundle node_modules public/system private/system misc/private}
 
 set :rbenv_type, 'user'
 
