@@ -8,8 +8,8 @@ gem 'puma',   '4.3.0'
 gem 'devise', '4.7.1'
 
 # ElasticSearch
-gem 'elasticsearch-model', '6.1.0'
-gem 'elasticsearch-rails', '6.1.0'
+gem 'elasticsearch-model', '7.0.0'
+gem 'elasticsearch-rails', '7.0.0'
 
 # Webpacker + React
 gem 'webpacker', '~> 4.x'

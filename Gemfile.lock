@@ -118,11 +118,11 @@ GEM
       elasticsearch-transport (= 7.4.0)
     elasticsearch-api (7.4.0)
       multi_json
-    elasticsearch-model (6.1.0)
+    elasticsearch-model (7.0.0)
       activesupport (> 3)
       elasticsearch (> 1)
       hashie
-    elasticsearch-rails (6.1.0)
+    elasticsearch-rails (7.0.0)
     elasticsearch-transport (7.4.0)
       faraday
       multi_json
@@ -330,8 +330,8 @@ DEPENDENCIES
   color-generator
   devise (= 4.7.1)
   dotenv-rails
-  elasticsearch-model (= 6.1.0)
-  elasticsearch-rails (= 6.1.0)
+  elasticsearch-model (= 7.0.0)
+  elasticsearch-rails (= 7.0.0)
   enumerize
   factory_bot
   faker

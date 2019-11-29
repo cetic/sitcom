@@ -25,7 +25,7 @@ bundle exec sidekiq -c 1
 ### Run an ElasticSearch 2 container (optional)
 
 ```sh
-docker run --name elasticsearch-sitcom --restart=always -d -p 9201:9200 -p 9301:9300 -v "$PWD/.docker/elasticsearch/data":/usr/share/elasticsearch/data elasticsearch:2.1.2
+docker run --name elasticsearch-sitcom --restart=always -d -p 9201:9200 -p 9301:9300 -e "discovery.type=single-node" -v "$PWD/.docker/elasticsearch/data":/usr/share/elasticsearch/data elasticsearch:7.4.2
 ```
 
 ## Production
