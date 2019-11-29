@@ -10,8 +10,8 @@ module ProjectIndexConcern
       mappings do
         indexes :id,          :type => 'long'
         indexes :lab_id,      :type => 'long'
-        indexes :name,        :type => 'text'
-        indexes :description, :type => 'text'
+        indexes :name,        :type => 'text', :analyzer => 'custom_each_char'
+        indexes :description, :type => 'text', :analyzer => 'custom_each_char'
         indexes :start_date,  :type => 'date'
         indexes :end_date,    :type => 'date'
 
@@ -26,7 +26,7 @@ module ProjectIndexConcern
 
         indexes :custom_fields, :type => 'nested' do
           indexes :id,        :type => 'long'
-          indexes :value,     :type => 'text'
+          indexes :value,     :type => 'text', :analyzer => 'custom_each_char'
           indexes :raw_value, :type => 'keyword'
         end
 

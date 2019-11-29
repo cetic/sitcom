@@ -100,7 +100,8 @@ class BaseSearch
       options['query']['bool']['filter'] << {
         'multi_match' => {
           'query'  => params[:quick_search],
-          'fields' => fields
+          'fields' => fields,
+          'type'   => 'phrase_prefix'
         }
       }
     end
@@ -111,7 +112,7 @@ class BaseSearch
       options['query']['bool']['filter'] << {
         'match_phrase_prefix' => {
           field.to_s => {
-            "query" => params[field]
+            "query" => params[field],
           },
         }
       }
@@ -144,6 +145,7 @@ class BaseSearch
                 'multi_match' => {
                   'query'  => params[:notes],
                   'fields' => ['notes.text', 'notes.name'],
+                  'type'   => 'phrase_prefix'
                 }
               },
 
@@ -199,7 +201,7 @@ class BaseSearch
               },
 
               {
-                'match' => {
+                'match_phrase_prefix' => {
                   'custom_fields.value' => {
                     'query' => value.to_s,
                   },

@@ -10,13 +10,13 @@ module ContactIndexConcern
       mappings do
         indexes :id,               :type => 'long'
         indexes :lab_id,           :type => 'long'
-        indexes :name,             :type => 'search_as_you_type'
-        indexes :first_name,       :type => 'search_as_you_type'
-        indexes :last_name,        :type => 'search_as_you_type'
+        indexes :name,             :type => 'text',  :analyzer => 'custom_each_char'
+        indexes :first_name,       :type => 'text',  :analyzer => 'custom_each_char'
+        indexes :last_name,        :type => 'text',  :analyzer => 'custom_each_char'
         indexes :active,           :type => 'boolean'
-        indexes :email,            :type => 'text'
-        indexes :phone,            :type => 'text'
-        indexes :address,          :type => 'text'
+        indexes :email,            :type => 'text',  :analyzer => 'custom_each_char'
+        indexes :phone,            :type => 'text',  :analyzer => 'custom_each_char'
+        indexes :address,          :type => 'text',  :analyzer => 'custom_each_char'
 
         indexes :field_ids,        :type => 'long'
         indexes :organization_ids, :type => 'long'
@@ -30,7 +30,7 @@ module ContactIndexConcern
 
         indexes :custom_fields, :type => 'nested' do
           indexes :id,        :type => 'long'
-          indexes :value,     :type => 'text'
+          indexes :value,     :type => 'text',  :analyzer => 'custom_each_char'
           indexes :raw_value, :type => 'keyword'
         end
 

@@ -10,10 +10,10 @@ module OrganizationIndexConcern
       mappings do
         indexes :id,          :type => 'long'
         indexes :lab_id,      :type => 'long'
-        indexes :name,        :type => 'text'
-        indexes :status,      :type => 'text'
-        indexes :description, :type => 'text'
-        indexes :website_url, :type => 'text'
+        indexes :name,        :type => 'text', :analyzer => 'custom_each_char'
+        indexes :status,      :type => 'text', :analyzer => 'custom_each_char'
+        indexes :description, :type => 'text', :analyzer => 'custom_each_char'
+        indexes :website_url, :type => 'text', :analyzer => 'custom_each_char'
 
         indexes :contact_ids, :type => 'long'
         indexes :event_ids,   :type => 'long'
@@ -26,7 +26,7 @@ module OrganizationIndexConcern
 
         indexes :custom_fields, :type => 'nested' do
           indexes :id,        :type => 'long'
-          indexes :value,     :type => 'text'
+          indexes :value,     :type => 'text', :analyzer => 'custom_each_char'
           indexes :raw_value, :type => 'keyword'
         end
 
