@@ -8,8 +8,8 @@ Rails.application.configure do
       :password             => ENV['SMTP_PASSWORD'].to_s,
       :authentication       => ENV['SMTP_AUTH'].to_sym,
       :enable_starttls_auto => true,
-      :ssl                  => true,
-      :tls                  => true
+      :ssl                  => ENV["SMTP_SSL"] == 'true',
+      :tls                  => ENV["SMTP_TLS"] == 'true'
     }
   end
 
