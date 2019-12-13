@@ -20,4 +20,4 @@ StandardError=syslog
 SyslogIdentifier=sidekiq-default
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target

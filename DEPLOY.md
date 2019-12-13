@@ -164,11 +164,13 @@ Test it:
 
 As root :
 
+    loginctl enable-linger deploy
+
 Set the Storage directive of the [Journal] section of
 `/etc/systemd/journald.conf` to persistent (instead of auto or volatile).
 Reboot after editing the configuration.
 
-As deploy, iunstall systemd services :
+As deploy, install systemd services :
 
 * Copy `config/server/systemd/sidekiq-default.service` to `/home/deploy/.config/systemd/user/sidekiq-default.service`.
 * Copy `config/server/systemd/sidekiq-websockets.service` to `/home/deploy/.config/systemd/user/sidekiq-websockets.service`.
