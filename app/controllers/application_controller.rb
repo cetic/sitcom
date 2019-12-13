@@ -66,22 +66,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def render_csv(csv_data, filename)
-    if request.env['HTTP_USER_AGENT'] =~ /msie/i
-      headers['Pragma'] = 'public'
-      headers["Content-type"] = "text/csv; charset=utf-8"
-      headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
-      headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
-      headers['Expires'] = "0"
-    else
-      headers["Content-Type"] ||= 'text/csv'
-      headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
-    end
-
-    bom     = "\377\376".force_encoding("utf-16le")
-    content = bom + csv_data.force_encoding("UTF-8").encode("utf-16le")
-
-    render :text => content
+  def render_xlsx(data, filename)
+    send_data(data, :disposition => :attachment, :filename => filename)
   end
 
   def admin_page?

@@ -1,5 +1,7 @@
 class ContactExport < BaseExport
 
+  SHEET_NAME = 'Contacts'
+
   def fields
     list = {
       'Prénom'          => :first_name,

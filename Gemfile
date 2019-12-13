@@ -30,17 +30,18 @@ gem 'redis'
 gem 'sidekiq'
 
 # Utils
-gem 'enumerize'
-gem 'kaminari'
-gem 'factory_bot'
-gem 'faker'
-gem 'rabl'
-gem 'uuidtools'
+gem 'acts_as_list'
 gem 'color-generator'
 gem 'dotenv-rails'
-gem 'roo'
-gem 'acts_as_list'
+gem 'enumerize'
+gem 'factory_bot'
+gem 'faker'
 gem 'gibbon'
+gem 'kaminari'
+gem 'rabl'
+gem 'rubyXL', '3.4.9'
+gem 'uuidtools'
+
 gem 'bootsnap', '>= 1.1.0', :require => false
 
 group :development, :test do

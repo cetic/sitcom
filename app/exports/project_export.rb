@@ -1,5 +1,7 @@
 class ProjectExport < BaseExport
 
+  SHEET_NAME = 'Projets'
+
   def fields
     list = {
       'Nom'           => :name,

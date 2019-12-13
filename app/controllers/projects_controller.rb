@@ -124,7 +124,7 @@ class ProjectsController < ApplicationController
         :lab_id => @lab.id
       })).run
 
-      render_csv(ProjectExport.new(@lab, projects).csv_data, 'projects.csv')
+      render_xlsx(ProjectExport.new(@lab, projects).xlsx_data, 'projects.xlsx')
     else
       render_permission_error
     end

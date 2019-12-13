@@ -27,43 +27,6 @@ namespace :app do
 
     jules.labs << gastro
 
-    # Contacts & Organizations
-
-    # xlsx = Roo::Spreadsheet.open('misc/private/Copie de Listing participants aux ateliers.xlsx')
-    #
-    # xlsx.sheet('Liste participants globale').each_with_index do |row, index|
-    #   if index > 1
-    #     first_name  = row[0]
-    #     last_name   = row[1]
-    #     email       = row[3].to_s.strip
-    #     phone       = row[4]
-    #     field_name  = row[6].to_s.strip
-    #
-    #     email = '' unless email =~ Devise.email_regexp
-    #
-    #     if first_name.present? && last_name.present?
-    #       puts "* Importing #{row[0]} #{row[1]}"
-    #
-    #       begin
-    #         contact = gastro.contacts.create!(
-    #           :active     => true,
-    #           :first_name => first_name,
-    #           :last_name  => last_name,
-    #           :email      => email,
-    #           :phone      => phone.to_s
-    #         )
-    #
-    #         if field_name.present?
-    #           field = Field.where(name: field_name).first_or_create!
-    #           contact.fields << field
-    #         end
-    #       rescue ActiveRecord::RecordInvalid
-    #         puts "Email FOIREUX: #{email}"
-    #       end
-    #     end
-    #   end
-    # end
-
     gastro.contacts.create!(
       first_name:         "Aurélien",
       last_name:          "Malisart",

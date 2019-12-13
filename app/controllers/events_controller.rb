@@ -124,7 +124,7 @@ class EventsController < ApplicationController
         :lab_id => @lab.id
       })).run
 
-      render_csv(EventExport.new(@lab, events).csv_data, 'events.csv')
+      render_xlsx(EventExport.new(@lab, events).xlsx_data, 'events.xlsx')
     else
       render_permission_error
     end

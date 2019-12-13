@@ -128,7 +128,7 @@ class OrganizationsController < ApplicationController
         :lab_id => @lab.id
       })).run
 
-      render_csv(OrganizationExport.new(@lab, organizations).csv_data, 'organizations.csv')
+      render_xlsx(OrganizationExport.new(@lab, organizations).xlsx_data, 'organizations.xlsx')
     else
       render_permission_error
     end

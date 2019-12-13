@@ -1,5 +1,5 @@
 Rails.application.configure do
-  if ENV['SMTP_ADDRESS']
+  if ENV['SMTP_ADDRESS'] && ENV['SMTP_AUTH']
     config.action_mailer.smtp_settings = {
       :domain               => ENV['SMTP_DOMAIN'  ].to_s,
       :address              => ENV['SMTP_ADDRESS' ].to_s,

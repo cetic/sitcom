@@ -1,5 +1,7 @@
 class EventExport < BaseExport
 
+  SHEET_NAME = 'Evènements'
+
   def fields
     list = {
       'Nom'         => :name,

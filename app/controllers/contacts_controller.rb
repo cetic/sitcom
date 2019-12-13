@@ -126,7 +126,7 @@ class ContactsController < ApplicationController
         :lab_id => @lab.id
       })).run
 
-      render_csv(ContactExport.new(@lab, contacts).csv_data, 'contacts.csv')
+      render_xlsx(ContactExport.new(@lab, contacts).xlsx_data, 'contacts.xlsx')
     else
       render_permission_error
     end

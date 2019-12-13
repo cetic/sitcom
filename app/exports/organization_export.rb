@@ -1,5 +1,7 @@
 class OrganizationExport < BaseExport
 
+  SHEET_NAME = 'Organisations'
+
   def fields
     list = {
       'Nom'         => :name,
