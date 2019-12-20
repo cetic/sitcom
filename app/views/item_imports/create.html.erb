@@ -9,7 +9,7 @@
       <%= render "table" %>
 
       <%= form_tag lab_item_imports_path(@lab, { :item_type => @item_type }) do |f| %>
-        <%= hidden_field_tag 'csv_data', @csv_data %>
+        <%#= hidden_field_tag 'xlsx_data', @xlsx_data %>
 
         <div class="actions">
           <%= link_to 'Annuler', send("lab_#{@item_type}s_path", @lab), :class => 'btn btn-default' %>

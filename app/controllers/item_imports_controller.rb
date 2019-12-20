@@ -9,18 +9,17 @@ class ItemImportsController < ApplicationController
   end
 
   def create
-    if params[:csv_file]
-      csv_file_path = params[:csv_file].path
-      @csv_data     = File.read(csv_file_path)
-      commit        = false
+    if params[:xlsx_file]
+      xlsx_file_path = params[:xlsx_file].path
+      @xlsx_data     = File.read(xlsx_file_path)
+      commit         = false
     else
-      @csv_data = params[:csv_data]
-      commit    = true
+      @xlsx_data = params[:xlsx_data]
+      commit     = true
     end
 
     @item_import_class = "#{@item_type.capitalize}Import".constantize
-
-    @item_import = @item_import_class.new(@lab, @csv_data).parse
+    @item_import       = @item_import_class.new(@lab, @xlsx_data).parse
 
     if @item_import.errors.any?
       @errors = @item_import.errors
@@ -32,10 +31,10 @@ class ItemImportsController < ApplicationController
   end
 
   def sample
-    send_data File.read("misc/#{@item_type}-import.csv"), {
-      :filename    => "#{@item_type}s-import.csv",
+    send_data File.read("misc/#{@item_type}-import.xlsx"), {
+      :filename    => "#{@item_type}s-import.xlsx",
       :disposition => 'attachment',
-      :type        => 'text/csv'
+      :type        => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     }
   end
 

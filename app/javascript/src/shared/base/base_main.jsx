@@ -340,7 +340,7 @@ export default class BaseMain extends React.Component {
 
           <ul className="dropdown-menu">
             <li>
-              <a href={importPath}>Importer un CSV</a>
+              <a href={importPath}>Importer un XLSx</a>
             </li>
           </ul>
         </div>

@@ -1,4 +1,4 @@
-class ProjectImport
+class ProjectImport < BaseImport
 
   COLUMNS = {
     :name        => 'Nom',
@@ -46,7 +46,7 @@ class ProjectImport
         rows << row
       end
     rescue ArgumentError
-      @errors << "Impossible de traiter ce fichier. Est-il bien au format CSV avec encodage UTF-8 ?"
+      @errors << "Impossible de traiter ce fichier. Est-il bien au format XLSx ?"
     end
 
     return self
