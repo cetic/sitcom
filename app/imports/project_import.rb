@@ -21,13 +21,7 @@ class ProjectImport < BaseImport
       project = @lab.projects.new
 
       COLUMNS.keys.each do |column|
-        if column == :start_date || column == :end_date
-          # parsed_date = Date.strptime(row.send(column.to_sym), "%d/%m/%y")
-          date = row.send(column.to_sym)
-          project.send("#{column}=".to_sym, date)
-        else
-          project.send("#{column}=".to_sym, row.send(column.to_sym))
-        end
+        project.send("#{column}=".to_sym, row.send(column.to_sym))
       end
 
       project.save

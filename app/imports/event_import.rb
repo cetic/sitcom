@@ -22,13 +22,7 @@ class EventImport < BaseImport
       event = @lab.events.new
 
       COLUMNS.keys.each do |column|
-        if column == :happens_on
-          date = row.send(column.to_sym)
-          # parsed_date = Date.strptime(row.send(column.to_sym), "%d/%m/%y")
-          event.send("#{column}=".to_sym, date)
-        else
-          event.send("#{column}=".to_sym, row.send(column.to_sym))
-        end
+        event.send("#{column}=".to_sym, row.send(column.to_sym))
       end
 
       event.save
