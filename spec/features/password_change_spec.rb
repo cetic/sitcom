@@ -1,4 +1,4 @@
-describe 'Password change', :focus => true do
+describe 'Password change' do
 
   before :each do
     @lab  = FactoryBot.create(:lab)
