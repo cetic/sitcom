@@ -3,6 +3,7 @@ class ItemImportsController < ApplicationController
   before_action :find_lab
   before_action :find_item_type
   before_action :find_item_type_name
+  after_action  :cleanup_tmp_files
 
   def new
     @errors = []
@@ -12,11 +13,28 @@ class ItemImportsController < ApplicationController
     if params[:xlsx_file]
       xlsx_file_path = params[:xlsx_file].path
       @xlsx_data     = File.read(xlsx_file_path)
-      commit         = false
+      @uuid          = SecureRandom.uuid.inspect
+
+      File.open(Rails.root.join("tmp/#{@uuid}.xlsx"), 'w') do |f|
+        f.write(@xlsx_data)
+      end
+
+      commit = false
     else
-      @xlsx_data = params[:xlsx_data]
-      commit     = true
+      @uuid = params[:uuid]
+
+      if @uuid
+        @xlsx_data = File.read(Rails.root.join("tmp/#{@uuid}.xlsx"))
+        commit     = true
+      else
+        @errors = [
+          "Vous n'avez pas sélectionné de fichier."
+        ]
+        render 'new'
+      end
     end
+
+    return unless @errors.blank?
 
     @item_import_class = "#{@item_type.capitalize}Import".constantize
     @item_import       = @item_import_class.new(@lab, @xlsx_data).parse
@@ -69,6 +87,14 @@ class ItemImportsController < ApplicationController
     elsif @item_type == 'event'
       @item_type_name = 'évènement'
       @of_items       = "d'évènements"
+    end
+  end
+
+  def cleanup_tmp_files
+    Dir['tmp/*.xlsx'].each do |path|
+      if File.ctime(path) < 2.days.ago
+        FileUtils.rm(path)
+      end
     end
   end
 

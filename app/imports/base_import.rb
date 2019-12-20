@@ -1,4 +1,5 @@
 class BaseImport
+
   attr_reader :rows, :errors
 
   def initialize(lab, xlsx_data = '')
@@ -59,8 +60,9 @@ class BaseImport
 
         i += 1
       end
-    rescue ArgumentError
+    rescue StandardError => e
       @errors << "Impossible de traiter ce fichier. Est-il bien au format XLSx ?"
+      @errors << "Détails techniques: \"#{e.message}\""
     end
 
     return self

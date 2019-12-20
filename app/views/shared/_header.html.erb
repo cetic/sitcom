@@ -44,16 +44,23 @@
 
           <div id="navbar" style="float:left" class="navbar-collapse collapse">
             <ul class="nav navbar-nav sections">
-              <li class="contacts">
+              <% selected = params[:controller] == 'item_imports' && params[:item_type] == 'contact' %>
+              <li class="contacts<%= ' selected' if selected %>">
                 <a href="<%= lab_contacts_path(@lab) %>">Contacts</a>
               </li>
-              <li class="organizations">
+
+              <% selected = params[:controller] == 'item_imports' && params[:item_type] == 'organization' %>
+              <li class="organizations<%= ' selected' if selected %>">
                 <a href="<%= lab_organizations_path(@lab) %>">Organisations</a>
               </li>
-              <li class="projects">
+
+              <% selected = params[:controller] == 'item_imports' && params[:item_type] == 'project' %>
+              <li class="projects<%= ' selected' if selected %>">
                 <a href="<%= lab_projects_path(@lab) %>">Projets</a>
               </li>
-              <li class="events">
+
+              <% selected = params[:controller] == 'item_imports' && params[:item_type] == 'event' %>
+              <li class="events<%= ' selected' if selected %>">
                 <a href="<%= lab_events_path(@lab) %>">Évènements</a>
               </li>
             </ul>
