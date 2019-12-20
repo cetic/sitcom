@@ -16,7 +16,7 @@ class PasswordsController < ApplicationController
       redirect_to edit_profile_password_path
     else
       if @user.update_with_password(strong_params)
-        sign_in(@user, :bypass => true)
+        bypass_sign_in(@user)
         flash[:notice] = "Votre mot de passe a été changé."
         redirect_to root_path
       else

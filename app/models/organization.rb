@@ -41,8 +41,9 @@ class Organization < ApplicationRecord
 
   validates :name, :presence   => { :message => "Le nom est obligatoire." },
                    :uniqueness => {
-                      :scope   => :lab_id,
-                      :message => "Le nom indiqué existe déjà."
+                      :scope          => :lab_id,
+                      :message        => "Le nom indiqué existe déjà.",
+                      :case_sensitive => false
                     }
 
   validates :website_url, :format      => { :with => URI::regexp(%w(http https)), :message => "L'adresse du site Web est invalide." },

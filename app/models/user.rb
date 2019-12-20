@@ -24,7 +24,7 @@ class User < ApplicationRecord
   # Validations (from Devise)
 
   validates_presence_of   :email, if: :email_required?,                                              message: "L'email est obligatoire."
-  validates_uniqueness_of :email, allow_blank: true,         if: :email_changed?,                    message: "L'email est déjà utilisé."
+  validates_uniqueness_of :email, allow_blank: true,         if: :email_changed?,                    message: "L'email est déjà utilisé.", :case_sensitive => false
   validates_format_of     :email, with: Devise.email_regexp, allow_blank: true, if: :email_changed?, message: "L'email est invalide."
 
   validates_presence_of     :password, if: :password_required?,                           message: "Le mot de passe est obligatoire."

@@ -61,6 +61,16 @@ group :development do
   gem 'rubocop'
 end
 
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'parallel_tests'
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'webdrivers'
+  gem 'email_spec'
+  gem 'zonebie'
+end
+
 group :production do
   gem 'libv8' # Development on OSX: gem install libv8 -v 3.16.14.19 -- --with-system-v8
 end

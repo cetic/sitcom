@@ -23,7 +23,7 @@ class Lab < ApplicationRecord
   # Validations
 
   validates :name, :presence   => { :message => "Le nom est obligatoire."  },
-                   :uniqueness => { :message => "Ce nom est déjà utilisé." }
+                   :uniqueness => { :message => "Ce nom est déjà utilisé.", :case_sensitive => false }
 
   # Callbacks
 

@@ -17,7 +17,11 @@ class Field < ApplicationRecord
   # Validations
 
   validates :name, :presence   => { :message => "Le nom est obligatoire."  },
-                   :uniqueness => { :message => "Ce nom est déjà utilisé.", :scope => [:lab_id, :parent_id] }
+                   :uniqueness => {
+                     :message        => "Ce nom est déjà utilisé.",
+                     :scope          => [:lab_id, :parent_id],
+                     :case_sensitive => false
+                   }
 
   # Callbacks
 

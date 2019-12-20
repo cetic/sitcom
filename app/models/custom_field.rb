@@ -32,7 +32,11 @@ class CustomField < ApplicationRecord
   # Validations
 
   validates :name, :presence   => { :message => "Le nom est obligatoire."                                            },
-                   :uniqueness => { :message => "Ce nom de chams est déjà utilisé.", :scope => [:lab_id, :item_type] }
+                   :uniqueness => {
+                     :message        => "Ce nom de chams est déjà utilisé.",
+                     :scope          => [:lab_id, :item_type],
+                     :case_sensitive => false
+                   }
 
   validates :field_type, :inclusion => {
     :in      => CustomField.field_type.values,

@@ -41,8 +41,9 @@ class Project < ApplicationRecord
 
   validates :name, :presence   => { :message => "Le nom est obligatoire." },
                    :uniqueness => {
-                      :scope   => :lab_id,
-                      :message => "Le nom indiqué existe déjà."
+                      :scope          => :lab_id,
+                      :message        => "Le nom indiqué existe déjà.",
+                      :case_sensitive => false
                     }
 
   # Callbacks
