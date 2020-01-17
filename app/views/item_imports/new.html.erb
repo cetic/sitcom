@@ -40,7 +40,7 @@
 
       <div class="notice">
         <p>
-          Vous pouvez importer un ensemble <%= @of_items %> à partir d'un fichier XLSx.
+          Vous pouvez importer un ensemble <%= @of_items %> à partir d'un fichier XLSX.
           Un exemple de fichier ayant la bonne structure se trouve ici : <%= link_to "#{@item_type.pluralize}-import.xlsx", sample_lab_item_imports_path(@lab, { :item_type => @item_type, :format => :csv }) %>.
         </p>
       </div>
@@ -48,7 +48,7 @@
       <%= form_tag lab_item_imports_path(@lab, { :item_type => @item_type }), :class => 'form-horizontal', :multipart => true do |f| %>
         <fieldset>
           <div class="form-group">
-            <%= label_tag 'xlsx_file', 'Fichier XLSx', :class => 'control-label col-md-3' %>
+            <%= label_tag 'xlsx_file', 'Fichier XLSX', :class => 'control-label col-md-3' %>
 
             <div class="col-md-9">
               <%= file_field_tag 'xlsx_file', :class => 'form-control' %>

@@ -61,7 +61,7 @@ class BaseImport
         i += 1
       end
     rescue StandardError => e
-      @errors << "Impossible de traiter ce fichier. Est-il bien au format XLSx ?"
+      @errors << "Impossible de traiter ce fichier. Est-il bien au format XLSX ?"
       @errors << "Détails techniques: \"#{e.message}\""
     end
 

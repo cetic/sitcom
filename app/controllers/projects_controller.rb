@@ -114,6 +114,20 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def mass_destroy
+    if PermissionsService.new(current_user, @lab).can_write?('projects')
+      respond_to do |format|
+        format.json do
+          MassDestroyService.new(current_user, 'Project', params[:ids]).destroy
+
+          render_json_success
+        end
+      end
+    else
+      render_permission_error
+    end
+  end
+
   def options
     @projects = @lab.projects.order(:name)
   end

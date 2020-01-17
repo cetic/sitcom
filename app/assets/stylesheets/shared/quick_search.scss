@@ -185,3 +185,15 @@
     background-color: #1976d2;
   }
 }
+
+.destroy-selection {
+  .fa {
+    position: absolute;
+    font-size: 13px;
+    left: 730px;
+    top: 14px;
+    color: whitesmoke;
+    opacity: 0.9;
+    cursor: pointer;
+  }
+}

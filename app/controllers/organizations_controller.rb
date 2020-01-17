@@ -114,6 +114,20 @@ class OrganizationsController < ApplicationController
     end
   end
 
+  def mass_destroy
+    if PermissionsService.new(current_user, @lab).can_write?('organizations')
+      respond_to do |format|
+        format.json do
+          MassDestroyService.new(current_user, 'Organization', params[:ids]).destroy
+
+          render_json_success
+        end
+      end
+    else
+      render_permission_error
+    end
+  end
+
   def options
     @organizations = @lab.organizations.order(:name)
   end

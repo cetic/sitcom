@@ -114,6 +114,20 @@ class EventsController < ApplicationController
     end
   end
 
+  def mass_destroy
+    if PermissionsService.new(current_user, @lab).can_write?('events')
+      respond_to do |format|
+        format.json do
+          MassDestroyService.new(current_user, 'Event', params[:ids]).destroy
+
+          render_json_success
+        end
+      end
+    else
+      render_permission_error
+    end
+  end
+
   def options
     @events = @lab.events.order(:name)
   end

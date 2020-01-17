@@ -116,6 +116,20 @@ class ContactsController < ApplicationController
     end
   end
 
+  def mass_destroy
+    if PermissionsService.new(current_user, @lab).can_write?('contacts')
+      respond_to do |format|
+        format.json do
+          MassDestroyService.new(current_user, 'Contact', params[:ids]).destroy
+
+          render_json_success
+        end
+      end
+    else
+      render_permission_error
+    end
+  end
+
   def options
     @contacts = @lab.contacts.order(:first_name, :last_name)
   end
