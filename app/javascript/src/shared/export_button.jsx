@@ -21,7 +21,7 @@ export default class ExportButton extends React.Component {
   render() {
     return (
       <i className="fa fa-file-excel-o"
-         title="Exporter la sélection au format XLSx"
+         title="Exporter la sélection au format XLSX"
          onClick={this.export.bind(this)}>
       </i>
     )
