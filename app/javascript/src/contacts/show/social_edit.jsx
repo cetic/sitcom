@@ -64,6 +64,7 @@ export default class SocialEdit extends React.Component {
       <div className="facebook">
         <i className="fa fa-facebook-square"></i>
         <input type="text"
+               name="facebook"
                defaultValue={this.state.facebookUrl}
                onChange={this.updateFacebookUrl.bind(this)} />
       </div>
@@ -75,6 +76,7 @@ export default class SocialEdit extends React.Component {
       <div className="linkedin">
         <i className="fa fa-linkedin-square"></i>
         <input type="text"
+               name="linkedin"
                defaultValue={this.state.linkedinUrl}
                onChange={this.updateLinkedinUrl.bind(this)} />
       </div>
@@ -86,6 +88,7 @@ export default class SocialEdit extends React.Component {
       <div className="twitter">
         <i className="fa fa-twitter-square"></i>
         <input type="text"
+               name="twitter"
                defaultValue={this.state.twitterUrl}
                onChange={this.updateTwitterUrl.bind(this)} />
       </div>

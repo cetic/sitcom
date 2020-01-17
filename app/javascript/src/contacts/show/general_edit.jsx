@@ -241,6 +241,7 @@ export default class GeneralEdit extends React.Component {
         <h3>Téléphone</h3>
 
         <input type="text"
+               name="phone"
                className="phone"
                defaultValue={this.state.phone}
                onChange={this.updatePhone.bind(this)} />
@@ -254,6 +255,7 @@ export default class GeneralEdit extends React.Component {
         <h3>Email</h3>
 
         <input type="text"
+               name="email"
                className="email"
                defaultValue={this.state.email}
                onChange={this.updateEmail.bind(this)} />

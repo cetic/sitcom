@@ -27,6 +27,7 @@ RSpec.configure do |config|
   # Includes
 
   config.include PutsHelpers
+  config.include ScreenshotHelpers
   config.include Rails.application.routes.url_helpers
   config.include Capybara::DSL
   config.include EmailSpec::Helpers

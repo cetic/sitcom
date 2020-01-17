@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :field do
-    association :parent
+    association :lab
 
     name { Faker::Company.buzzword  }
   end
