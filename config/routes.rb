@@ -86,9 +86,10 @@ Rails.application.routes.draw do
       resources :custom_fields
 
       collection do
-        get  :options
-        get  :export
-        post :mailchimp_export
+        get    :options
+        get    :export
+        post   :mailchimp_export
+        delete :mass_destroy
 
         resources :saved_searches, :item_type => 'contact'
       end
@@ -101,9 +102,10 @@ Rails.application.routes.draw do
       resources :custom_fields
 
       collection do
-        get :options
-        get :status_options
-        get :export
+        get    :options
+        get    :status_options
+        get    :export
+        delete :mass_destroy
 
         resources :saved_searches, :item_type => 'organization'
       end
@@ -116,8 +118,9 @@ Rails.application.routes.draw do
       resources :custom_fields
 
       collection do
-        get :options
-        get :export
+        get    :options
+        get    :export
+        delete :mass_destroy
 
         resources :saved_searches, :item_type => 'project'
       end
@@ -130,8 +133,9 @@ Rails.application.routes.draw do
       resources :custom_fields
 
       collection do
-        get :options
-        get :export
+        get    :options
+        get    :export
+        delete :mass_destroy
 
         resources :saved_searches, :item_type => 'event'
       end

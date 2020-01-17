@@ -1,6 +1,7 @@
 import ExportButton          from '../shared/export_button.jsx'
 import MailchimpExportButton from './quick_search/mailchimp_export_button.jsx'
 import TagsSelector          from './tags_selector.jsx'
+import MassDestroy           from './quick_search/mass_destroy.jsx'
 
 export default class QuickSearch extends React.Component {
 
@@ -54,6 +55,7 @@ export default class QuickSearch extends React.Component {
         {this.renderExportButton()}
         {this.renderMailchimpExportButton()}
         {this.renderTags()}
+        {this.renderDestroy()}
       </div>
     )
   }
@@ -103,11 +105,20 @@ export default class QuickSearch extends React.Component {
         )
       }
       else {
-        return (
-          <span className="results">
-            { this.props.results == 1 ? this.props.results + ' ' + this.singularItemName() + ' ' + this.singularFound() : this.props.results + ' ' + this.singularItemName() + 's ' + this.pluralFound() }
-          </span>
-        )
+        if(this.props.results == 1) {
+          return (
+            <span className="results">
+              {this.props.results + ' ' + this.singularItemName() + ' ' + this.singularFound()}
+            </span>
+          )
+        }
+        else {
+          return (
+            <span className="results">
+              {this.props.results + ' ' + this.singularItemName() + 's ' + this.pluralFound()}
+            </span>
+          )
+        }
       }
     }
   }
@@ -115,11 +126,28 @@ export default class QuickSearch extends React.Component {
   renderTags() {
     if(this.props.selectedCount > 0 && this.props.loaded) {
       return (
-        <TagsSelector itemType={this.props.itemType}
-                      tagOptionsPath={this.props.tagOptionsPath}
-                      selectedItemIds={this.props.selectedItemIds}
-                      unselectAllItems={this.props.unselectAllItems} />
+        <TagsSelector
+          itemType={this.props.itemType}
+          tagOptionsPath={this.props.tagOptionsPath}
+          selectedItemIds={this.props.selectedItemIds}
+          unselectAllItems={this.props.unselectAllItems}
+        />
       )
     }
   }
+
+  renderDestroy() {
+    if(this.props.selectedCount > 0 && this.props.loaded) {
+      return (
+        <MassDestroy
+          itemType={this.props.itemType}
+          selectedItemIds={this.props.selectedItemIds}
+          unselectAllItems={this.props.unselectAllItems}
+          isSolo={this.props.selectedCount == 1}
+          singularItemName={this.singularItemName()}
+        />
+      )
+    }
+  }
+
 }
