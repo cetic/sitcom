@@ -118,8 +118,10 @@ describe 'Basic contacts', :js => true do
       find('.Select-placeholder', :wait => 3).click
       find('.Select-menu-outer', :wait => 3).click
 
-      click_on 'Enregistrer'
+      click_on 'Enregistrer', :wait => 4
     end
+
+    sleep 2.0
 
     within '.item-show .fields', :wait => 3 do
       page.should have_content(@field.name, :wait => 3)
@@ -229,8 +231,10 @@ describe 'Basic contacts', :js => true do
 
       find('.actions .btn-primary', :wait => 5).click # Ajouter
 
-      page.should have_content('Notes publiques (1)', :wait => 5)
-      page.should have_content('Notes privées (1)',   :wait => 5)
+      sleep 5.0 # time to get websocket
+
+      page.should have_content('Notes publiques (1)', :wait => 10)
+      page.should have_content('Notes privées (1)',   :wait => 10)
 
       page.should have_content('Une note publique')
       page.should have_content("Contenu d'une note publique")
