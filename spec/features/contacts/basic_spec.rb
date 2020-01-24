@@ -20,14 +20,14 @@ describe 'Basic contacts', :js => true do
   end
 
   it 'displays contacts sorted in listing' do
-    visit lab_path(@lab)
-
     # MySQL sort is not the same as ruby sort on accents
     Contact.all.to_a.each do |contact|
       contact.update(:last_name => I18n.transliterate(contact.last_name))
     end
 
     Contact.__elasticsearch__.refresh_index!
+
+    visit lab_path(@lab)
 
     page_names = all('.contact .name').collect { |span| span.text }
     db_names   = @lab.contacts.sort_by(&:last_name).collect(&:name)
@@ -307,7 +307,7 @@ describe 'Basic contacts', :js => true do
     contact.custom_field_links.where(:custom_field => sex_field).first.text_value.should     == 'Femme'
   end
 
-  it 'can add an organization to contacts and the contact role', :focus => true do
+  it 'can add an organization to contacts and the contact role' do
     organization = FactoryBot.create(:organization, :lab => @lab)
 
     Organization.__elasticsearch__.refresh_index!
@@ -395,7 +395,45 @@ describe 'Basic contacts', :js => true do
     find('.item-show h1').hover # to make button appear
   end
 
-  xit 'can navigate through contacts (next/previous)' do
+  it 'can navigate through contacts (next/previous)', :focus => true do
+    # MySQL sort is not the same as ruby sort on accents
+    Contact.all.to_a.each do |contact|
+      contact.update(:last_name => I18n.transliterate(contact.last_name))
+    end
+
+    Contact.__elasticsearch__.refresh_index!
+
+    contact_db_names = @lab.contacts.sort_by(&:last_name).collect(&:name)
+
+    visit lab_path(@lab)
+
+    all('.contact .name a').first.click
+
+    find('.previous-next span').text.should == "1\n3"
+
+    find('.previous-next .fa-caret-down').click
+
+    find('.previous-next span').text.should == "2\n3"
+
+    page.should have_content(contact_db_names[1])
+
+    find('.previous-next .fa-caret-down').click
+
+    find('.previous-next span').text.should == "3\n3"
+
+    page.should have_content(contact_db_names[2])
+
+    find('.previous-next .fa-caret-down').click
+
+    find('.previous-next span').text.should == "1\n3"
+
+    page.should have_content(contact_db_names[0])
+
+    find('.previous-next .fa-caret-up').click
+
+    find('.previous-next span').text.should == "3\n3"
+
+    page.should have_content(contact_db_names[2])
   end
 
   xit 'can create a contact' do
