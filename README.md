@@ -39,4 +39,4 @@ bundle exec rspec
 
 ## Production
 
-See `DEPLOY.md` on how to deploy on a Ubuntu server.
+See `DEPLOY.md` on how to deploy on a Debian server.
