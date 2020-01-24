@@ -53,6 +53,14 @@ class User < ApplicationRecord
     self.lab_manager = false if self.admin
   end
 
+  def managed_labs_count(manager)
+    if manager.admin?
+      lab_user_links.count
+    else
+      lab_user_links.where(lab_id: manager.lab_ids).count
+    end
+  end
+
   # Class Methods
 
   # Private Methods

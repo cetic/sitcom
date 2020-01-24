@@ -17,12 +17,12 @@
   </td>
 
   <td>
-    <% text = "#{user.labs.count} lab(s) accessibles" %>
+    <% text = "#{user.managed_labs_count(current_user)} lab(s) accessible(s)" %>
 
-    <% unless user.admin? || user.lab_manager? || user.labs.empty? %>
-      <%= link_to text, admin_user_lab_user_links_path(user), title: "Gérer les droits d'accès" %>
-    <% else %>
+    <% if user.admin? || user.lab_manager? || user.labs.empty? %>
       <%= text %>
+    <% else %>
+      <%= link_to text, admin_user_lab_user_links_path(user), title: "Gérer les droits d'accès" %>
     <% end %>
   </td>
 
