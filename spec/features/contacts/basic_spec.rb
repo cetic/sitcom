@@ -97,7 +97,7 @@ describe 'Basic contacts', :js => true do
       click_on 'Enregistrer'
     end
 
-    within '.item-show h1', :wait => 3 do
+    within '.item-show h1', :wait => 10 do
       page.should have_content('Steve Jobs', :wait => 3)
     end
 
@@ -178,7 +178,7 @@ describe 'Basic contacts', :js => true do
       find('.tag-item .fa-remove', :wait => 3).click
       find('.new-tag', :wait => 3).click # close
 
-      within '.tags' do
+      within '.tags', :wait => 10 do
         page.should_not have_content('small test')
       end
     end
