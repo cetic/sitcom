@@ -1,1 +1,12 @@
 language: ruby
+
+sudo: false
+
+script:
+  - bundle exec rspec
+
+notifications:
+  email:
+    recipients:
+      - aurelien@phonoid.com
+      - michael.hoste@gmail.com
