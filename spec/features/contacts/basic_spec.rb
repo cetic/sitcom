@@ -395,7 +395,7 @@ describe 'Basic contacts', :js => true do
     find('.item-show h1').hover # to make button appear
   end
 
-  it 'can navigate through contacts (next/previous)', :focus => true do
+  it 'can navigate through contacts (next/previous)' do
     # MySQL sort is not the same as ruby sort on accents
     Contact.all.to_a.each do |contact|
       contact.update(:last_name => I18n.transliterate(contact.last_name))
@@ -406,6 +406,8 @@ describe 'Basic contacts', :js => true do
     contact_db_names = @lab.contacts.sort_by(&:last_name).collect(&:name)
 
     visit lab_path(@lab)
+
+    Capybara.current_session.current_window.resize_to(1280, 800)
 
     all('.contact .name a').first.click
 

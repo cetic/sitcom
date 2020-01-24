@@ -1,6 +1,8 @@
-describe 'Contacts export' do
+describe 'Contacts export', :download_file => true do
 
   before :each do
+    Capybara.current_session.current_window.resize_to(1280, 800)
+
     DownloadHelpers.clear_downloads
 
     @lab  = FactoryBot.create(:lab)

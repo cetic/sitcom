@@ -180,6 +180,14 @@ RSpec.configure do |config|
     #Warden.test_reset! # (cf. 2)
   end
 
+  config.before :each, :download_file => true do
+    Capybara.current_driver = :selenium_chrome_headless_with_resolution_and_js_logs
+  end
+
+  config.after :each, :download_file => true do
+    Capybara.use_default_driver
+  end
+
   # Prints js errors in console
   config.after(:each, :js => true) do
     if Capybara.javascript_driver != :selenium && Capybara.javascript_driver != :selenium_firefox_headless # doesn't work with firefox
