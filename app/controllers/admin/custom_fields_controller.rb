@@ -51,12 +51,6 @@ class Admin::CustomFieldsController < Admin::BaseController
     redirect_to admin_lab_custom_fields_path(@lab)
   end
 
-  protected
-
-  def find_lab
-    @lab = Lab.find_by_slug(params[:lab_id])
-  end
-
   private
 
   def strong_params

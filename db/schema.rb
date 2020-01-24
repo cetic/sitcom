@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_15_091227) do
+ActiveRecord::Schema.define(version: 2020_01_17_094738) do
 
   create_table "contact_event_links", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "contact_id"
@@ -284,6 +284,7 @@ ActiveRecord::Schema.define(version: 2019_11_15_091227) do
   create_table "users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.boolean "admin", default: false
+    t.boolean "lab_manager", default: false
     t.string "email", default: "", null: false
     t.string "api_key"
     t.string "encrypted_password", default: "", null: false

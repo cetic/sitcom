@@ -1,4 +1,5 @@
 class Admin::LabUserLinksController < Admin::BaseController
+
   before_action :find_user
   before_action :redirect_if_admin
 
@@ -30,12 +31,8 @@ class Admin::LabUserLinksController < Admin::BaseController
 
   protected
 
-  def find_user
-    @user = User.find(params[:user_id])
-  end
-
   def redirect_if_admin
-    if @user.admin?
+    if @user.admin? || @user.lab_manager?
       redirect_to admin_users_path
     end
   end
@@ -50,4 +47,5 @@ class Admin::LabUserLinksController < Admin::BaseController
       :can_read_events,        :can_write_events
     )
   end
+
 end

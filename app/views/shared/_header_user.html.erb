@@ -5,7 +5,7 @@
     </a>
     <ul class="dropdown-menu">
 
-      <% if current_user.admin? %>
+      <% if current_user.admin? || current_user.lab_manager? %>
         <li>
           <a href="<%= admin_root_path %>">
             Administration

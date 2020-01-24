@@ -27,15 +27,24 @@
           </div>
 
           <% unless @user.id == current_user.id %>
-            <div class="form-group">
-              <%= f.label :admin, 'Administrateur', :class => 'control-label col-md-3' %>
+            <% if current_user.admin? %>
+              <div class="form-group">
+                <%= f.label :roles, 'Rôles', :class => 'control-label col-md-3' %>
 
-              <div class="col-md-9">
-                <div class="checkbox">
-                  <%= f.check_box :admin %>
+                <div class="col-md-9">
+                  <div class="checkbox">
+                    <%= f.check_box :admin %>
+                    <%= f.label :admin, 'Administrateur' %>
+
+                  </div>
+
+                  <div class="checkbox">
+                    <%= f.check_box :lab_manager %>
+                    <%= f.label :lab_manager, 'Gestionnaire de lab' %>
+                  </div>
                 </div>
               </div>
-            </div>
+            <% end %>
           <% end %>
         </fieldset>
 
@@ -67,7 +76,7 @@
 
             <div class="col-md-9">
               <ul class="labs">
-                <% Lab.order(:name).each do |lab| %>
+                <% @available_labs.each do |lab| %>
                   <li>
                     <%= check_box_tag 'user[lab_ids][]', lab.id, @user.lab_ids.include?(lab.id), :id => "user_lab_ids_#{lab.id}" %>
                     <label for="user_lab_ids_<%= lab.id %>"><%= lab.name %></label>

@@ -1,8 +1,15 @@
 class Admin::UsersController < Admin::BaseController
-  before_action :find_user, :only => [ :edit, :update, :destroy ]
+  before_action :find_user,           :only => [ :edit, :update, :destroy ]
+  before_action :find_available_labs, :only => [ :new, :create, :edit, :update ]
 
   def index
-    @users = User.order(:name)
+    if current_user.lab_manager?
+      user_ids = current_user.labs.map(&:user_ids).flatten.uniq
+
+      @users = User.where(id: user_ids).order(:name)
+    else
+      @users = User.order(:name)
+    end
   end
 
   def new
@@ -48,7 +55,21 @@ class Admin::UsersController < Admin::BaseController
   protected
 
   def find_user
-    @user = User.find(params[:id])
+    if current_user.lab_manager?
+      user_ids = current_user.labs.map(&:user_ids).flatten.uniq
+
+      @user = User.where(id: user_ids).find(params[:id])
+    else
+      @user = User.find(params[:id])
+    end
+  end
+
+  def find_available_labs
+    if current_user.lab_manager?
+      @available_labs = current_user.labs.order(:name)
+    else
+      @available_labs = Lab.order(:name)
+    end
   end
 
   private
@@ -56,8 +77,21 @@ class Admin::UsersController < Admin::BaseController
   def strong_params
     params[:user][:lab_ids] ||= []
 
-    params.require(:user).permit(
-      :name, :email, :password, :password_confirmation, :admin, :lab_ids => []
-    )
+    if current_user.lab_manager?
+      available_lab_ids = @available_labs.pluck(:id).map(&:to_s)
+      params[:user][:lab_ids] = params[:user][:lab_ids].select do |lab_id|
+        available_lab_ids.include?(lab_id)
+      end
+    end
+
+    if current_user.admin?
+      params.require(:user).permit(
+        :name, :email, :password, :password_confirmation, :admin, :lab_manager, :lab_ids => []
+      )
+    else
+      params.require(:user).permit(
+        :name, :email, :password, :password_confirmation, :lab_ids => []
+      )
+    end
   end
 end

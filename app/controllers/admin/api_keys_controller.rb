@@ -10,9 +10,4 @@ class Admin::ApiKeysController < Admin::BaseController
     redirect_to admin_user_api_key_path(@user)
   end
 
-  protected
-
-  def find_user
-    @user = User.find(params[:user_id])
-  end
 end

@@ -31,9 +31,12 @@ class User < ApplicationRecord
   validates_length_of       :password, within: Devise.password_length, allow_blank: true, message: "Le mot de passe est trop court."
   validates_confirmation_of :password,                                                    message: "Le mot de passe et sa confirmation ne concordent pas."
 
+  validates_presence_of :lab_ids, message: "Veuillez donner accès à au moins un lab."
+
   # Callbacks
 
-  before_create :set_new_api_key
+  before_create     :set_new_api_key
+  before_validation :ensure_roles
 
   # Methods
 
@@ -44,6 +47,10 @@ class User < ApplicationRecord
 
   def set_new_api_key
     self.api_key = "#{SecureRandom.hex}#{UUIDTools::UUID.random_create}#{self.id}".gsub('-', '')
+  end
+
+  def ensure_roles
+    self.lab_manager = false if self.admin
   end
 
   # Class Methods
