@@ -1,15 +1,16 @@
 class Admin::LabUserLinksController < Admin::BaseController
+
   before_action :find_user
   before_action :redirect_if_admin
+  before_action :find_lab_user_links
 
   def index
-    @lab_user_links = @user.lab_user_links
   end
 
   def update_many
     data = params[:lab_user_links] || {}
 
-    @user.lab_user_links.each do |lab_user_link|
+    @lab_user_links.each do |lab_user_link|
       attributes = data[lab_user_link.id.to_s]
 
       PermissionsService::MODULES.keys.each do |item_key|
@@ -30,13 +31,17 @@ class Admin::LabUserLinksController < Admin::BaseController
 
   protected
 
-  def find_user
-    @user = User.find(params[:user_id])
+  def redirect_if_admin
+    if @user.admin? || @user.lab_manager?
+      redirect_to admin_users_path
+    end
   end
 
-  def redirect_if_admin
-    if @user.admin?
-      redirect_to admin_users_path
+  def find_lab_user_links
+    if current_user.lab_manager?
+      @lab_user_links = @user.lab_user_links.where(lab_id: current_user.lab_ids)
+    else
+      @lab_user_links = @user.lab_user_links
     end
   end
 
@@ -50,4 +55,5 @@ class Admin::LabUserLinksController < Admin::BaseController
       :can_read_events,        :can_write_events
     )
   end
+
 end

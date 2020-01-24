@@ -2,27 +2,37 @@
   <td><%= user.name %></td>
   <td><%= user.email %></td>
 
+  <% if current_user.admin? %>
+    <td class="center">
+      <% if user.admin? %>
+        <%= fa('check') %>
+      <% end %>
+    </td>
+  <% end %>
+
   <td class="center">
-    <% if user.admin? %>
+    <% if user.lab_manager? %>
       <%= fa('check') %>
     <% end %>
   </td>
 
   <td>
-    <% text = "#{user.labs.count} lab(s) accessibles" %>
+    <% text = "#{user.managed_labs_count(current_user)} lab(s) accessible(s)" %>
 
-    <% unless user.admin? || user.labs.empty? %>
-      <%= link_to text, admin_user_lab_user_links_path(user) %>
-    <% else %>
+    <% if user.admin? || user.lab_manager? || user.labs.empty? %>
       <%= text %>
+    <% else %>
+      <%= link_to text, admin_user_lab_user_links_path(user), title: "Gérer les droits d'accès" %>
     <% end %>
   </td>
 
   <td><%= user.last_sign_in_at.present? ? l(user.last_sign_in_at, format: :short) : 'Never' %></td>
 
   <td class="actions">
-    <%= link_to fa('key'),    admin_user_api_key_path(user), :class => 'btn btn-xs btn-primary', :title => "Accès à l'API" %>
-    <%= link_to fa('edit'),   edit_admin_user_path(user),    :class => 'btn btn-xs btn-primary' %>
-    <%= link_to fa('remove'), admin_user_path(user),         :class => "btn btn-xs btn-danger #{user.id == current_user.id ? 'not-visible' : ''}", :data => { :confirm => "Supprimer cet utilisateur ?" }, :method => :delete %>
+    <% if current_user.admin? || !user.admin? %>
+      <%= link_to fa('key'),    admin_user_api_key_path(user), :class => 'btn btn-xs btn-primary', :title => "Accès à l'API" %>
+      <%= link_to fa('edit'),   edit_admin_user_path(user),    :class => 'btn btn-xs btn-primary' %>
+      <%= link_to fa('remove'), admin_user_path(user),         :class => "btn btn-xs btn-danger #{user.id == current_user.id ? 'not-visible' : ''}", :data => { :confirm => "Supprimer cet utilisateur ?" }, :method => :delete %>
+    <% end %>
   </td>
 </tr>

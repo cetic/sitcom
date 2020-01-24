@@ -2,7 +2,11 @@ class Admin::LabsController < Admin::BaseController
   before_action :find_lab, :only => [ :edit, :update, :destroy ]
 
   def index
-    @labs = Lab.order(:name)
+    if current_user.lab_manager?
+      @labs = current_user.labs.order(:name)
+    else
+      @labs = Lab.order(:name)
+    end
   end
 
   def new
@@ -46,7 +50,11 @@ class Admin::LabsController < Admin::BaseController
   protected
 
   def find_lab
-    @lab = Lab.find_by_slug(params[:id])
+    if current_user.lab_manager?
+      @lab = current_user.labs.find_by_slug(params[:id])
+    else
+      @lab = Lab.find_by_slug(params[:id])
+    end
   end
 
   private

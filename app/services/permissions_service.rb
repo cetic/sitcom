@@ -25,11 +25,15 @@ class PermissionsService
     @lab_user_link.present?
   end
 
+  def lab_manager_of_lab?
+    can_access_lab? && user.lab_manager?
+  end
+
   def can_read?(module_key)
-    user.admin? || (can_access_lab? && lab_user_link.send("can_read_#{module_key}?".to_sym))
+    user.admin? || lab_manager_of_lab? || (can_access_lab? && lab_user_link.send("can_read_#{module_key}?".to_sym))
   end
 
   def can_write?(module_key)
-    user.admin? || (can_access_lab? && lab_user_link.send("can_write_#{module_key}?".to_sym))
+    user.admin? || lab_manager_of_lab? || user.lab_manager? || (can_access_lab? && lab_user_link.send("can_write_#{module_key}?".to_sym))
   end
 end

@@ -50,10 +50,6 @@ class Admin::FieldsController < Admin::BaseController
 
   protected
 
-  def find_lab
-    @lab = Lab.find_by_slug(params[:lab_id])
-  end
-
   def find_field
     @field = @lab.fields.find(params[:id])
   end
