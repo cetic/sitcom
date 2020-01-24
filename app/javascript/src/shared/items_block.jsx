@@ -51,8 +51,11 @@ export default class ItemsBlock extends React.Component {
   }
 
   render() {
+    // ex: use projectIds to create projects by removing 'Id'
+    const classes = `associations-block items-block ${this.props.fieldName.replace('Id', '')}-block`
+
     return (
-      <div className="associations-block items-block">
+      <div className={classes}>
         <div className="row">
           <div className="col-md-12">
             <h3>{this.props.label} ({this.props.itemLinks.length})</h3>

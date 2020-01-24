@@ -82,6 +82,7 @@ export default class LinkRole extends React.Component {
           <input type="text"
                  ref="input"
                  className="form-control"
+                 name="role"
                  value={this.state.role}
                  onChange={this.updateRole.bind(this)}
                  onKeyPress={this.saveOnEnter.bind(this)} />

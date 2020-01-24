@@ -11,7 +11,7 @@ class EventOrganizationLinksController < ApplicationController
           @event_organization_link = EventOrganizationLink.find(params[:id])
 
           if @event_organization_link.event.lab_id == @lab.id
-            @event_organization_link.update_attributes!(strong_params)
+            @event_organization_link.update!(strong_params)
 
             render_json_success
           else

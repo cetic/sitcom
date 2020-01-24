@@ -12,7 +12,7 @@ class Tag < ActiveRecord::Base
 
   validates :name, :presence => true
 
-  validates_uniqueness_of :name, :scope => [ :lab_id, :item_type ]
+  validates_uniqueness_of :name, :scope => [ :lab_id, :item_type ], :case_sensitive => false
 
   def self.random_color(lab)
     lab_colors = lab.tags.collect(&:color)

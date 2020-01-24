@@ -22,6 +22,13 @@ describe 'Basic contacts', :js => true do
   it 'displays contacts sorted in listing' do
     visit lab_path(@lab)
 
+    # MySQL sort is not the same as ruby sort on accents
+    Contact.all.to_a.each do |contact|
+      contact.update(:last_name => I18n.transliterate(contact.last_name))
+    end
+
+    Contact.__elasticsearch__.refresh_index!
+
     page_names = all('.contact .name').collect { |span| span.text }
     db_names   = @lab.contacts.sort_by(&:last_name).collect(&:name)
 
@@ -229,9 +236,11 @@ describe 'Basic contacts', :js => true do
       fill_in 'Titre de la note', :with => 'Une note privée', :wait => 5
       fill_in 'Contenu', :with => "Contenu d'une note privée", :wait => 5
 
+      sleep 1.0
+
       find('.actions .btn-primary', :wait => 5).click # Ajouter
 
-      sleep 5.0 # time to get websocket
+      sleep 1.0 # time to get websocket
 
       page.should have_content('Notes publiques (1)', :wait => 10)
       page.should have_content('Notes privées (1)',   :wait => 10)
@@ -298,13 +307,84 @@ describe 'Basic contacts', :js => true do
     contact.custom_field_links.where(:custom_field => sex_field).first.text_value.should     == 'Femme'
   end
 
-  xit 'can add an organization to contacts' do
+  it 'can add an organization to contacts and the contact role', :focus => true do
+    organization = FactoryBot.create(:organization, :lab => @lab)
+
+    Organization.__elasticsearch__.refresh_index!
+
+    contact = @lab.contacts.first
+
+    visit lab_contact_path(@lab, contact)
+
+    within '.organizations-block' do
+      page.should have_content("Aucune organisation.")
+
+      # Select first organization
+      find('.Select-placeholder', :wait => 3).click
+      find('.Select-menu-outer', :wait => 3).click
+
+      page.should have_content(organization.name)
+
+      find('h4').hover
+
+      click_on 'Modifier le rôle', :wait => 5
+      fill_in 'role', :with => "Prestataire\n"
+
+      sleep 1.0
+    end
+
+    contact.reload
+
+    contact.organizations.should == [organization]
+    contact.contact_organization_links.first.role.should == 'Prestataire'
   end
 
-  xit 'can add a project to contacts' do
+  it 'can add a project to contacts' do
+    project = FactoryBot.create(:project, :lab => @lab)
+
+    Project.__elasticsearch__.refresh_index!
+
+    contact = @lab.contacts.first
+
+    visit lab_contact_path(@lab, contact)
+
+    within '.projects-block' do
+      page.should have_content("Aucun projet.")
+
+      # Select first project
+      find('.Select-placeholder', :wait => 3).click
+      find('.Select-menu-outer', :wait => 3).click
+
+      page.should have_content(project.name)
+    end
+
+    contact.reload
+
+    contact.projects.should == [project]
   end
 
-  xit 'can add an event to contacts' do
+  it 'can add an event to contacts' do
+    event = FactoryBot.create(:event, :lab => @lab)
+
+    Event.__elasticsearch__.refresh_index!
+
+    contact = @lab.contacts.first
+
+    visit lab_contact_path(@lab, contact)
+
+    within '.events-block' do
+      page.should have_content("Aucun évènement.")
+
+      # Select first event
+      find('.Select-placeholder', :wait => 3).click
+      find('.Select-menu-outer', :wait => 3).click
+
+      page.should have_content(event.name)
+    end
+
+    contact.reload
+
+    contact.events.should == [event]
   end
 
   xit "can't edit/delete any information if user has no permissions" do
@@ -315,10 +395,10 @@ describe 'Basic contacts', :js => true do
     find('.item-show h1').hover # to make button appear
   end
 
-  xit 'can create a contact' do
+  xit 'can navigate through contacts (next/previous)' do
   end
 
-  xit 'can navigate through contacts (next/previous)' do
+  xit 'can create a contact' do
   end
 
   xit 'can delete a contact' do

@@ -11,7 +11,7 @@ class ContactEventLinksController < ApplicationController
           @contact_event_link = ContactEventLink.find(params[:id])
 
           if @contact_event_link.contact.lab_id == @lab.id
-            @contact_event_link.update_attributes!(strong_params)
+            @contact_event_link.update!(strong_params)
 
             render_json_success
           else

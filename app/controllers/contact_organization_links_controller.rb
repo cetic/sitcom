@@ -11,7 +11,7 @@ class ContactOrganizationLinksController < ApplicationController
           @contact_organization_link = ContactOrganizationLink.find(params[:id])
 
           if @contact_organization_link.contact.lab_id == @lab.id
-            @contact_organization_link.update_attributes!(strong_params)
+            @contact_organization_link.update!(strong_params)
 
             render_json_success
           else

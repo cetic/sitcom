@@ -11,7 +11,7 @@ class OrganizationProjectLinksController < ApplicationController
           @organization_project_link = OrganizationProjectLink.find(params[:id])
 
           if @organization_project_link.organization.lab_id == @lab.id
-            @organization_project_link.update_attributes!(strong_params)
+            @organization_project_link.update!(strong_params)
 
             render_json_success
           else

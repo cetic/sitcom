@@ -873,6 +873,18 @@
 }
 
 @media (max-width: $screen-sm-max) {
+  nav.navbar {
+    #navbar, .user {
+      li > a, li.dropdown > a {
+        padding-left: 8px;
+        padding-right: 8px;
+        font-size: 11px;
+        padding-top: 21px;
+        padding-bottom: 15px;
+      }
+    }
+  }
+
   .items {
     padding-left: 20px;
     padding-right: 20px;

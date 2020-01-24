@@ -11,7 +11,7 @@ class ContactProjectLinksController < ApplicationController
           @contact_project_link = ContactProjectLink.find(params[:id])
 
           if @contact_project_link.contact.lab_id == @lab.id
-            @contact_project_link.update_attributes!(strong_params)
+            @contact_project_link.update!(strong_params)
 
             render_json_success
           else

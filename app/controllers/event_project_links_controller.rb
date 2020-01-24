@@ -11,7 +11,7 @@ class EventProjectLinksController < ApplicationController
           @event_project_link = EventProjectLink.find(params[:id])
 
           if @event_project_link.event.lab_id == @lab.id
-            @event_project_link.update_attributes!(strong_params)
+            @event_project_link.update!(strong_params)
 
             render_json_success
           else
