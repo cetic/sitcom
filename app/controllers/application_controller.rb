@@ -67,7 +67,8 @@ class ApplicationController < ActionController::Base
   end
 
   def render_xlsx(data, filename)
-    send_data(data, :disposition => :attachment, :filename => filename)
+    # send_data(data, :disposition => :attachment, :filename => filename)
+    send_data(data, :disposition => :inline, :filename => filename)
   end
 
   def admin_page?

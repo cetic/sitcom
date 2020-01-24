@@ -62,11 +62,43 @@ RSpec.configure do |config|
     browser_options.args << '--window-size=1440,900'          # Useful for screenshots but slower!
     browser_options.args << '--disable-site-isolation-trials' # Workaround https://bugs.chromium.org/p/chromedriver/issues/detail?id=2650&q=load&sort=-id&colspec=ID%20Status%20Pri%20Owner%20Summary
 
-    Capybara::Selenium::Driver.new(app, {
+    # https://gist.github.com/bbonamin/4b01be9ed5dd1bdaf909462ff4fdca95
+
+    download_path = DownloadHelpers::PATH
+    FileUtils.mkdir_p(download_path)
+
+    browser_options.add_preference(:download,
+      prompt_for_download: false,
+      default_directory:   download_path
+    )
+
+    browser_options.add_preference(:browser, set_download_behavior: { behavior: 'allow' })
+
+    driver = Capybara::Selenium::Driver.new(app, {
       :browser              => :chrome,
       :options              => browser_options,
-      :desired_capabilities => Selenium::WebDriver::Remote::Capabilities.chrome(:loggingPrefs => { :browser => 'ALL' })
+      :desired_capabilities => Selenium::WebDriver::Remote::Capabilities.chrome(
+        :loggingPrefs => {
+          :browser => 'ALL'
+        }
+      )
     })
+
+    ### Allow file downloads in Google Chrome when headless!!!
+    ### https://bugs.chromium.org/p/chromium/issues/detail?id=696481#c89
+    bridge = driver.browser.send(:bridge)
+
+    path = '/session/:session_id/chromium/send_command'
+    path[':session_id'] = bridge.session_id
+
+    bridge.http.call(:post, path, cmd: 'Page.setDownloadBehavior',
+                                  params: {
+                                    behavior:     'allow',
+                                    downloadPath: download_path
+                                  })
+    ###
+
+    driver
   end
 
   Capybara.register_driver :selenium_firefox_headless do |app|
