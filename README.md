@@ -1,6 +1,9 @@
 # SItCOM CRM
 
-License : MIT.
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Build Status](https://img.shields.io/travis/cetic/sitcom/master.svg?style=flat-square)](https://travis-ci.org/cetic/sitcom)
+
+Sitcom is a CRM that connects persons, organisations and projects for Living Labs.
 
 ## Development
 
@@ -44,4 +47,5 @@ See `DEPLOY.md` on how to deploy on a Debian server.
 ## Misc
 
 SItCOM CRM uses [Bugsnag](https://bugsnag.com) for bugtracking.
+
 ![Bugsnag](https://avatars3.githubusercontent.com/u/1058895?s=200&v=4)
