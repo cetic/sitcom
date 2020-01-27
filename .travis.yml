@@ -2,6 +2,10 @@ language: ruby
 
 sudo: false
 
+env:
+  global:
+    - ELASTIC_SEARCH_URL="http://127.0.0.1:9200" # ES is on port 9200 on Travis and 9201 on local
+
 services:
   - mysql
   - elasticsearch
@@ -22,7 +26,7 @@ before_script:
   - sleep 10 # Starting ES takes time: https://docs.travis-ci.com/user/database-setup/#elasticsearch
 
 script:
-  - ELASTIC_SEARCH_URL="http://127.0.0.1:9200" bundle exec rspec # ES is on port 9200 on Travis and 9201 on local
+  - bundle exec rspec
 
 notifications:
   email:
