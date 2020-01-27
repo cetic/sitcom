@@ -6,6 +6,9 @@ env:
   global:
     - ELASTIC_SEARCH_URL="http://127.0.0.1:9200" # ES is on port 9200 on Travis and 9201 on local
 
+addons: # get google-chrome-stable
+  chrome: stable
+
 services:
   - mysql
   - elasticsearch
@@ -19,6 +22,7 @@ before_install:
   - sudo -i service elasticsearch restart
 
 before_script:
+  - yarn
   - bundle exec rake db:drop || true
   - bundle exec rake db:create
   - bundle exec rake db:migrate
