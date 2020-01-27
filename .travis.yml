@@ -18,7 +18,9 @@ before_install:
   #- sudo service elasticsearch restart
 
 before_script:
-  - bundle exec rake db:schema:load
+  - bundle exec rake db:drop || true
+  - bundle exec rake db:create
+  - bundle exec rake db:migrate
   - bundle exec rake environment elasticsearch:import:all FORCE=true
   - sleep 10 # Starting ES takes time: https://docs.travis-ci.com/user/database-setup/#elasticsearch
 
