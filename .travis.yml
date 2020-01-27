@@ -1,3 +1,5 @@
+dist: bionic # for newest node version
+
 language: ruby
 
 sudo: false
