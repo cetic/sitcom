@@ -8,13 +8,19 @@ services:
   - redis-server
 
 before_install:
-  - curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.4.2-amd64.deb && sudo dpkg -i --force-confnew elasticsearch-7.4.2-amd64.deb && sudo service elasticsearch restart
+  - curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.4.2-amd64.deb
+  - sudo dpkg -i --force-confnew elasticsearch-7.4.2-amd64.deb
+  - sudo service elasticsearch restart
 
 before_script:
   - sleep 10 # Starting ES takes time: https://docs.travis-ci.com/user/database-setup/#elasticsearch
 
 script:
   - bundle exec rspec
+
+after_failure:
+  - systemctl status elasticsearch.service
+  - journalctl -xe
 
 notifications:
   email:
