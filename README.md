@@ -40,3 +40,8 @@ bundle exec rspec
 ## Production
 
 See `DEPLOY.md` on how to deploy on a Debian server.
+
+## Misc
+
+SItCOM CRM uses [Bugsnag](https://bugsnag.com) for bugtracking.
+![Bugsnag](https://avatars3.githubusercontent.com/u/1058895?s=200&v=4)
