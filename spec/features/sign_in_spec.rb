@@ -13,7 +13,11 @@ describe 'Sign in' do
   end
 
   it 'works and allows the user to select a lab (only the first time!)' do
+    sleep 0.2
+
     visit '/'
+
+    sleep 0.2
 
     within '.container form#new_user', :wait => 10 do
       fill_in 'Email',        :with => @user.email

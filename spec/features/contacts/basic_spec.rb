@@ -22,7 +22,10 @@ describe 'Basic contacts', :js => true do
   it 'displays contacts sorted in listing' do
     # MySQL sort is not the same as ruby sort on accents
     Contact.all.to_a.each do |contact|
-      contact.update(:last_name => I18n.transliterate(contact.last_name))
+      contact.update(
+        :first_name => I18n.transliterate(contact.first_name),
+        :last_name  => I18n.transliterate(contact.last_name)
+      )
     end
 
     Contact.__elasticsearch__.refresh_index!
@@ -394,7 +397,10 @@ describe 'Basic contacts', :js => true do
   it 'can navigate through contacts (next/previous)' do
     # MySQL sort is not the same as ruby sort on accents
     Contact.all.to_a.each do |contact|
-      contact.update(:last_name => I18n.transliterate(contact.last_name))
+      contact.update(
+        :first_name => I18n.transliterate(contact.first_name),
+        :last_name  => I18n.transliterate(contact.last_name)
+      )
     end
 
     Contact.__elasticsearch__.refresh_index!
