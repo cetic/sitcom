@@ -27,6 +27,7 @@ gem 'font-awesome-rails'
 gem 'rmagick'
 gem 'carrierwave'
 
+# Jobs
 gem 'redis'
 gem 'sidekiq'
 
@@ -42,6 +43,7 @@ gem 'kaminari'
 gem 'rabl'
 gem 'rubyXL', '3.4.9'
 gem 'uuidtools'
+gem 'bugsnag'
 
 gem 'bootsnap', '>= 1.1.0', :require => false
 

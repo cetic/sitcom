@@ -75,6 +75,8 @@ GEM
     bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
+    bugsnag (6.13.0)
+      concurrent-ruby (~> 1.0)
     builder (3.2.4)
     byebug (11.0.1)
     capistrano (3.11.2)
@@ -368,6 +370,7 @@ DEPENDENCIES
   acts_as_list
   bootsnap (>= 1.1.0)
   bootstrap-sass
+  bugsnag
   byebug
   capistrano (= 3.11.2)
   capistrano-bundler

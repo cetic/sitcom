@@ -1,4 +1,5 @@
 require 'dotenv'
+
 Dotenv.load('.env.deploy.production')
 
 server ENV['DEPLOY_HOSTNAME'], port:  ENV['DEPLOY_SSH_PORT'],

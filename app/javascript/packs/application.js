@@ -29,6 +29,7 @@ global.hashHistory = require('react-router').hashHistory
 global.humps       = require('humps')
 global.moment      = require('moment')
 global._           = require('lodash')
+global.bugsnag     = require('@bugsnag/js')
 
 global.http        = require('../src/shared/http_service.jsx').default
 
