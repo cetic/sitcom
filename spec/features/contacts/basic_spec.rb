@@ -387,14 +387,6 @@ describe 'Basic contacts', :js => true do
     contact.events.should == [event]
   end
 
-  xit "can't edit/delete any information if user has no permissions" do
-    contact = @lab.contacts.first
-
-    visit lab_contact_path(@lab, contact)
-
-    find('.item-show h1').hover # to make button appear
-  end
-
   it 'can navigate through contacts (next/previous)' do
     # MySQL sort is not the same as ruby sort on accents
     Contact.all.to_a.each do |contact|
@@ -438,12 +430,152 @@ describe 'Basic contacts', :js => true do
     page.should have_content(contact_db_names[2])
   end
 
-  xit 'can create a contact' do
+  it 'can create a contact' do
+    visit lab_contacts_path(@lab)
+
+    click_on 'Nouveau contact'
+
+    sleep 0.1
+
+    fill_in 'first-name', :with => 'Bob'
+    fill_in 'last-name',  :with => 'Dylan'
+    fill_in 'email',      :with => 'bob.dylan@gmail.com'
+
+    click_on 'Créer'
+
+    within '.item-show h1' do
+      page.should have_content("Bob Dylan")
+    end
+
+    page.current_path.should == "/#{@lab.slug}/contacts/#{Contact.pluck(:id).max}"
+
+    page.should have_content("Retour à la liste")
+
+    Contact.order('id ASC').last.attributes.should include({
+      'first_name' => 'Bob',
+      'last_name'  => 'Dylan',
+      'email'      => 'bob.dylan@gmail.com'
+    })
   end
 
-  xit 'can delete a contact' do
+  it 'can delete a contact' do
+    contact = @lab.contacts.first
+
+    visit lab_contact_path(@lab, contact)
+
+    within '.item-show', :wait => 3 do
+      find('h1').hover # to make button appear
+
+      find('.dropdown-toggle').click
+
+      click_on 'Supprimer'
+
+      alert = page.driver.browser.switch_to.alert
+      alert.text.should == "Supprimer ce contact ?"
+      alert.accept
+
+      sleep 0.2 # for firefox!
+    end
+
+    page.current_path.should == "/#{@lab.slug}/contacts"
+
+    page.should_not have_content(contact.name)
+
+    Contact.where(:id => contact.id).should == []
   end
 
-  xit 'propagates changes of a contact into the list of contacts' do
+  it "can't create/edit/delete any information if user has no permissions" do
+    LabUserLink.first.update(
+      :can_write_contacts => false
+    )
+
+    contact = @lab.contacts.first
+
+    visit lab_contacts_path(@lab)
+
+    # Can't create
+    page.should_not have_content('Nouveau')
+
+    visit lab_contact_path(@lab, contact)
+
+    # Can edit or delete
+    within '.item-show', :wait => 3 do
+      find('h1').hover # to make button appear
+
+      page.should_not have_content('Modifier')
+    end
+  end
+
+  it "can't read any information is user has no permissions" do
+    LabUserLink.first.update(
+      :can_write_contacts => false,
+      :can_read_contacts  => false
+    )
+
+    contact = @lab.contacts.first
+
+    visit lab_contacts_path(@lab)
+
+    page.should have_content("Vous n'avez pas accès à cette page.")
+  end
+
+  it 'propagates changes of a contact into the list of contacts' do
+    contact      = @lab.contacts.first
+    Contact.where(:id => Contact.pluck(:id) - [contact.id]).each { |c| c.destroy! } # keep only 1 contact
+    organization = FactoryBot.create(:organization, :lab => @lab)
+
+    Contact.__elasticsearch__.refresh_index!
+    Organization.__elasticsearch__.refresh_index!
+
+    visit lab_contact_path(@lab, contact)
+
+    within '.item-show', :wait => 3 do
+      find('h1').hover # to make button appear
+
+      click_on 'Modifier', :wait => 3
+
+      fill_in 'Prénom', :with => 'Steve'
+      fill_in 'Nom',    :with => 'Jobs'
+
+      # Add expertise (Select first field)
+      within '.item-show .general' do
+        find('.Select-placeholder', :wait => 3).click
+        find('.Select-menu-outer', :wait => 3).click
+      end
+
+      click_on 'Enregistrer'
+    end
+
+    # Add tag
+    within '.item-show .general' do
+      find('.new-tag', :wait => 3).click
+      fill_in 'Créer un nouveau tag', :with => "test tag\n"
+      find('.new-tag', :wait => 3).click # close
+    end
+
+    # Add oragnization
+    within '.organizations-block' do
+      # Select first organization
+      find('.Select-placeholder', :wait => 3).click
+      find('.Select-menu-outer', :wait => 3).click
+
+      sleep 1.0
+    end
+
+    click_on 'Retour à la liste'
+
+    page.current_path.should == "/#{@lab.slug}/contacts"
+
+    # Correct name
+    page.should have_content('Steve Jobs')
+
+    # Correct organization
+    page.should have_content(Organization.first.name)
+
+    # Correct field
+    page.should have_content(Field.first.name)
+
+    # Correct tag
+    page.should have_content('test tag')
   end
 end

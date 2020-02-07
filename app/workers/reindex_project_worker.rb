@@ -10,7 +10,7 @@ class ReindexProjectWorker
       project.contacts.import
     else
       index_name = Project.__elasticsearch__.index_name
-      Project.__elasticsearch__.client.delete :index => index_name, :type => 'project', :id => id
+      Project.__elasticsearch__.client.delete :index => index_name, :id => id
 
       Contact.where(:id => contact_ids).import
     end

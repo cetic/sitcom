@@ -12,7 +12,7 @@ class ReindexContactWorker
       contact.events.import
     else
       index_name = Contact.__elasticsearch__.index_name
-      Contact.__elasticsearch__.client.delete :index => index_name, :type => 'contact', :id => id
+      Contact.__elasticsearch__.client.delete :index => index_name, :id => id
 
       Organization.where(:id => organization_ids).import
       Project.where(:id => project_ids).import

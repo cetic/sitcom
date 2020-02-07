@@ -10,7 +10,7 @@ class ReindexOrganizationWorker
       organization.contacts.import
     else
       index_name = Organization.__elasticsearch__.index_name
-      Organization.__elasticsearch__.client.delete :index => index_name, :type => 'organization', :id => id
+      Organization.__elasticsearch__.client.delete :index => index_name, :id => id
 
       Contact.where(:id => contact_ids).import
     end

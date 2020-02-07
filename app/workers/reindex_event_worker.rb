@@ -10,7 +10,7 @@ class ReindexEventWorker
       event.contacts.import
     else
       index_name = Event.__elasticsearch__.index_name
-      Event.__elasticsearch__.client.delete :index => index_name, :type => 'event', :id => id
+      Event.__elasticsearch__.client.delete :index => index_name, :id => id
 
       Contact.where(:id => contact_ids).import
     end
