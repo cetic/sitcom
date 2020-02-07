@@ -31,7 +31,7 @@ describe 'Organizations export', :download_file => true do
 
     FactoryBot.create(:note, :notable => organization1, :privacy => :public,  :text => 'bla bla')
 
-    Contact.__elasticsearch__.refresh_index!
+    Organization.__elasticsearch__.refresh_index!
 
     login_as @user
   end

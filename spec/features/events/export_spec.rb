@@ -31,7 +31,7 @@ describe 'Contacts export', :download_file => true do
 
     FactoryBot.create(:note, :notable => event1, :privacy => :public, :text => 'bla bla')
 
-    Contact.__elasticsearch__.refresh_index!
+    Event.__elasticsearch__.refresh_index!
 
     login_as @user
   end

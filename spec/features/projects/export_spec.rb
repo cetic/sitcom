@@ -31,7 +31,7 @@ describe 'Projects export', :download_file => true do
 
     FactoryBot.create(:note, :notable => project1, :privacy => :public, :text => 'bla bla')
 
-    Contact.__elasticsearch__.refresh_index!
+    Project.__elasticsearch__.refresh_index!
 
     login_as @user
   end
