@@ -178,8 +178,10 @@ describe 'Basic contacts', :js => true do
       find('.tag-item .fa-remove', :wait => 3).click
       find('.new-tag', :wait => 3).click # close
 
+      sleep 1.0
+
       within '.tags', :wait => 10 do
-        page.should_not have_content('small test')
+        page.should_not have_content('small test', :wait => 10)
       end
     end
 
@@ -265,7 +267,7 @@ describe 'Basic contacts', :js => true do
     private_note.text.should == "Contenu d'une note privée"
   end
 
-  it 'can edit different custom fields' do
+  it 'can edit different custom fields', :focus => true do
     blood_field   = @lab.custom_fields.create!(:name => "Groupe sanguin", :field_type => :text)
     donator_field = @lab.custom_fields.create!(:name => "Donateur", :field_type => :bool)
     sex_field     = @lab.custom_fields.create!({
@@ -292,12 +294,14 @@ describe 'Basic contacts', :js => true do
       # Sexe
       find('.col-md-6:nth-child(3) button', :wait => 3).click
       find('.Select-placeholder', :wait => 3).click
-      find('.Select-menu-outer', :wait => 3).click # Select "Femme"
+      find('.Select-option[aria-label=  "Femme"]').click
       find('.col-md-6:nth-child(3) button', :wait => 3).click
 
-      page.should have_content('A Négatif')
-      page.should have_content('Oui')
-      page.should have_content('Femme')
+      sleep 0.2
+
+      page.should have_content('A Négatif', :wait => 10)
+      page.should have_content('Oui',       :wait => 10)
+      page.should have_content('Femme',     :wait => 10)
     end
 
     contact.reload
@@ -435,7 +439,7 @@ describe 'Basic contacts', :js => true do
 
     click_on 'Nouveau contact'
 
-    sleep 0.1
+    sleep 0.4
 
     fill_in 'first-name', :with => 'Bob'
     fill_in 'last-name',  :with => 'Dylan'
@@ -443,7 +447,9 @@ describe 'Basic contacts', :js => true do
 
     click_on 'Créer'
 
-    within '.item-show h1' do
+    sleep 0.4
+
+    within '.item-show h1', :wait => 10 do
       page.should have_content("Bob Dylan")
     end
 

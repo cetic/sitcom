@@ -15,7 +15,7 @@ describe 'Sign in' do
   it 'works and allows the user to select a lab (only the first time!)' do
     visit '/'
 
-    within '.container form#new_user' do
+    within '.container form#new_user', :wait => 10 do
       fill_in 'Email',        :with => @user.email
       fill_in 'Mot de passe', :with => 'dumbpassword'
 
