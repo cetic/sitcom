@@ -265,6 +265,7 @@ describe 'Basic projects', :js => true do
 
       # Select first contact
       find('.Select-placeholder', :wait => 3).click
+      sleep 0.3
       find('.Select-menu-outer', :wait => 3).click
 
       page.should have_content(contact.name)
@@ -297,6 +298,7 @@ describe 'Basic projects', :js => true do
 
       # Select first organization
       find('.Select-placeholder', :wait => 3).click
+      sleep 0.3
       find('.Select-menu-outer', :wait => 3).click
 
       page.should have_content(organization.name)
@@ -321,6 +323,7 @@ describe 'Basic projects', :js => true do
 
       # Select first event
       find('.Select-placeholder', :wait => 3).click
+      sleep 0.3
       find('.Select-menu-outer', :wait => 3).click
 
       page.should have_content(event.name)
@@ -495,6 +498,7 @@ describe 'Basic projects', :js => true do
     within '.contacts-block' do
       # Select first contact
       find('.Select-placeholder', :wait => 3).click
+      sleep 0.3
       find('.Select-menu-outer', :wait => 3).click
 
       sleep 1.0

@@ -268,6 +268,7 @@ describe 'Basic events', :js => true, :focus => true do
 
       # Select first contact
       find('.Select-placeholder', :wait => 3).click
+      sleep 0.3
       find('.Select-menu-outer', :wait => 3).click
 
       page.should have_content(contact.name)
@@ -300,6 +301,7 @@ describe 'Basic events', :js => true, :focus => true do
 
       # Select first organization
       find('.Select-placeholder', :wait => 3).click
+      sleep 0.3
       find('.Select-menu-outer', :wait => 3).click
 
       page.should have_content(organization.name)
@@ -310,7 +312,7 @@ describe 'Basic events', :js => true, :focus => true do
     event.organizations.should == [organization]
   end
 
-  it 'can add an project to events' do
+  it 'can add a project to events' do
     project = FactoryBot.create(:project, :lab => @lab)
 
     Project.__elasticsearch__.refresh_index!
@@ -324,6 +326,7 @@ describe 'Basic events', :js => true, :focus => true do
 
       # Select first project
       find('.Select-placeholder', :wait => 3).click
+      sleep 0.3
       find('.Select-menu-outer', :wait => 3).click
 
       page.should have_content(project.name)
@@ -505,6 +508,7 @@ describe 'Basic events', :js => true, :focus => true do
     within '.contacts-block' do
       # Select first contact
       find('.Select-placeholder', :wait => 3).click
+      sleep 0.3
       find('.Select-menu-outer', :wait => 3).click
 
       sleep 1.0

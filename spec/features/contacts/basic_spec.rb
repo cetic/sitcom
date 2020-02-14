@@ -126,6 +126,7 @@ describe 'Basic contacts', :js => true do
     # Select first field
     within '.item-show .general' do
       find('.Select-placeholder', :wait => 3).click
+      sleep 0.3
       find('.Select-menu-outer', :wait => 3).click
 
       click_on 'Enregistrer', :wait => 4
@@ -330,6 +331,7 @@ describe 'Basic contacts', :js => true do
 
       # Select first organization
       find('.Select-placeholder', :wait => 3).click
+      sleep 0.3
       find('.Select-menu-outer', :wait => 3).click
 
       page.should have_content(organization.name)
@@ -362,6 +364,7 @@ describe 'Basic contacts', :js => true do
 
       # Select first project
       find('.Select-placeholder', :wait => 3).click
+      sleep 0.3
       find('.Select-menu-outer', :wait => 3).click
 
       page.should have_content(project.name)
@@ -386,6 +389,7 @@ describe 'Basic contacts', :js => true do
 
       # Select first event
       find('.Select-placeholder', :wait => 3).click
+      sleep 0.3
       find('.Select-menu-outer', :wait => 3).click
 
       page.should have_content(event.name)
@@ -554,6 +558,7 @@ describe 'Basic contacts', :js => true do
       # Add expertise (Select first field)
       within '.item-show .general' do
         find('.Select-placeholder', :wait => 3).click
+        sleep 0.3
         find('.Select-menu-outer', :wait => 3).click
       end
 
@@ -571,6 +576,7 @@ describe 'Basic contacts', :js => true do
     within '.organizations-block' do
       # Select first organization
       find('.Select-placeholder', :wait => 3).click
+      sleep 0.3
       find('.Select-menu-outer', :wait => 3).click
 
       sleep 1.0
