@@ -79,7 +79,7 @@ class OrganizationsController < ApplicationController
           @organization            = @lab.organizations.find(params[:id])
           previous_association_ids = @organization.association_ids
 
-          if @organization.update_attributes(strong_params)
+          if @organization.update(strong_params)
             LogEntry.log_update(current_user, @organization, previous_association_ids)
 
             render_json_success

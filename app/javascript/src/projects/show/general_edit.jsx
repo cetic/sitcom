@@ -129,6 +129,7 @@ export default class GeneralEdit extends React.Component {
         <label>Description</label>
 
         <textarea className="description"
+                  name="description"
                   defaultValue={this.state.description}
                   onChange={this.updateDescription.bind(this)} />
       </div>

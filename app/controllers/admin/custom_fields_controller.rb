@@ -34,7 +34,7 @@ class Admin::CustomFieldsController < Admin::BaseController
   def update
     @custom_field = @lab.custom_fields.find(params[:id])
 
-    if @custom_field.update_attributes(strong_params)
+    if @custom_field.update(strong_params)
       @custom_field.ensure_concistency
       ReindexAllItemsWorker.perform_async(@lab.id, @custom_field.item_type)
       redirect_to admin_lab_custom_fields_path(@lab)

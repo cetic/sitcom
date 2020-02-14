@@ -79,7 +79,7 @@ class ProjectsController < ApplicationController
           @project                 = @lab.projects.find(params[:id])
           previous_association_ids = @project.association_ids
 
-          if @project.update_attributes(strong_params)
+          if @project.update(strong_params)
             LogEntry.log_update(current_user, @project, previous_association_ids)
 
             render_json_success

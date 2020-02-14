@@ -70,7 +70,7 @@ export default class NewItem extends React.Component {
                   { this.renderErrors() }
 
                   <div className="form-group">
-                    <label className="control-label col-md-4" htmlFor="field">
+                    <label className="control-label col-md-4" htmlFor="name">
                       { this.props.fieldTitle }
                     </label>
                     <div className="col-md-8">
@@ -80,7 +80,7 @@ export default class NewItem extends React.Component {
                              className="form-control"
                              required="required"
                              type="text"
-                             id="field"/>
+                             id="name"/>
                     </div>
                   </div>
                 </div>

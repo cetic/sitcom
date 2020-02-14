@@ -125,6 +125,7 @@ export default class GeneralEdit extends React.Component {
         <label>Description</label>
 
         <textarea className="description"
+                  name="description"
                   defaultValue={this.state.description}
                   onChange={this.updateDescription.bind(this)} />
       </div>
@@ -138,6 +139,7 @@ export default class GeneralEdit extends React.Component {
 
         <input type="text"
                className="website-url"
+               name="website"
                defaultValue={this.state.websiteUrl}
                onChange={this.updateWebsiteUrl.bind(this)} />
       </div>

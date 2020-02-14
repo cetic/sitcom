@@ -79,7 +79,7 @@ class EventsController < ApplicationController
           @event                   = @lab.events.find(params[:id])
           previous_association_ids = @event.association_ids
 
-          if @event.update_attributes(strong_params)
+          if @event.update(strong_params)
             LogEntry.log_update(current_user, @event, previous_association_ids)
 
             render_json_success

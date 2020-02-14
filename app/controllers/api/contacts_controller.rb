@@ -37,7 +37,7 @@ class Api::ContactsController < Api::BaseController
     if PermissionsService.new(@current_user, @lab).can_write?('contacts')
       previous_association_ids = @contact.association_ids
 
-      if @contact.update_attributes(strong_params)
+      if @contact.update(strong_params)
         LogEntry.log_update(@current_user, @contact, previous_association_ids)
         cleanup_orphan_tags
 

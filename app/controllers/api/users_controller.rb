@@ -21,7 +21,7 @@ class Api::UsersController < Api::BaseController
   end
 
   def update
-    if @user.update_attributes(strong_params)
+    if @user.update(strong_params)
       render 'show'
     else
       render_errors(@user.errors.messages)

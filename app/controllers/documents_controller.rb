@@ -64,7 +64,7 @@ class DocumentsController < ApplicationController
   def update
     respond_to do |format|
       format.json do
-        if @document.update_attributes(strong_params)
+        if @document.update(strong_params)
           # we don't save changes of description, only uploading and removing of files
           #LogEntry.log_update_document(current_user, @document)
 

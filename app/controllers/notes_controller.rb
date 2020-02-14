@@ -53,7 +53,7 @@ class NotesController < ApplicationController
   def update
     respond_to do |format|
       format.json do
-        if @note.update_attributes(strong_params)
+        if @note.update(strong_params)
           LogEntry.log_update_note(current_user, @note)
 
           render_json_success

@@ -165,7 +165,8 @@ describe 'Basic contacts', :js => true do
   it 'can remove a tag from a contact' do
     contact = @lab.contacts.first
 
-    contact.tags << Tag.create(:lab => @lab, :name => 'small test', :color => '#cccccc')
+    contact_tag = Tag.create(:lab => @lab, :name => 'small test', :color => '#cccccc', :item_type => 'Contact')
+    contact.tags << contact_tag
 
     contact.tags.first.name.should == 'small test'
 
@@ -270,13 +271,14 @@ describe 'Basic contacts', :js => true do
     private_note.text.should == "Contenu d'une note privée"
   end
 
-  it 'can edit different custom fields', :focus => true do
-    blood_field   = @lab.custom_fields.create!(:name => "Groupe sanguin", :field_type => :text)
-    donator_field = @lab.custom_fields.create!(:name => "Donateur", :field_type => :bool)
+  it 'can edit different custom fields' do
+    blood_field   = @lab.custom_fields.create!(:name => "Groupe sanguin", :field_type => :text, :item_type => 'Contact')
+    donator_field = @lab.custom_fields.create!(:name => "Donateur", :field_type => :bool, :item_type => 'Contact')
     sex_field     = @lab.custom_fields.create!({
       :name       => "Sexe",
       :field_type => :enum,
-      :options    => ['Homme', 'Femme']
+      :options    => ['Homme', 'Femme'],
+      :item_type  => 'Contact'
     })
 
     contact = @lab.contacts.first
@@ -565,7 +567,7 @@ describe 'Basic contacts', :js => true do
       find('.new-tag', :wait => 3).click # close
     end
 
-    # Add oragnization
+    # Add organization
     within '.organizations-block' do
       # Select first organization
       find('.Select-placeholder', :wait => 3).click
