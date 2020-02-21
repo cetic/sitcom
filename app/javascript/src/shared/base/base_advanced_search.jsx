@@ -46,7 +46,7 @@ export default class BaseAdvancedSearch extends React.Component {
       <div className="form-group">
         <label className="col-sm-3 control-label">{labelName}</label>
 
-        <div className="col-sm-9">
+        <div className={ `col-sm-9 col-${itemType}` }>
           <ItemsSelect itemType={this.itemType}
                        itemIds={this.props.filters[fieldName]}
                        optionsPath={optionsPath}
