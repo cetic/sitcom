@@ -5,17 +5,36 @@ class LogEntriesController < ApplicationController
 
   def index
     respond_to do |format|
+      format.html do
+        render './shared/routes'
+      end
+
       format.json do
-        if PermissionsService.new(current_user, @lab).can_read?(@item_type)
-          if @item
-            @log_entries = @item.log_entries
-          else # deleted item?
-            @log_entries = @lab.log_entries.where(:item_id => @item_id, :item_type => @item_type.to_s.singularize.capitalize)
+        if @item_type
+          if PermissionsService.new(current_user, @lab).can_read?(@item_type)
+            if @item
+              @log_entries = @item.log_entries
+            else # deleted item?
+              @log_entries = @lab.log_entries.where(
+                :item_id   => @item_id,
+                :item_type => @item_type.to_s.singularize.capitalize
+              )
+            end
+
+            @log_entries = @log_entries.order(:created_at => :desc)
+          else
+            render_permission_error
+          end
+        else
+          item_types = ['Contact', 'Organization', 'Event', 'Project']
+
+          permitted_item_types = item_types.select do |item_type|
+            PermissionsService.new(current_user, @lab).can_read?(item_type)
           end
 
-          @log_entries = @log_entries.order(:created_at => :desc)
-        else
-          render_permission_error
+          @log_entries = @lab.log_entries.where(:item_type => permitted_item_types)
+                             .limit(250)
+                             .order(:created_at => :desc)
         end
       end
     end

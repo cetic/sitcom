@@ -66,7 +66,7 @@ Rails.application.routes.draw do
       resources :projects,      only: [:index, :show]
       resources :events,        only: [:index, :show]
 
-      resources :tags, only: [:index]
+      resources :tags,        only: [:index]
     end
   end
 
@@ -152,6 +152,8 @@ Rails.application.routes.draw do
         get :options
       end
     end
+
+    resources :log_entries, only: [:index]
 
     # LINKS BETWEEN ITEMS
     [ :contact_organization_links, :contact_event_links,

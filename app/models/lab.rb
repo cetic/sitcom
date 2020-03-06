@@ -13,12 +13,9 @@ class Lab < ApplicationRecord
   has_many :events,        :dependent => :destroy
 
   has_many :saved_searches, :dependent => :destroy
-
-  has_many :tags, :dependent => :destroy
-
-  has_many :custom_fields, :dependent => :destroy
-
-  has_many :log_entries, :dependent => :destroy
+  has_many :tags,           :dependent => :destroy
+  has_many :custom_fields,  :dependent => :destroy
+  has_many :log_entries,    :dependent => :destroy
 
   # Validations
 

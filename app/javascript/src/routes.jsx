@@ -7,6 +7,7 @@ import Contacts      from './contacts/main.jsx'
 import Organizations from './organizations/main.jsx'
 import Projects      from './projects/main.jsx'
 import Events        from './events/main.jsx'
+import LogEntries     from './log_entries/main.jsx'
 
 class Dispatcher extends React.Component {
   constructor(props) {
@@ -18,38 +19,57 @@ class Dispatcher extends React.Component {
   render() {
     if(this.props.params.itemType == 'contacts') {
       return(
-        <Contacts route={this.props.route}
-                  router={this.props.router}
-                  location={this.props.location}
-                  params={this.props.params}
-                  storage={this.storage} />
+        <Contacts
+          route={this.props.route}
+          router={this.props.router}
+          location={this.props.location}
+          params={this.props.params}
+          storage={this.storage}
+        />
       )
     }
     else if(this.props.params.itemType == 'organizations') {
       return(
-        <Organizations route={this.props.route}
-                       router={this.props.router}
-                       location={this.props.location}
-                       params={this.props.params}
-                       storage={this.storage} />
+        <Organizations
+          route={this.props.route}
+          router={this.props.router}
+          location={this.props.location}
+          params={this.props.params}
+          storage={this.storage}
+        />
       )
     }
     else if(this.props.params.itemType == 'projects') {
       return(
-        <Projects route={this.props.route}
-                  router={this.props.router}
-                  location={this.props.location}
-                  params={this.props.params}
-                  storage={this.storage} />
+        <Projects
+          route={this.props.route}
+          router={this.props.router}
+          location={this.props.location}
+          params={this.props.params}
+          storage={this.storage}
+        />
       )
     }
     else if(this.props.params.itemType == 'events') {
       return(
-        <Events route={this.props.route}
-                router={this.props.router}
-                location={this.props.location}
-                params={this.props.params}
-                storage={this.storage} />
+        <Events
+          route={this.props.route}
+          router={this.props.router}
+          location={this.props.location}
+          params={this.props.params}
+          storage={this.storage}
+        />
+      )
+    }
+    else if(this.props.params.itemType == 'log_entries') {
+      return(
+        <LogEntries
+          route={this.props.route}
+          router={this.props.router}
+          location={this.props.location}
+          params={this.props.params}
+          storage={this.storage}
+        />
       )
     }
   }

@@ -33,13 +33,14 @@ class LogEntry < ApplicationRecord
   end
 
   def self.log_destroy(current_user, item, previous_association_ids)
-    LogEntry.create(
+    LogEntry.create!(
       :item_id   => item.id,
       :item_type => item.class.name,
       :user_id   => current_user.id,
       :user_name => current_user.name,
       :lab_id    => item.lab_id,
       :action    => :destroy,
+      :item_name => item.name,
       :content   => {}
     )
 
@@ -81,7 +82,8 @@ class LogEntry < ApplicationRecord
         :user_name => current_user.name,
         :lab_id    => note.notable.lab_id,
         :action    => :update,
-        :content   => { 'note' => [note.text, nil] }
+        :content   => { 'note' => [note.text, nil] },
+        :item_name => note.notable.name,
       )
     end
   end
@@ -104,7 +106,8 @@ class LogEntry < ApplicationRecord
         :user_name => current_user.name,
         :lab_id    => document.uploadable.lab_id,
         :action    => :update,
-        :content   => { 'document' => [document.file_identifier, nil] }
+        :content   => { 'document' => [document.file_identifier, nil] },
+        :item_name => document.uploadable.name
       )
     end
   end
@@ -125,7 +128,8 @@ class LogEntry < ApplicationRecord
         :user_name => current_user.name,
         :lab_id    => custom_field_link.item.lab_id,
         :action    => :update,
-        :content   => { 'custom_field' => { custom_field_name => value_diff } }
+        :content   => { 'custom_field' => { custom_field_name => value_diff } },
+        :item_name => custom_field_link.item.name
       )
     end
   end
@@ -154,7 +158,8 @@ class LogEntry < ApplicationRecord
         :user_name => current_user.name,
         :lab_id    => item.lab_id,
         :action    => action,
-        :content   => previous_changes
+        :content   => previous_changes,
+        :item_name => item.name
       )
     end
   end
@@ -166,7 +171,8 @@ class LogEntry < ApplicationRecord
         :user_name => current_user.name,
         :lab_id    => note.notable.lab_id,
         :action    => action,
-        :content   => { 'note' => note.text_previous_change }
+        :content   => { 'note' => note.text_previous_change },
+        :item_name => note.notable.name
       )
     end
   end
@@ -178,7 +184,8 @@ class LogEntry < ApplicationRecord
         :user_name => current_user.name,
         :lab_id    => document.uploadable.lab_id,
         :action    => action,
-        :content   => { 'document' => document.file_previous_change }
+        :content   => { 'document' => document.file_previous_change },
+        :item_name => document.uploadable
       )
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_17_094738) do
+ActiveRecord::Schema.define(version: 2020_02_14_094433) do
 
   create_table "contact_event_links", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "contact_id"
@@ -203,6 +203,7 @@ ActiveRecord::Schema.define(version: 2020_01_17_094738) do
     t.string "action"
     t.string "item_type"
     t.integer "item_id"
+    t.string "item_name", default: ""
     t.text "content", size: :long
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
