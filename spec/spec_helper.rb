@@ -149,6 +149,7 @@ RSpec.configure do |config|
 
   # Default DatabaseCleaner strategy for :js specs
   config.before :each, :js => :true do
+    Capybara.current_session.current_window.resize_to(1280, 800)
     DatabaseCleaner.strategy = :deletion
   end
 

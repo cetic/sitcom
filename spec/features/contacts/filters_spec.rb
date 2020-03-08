@@ -164,17 +164,19 @@ describe 'Filters contacts', :js => true do
     elon.fields = [field]
     elon.save!
 
+    Contact.__elasticsearch__.refresh_index!
+
     visit lab_contacts_path(@lab)
 
-    within('.col-field') do
+    within('.col-field', :wait => 10) do
       find('.Select--multi').click
       find('.Select-option:first-child').click
     end
 
     sleep 2.0 # wait for page refresh
 
-    all('.contact .name').collect { |span| span.text }
-                         .should == ['Elon Musk']
+    all('.contact .name', :wait => 20).collect { |span| span.text }
+                                      .should == ['Elon Musk']
   end
 
   it 'Filters by organization in associations search' do
@@ -195,6 +197,8 @@ describe 'Filters contacts', :js => true do
     elon.organizations = [organization]
     elon.save!
 
+    Contact.__elasticsearch__.refresh_index!
+
     visit lab_contacts_path(@lab)
 
     within('.col-organization') do
@@ -208,7 +212,7 @@ describe 'Filters contacts', :js => true do
                          .should == ['Elon Musk']
   end
 
-  it 'Filters by custom field in personnalized search' do
+  it 'Filters by custom field in personalized search' do
     steve = FactoryBot.create(:contact, {
       :lab        => @lab,
       :first_name => 'Steve',
@@ -221,7 +225,11 @@ describe 'Filters contacts', :js => true do
       :last_name  => 'Musk'
     })
 
-    donator_field = @lab.custom_fields.create!(:name => "Donateur", :field_type => :bool, :item_type => 'contact')
+    donator_field = @lab.custom_fields.create!(
+      :name       => "Donateur",
+      :field_type => :bool,
+      :item_type  => 'contact'
+    )
 
     CustomFieldLink.create!(
       :custom_field_id => donator_field.id,
@@ -254,7 +262,7 @@ describe 'Filters contacts', :js => true do
                          .should == ['Elon Musk']
 
     within('.custom-field-filter') do
-      all('input')[2].click # donateur oui
+      all('input')[2].click # donateur non
     end
 
     sleep 2.0 # wait for page refresh
