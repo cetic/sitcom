@@ -23,18 +23,20 @@ export default class LogEntries extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="row">
-          <div className="col-lg-12 col-md-12">
-            <h3>Historique des modifications</h3>
+      <div className="container">
+        <div className="log-entries" style={{ marginTop: '24px' }}>
+          <div className="row">
+            <div className="col-lg-12 col-md-12">
+              <h3>Historique des modifications</h3>
 
-            <div className="items">
-              <ul>
-                {this.renderEntries()}
-              </ul>
+              <div className="items">
+                <ul>
+                  {this.renderEntries()}
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
+         </div>
       </div>
     )
   }
