@@ -4,18 +4,18 @@
       <%= current_user.name %> <i class="fa fa-caret-down"></i>
     </a>
     <ul class="dropdown-menu">
-      <% if @lab %>
-        <li>
-          <a href="<%= lab_log_entries_path(@lab) %>">
-            Historique des modifications
-          </a>
-        </li>
-      <% end %>
-
       <% if current_user.admin? || current_user.lab_manager? %>
         <li>
           <a href="<%= admin_root_path %>">
             Administration
+          </a>
+        </li>
+      <% end %>
+
+      <% if @lab %>
+        <li>
+          <a href="<%= lab_log_entries_path(@lab) %>">
+            Historique des modifications
           </a>
         </li>
       <% end %>

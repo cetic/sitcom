@@ -31,7 +31,7 @@ export default class LogEntries extends React.Component {
   }
 
   logEntriesPath() {
-    return this.props.item.path + '/log_entries'
+    return this.props.item.path + '/log_entries.json'
   }
 
   reloadFromBackend(scroll = false, callback) {
