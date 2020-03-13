@@ -6,6 +6,7 @@ sudo: false
 
 env:
   global:
+    - ONCI=true
     - ELASTIC_SEARCH_URL="http://127.0.0.1:9200" # ES is on port 9200 on Travis and 9201 on local
 
 addons: # get google-chrome-stable
@@ -28,8 +29,8 @@ before_script:
   - bundle exec rake db:drop || true
   - bundle exec rake db:create
   - bundle exec rake db:migrate
+  - sleep 5 # Starting ES takes time: https://docs.travis-ci.com/user/database-setup/#elasticsearch
   - bundle exec rake environment elasticsearch:import:all FORCE=true
-  - sleep 10 # Starting ES takes time: https://docs.travis-ci.com/user/database-setup/#elasticsearch
 
 script:
   - bundle exec rspec

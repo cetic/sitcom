@@ -3,6 +3,7 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 
 require 'rspec/rails'
+require 'rspec/retry'
 require 'capybara/rails'
 require 'capybara/rspec'
 require "selenium/webdriver"
@@ -130,6 +131,13 @@ RSpec.configure do |config|
 
   # Time between auto-updates of drivers (Chrome/Firefox etc.)
   Webdrivers.cache_time = 1.day.to_i
+
+  # Rspec retry (only on CI)
+  if ENV['ONCI']
+    config.verbose_retry                = true # show retry status in spec process
+    config.display_try_failure_messages = true # show exception that triggers a retry if verbose_retry is set to true
+    config.default_retry_count          = 2
+  end
 
   # Before actions
 
