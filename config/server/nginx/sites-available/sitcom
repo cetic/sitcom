@@ -1,5 +1,4 @@
 server {
-  listen 80;
   listen 443;
   server_name sitcom.cetic.be;
 
@@ -35,4 +34,10 @@ server {
   }
 
   client_max_body_size 300M;
+}
+
+server {
+  listen 80;
+  server_name sitcom.cetic.be;
+  return 301 https://sitcom.cetic.be;
 }
