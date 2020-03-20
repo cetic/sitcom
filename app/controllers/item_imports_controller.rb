@@ -45,6 +45,8 @@ class ItemImportsController < ApplicationController
     elsif commit
       @item_import.commit
       redirect_to new_lab_item_import_path(@lab, { :item_type => @item_type }), :notice => notice
+    else
+      @warnings = @item_import.warnings
     end
   end
 

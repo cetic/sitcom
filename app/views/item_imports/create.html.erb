@@ -8,13 +8,28 @@
 
       <%= render "table" %>
 
+      <br />
+
+      <% if @warnings.any? %>
+        <div class="alert alert-warning" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+          <ul>
+            <% @warnings.each do |error| %>
+              <li><%= error %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
       <%= form_tag lab_item_imports_path(@lab, { :item_type => @item_type }) do |f| %>
-        <%#= hidden_field_tag 'xlsx_data', Base64.encode64(@xlsx_data).to_s  %>
         <%= hidden_field_tag 'uuid', @uuid  %>
 
         <div class="actions">
           <%= link_to 'Annuler', send("lab_#{@item_type}s_path", @lab), :class => 'btn btn-default' %>
-          <%= submit_tag 'Importer', :class => 'btn btn-primary' %>
+          <%= submit_tag "Valider l'importation", :class => 'btn btn-primary' %>
         </div>
       <% end %>
     </div>

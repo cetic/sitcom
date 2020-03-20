@@ -4,14 +4,14 @@ class ContactExport < BaseExport
 
   def fields
     list = {
-      'Prénom'          => :first_name,
-      'Nom'             => :last_name,
-      'Email'           => :email,
-      'Adresse (rue)'   => :address_street,
-      'Adresse (code)'  => :address_zip_code,
-      'Adresse (ville)' => :address_city,
-      'Adresse (pays)'  => :address_country,
-      'Téléphone'       => :phone,
+      'Prénom'                => :first_name,
+      'Nom'                   => :last_name,
+      'Email'                 => :email,
+      'Adresse (rue)'         => :address_street,
+      'Adresse (code postal)' => :address_zip_code,
+      'Adresse (ville)'       => :address_city,
+      'Adresse (pays)'        => :address_country,
+      'Téléphone'             => :phone,
 
       'Actif' => lambda { |item| item.active? ? 'Oui' : 'Non' },
 

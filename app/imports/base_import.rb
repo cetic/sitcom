@@ -1,11 +1,12 @@
 class BaseImport
 
-  attr_reader :rows, :errors
+  attr_reader :rows, :errors, :warnings
 
   def initialize(lab, xlsx_data = '')
     @lab       = lab
     @xlsx_data = xlsx_data
     @errors    = Set.new
+    @warnings  = Set.new
   end
 
   def parse
@@ -46,7 +47,8 @@ class BaseImport
           attr_name   = self.class::COLUMNS.key(column_name)
 
           if attr_name.nil?
-            @errors << "Colonne inconnue : \"#{column_name}\". Ligne: #{i}"
+            # @errors << "Colonne inconnue : \"#{column_name}\". Ligne: #{i}"
+            @warnings << "La colonne non supportée par l'import \"#{column_name}\" sera ignorée."
           else
             row.send("#{attr_name}=", value)
           end

@@ -5,7 +5,7 @@ class EventImport < BaseImport
     :description => 'Description',
     :happens_on  => 'Date',
     :place       => 'Lieu',
-    :website_url => 'Site web (URL)'
+    :website_url => 'Site Web'
   }
 
   class Row < Struct.new(*([:lab, :duplicate] + COLUMNS.keys))

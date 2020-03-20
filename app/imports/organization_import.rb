@@ -4,7 +4,7 @@ class OrganizationImport < BaseImport
     :name        => 'Nom',
     :status      => 'Statut',
     :description => 'Description',
-    :website_url => 'Site web (URL)',
+    :website_url => 'Site Web',
   }
 
   class Row < Struct.new(*([:lab, :duplicate] + COLUMNS.keys))
