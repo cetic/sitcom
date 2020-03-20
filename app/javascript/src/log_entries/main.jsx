@@ -49,7 +49,7 @@ export default class LogEntries extends React.Component {
 
   renderEntry(entry) {
     return (
-      <li key={entry.id}>
+      <li key={entry.id} data-entry-id={entry.id}>
         <div className="action">
           <div className="text">
             <strong>{ entry.name }</strong> { entry.action } { entry.target } <strong>{ entry.itemName }</strong>.
