@@ -44,6 +44,12 @@ bundle exec rspec
 
 See `DEPLOY.md` on how to deploy on a Debian server.
 
+## API
+
+The API documentation is accessible on `https://domain.com/api/docs/index.html`
+
+It was generated with [Slate](https://github.com/slatedocs/slate) and the repository was forked here: https://github.com/aurels/sitcom-apidocs
+
 ## Misc
 
 SItCOM CRM uses [Bugsnag](https://bugsnag.com) for bugtracking.

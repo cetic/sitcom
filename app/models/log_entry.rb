@@ -166,7 +166,7 @@ class LogEntry < ApplicationRecord
   end
 
   def self.log_note(action, current_user, note)
-    if note.privacy.public?
+    if note.privacy.public? && note.text_previous_change
       note.notable.log_entries.create(
         :user_id   => current_user.id,
         :user_name => current_user.name,
@@ -179,7 +179,7 @@ class LogEntry < ApplicationRecord
   end
 
   def self.log_document(action, current_user, document)
-    if document.privacy.public?
+    if document.privacy.public? && document.file_previous_change
       document.uploadable.log_entries.create(
         :user_id   => current_user.id,
         :user_name => current_user.name,

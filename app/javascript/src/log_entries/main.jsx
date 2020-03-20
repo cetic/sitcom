@@ -71,18 +71,20 @@ export default class LogEntries extends React.Component {
 
   renderEntryChanges(changes) {
     return _.map(Object.keys(changes), (key, i) => {
-      var before = changes[key][0] instanceof Array ? changes[key][0].join(', ') : (changes[key][0] || '')
-      var after  = changes[key][1] instanceof Array ? changes[key][1].join(', ') : (changes[key][1] || '')
+      if(changes[key]) {
+        var before = changes[key][0] instanceof Array ? changes[key][0].join(', ') : (changes[key][0] || '')
+        var after  = changes[key][1] instanceof Array ? changes[key][1].join(', ') : (changes[key][1] || '')
 
-      return (
-        <tr key={i}>
-          <th>
-            { key }
-          </th>
-          <td dangerouslySetInnerHTML={{__html: diffString(before, after) }}>
-          </td>
-        </tr>
-      )
+        return (
+          <tr key={i}>
+            <th>
+              { key }
+            </th>
+            <td dangerouslySetInnerHTML={{__html: diffString(before, after) }}>
+            </td>
+          </tr>
+        )
+      }
     })
   }
 
