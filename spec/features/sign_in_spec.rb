@@ -29,7 +29,7 @@ describe 'Sign in' do
     # Page for selection of lab
     current_url.should == 'http://www.example.com/'
 
-    expect(page).to have_content('Labs')
+    expect(page).to have_content('Comptes')
     expect(page).to have_content(@lab.name)
 
     click_link @lab.name

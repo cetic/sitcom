@@ -2,8 +2,8 @@
   <div class="row">
     <div class="panel col-md-6 col-md-offset-3">
       <ol class="breadcrumb">
-        <li><%= link_to 'Labs', admin_labs_path %></li>
-        <li class="active"><%= params[:action].in?(['new', 'create']) ? 'Créer un lab' : 'Modifier un lab' %></li>
+        <li><%= link_to 'Comptes', admin_labs_path %></li>
+        <li class="active"><%= params[:action].in?(['new', 'create']) ? 'Créer un compte' : 'Modifier un compte' %></li>
       </ol>
 
       <%= render 'shared/flash' %>

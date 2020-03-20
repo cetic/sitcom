@@ -40,7 +40,7 @@ describe 'Password reset' do
     end
 
     # Page of lab selection (correctly logged!)
-    expect(page).to have_content('Labs')
+    expect(page).to have_content('Comptes')
     expect(page).to have_content(@lab.name)
   end
 end

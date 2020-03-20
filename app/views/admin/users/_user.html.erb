@@ -17,7 +17,7 @@
   </td>
 
   <td>
-    <% text = "#{user.managed_labs_count(current_user)} lab(s) accessible(s)" %>
+    <% text = "#{user.managed_labs_count(current_user)} compte(s) accessible(s)" %>
 
     <% if user.admin? || user.lab_manager? || user.labs.empty? %>
       <%= text %>

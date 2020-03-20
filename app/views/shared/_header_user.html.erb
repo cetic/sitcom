@@ -12,7 +12,7 @@
         </li>
       <% end %>
 
-      <% if @lab %>
+      <% if @lab && !params[:controller].include?('admin/') %>
         <li>
           <a href="<%= lab_log_entries_path(@lab) %>">
             Historique des modifications
@@ -22,7 +22,7 @@
 
       <li>
         <%= link_to profile_current_lab_path, :method => :delete do %>
-          Changer de lab
+          Changer de compte
         <% end %>
       </li>
 
