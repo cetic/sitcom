@@ -6,7 +6,7 @@ gem 'devise', '4.7.1'
 gem 'mysql2', '0.5.2'
 gem 'puma'
 gem 'rack',   '2.0.8'
-gem 'rails',  '6.0.1'
+gem 'rails',  '6.0.2.2'
 
 # ElasticSearch
 gem 'elasticsearch-model', '7.0.0'
