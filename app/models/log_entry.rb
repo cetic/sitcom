@@ -48,15 +48,16 @@ class LogEntry < ApplicationRecord
     [:organization_ids, :project_ids, :event_ids, :contact_ids].each do |association_type|
       if previous_association_ids[association_type]
         previous_association_ids[association_type].each do |association_id|
-          associatedItemClass = Object.const_get(association_type[0..-4].camelize)
-          associated_item     = associatedItemClass.find(association_id)
-          old_associated_ids  = associated_item.send("#{item.class.name.underscore}_ids")
+          associated_item_class = Object.const_get(association_type[0..-4].camelize)
+          associated_item       = associated_item_class.find(association_id)
+          old_associated_ids    = associated_item.send("#{item.class.name.underscore}_ids")
 
-          associated_item.log_entries.create(
+          associated_item.log_entries.create!(
             :user_id   => current_user.id,
             :user_name => current_user.name,
             :lab_id    => item.lab_id,
             :action    => :update,
+            :item_name => associated_item.name,
             :content   => { "#{item.class.name.underscore}_ids" => [old_associated_ids + [item.id], old_associated_ids] }
           )
         end
