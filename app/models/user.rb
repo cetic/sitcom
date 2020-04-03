@@ -61,6 +61,10 @@ class User < ApplicationRecord
     end
   end
 
+  def lab_manager_of?(lab)
+    lab_user_links.where(lab_id: lab.id).any? && lab_manager?
+  end
+
   # Class Methods
 
   # Private Methods
