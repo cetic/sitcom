@@ -1,6 +1,7 @@
 server {
   listen 443;
   server_name sitcom.cetic.be;
+  server_name sitcom.phonoid.net;
 
   access_log /var/log/nginx/sitcom.access.log;
   sendfile on;
@@ -11,7 +12,7 @@ server {
 
   passenger_enabled on;
   passenger_ruby /home/deploy/.rbenv/shims/ruby;
-  passenger_app_env staging;
+  passenger_app_env production;
   passenger_friendly_error_pages on;
 
   location ~ ^/(assets)/  {
@@ -39,5 +40,6 @@ server {
 server {
   listen 80;
   server_name sitcom.cetic.be;
+  server_name sitcom.phonoid.net;
   return 301 https://sitcom.cetic.be;
 }
