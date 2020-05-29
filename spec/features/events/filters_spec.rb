@@ -1,4 +1,4 @@
-describe 'Filters events', :js => true, :focus => true do
+describe 'Filters events', :js => true do
 
   before :each do
     @lab  = FactoryBot.create(:lab)

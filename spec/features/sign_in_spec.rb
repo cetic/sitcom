@@ -12,14 +12,14 @@ describe 'Sign in' do
     })
   end
 
-  it 'works and allows the user to select a lab (only the first time!)' do
-    sleep 0.2
+  it 'works and allows the user to select a lab (only the first time!)', :focus => true do
+    sleep 0.3
 
     visit '/'
 
-    sleep 0.2
+    sleep 0.3
 
-    within '.container form#new_user', :wait => 10 do
+    within '.container form#new_user', :wait => 15 do
       fill_in 'Email',        :with => @user.email
       fill_in 'Mot de passe', :with => 'dumbpassword'
 

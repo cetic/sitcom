@@ -182,10 +182,14 @@ Then :
     systemctl --user start sidekiq-default
     systemctl --user start sidekiq-websockets
 
-Unsefull commands :
+Useful commands :
 
     systemctl --user status sidekiq-default
     journalctl --user -fu sidekiq-default
+
+If change was made on file, execute:
+
+    systemctl --user daemon-reload
 
 ## Configure Monit
 
