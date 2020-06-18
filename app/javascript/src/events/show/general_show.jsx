@@ -18,6 +18,12 @@ export default class GeneralShow extends React.Component {
     }
   }
 
+  removePicture() {
+    if(confirm("Supprimer cette photo ?")) {
+      http.put(this.props.eventPath, { picture: '' })
+    }
+  }
+
   tagsPath() {
     return this.props.tagOptionsPath.slice(0, -8); // remove '/options'
   }
@@ -121,9 +127,19 @@ export default class GeneralShow extends React.Component {
                       clickable={['.general .img-thumbnail', '.general .update-image']}
                       acceptedFiles="image/*">
         <img className="img-thumbnail"
-             src={this.props.event.previewPictureUrl}
-             style={{ minHeight: this.props.previewPictureUrl ? 'inherit' : '150px' }} />
+             src={this.props.event.previewPictureUrl} />
+        { this.renderRemovePicture() }
       </CustomDropzone>
     )
+  }
+
+  renderRemovePicture() {
+    if(!this.props.event.previewPictureUrl.includes('https://')) {
+      return (
+        <i className="fa fa-times"
+           onClick={this.removePicture.bind(this)}>
+        </i>
+      )
+    }
   }
 }
