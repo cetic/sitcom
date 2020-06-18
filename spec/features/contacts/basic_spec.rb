@@ -205,24 +205,24 @@ describe 'Basic contacts', :js => true do
 
       click_on 'Modifier', :wait => 3
 
-      fill_in 'facebook', :with => 'https://facebook.com/user/mic'
-      fill_in 'linkedin', :with => 'https://linkedin.com/user/mic'
-      fill_in 'twitter',  :with => 'https://twitter.com/user/mic'
+      fill_in 'facebook', :with => 'mic'
+      fill_in 'linkedin', :with => 'mic2'
+      fill_in 'twitter',  :with => 'twitter.com/mic3'
 
       click_on 'Enregistrer'
     end
 
     within '.social.show' do
-      page.should have_content('https://facebook.com/user/mic')
-      page.should have_content('https://linkedin.com/user/mic')
-      page.should have_content('https://twitter.com/user/mic')
+      page.should have_content('facebook.com/mic')
+      page.should have_content('linkedin.com/in/mic2')
+      page.should have_content('twitter.com/mic3')
     end
 
     contact.reload
 
-    contact.facebook_url.should == 'https://facebook.com/user/mic'
-    contact.linkedin_url.should == 'https://linkedin.com/user/mic'
-    contact.twitter_url.should  == 'https://twitter.com/user/mic'
+    contact.facebook_url.should == 'https://facebook.com/mic'
+    contact.linkedin_url.should == 'https://linkedin.com/in/mic2'
+    contact.twitter_url.should  == 'http://twitter.com/mic3' # http because we're not always sure https works for all websites
   end
 
   it 'can add public and private notes' do
