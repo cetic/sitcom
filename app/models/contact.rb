@@ -2,6 +2,7 @@ class Contact < ApplicationRecord
 
   # Concerns
 
+  include CommonItemTypeMethodsConcern
   include CustomFieldsConcern
   include CommonIndexConcern
   include ContactIndexConcern
@@ -50,10 +51,17 @@ class Contact < ApplicationRecord
 
   # Callbacks
 
-  after_commit   :after_create_callback,  on: :create
-  before_update  :before_update_callback
-  after_commit   :after_update_callback,  on: :update
-  around_destroy :around_destroy_callback
+  before_validation :before_validation_callback
+  after_commit      :after_create_callback,  on: :create
+  before_update     :before_update_callback
+  after_commit      :after_update_callback,  on: :update
+  around_destroy    :around_destroy_callback
+
+  def before_validation_callback
+    self.twitter_url  = sanitize_url(self.twitter_url,  :twitter)
+    self.linkedin_url = sanitize_url(self.linkedin_url, :linkedin)
+    self.facebook_url = sanitize_url(self.facebook_url, :facebook)
+  end
 
   def after_create_callback
     # websockets

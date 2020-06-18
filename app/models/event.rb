@@ -2,6 +2,7 @@ class Event < ApplicationRecord
 
   # Concerns
 
+  include CommonItemTypeMethodsConcern
   include CustomFieldsConcern
   include CommonIndexConcern
   include EventIndexConcern
@@ -46,15 +47,17 @@ class Event < ApplicationRecord
                       :case_sensitive => false
                     }
 
-  validates :website_url, :format      => { :with => URI::regexp(%w(http https)), :message => "L'adresse du site Web est invalide." },
-                          :allow_blank => true
-
   # Callbacks
 
-  after_commit   :after_create_callback,  on: :create
-  before_update  :before_update_callback
-  after_commit   :after_update_callback,  on: :update
-  around_destroy :around_destroy_callback
+  before_validation :before_validation_callback
+  after_commit      :after_create_callback,  on: :create
+  before_update     :before_update_callback
+  after_commit      :after_update_callback,  on: :update
+  around_destroy    :around_destroy_callback
+
+  def before_validation_callback
+    self.website_url = sanitize_url(self.website_url)
+  end
 
   def after_create_callback
     # websockets

@@ -39,9 +39,13 @@ export default class SocialShow extends React.Component {
       return <em>non-renseigné</em>
     }
     else {
+      let strippedUrl = url
+      strippedUrl = _.replace(strippedUrl, 'https://', '')
+      strippedUrl = _.replace(strippedUrl, 'http://', '')
+
       return (
         <a href={ url } target="_blank">
-          { url }
+          { strippedUrl }
         </a>
       )
     }

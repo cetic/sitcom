@@ -56,11 +56,15 @@ export default class GeneralShow extends React.Component {
 
   renderWebsite() {
     if(this.props.organization.websiteUrl != '') {
+      let strippedUrl = this.props.organization.websiteUrl
+      strippedUrl = _.replace(strippedUrl, 'https://', '')
+      strippedUrl = _.replace(strippedUrl, 'http://', '')
+
       return (
         <div className="website">
           <a href={this.props.organization.websiteUrl}
              target="_blank">
-            { this.props.organization.websiteUrl }
+            { strippedUrl }
           </a>
         </div>
       )
