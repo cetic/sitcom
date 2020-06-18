@@ -1,7 +1,7 @@
 class SanitizeUrls < ActiveRecord::Migration[6.0]
   def change
     # Duplicate from 2018 and break name validation
-    Organization.where(:id => 197, :name => 'MobilESEM').first.destroy!
+    Organization.where(:id => 197, :name => 'MobilESEM').first.try(:destroy!)
 
     Contact.find_each { |contact| puts(contact.name); contact.save! }
     Organization.find_each { |organization| puts(organization.name); organization.save! }
