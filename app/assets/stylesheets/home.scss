@@ -1,0 +1,11 @@
+/*
+ *= require_self
+ */
+
+// In vendor/assets/stylesheets/home (special bootstrap for home)
+@import 'home/bootstrap.min';
+@import 'font-awesome'; // not the same as the theme (4 instead of 5) but seems to work!
+
+// In assets/stylesheets/home
+//@import 'home/font-awesome.min';
+@import 'home/agency';

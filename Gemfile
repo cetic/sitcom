@@ -65,6 +65,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'rspec-instafail'
   gem 'rspec-retry'
   gem 'parallel_tests'
   gem 'database_cleaner'

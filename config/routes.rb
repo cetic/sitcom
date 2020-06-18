@@ -77,6 +77,9 @@ Rails.application.routes.draw do
     resource :current_lab
   end
 
+  # Leave before labs
+  root to: 'pages#home'
+
   resources :labs, :path => ''
   resources :labs, :path => '', :only => [] do
     resources :contacts do
@@ -173,6 +176,4 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  root to: 'labs#index'
 end

@@ -8,6 +8,7 @@
 #passwords-edit,
 #passwords-update,
 #labs-index,
+#pages-home,
 #modal-signin {
   .panel {
     margin-top: 50px;
@@ -100,7 +101,8 @@
 
 #devise-sessions-create,
 #devise-sessions-new,
-#labs-index {
+#labs-index,
+#pages-home {
   .logo-container {
     text-align: center;
 
@@ -119,7 +121,8 @@
   }
 }
 
-#labs-index {
+#labs-index,
+#pages-home {
   h1 {
     margin-bottom: 0px;
   }
