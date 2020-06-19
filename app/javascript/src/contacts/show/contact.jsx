@@ -7,6 +7,7 @@ import ItemsBlock         from '../../shared/items_block.jsx'
 import NotesBlock         from '../../shared/notes_block.jsx'
 import DocumentsBlock     from '../../shared/documents_block.jsx'
 import PreviousNextNav    from '../../shared/previous_next_nav.jsx'
+import FollowButton       from '../../shared/follow_button.jsx'
 import CustomFieldsBlock  from '../../shared/custom_fields_block.jsx'
 import LogEntries         from '../../shared/log_entries.jsx'
 
@@ -127,6 +128,7 @@ export default class Contact extends React.Component {
         <div className="item-show contact">
           { this.renderLoading() }
           { this.renderPreviousNextNav() }
+          { this.renderFollowButton() }
           { this.renderGeneral() }
           { this.renderSocial() }
           { this.renderCustomFields() }
@@ -158,6 +160,16 @@ export default class Contact extends React.Component {
                          currentItemId={this.props.id}
                          router={this.props.router}
                          search={this.props.search} />
+      )
+    }
+  }
+
+  renderFollowButton() {
+    if(this.props.loaded && !this.state.generalEditMode && !this.state.socialEditMode) {
+      return (
+        <FollowButton itemId={this.props.id}
+                      itemPath={this.contactPath()}
+                      itemType="contact" />
       )
     }
   }

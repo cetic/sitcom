@@ -89,7 +89,7 @@ class LogEntry < ApplicationRecord
     end
   end
 
-  # Special process to documents
+  # Special process for documents
   def self.log_create_document(current_user, document)
     log_document(:update, current_user, document)
   end
@@ -113,6 +113,7 @@ class LogEntry < ApplicationRecord
     end
   end
 
+  # Special process for custom fields
   def self.log_update_custom_field(current_user, custom_field_link)
     custom_field_name = custom_field_link.custom_field.name
     custom_field_type = custom_field_link.custom_field.field_type

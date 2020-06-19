@@ -1,0 +1,29 @@
+.follow-button {
+  position: absolute;
+  top: 198px;
+  right: 5px;
+  width: 87px;
+  text-align: center;
+  font-size: 10px;
+
+  button {
+    font-size: 12px;
+    padding: 0 5px;
+    line-height: 28px;
+    width: 70px;
+  }
+}
+
+
+@media (max-width: $screen-md-max) {
+  .follow-button {
+    top: 53px;
+    right: 48px;
+  }
+}
+
+@media (max-width: $screen-sm-max) {
+  .follow-button {
+    right: 27px;
+  }
+}

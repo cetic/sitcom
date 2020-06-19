@@ -1,5 +1,7 @@
 class OrganizationsController < ApplicationController
 
+  include FollowConcern
+
   before_action :find_lab
   before_action :clean_params, :only => [:update] # for dropzone
 

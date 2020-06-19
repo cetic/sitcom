@@ -17,6 +17,8 @@ class User < ApplicationRecord
 
   has_many :log_entries,    :dependent => :nullify
 
+  has_many :item_user_links, :dependent => :destroy
+
   # Validations
 
   validates :name, :presence => { :message => "Le nom est obligatoire." }

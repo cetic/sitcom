@@ -24,6 +24,8 @@ class Organization < ApplicationRecord
   has_many :event_organization_links # dependent destroy is made in around_destroy_callback
   has_many :events, :through => :event_organization_links
 
+  has_many :item_user_links, :dependent => :destroy, :as => :item
+
   has_many :notes, :as => :notable
 
   has_many :documents, :as => :uploadable
