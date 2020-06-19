@@ -1,6 +1,7 @@
 import ParamsService    from '../params_service.jsx'
 import QuickSearch      from '../quick_search.jsx'
 import PermissionDenied from '../../shared/permission_denied.jsx'
+import QuotaModal       from '../../shared/quota_modal.jsx'
 
 export default class BaseMain extends React.Component {
 
@@ -243,6 +244,7 @@ export default class BaseMain extends React.Component {
           </div>
 
           { this.renderNewModal() }
+          { this.renderQuotaModal() }
         </div>
       )
     }
@@ -346,6 +348,12 @@ export default class BaseMain extends React.Component {
         </div>
       )
     }
+  }
+
+  renderQuotaModal() {
+    return (
+      <QuotaModal />
+    )
   }
 
 }

@@ -1,0 +1,19 @@
+<p>Bonjour, un nouveau compte <strong><%= @lab.name %></strong> a été créé par <strong><%= @user.name %></strong>.</p>
+
+<hr />
+
+<div>
+
+<h3>Informations du compte</h3>
+
+<p><strong>Nom du compte</strong><br /><%= @lab.name %></p>
+
+<p><strong>Adresse</strong><br /><%= simple_format @lab.full_address.strip, {}, { wrapper_tag: 'span' } %></p>
+
+<p><strong>Numéro de TVA</strong><br /><%= @lab.vat_number %></p>
+
+<p><strong>Nom de l'utilisateur</strong><br /><%= @user.name %></p>
+
+<p><strong>Email de l'utilisateur</strong><br /><%= @user.email %></p>
+
+</div>

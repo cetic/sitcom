@@ -89,27 +89,29 @@ export default class Routes extends React.Component {
   render() {
     return (
       <Router history={this.browserHistory}>
-        <Route path=":itemType" component={DispatcherWithRouter}
-                                permissions={this.props.permissions}
-                                currentUserId={this.props.currentUserId}
-                                labId={this.props.labId}
-                                contactCustomFields={this.props.contactCustomFields}
-                                organizationCustomFields={this.props.organizationCustomFields}
-                                eventCustomFields={this.props.eventCustomFields}
-                                projectCustomFields={this.props.projectCustomFields}
-                                contactsPath={this.props.contactsPath}
-                                organizationsPath={this.props.organizationsPath}
-                                projectsPath={this.props.projectsPath}
-                                eventsPath={this.props.eventsPath}
-                                contactOptionsPath={this.props.contactOptionsPath}
-                                organizationOptionsPath={this.props.organizationOptionsPath}
-                                projectOptionsPath={this.props.projectOptionsPath}
-                                eventOptionsPath={this.props.eventOptionsPath}
-                                tagOptionsPath={this.props.tagOptionsPath}
-                                fieldOptionsPath={this.props.fieldOptionsPath}
-                                organizationStatusesOptionsPath={this.props.organizationStatusesOptionsPath}
-                                loadingImagePath={this.props.loadingImagePath}
-                                isMailchimpConfigured={this.props.isMailchimpConfigured}>
+        <Route
+          path=":itemType"
+          component={DispatcherWithRouter}
+          permissions={this.props.permissions}
+          currentUserId={this.props.currentUserId}
+          labId={this.props.labId}
+          contactCustomFields={this.props.contactCustomFields}
+          organizationCustomFields={this.props.organizationCustomFields}
+          eventCustomFields={this.props.eventCustomFields}
+          projectCustomFields={this.props.projectCustomFields}
+          contactsPath={this.props.contactsPath}
+          organizationsPath={this.props.organizationsPath}
+          projectsPath={this.props.projectsPath}
+          eventsPath={this.props.eventsPath}
+          contactOptionsPath={this.props.contactOptionsPath}
+          organizationOptionsPath={this.props.organizationOptionsPath}
+          projectOptionsPath={this.props.projectOptionsPath}
+          eventOptionsPath={this.props.eventOptionsPath}
+          tagOptionsPath={this.props.tagOptionsPath}
+          fieldOptionsPath={this.props.fieldOptionsPath}
+          organizationStatusesOptionsPath={this.props.organizationStatusesOptionsPath}
+          loadingImagePath={this.props.loadingImagePath}
+          isMailchimpConfigured={this.props.isMailchimpConfigured}>
 
           <Route path=":id" component={DispatcherWithRouter} />
         </Route>

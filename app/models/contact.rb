@@ -2,15 +2,11 @@ class Contact < ApplicationRecord
 
   # Concerns
 
+  include CommonItemTypeMethodsConcern
   include CustomFieldsConcern
   include CommonIndexConcern
   include ContactIndexConcern
   include CableActionsConcern
-
-  # Uploaders
-
-  mount_uploader :picture, PictureUploader
-  include GravatarConcern # Must stay here because override previous line!
 
   # Associations
 
@@ -50,10 +46,17 @@ class Contact < ApplicationRecord
 
   # Callbacks
 
-  after_commit   :after_create_callback,  on: :create
-  before_update  :before_update_callback
-  after_commit   :after_update_callback,  on: :update
-  around_destroy :around_destroy_callback
+  before_validation :before_validation_callback
+  after_commit      :after_create_callback,  on: :create
+  before_update     :before_update_callback
+  after_commit      :after_update_callback,  on: :update
+  around_destroy    :around_destroy_callback
+
+  def before_validation_callback
+    self.twitter_url  = sanitize_url(self.twitter_url,  :twitter)
+    self.linkedin_url = sanitize_url(self.linkedin_url, :linkedin)
+    self.facebook_url = sanitize_url(self.facebook_url, :facebook)
+  end
 
   def after_create_callback
     # websockets
@@ -118,6 +121,16 @@ class Contact < ApplicationRecord
       Mailchimp::DeleteContactWorker.perform_async(saved_lab_id, 'SITCOM', saved_email)
     end
   end
+
+  # Uploaders
+  # => after_commit are called from the last to the first, we need carrierwave before our callbacks
+  #    to avoid sending non-updated pictures to frontend.
+  # References: * https://github.com/rails/rails/issues/20911
+  #             * https://github.com/rails/rails/pull/23462
+  #             * https://github.com/carrierwaveuploader/carrierwave/blob/d41ad71ad71a813dddf47e750e5a8b5f5c8d4e0d/README.md#skipping-activerecord-callbacks
+
+  mount_uploader :picture, PictureUploader
+  include GravatarConcern # Override previous line!
 
   # Methods
 

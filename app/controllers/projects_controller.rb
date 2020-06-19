@@ -56,14 +56,18 @@ class ProjectsController < ApplicationController
     if PermissionsService.new(current_user, @lab).can_write?('projects')
       respond_to do |format|
         format.json do
-          @project = @lab.projects.new(strong_params)
+          if LabAccountTypeService.new(@lab).can_create_project?
+            @project = @lab.projects.new(strong_params)
 
-          if @project.save
-            LogEntry.log_create(current_user, @project)
+            if @project.save
+              LogEntry.log_create(current_user, @project)
 
-            render_json_success({ :project_id => @project.id })
+              render_json_success({ :project_id => @project.id })
+            else
+              render_json_errors(@project)
+            end
           else
-            render_json_errors(@project)
+            render :json => { :success => false, :quota_reached => true }
           end
         end
       end

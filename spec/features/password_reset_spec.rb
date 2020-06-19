@@ -1,6 +1,6 @@
 describe 'Password reset' do
   it 'provides a link to ask for a password reset' do
-    visit '/'
+    visit new_user_session_path
 
     click_link 'Mot de passe perdu ?'
 

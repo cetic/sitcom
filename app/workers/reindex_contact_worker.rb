@@ -10,7 +10,7 @@ class ReindexContactWorker
       contact.organizations.import
       contact.projects.import
       contact.events.import
-    else
+    elsif action == 'delete'
       index_name = Contact.__elasticsearch__.index_name
       Contact.__elasticsearch__.client.delete :index => index_name, :id => id
 

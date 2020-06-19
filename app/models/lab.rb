@@ -1,5 +1,15 @@
 class Lab < ApplicationRecord
 
+  # Modules
+
+  extend Enumerize
+
+  # Enums
+
+  enumerize :account_type, :in      => [ :basic, :premium ],
+                           :default => :basic,
+                           :scope   => true
+
   # Associations
 
   has_many :fields
@@ -21,6 +31,11 @@ class Lab < ApplicationRecord
 
   validates :name, :presence   => { :message => "Le nom est obligatoire."  },
                    :uniqueness => { :message => "Ce nom est déjà utilisé.", :case_sensitive => false }
+
+  validates :address1, :presence => { :message => "Veuillez entrer l'adresse du compte."      }
+  validates :city,     :presence => { :message => "Veuillez entrer la localité du compte."    }
+  validates :zip,      :presence => { :message => "Veuillez entrer le code postal du compte." }
+  validates :country,  :presence => { :message => "Veuillez entrer le pays du compte."        }
 
   # Callbacks
 
@@ -45,15 +60,26 @@ class Lab < ApplicationRecord
     end
   end
 
+  def can_use_mailchimp?
+    LabAccountTypeService.new(self).can_use_mailchimp?
+  end
+
   def mailchimp_configured?
-    mailchimp_api_key.present?    &&
-    mailchimp_company.present?    &&
-    mailchimp_from_email.present? &&
-    mailchimp_address1.present?   &&
-    mailchimp_city.present?       &&
-    mailchimp_state.present?      &&
-    mailchimp_zip.present?        &&
+    can_use_mailchimp? &&
+    mailchimp_api_key.present?                  &&
+    mailchimp_company.present?                  &&
+    mailchimp_from_email.present?               &&
+    mailchimp_address1.present?                 &&
+    mailchimp_city.present?                     &&
+    mailchimp_state.present?                    &&
+    mailchimp_zip.present?                      &&
     mailchimp_country.present?
+  end
+
+  def full_address
+    %i(address1 address2 city zip state country).map do |field|
+      send(field).present? ? send(field) : nil
+    end.compact.join("\n")
   end
 
 end

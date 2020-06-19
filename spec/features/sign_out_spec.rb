@@ -14,6 +14,6 @@ describe 'Sign out' do
       click_link 'Se déconnecter'
     end
 
-    expect(page).to have_content('Connexion')
+    expect(page).to have_content('Bienvenue sur la plateforme SitCom')
   end
 end

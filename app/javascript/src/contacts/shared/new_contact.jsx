@@ -18,6 +18,15 @@ export default class NewContact extends React.Component {
     this.bindFocusOnInput()
   }
 
+  reset() {
+    this.setState({
+      firstName: '',
+      lastName:  '',
+      email:     '',
+      errors:    '',
+    })
+  }
+
   bindFocusOnInput() {
     $('.new-contact-modal').on('shown.bs.modal', () => {
       $(this.refs.firstName).focus()
@@ -140,7 +149,7 @@ export default class NewContact extends React.Component {
               </div>
 
               <div className="modal-footer">
-                <button type="button" className="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.reset.bind(this)}>Fermer</button>
                 <input  type="submit" className="btn btn-primary" disabled={this.state.loading} value="Créer"/>
               </div>
             </form>

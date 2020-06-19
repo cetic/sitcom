@@ -37,6 +37,10 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_attr (0.15.0)
+      actionpack (>= 3.0.2, < 6.1)
+      activemodel (>= 3.0.2, < 6.1)
+      activesupport (>= 3.0.2, < 6.1)
     activejob (6.0.3.1)
       activesupport (= 6.0.3.1)
       globalid (>= 0.3.6)
@@ -275,7 +279,7 @@ GEM
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    rmagick (4.0.0)
+    rmagick (4.1.2)
     rspec-core (3.9.0)
       rspec-support (~> 3.9.0)
     rspec-expectations (3.9.0)
@@ -369,6 +373,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_attr
   acts_as_list
   bootsnap (>= 1.1.0)
   bootstrap-sass

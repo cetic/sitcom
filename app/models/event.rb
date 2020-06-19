@@ -2,15 +2,11 @@ class Event < ApplicationRecord
 
   # Concerns
 
+  include CommonItemTypeMethodsConcern
   include CustomFieldsConcern
   include CommonIndexConcern
   include EventIndexConcern
   include CableActionsConcern
-
-  # Uploaders
-
-  mount_uploader :picture, PictureUploader
-  include GravatarConcern # Must stay here because override previous line!
 
   # Associations
 
@@ -51,10 +47,15 @@ class Event < ApplicationRecord
 
   # Callbacks
 
-  after_commit   :after_create_callback,  on: :create
-  before_update  :before_update_callback
-  after_commit   :after_update_callback,  on: :update
-  around_destroy :around_destroy_callback
+  before_validation :before_validation_callback
+  after_commit      :after_create_callback,  on: :create
+  before_update     :before_update_callback
+  after_commit      :after_update_callback,  on: :update
+  around_destroy    :around_destroy_callback
+
+  def before_validation_callback
+    self.website_url = sanitize_url(self.website_url)
+  end
 
   def after_create_callback
     # websockets
@@ -79,9 +80,9 @@ class Event < ApplicationRecord
   def after_update_callback
     # websockets
     cable_update
-    Contact.where(     :id => @saved_contact_ids).each(&:cable_update)
+    Contact.where(     :id => @saved_contact_ids     ).each(&:cable_update)
     Organization.where(:id => @saved_organization_ids).each(&:cable_update)
-    Project.where(     :id => @saved_project_ids).each(&:cable_update)
+    Project.where(     :id => @saved_project_ids     ).each(&:cable_update)
 
     # elasticsearch
     ReindexEventWorker.perform_async(id)
@@ -98,21 +99,33 @@ class Event < ApplicationRecord
 
     # dependent destroy
     contact_event_links.destroy_all
+    event_organization_links.destroy_all
+    event_project_links.destroy_all
 
     yield
 
     # websockets
     cable_destroy
-    Contact.where(:id => saved_contact_ids).each(&:cable_update)
+    Contact.where(     :id => saved_contact_ids     ).each(&:cable_update)
     Organization.where(:id => saved_organization_ids).each(&:cable_update)
-    Project.where(:id => saved_project_ids).each(&:cable_update)
+    Project.where(     :id => saved_project_ids     ).each(&:cable_update)
 
     # elasticsearch
-    ReindexEventWorker.perform_async(saved_id, 'delete', saved_contact_ids)
+    ReindexEventWorker.perform_async(saved_id, 'delete', saved_contact_ids, saved_organization_ids, saved_project_ids)
 
     # mailchimp
     Contact.where(:id => saved_contact_ids).each(&:mailchimp_upsert)
   end
+
+  # Uploaders
+  # => after_commit are called from the last to the first, we need carrierwave before our callbacks
+  #    to avoid sending non-updated pictures to frontend.
+  # References: * https://github.com/rails/rails/issues/20911
+  #             * https://github.com/rails/rails/pull/23462
+  #             * https://github.com/carrierwaveuploader/carrierwave/blob/d41ad71ad71a813dddf47e750e5a8b5f5c8d4e0d/README.md#skipping-activerecord-callbacks
+
+  mount_uploader :picture, PictureUploader
+  include GravatarConcern # Override previous line!
 
   # Methods
 

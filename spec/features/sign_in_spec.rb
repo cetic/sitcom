@@ -12,12 +12,16 @@ describe 'Sign in' do
     })
   end
 
-  it 'works and allows the user to select a lab (only the first time!)', :focus => true do
+  it 'works and allows the user to select a lab (only the first time!)' do
     sleep 0.3
 
     visit '/'
 
     sleep 0.3
+
+    within '.intro-text' do
+      click_on 'Accéder à SitCom'
+    end
 
     within '.container form#new_user', :wait => 15 do
       fill_in 'Email',        :with => @user.email

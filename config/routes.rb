@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  resources :registrations, only: %i(new create)
+
   # Sidekiq
 
   authenticate :user, lambda { |u| u.admin? } do
@@ -76,6 +78,9 @@ Rails.application.routes.draw do
     resource :password
     resource :current_lab
   end
+
+  # Leave before labs
+  root to: 'pages#home'
 
   resources :labs, :path => ''
   resources :labs, :path => '', :only => [] do
@@ -173,6 +178,4 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  root to: 'labs#index'
 end

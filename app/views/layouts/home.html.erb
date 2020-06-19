@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="<%= session[:locale] ? session[:locale] : 'en' %>"
+      id="homepage"
+      data-rails-env="<%= Rails.env %>">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="SitCom - Votre outil de gestion de communautés">
+    <meta name="keywords" content="crm,sitcom,gestion,outil,communauté>">
+
+    <title>
+      SitCom - Votre outil de gestion de communautés
+    </title>
+
+    <%= stylesheet_link_tag("home", media: "all") %>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body id="page-top">
+    <%= yield %>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <span class="copyright">Copyright &copy; CETIC 2020</span>
+          </div>
+          <div class="col-md-3">
+            <ul class="list-inline social-buttons">
+              <li class="list-inline-item">
+                <a href="https://twitter.com/CETIC">
+                  <i class="fa fa-twitter"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://www.facebook.com/cetic.be">
+                  <i class="fa fa-facebook-f"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://www.linkedin.com/company/cetic">
+                  <i class="fa fa-linkedin" style="vertical-align: 1px;"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-3">
+            <img src="<%= image_path('home/CW.jpg') %>" alt="Creative Wallonia" style="height:56px;">
+            <img src="<%= image_path('home/coq-spw-ho.png') %>" alt="Service public de Wallonie" style="height:56px;">
+          </div>
+          <div class="col-md-3">
+            <ul class="list-inline quicklinks">
+              <li class="list-inline-item">
+                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">Privacy Policy</a>
+              </li>
+              <li class="list-inline-item">
+                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">Terms of Use</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Portfolio Modals -->
+    <!-- Modal 1 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <h2 class="text-uppercase">SITCOM</h2>
+                  <p class="item-intro text-muted">Outil open source simple et intuitif.</p>
+
+                  <p class="text-left">
+                    Sitcom vous permet de centraliser et de gérer facilement vos contacts ainsi que votre répertoire d’organisations,
+                    et de les mettre en lien avec vos projets et évènements. Vous pourrez joindre des descriptions, des notes privées
+                    ou publiques et des tags pour regrouper vos informations. Vous pourrez organiser un mailing en reliant un compte
+                    Mailchimp et télécharger les données.
+                  </p>
+
+                  <ul class="text-left">
+                    <li style="margin-bottom: 20px;">
+                      Dans sa <strong>version gratuite</strong> vous aurez accès à la plateforme et vous pourrez encoder un nombre illimité de contacts
+                      et organisations, vous pourrez gérer jusqu’à deux projets et quatre évènements.
+                    </li>
+                    <li>
+                      Avec un <strong>abonnement</strong>, proposé au prix de 240€ (HTVA) par an, vous aurez un accès illimité à la plateforme et
+                      l’activation de la fonctionnalité de mailing.
+                    </li>
+                  </ul>
+
+                  <p class="text-left">
+                    Vous souhaitez souscrire à un abonnement? Contactez nous:
+                    <b><a href="mailto:info@livinglabsinwallonia.be" style="color:#333333">info@livinglabsinwallonia.be</a></b>
+                  </p>
+
+                  <div>
+                    <button class="btn btn-primary" data-dismiss="modal" type="button">
+                      <i class="fa fa-times"></i>
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8 mx-auto">
+                <div class="modal-body">
+                  <h2 class="text-uppercase">Privacy policy</h2>
+                  <p class="item-intro text-muted">
+                   À venir
+                  </p>
+                  <p>
+                    ...
+                  </p>
+                  <button class="btn btn-primary" data-dismiss="modal" type="button">
+                    <i class="fa fa-times"></i>
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <!-- Modal 3 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8 mx-auto">
+                <div class="modal-body">
+                  <h2 class="text-uppercase">Terms of use</h2>
+                  <p class="item-intro text-muted">
+                    À venir
+                  </p>
+                  <p>
+                    ...
+                  </p>
+                  <button class="btn btn-primary" data-dismiss="modal" type="button">
+                    <i class="fa fa-times"></i>
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= javascript_include_tag 'home' %>
+
+    <% if Rails.env.production? || Rails.env.staging? %>
+      <script>
+        window.bugsnagClient = bugsnag("<%= ENV['BUGSNAG_API_KEY'] %>")
+      </script>
+    <% end %>
+
+  </body>
+</html>
+

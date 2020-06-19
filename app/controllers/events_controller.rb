@@ -56,14 +56,18 @@ class EventsController < ApplicationController
     if PermissionsService.new(current_user, @lab).can_write?('events')
       respond_to do |format|
         format.json do
-          @event = @lab.events.new(strong_params)
+          if LabAccountTypeService.new(@lab).can_create_event?
+            @event = @lab.events.new(strong_params)
 
-          if @event.save
-            LogEntry.log_create(current_user, @event)
+            if @event.save
+              LogEntry.log_create(current_user, @event)
 
-            render_json_success({ :event_id => @event.id })
+              render_json_success({ :event_id => @event.id })
+            else
+              render_json_errors(@event)
+            end
           else
-            render_json_errors(@event)
+            render :json => { :success => false, :quota_reached => true }
           end
         end
       end
