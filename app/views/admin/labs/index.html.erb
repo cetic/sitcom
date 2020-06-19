@@ -11,6 +11,11 @@
         <thead>
           <tr>
             <th>Nom</th>
+
+            <% if current_user.admin? %>
+              <th>Type</th>
+            <% end %>
+
             <th>Expertises</th>
             <th>Champs personnalisés</th>
             <th class="center">Mailchimp</th>

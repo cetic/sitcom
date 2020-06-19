@@ -42,6 +42,9 @@ class Event < ApplicationRecord
                       :case_sensitive => false
                     }
 
+  validates :website_url, :format      => { :with => URI::regexp(%w(http https)), :message => "L'adresse du site Web est invalide." },
+                          :allow_blank => true
+
   # Callbacks
 
   before_validation :before_validation_callback

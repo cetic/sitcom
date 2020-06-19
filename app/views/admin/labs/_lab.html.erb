@@ -1,7 +1,9 @@
 <tr>
-  <td>
-    <%= lab.name %>
-  </td>
+  <td><%= lab.name %></td>
+
+  <% if current_user.admin? %>
+    <td><%= lab.account_type.text %></td>
+  <% end %>
 
   <td><%= link_to "#{lab.fields.count} expertises",                  admin_lab_fields_path(lab),        :class => '' %></td>
   <td><%= link_to "#{lab.custom_fields.count} champs personnalisés", admin_lab_custom_fields_path(lab), :class => '' %></td>

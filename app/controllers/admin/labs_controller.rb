@@ -2,7 +2,9 @@ class Admin::LabsController < Admin::BaseController
   before_action :find_lab, :only => [ :edit, :update, :destroy ]
 
   def index
-    if current_user.lab_manager?
+    if current_user.admin?
+      @labs = Lab.order(:name)
+    elsif current_user.lab_manager?
       @labs = current_user.labs.order(:name)
     else
       @labs = Lab.order(:name)
@@ -18,6 +20,10 @@ class Admin::LabsController < Admin::BaseController
     @lab = Lab.new(strong_params)
 
     if @lab.save
+      unless current_user.admin?
+        ApplicationMailer.lab_created(@lab, current_user).deliver_now
+      end
+
       redirect_to admin_labs_path
     else
       set_flash_now_errors(@lab)
@@ -50,7 +56,9 @@ class Admin::LabsController < Admin::BaseController
   protected
 
   def find_lab
-    if current_user.lab_manager?
+    if current_user.admin?
+      @lab = Lab.find_by_slug(params[:id])
+    elsif current_user.lab_manager?
       @lab = current_user.labs.find_by_slug(params[:id])
     else
       @lab = Lab.find_by_slug(params[:id])
@@ -60,10 +68,18 @@ class Admin::LabsController < Admin::BaseController
   private
 
   def strong_params
-    params.require(:lab).permit(
-      :name, :mailchimp_api_key, :mailchimp_company, :mailchimp_from_email,
+    attributes = [
+      :name, :address1, :address2, :city, :state, :zip, :country,
+      :mailchimp_api_key,
+      :mailchimp_company, :mailchimp_from_email,
       :mailchimp_address1, :mailchimp_address2, :mailchimp_city,
       :mailchimp_state, :mailchimp_zip, :mailchimp_country
-    )
+    ]
+
+    if current_user.admin?
+      attributes << :account_type
+    end
+
+    params.require(:lab).permit(attributes)
   end
 end

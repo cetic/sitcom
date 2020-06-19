@@ -44,6 +44,7 @@ gem 'rabl'
 gem 'rubyXL', '3.4.9'
 gem 'uuidtools'
 gem 'bugsnag'
+gem 'active_attr'
 
 gem 'bootsnap', '>= 1.1.0', :require => false
 

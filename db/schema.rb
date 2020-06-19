@@ -194,6 +194,14 @@ ActiveRecord::Schema.define(version: 2020_06_18_165700) do
     t.string "mailchimp_country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "vat_number", default: ""
+    t.string "address1", default: ""
+    t.string "address2", default: ""
+    t.string "city", default: ""
+    t.string "state", default: ""
+    t.string "zip", default: ""
+    t.string "country", default: ""
+    t.string "account_type", default: "basic"
   end
 
   create_table "log_entries", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|

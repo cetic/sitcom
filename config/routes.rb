@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  resources :registrations, only: %i(new create)
+
   # Sidekiq
 
   authenticate :user, lambda { |u| u.admin? } do

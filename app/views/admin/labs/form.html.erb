@@ -21,9 +21,75 @@
               <%= f.text_field :name, :class => 'form-control' %>
             </div>
           </div>
+
+          <% if current_user.admin? %>
+            <div class="form-group">
+              <%= f.label :account_type, 'Type de compte', :class => 'control-label col-md-3' %>
+
+              <div class="col-md-9">
+                <%= f.select :account_type, Lab.account_type.options, {}, :class => 'form-control' %>
+              </div>
+            </div>
+          <% end %>
+
+          <div class="form-group">
+            <%= f.label :vat_number, 'Numéro de TVA', :class => 'control-label col-md-3' %>
+
+            <div class="col-md-9">
+              <%= f.text_field :vat_number, :class => 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :address1, 'Adresse', :class => 'control-label col-md-3' %>
+
+            <div class="col-md-9">
+              <%= f.text_field :address1, :class => 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :address2, 'Adresse (suite)', :class => 'control-label col-md-3' %>
+
+            <div class="col-md-9">
+              <%= f.text_field :address2, :class => 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :city, 'Localité', :class => 'control-label col-md-3' %>
+
+            <div class="col-md-9">
+              <%= f.text_field :city, :class => 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :zip, 'Code postal', :class => 'control-label col-md-3' %>
+
+            <div class="col-md-9">
+              <%= f.text_field :zip, :class => 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :state, 'Etat / province', :class => 'control-label col-md-3' %>
+
+            <div class="col-md-9">
+              <%= f.text_field :state, :class => 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :country, 'Pays', :class => 'control-label col-md-3' %>
+
+            <div class="col-md-9">
+              <%= f.text_field :country, :class => 'form-control' %>
+            </div>
+          </div>
         </fieldset>
 
-        <% if @lab.persisted? %>
+        <% if @lab.persisted? && LabAccountTypeService.new(@lab).can_use_mailchimp? %>
           <%= render 'form_mailchimp', :f => f %>
         <% end %>
 

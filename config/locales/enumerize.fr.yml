@@ -5,3 +5,7 @@ fr:
         text: "Texte"
         bool: "Booléen"
         enum: "Liste de choix prédéfinis"
+    lab:
+      account_type:
+        basic: Basic
+        premium: Premium

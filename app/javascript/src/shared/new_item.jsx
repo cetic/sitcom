@@ -13,6 +13,13 @@ export default class NewItem extends React.Component {
     this.bindFocusOnInput()
   }
 
+  reset() {
+    this.setState({
+      fieldValue:  '',
+      errors:      ''
+    })
+  }
+
   bindFocusOnInput() {
     $('.' + this.props.modalClassName).on('shown.bs.modal', () => {
       $(this.refs.name).focus()
@@ -37,7 +44,14 @@ export default class NewItem extends React.Component {
 
       http.post(this.props.itemsPath, params, (data) => {
         if(!data.success) {
-          this.setState({ errors: data.errors })
+          if(data.quotaReached) {
+            this.hideModal()
+            this.reset()
+            $('.quota-modal').modal('show')
+          }
+          else {
+            this.setState({ errors: data.errors })
+          }
         }
         else {
           var id = data[`${this.props.modelName}Id`]
@@ -46,7 +60,8 @@ export default class NewItem extends React.Component {
 
           this.setState({
             fieldValue: '',
-            loading:    false
+            loading:    false,
+            errors:     []
           })
         }
       })
@@ -87,7 +102,7 @@ export default class NewItem extends React.Component {
               </div>
 
               <div className="modal-footer">
-                <button type="button" className="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.reset.bind(this)}>Fermer</button>
                 <input  type="submit" className="btn btn-primary" disabled={this.state.loading} value="Créer"/>
               </div>
             </form>

@@ -1,0 +1,137 @@
+<% content_for :title, "Connexion" %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 logo-container">
+      <%= image_tag 'logo.svg' %>
+    </div>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <div class="col-md-8 col-md-offset-2 well panel">
+      <h1>Créer un compte</h1>
+
+      <%= render 'shared/flash' %>
+
+      <%= form_for(@registration, :html => { :class => 'form-horizontal' }) do |f| %>
+        <div class="form-group">
+          <div class="col-md-3"></div>
+
+          <div class="col-md-9">
+            <h4>Votre utilisateur</h4>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :name, 'Nom et prénom', :class => 'control-label col-md-3' %>
+
+          <div class="col-md-9">
+            <%= f.text_field :name, :autofocus => true, :class => 'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :email, 'Email', :class => 'control-label col-md-3' %>
+
+          <div class="col-md-9">
+            <%= f.email_field :email, :class => 'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password, 'Mot de passe', :class => 'control-label col-md-3' %>
+
+          <div class="col-md-9">
+            <%= f.password_field :password, :class => 'form-control', :placeholder => '' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password_confirmation, 'Confirmation', :class => 'control-label col-md-3' %>
+
+          <div class="col-md-9">
+            <%= f.password_field :password_confirmation, :class => 'form-control', :placeholder => '' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-3"></div>
+
+          <div class="col-md-9">
+            <h4>Votre compte</h4>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :lab_name, 'Nom du compte', :class => 'control-label col-md-3' %>
+
+          <div class="col-md-9">
+            <%= f.text_field :lab_name, :class => 'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :lab_vat_number, 'Numéro de TVA', :class => 'control-label col-md-3' %>
+
+          <div class="col-md-9">
+            <%= f.text_field :lab_vat_number, :class => 'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :lab_address1, 'Adresse', :class => 'control-label col-md-3' %>
+
+          <div class="col-md-9">
+            <%= f.text_field :lab_address1, :class => 'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :lab_address2, 'Adresse (suite)', :class => 'control-label col-md-3' %>
+
+          <div class="col-md-9">
+            <%= f.text_field :lab_address2, :class => 'form-control', :required => false %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :lab_city, 'Localité', :class => 'control-label col-md-3' %>
+
+          <div class="col-md-9">
+            <%= f.text_field :lab_city, :class => 'form-control', :required => false %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :lab_zip, 'Code postal', :class => 'control-label col-md-3' %>
+
+          <div class="col-md-9">
+            <%= f.text_field :lab_zip, :class => 'form-control', :required => false %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :lab_state, 'Etat / province', :class => 'control-label col-md-3' %>
+
+          <div class="col-md-9">
+            <%= f.text_field :lab_state, :class => 'form-control', :required => false %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :lab_country, 'Pays', :class => 'control-label col-md-3' %>
+
+          <div class="col-md-9">
+            <%= f.text_field :lab_country, :class => 'form-control', :required => false %>
+          </div>
+        </div>
+
+        <div class="actions">
+          <%= f.submit 'Créer un compte', :class => 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
