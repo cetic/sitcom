@@ -17,6 +17,8 @@ class User < ApplicationRecord
 
   has_many :log_entries,    :dependent => :nullify
 
+  has_many :item_user_links, :dependent => :destroy
+
   # Validations
 
   validates :name, :presence => { :message => "Le nom est obligatoire." }
@@ -63,6 +65,13 @@ class User < ApplicationRecord
 
   def lab_manager_of?(lab)
     lab_user_links.where(lab_id: lab.id).any? && lab_manager?
+  end
+
+  def follow?(item)
+    item_user_links.where(
+      :item_id   => item.id,
+      :item_type => item.class.name
+    ).any?
   end
 
   # Class Methods

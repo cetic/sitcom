@@ -5,6 +5,7 @@ import ItemsBlock        from '../../shared/items_block.jsx'
 import CustomFieldsBlock from '../../shared/custom_fields_block.jsx'
 import NotesBlock        from '../../shared/notes_block.jsx'
 import PreviousNextNav   from '../../shared/previous_next_nav.jsx'
+import FollowButton      from '../../shared/follow_button.jsx'
 import LogEntries        from '../../shared/log_entries.jsx'
 
 export default class Organization extends React.Component {
@@ -117,6 +118,7 @@ export default class Organization extends React.Component {
         <div className="item-show organization">
           { this.renderLoading() }
           { this.renderPreviousNextNav() }
+          { this.renderFollowButton() }
           { this.renderGeneral() }
           { this.renderCustomFields() }
           { this.renderContacts() }
@@ -146,6 +148,16 @@ export default class Organization extends React.Component {
                          currentItemId={this.props.id}
                          router={this.props.router}
                          search={this.props.search} />
+      )
+    }
+  }
+
+  renderFollowButton() {
+    if(this.props.loaded && !this.state.generalEditMode) {
+      return (
+        <FollowButton itemId={this.props.id}
+                      itemPath={this.organizationPath()}
+                      itemType="organization" />
       )
     }
   }

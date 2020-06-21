@@ -36,6 +36,23 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.smtp_settings = {
+    :domain  => 'localhost',
+    :address => 'localhost',
+    :port    => 1025,
+  }
+
+  config.action_mailer.default_url_options = {
+    :host => 'localhost:3000'
+  }
+
+  # https://stackoverflow.com/questions/7219732/missing-host-to-link-to-please-provide-host-parameter-or-set-default-url-optio
+  Rails.application.routes.default_url_options = config.action_mailer.default_url_options
+
+  # http://stackoverflow.com/a/15539534/1243212
+  # config.action_controller.asset_host = APP_HOSTNAME
+  config.action_mailer.asset_host = "http://localhost:3000"
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

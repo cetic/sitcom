@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_18_165700) do
+ActiveRecord::Schema.define(version: 2020_06_19_125941) do
 
   create_table "contact_event_links", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "contact_id"
@@ -161,6 +161,17 @@ ActiveRecord::Schema.define(version: 2020_06_18_165700) do
     t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_item_tag_links_on_item_id"
     t.index ["tag_id"], name: "index_item_tag_links_on_tag_id"
+  end
+
+  create_table "item_user_links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "item_id"
+    t.string "item_type", default: "Contact"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_id"], name: "index_item_user_links_on_item_id"
+    t.index ["item_type"], name: "index_item_user_links_on_item_type"
+    t.index ["user_id"], name: "index_item_user_links_on_user_id"
   end
 
   create_table "lab_user_links", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -330,6 +341,7 @@ ActiveRecord::Schema.define(version: 2020_06_18_165700) do
   add_foreign_key "events", "labs"
   add_foreign_key "fields", "fields", column: "parent_id"
   add_foreign_key "item_tag_links", "tags"
+  add_foreign_key "item_user_links", "users"
   add_foreign_key "lab_user_links", "labs"
   add_foreign_key "lab_user_links", "users"
   add_foreign_key "log_entries", "labs"

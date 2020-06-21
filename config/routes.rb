@@ -90,6 +90,12 @@ Rails.application.routes.draw do
       resources :log_entries
       resources :custom_fields
 
+      member do
+        get :follow_status
+        get :follow
+        get :unfollow
+      end
+
       collection do
         get    :options
         get    :export
@@ -105,6 +111,12 @@ Rails.application.routes.draw do
       resources :documents
       resources :log_entries
       resources :custom_fields
+
+      member do
+        get :follow_status
+        get :follow
+        get :unfollow
+      end
 
       collection do
         get    :options
@@ -122,6 +134,12 @@ Rails.application.routes.draw do
       resources :log_entries
       resources :custom_fields
 
+      member do
+        get :follow_status
+        get :follow
+        get :unfollow
+      end
+
       collection do
         get    :options
         get    :export
@@ -136,6 +154,12 @@ Rails.application.routes.draw do
       resources :documents
       resources :log_entries
       resources :custom_fields
+
+      member do
+        get :follow_status
+        get :follow
+        get :unfollow
+      end
 
       collection do
         get    :options

@@ -1,5 +1,7 @@
 class OrganizationsController < ApplicationController
 
+  include FollowConcern
+
   before_action :find_lab
   before_action :clean_params, :only => [:update] # for dropzone
 
@@ -99,9 +101,10 @@ class OrganizationsController < ApplicationController
         format.json do
           @organization            = @lab.organizations.find(params[:id])
           previous_association_ids = @organization.association_ids
+          previous_follower_ids    = @organization.follower_ids
 
           if @organization.destroy
-            LogEntry.log_destroy(current_user, @organization, previous_association_ids)
+            LogEntry.log_destroy(current_user, @organization, previous_association_ids, previous_follower_ids)
 
             render_json_success
           else

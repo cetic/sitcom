@@ -1,5 +1,7 @@
 class ContactsController < ApplicationController
 
+  include FollowConcern
+
   before_action :find_lab
   before_action :clean_params, :only => [:update] # for dropzone
 
@@ -100,9 +102,10 @@ class ContactsController < ApplicationController
         format.json do
           @contact                 = @lab.contacts.find(params[:id])
           previous_association_ids = @contact.association_ids
+          previous_follower_ids    = @contact.follower_ids
 
           if @contact.destroy
-            LogEntry.log_destroy(current_user, @contact, previous_association_ids)
+            LogEntry.log_destroy(current_user, @contact, previous_association_ids, previous_follower_ids)
             cleanup_orphan_tags
 
             render_json_success

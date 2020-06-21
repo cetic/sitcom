@@ -1,5 +1,7 @@
 class EventsController < ApplicationController
 
+  include FollowConcern
+
   before_action :find_lab
   before_action :clean_params, :only => [:update] # for dropzone
 
@@ -103,9 +105,10 @@ class EventsController < ApplicationController
         format.json do
           @event                   = @lab.events.find(params[:id])
           previous_association_ids = @event.association_ids
+          previous_follower_ids    = @event.follower_ids
 
           if @event.destroy
-            LogEntry.log_destroy(current_user, @event, previous_association_ids)
+            LogEntry.log_destroy(current_user, @event, previous_association_ids, previous_follower_ids)
 
             render_json_success
           else

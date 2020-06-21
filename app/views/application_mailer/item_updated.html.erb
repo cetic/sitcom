@@ -1,0 +1,9 @@
+<p>
+  <%= @user.name %> <%= @action_text %> <%= link_to @item.name, @item.url %>
+  sur le compte <a href="<%= lab_url(@lab) %>"><%= @lab.name %></a>.
+</p>
+
+<p>
+  Cliquez sur le lien suivant pour accéder à la fiche et voir l'historique des modifications :
+  <%= link_to @item.url, @item.url %>
+</p>

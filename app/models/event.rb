@@ -24,6 +24,8 @@ class Event < ApplicationRecord
   has_many :event_project_links # dependent destroy is made in around_destroy_callback
   has_many :projects, :through => :event_project_links
 
+  has_many :item_user_links, :dependent => :destroy, :as => :item
+
   has_many :notes, :as => :notable
 
   has_many :documents, :as => :uploadable
@@ -139,6 +141,10 @@ class Event < ApplicationRecord
 
   def path
     Rails.application.routes.url_helpers.lab_event_path(lab, self)
+  end
+
+  def url
+    Rails.application.routes.url_helpers.lab_event_url(lab, self)
   end
 
   def scoped_path

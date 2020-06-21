@@ -27,6 +27,8 @@ class Contact < ApplicationRecord
   has_many :contact_project_links # dependent destroy is made in around_destroy_callback
   has_many :projects, :through => :contact_project_links
 
+  has_many :item_user_links, :dependent => :destroy, :as => :item
+
   has_many :notes, :as => :notable
 
   has_many :documents, :as => :uploadable
@@ -146,6 +148,10 @@ class Contact < ApplicationRecord
 
   def path
     Rails.application.routes.url_helpers.lab_contact_path(lab, self)
+  end
+
+  def url
+    Rails.application.routes.url_helpers.lab_contact_url(lab, self)
   end
 
   def scoped_path
