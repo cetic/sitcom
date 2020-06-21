@@ -105,9 +105,10 @@ class ProjectsController < ApplicationController
         format.json do
           @project                 = @lab.projects.find(params[:id])
           previous_association_ids = @project.association_ids
+          previous_follower_ids    = @project.follower_ids
 
           if @project.destroy
-            LogEntry.log_destroy(current_user, @project, previous_association_ids)
+            LogEntry.log_destroy(current_user, @project, previous_association_ids, previous_follower_ids)
 
             render_json_success
           else

@@ -24,4 +24,11 @@ module CommonItemTypeMethodsConcern
 
     url
   end
+
+  def follower_ids
+    item_user_links.where(
+      :item_id   => self.id,
+      :item_type => self.class.name
+    ).pluck(:user_id)
+  end
 end

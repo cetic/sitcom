@@ -67,6 +67,13 @@ class User < ApplicationRecord
     lab_user_links.where(lab_id: lab.id).any? && lab_manager?
   end
 
+  def follow?(item)
+    item_user_links.where(
+      :item_id   => item.id,
+      :item_type => item.class.name
+    ).any?
+  end
+
   # Class Methods
 
   # Private Methods

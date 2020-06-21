@@ -143,6 +143,10 @@ class Event < ApplicationRecord
     Rails.application.routes.url_helpers.lab_event_path(lab, self)
   end
 
+  def url
+    Rails.application.routes.url_helpers.lab_event_url(lab, self)
+  end
+
   def scoped_path
     "#{self.class.name.parameterize.pluralize}/#{id}"
   end

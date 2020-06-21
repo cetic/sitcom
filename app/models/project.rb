@@ -137,6 +137,10 @@ class Project < ApplicationRecord
     Rails.application.routes.url_helpers.lab_project_path(lab, self)
   end
 
+  def url
+    Rails.application.routes.url_helpers.lab_project_url(lab, self)
+  end
+
   def scoped_path
     "#{self.class.name.parameterize.pluralize}/#{id}"
   end

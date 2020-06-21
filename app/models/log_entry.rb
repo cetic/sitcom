@@ -32,7 +32,7 @@ class LogEntry < ApplicationRecord
     log(:update, current_user, item, previous_association_ids)
   end
 
-  def self.log_destroy(current_user, item, previous_association_ids)
+  def self.log_destroy(current_user, item, previous_association_ids, previous_follower_ids = [])
     LogEntry.create!(
       :item_id   => item.id,
       :item_type => item.class.name,
@@ -43,6 +43,8 @@ class LogEntry < ApplicationRecord
       :item_name => item.name,
       :content   => {}
     )
+
+    send_updated_emails_to_followers(item, current_user, :item_removed, previous_follower_ids)
 
     # Create update log for associated items
     [:organization_ids, :project_ids, :event_ids, :contact_ids].each do |association_type|
@@ -60,6 +62,8 @@ class LogEntry < ApplicationRecord
             :item_name => associated_item.name,
             :content   => { "#{item.class.name.underscore}_ids" => [old_associated_ids + [item.id], old_associated_ids] }
           )
+
+          send_updated_emails_to_followers(associated_item, current_user, :item_updated)
         end
       end
     end
@@ -86,6 +90,8 @@ class LogEntry < ApplicationRecord
         :content   => { 'note' => [note.text, nil] },
         :item_name => note.notable.name,
       )
+
+      send_updated_emails_to_followers(note.notable, current_user, :note_updated)
     end
   end
 
@@ -110,6 +116,8 @@ class LogEntry < ApplicationRecord
         :content   => { 'document' => [document.file_identifier, nil] },
         :item_name => document.uploadable.name
       )
+
+      send_updated_emails_to_followers(document.uploadable, current_user, :document_updated)
     end
   end
 
@@ -133,6 +141,8 @@ class LogEntry < ApplicationRecord
         :content   => { 'custom_field' => { custom_field_name => value_diff } },
         :item_name => custom_field_link.item.name
       )
+
+      send_updated_emails_to_followers(custom_field_link.item, current_user, :custom_field_updated)
     end
   end
 
@@ -163,6 +173,10 @@ class LogEntry < ApplicationRecord
         :content   => previous_changes,
         :item_name => item.name
       )
+
+      if action == :update
+        send_updated_emails_to_followers(item, current_user, :item_updated)
+      end
     end
   end
 
@@ -176,6 +190,8 @@ class LogEntry < ApplicationRecord
         :content   => { 'note' => note.text_previous_change },
         :item_name => note.notable.name
       )
+
+      send_updated_emails_to_followers(note.notable, current_user, :note_updated)
     end
   end
 
@@ -189,6 +205,20 @@ class LogEntry < ApplicationRecord
         :content   => { 'document' => document.file_previous_change },
         :item_name => document.uploadable
       )
+
+      send_updated_emails_to_followers(document.uploadable, current_user, :document_updated)
+    end
+  end
+
+  def self.send_updated_emails_to_followers(item, current_user, action = :item_updated, previous_follower_ids = [])
+    # (1) item could be "Tag", so we use try()
+    # (2) previous_follower_ids is not-empty when item is already destroyed
+    follower_ids = (item.try(:follower_ids) || []) + previous_follower_ids - [current_user.id]
+
+    follower_ids.each do |follower_id|
+      # Leave deliver_now because it's the only way to pass "item" as an object (useful only for :item_removed action)
+      # Also, currently nothing is configured to deliver later in production (use sidekiq and add new queue?)
+      ApplicationMailer.item_updated(follower_id, current_user.id, item, action).deliver_now
     end
   end
 

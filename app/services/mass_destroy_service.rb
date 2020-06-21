@@ -22,9 +22,10 @@ class MassDestroyService
 
   def destroy_item(item)
     previous_association_ids = item.association_ids
+    previous_follower_ids    = item.follower_ids
 
     if item.destroy!
-      LogEntry.log_destroy(@current_user, item, previous_association_ids)
+      LogEntry.log_destroy(@current_user, item, previous_association_ids, previous_follower_ids)
     end
   end
 

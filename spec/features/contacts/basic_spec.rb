@@ -84,7 +84,7 @@ describe 'Basic contacts', :js => true do
     within '.item-show', :wait => 3 do
       find('h1').hover # to make button appear
 
-      click_on 'Modifier', :wait => 3
+      click_on 'Modifier', :wait => 10
 
       fill_in 'Prénom', :with => 'Steve'
       fill_in 'Nom',    :with => 'Jobs'
