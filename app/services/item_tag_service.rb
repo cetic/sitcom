@@ -10,43 +10,45 @@ class ItemTagService
   def add_tag(tag_name)
     tag_name = tag_name.strip
 
-    # Create tag if not present
-    existing_tag = @lab.tags.where(:name => tag_name, :item_type => @item_type)
+    if tag_name.present?
+      # Create tag if not present
+      existing_tag = @lab.tags.where(:name => tag_name, :item_type => @item_type)
 
-    if existing_tag.empty?
-      tag = @lab.tags.create!(
-        :name      => tag_name,
+      if existing_tag.empty?
+        tag = @lab.tags.create!(
+          :name      => tag_name,
+          :item_type => @item_type,
+          :color     => Tag.random_color(@lab)
+        )
+
+        # Log the creation of tag (useful to get name and color in history of items)
+        LogEntry.log_create(@current_user, tag)
+      else
+        tag = existing_tag.first
+      end
+
+      # for log entries
+      previous_associations_ids = @item.association_ids
+
+      # Link tag to item
+      ItemTagLink.where(
+        :item_id   => @item.id,
         :item_type => @item_type,
-        :color     => Tag.random_color(@lab)
-      )
+        :tag_id    => tag.id
+      ).first_or_create!
 
-      # Log the creation of tag (useful to get name and color in history of items)
-      LogEntry.log_create(@current_user, tag)
-    else
-      tag = existing_tag.first
+      # for log entries
+      @item.reload
+      LogEntry.log_update(@current_user, @item, previous_associations_ids)
+
+      # reindex item
+      @item.__elasticsearch__.index_document
+
+      # websockets
+      @item.cable_update
+
+      tag
     end
-
-    # for log entries
-    previous_associations_ids = @item.association_ids
-
-    # Link tag to item
-    ItemTagLink.where(
-      :item_id   => @item.id,
-      :item_type => @item_type,
-      :tag_id    => tag.id
-    ).first_or_create!
-
-    # for log entries
-    @item.reload
-    LogEntry.log_update(@current_user, @item, previous_associations_ids)
-
-    # reindex item
-    @item.__elasticsearch__.index_document
-
-    # websockets
-    @item.cable_update
-
-    tag
   end
 
   def remove_tag(tag_id)
