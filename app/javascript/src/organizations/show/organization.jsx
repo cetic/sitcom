@@ -1,5 +1,7 @@
 import GeneralShow       from './general_show.jsx'
 import GeneralEdit       from './general_edit.jsx'
+import SocialShow        from './social_show.jsx'
+import SocialEdit        from './social_edit.jsx'
 import ContactsBlock     from '../../shared/contacts_block.jsx'
 import ItemsBlock        from '../../shared/items_block.jsx'
 import CustomFieldsBlock from '../../shared/custom_fields_block.jsx'
@@ -16,7 +18,8 @@ export default class Organization extends React.Component {
       notFound:        false,
       organization:    this.props.organization,              // When coming from index and not direct link
       loaded:          this.props.organization != undefined, //
-      generalEditMode: false
+      generalEditMode: false,
+      socialEditMode:  false
     }
   }
 
@@ -99,6 +102,12 @@ export default class Organization extends React.Component {
     })
   }
 
+  toggleSocialEditMode() {
+    this.setState({
+      socialEditMode: !this.state.socialEditMode
+    })
+  }
+
   render() {
     if(this.state.notFound) {
       return (
@@ -120,6 +129,7 @@ export default class Organization extends React.Component {
           { this.renderPreviousNextNav() }
           { this.renderFollowButton() }
           { this.renderGeneral() }
+          { this.renderSocial() }
           { this.renderCustomFields() }
           { this.renderContacts() }
           { this.renderProjects() }
@@ -181,6 +191,25 @@ export default class Organization extends React.Component {
                        tagOptionsPath={this.props.tagOptionsPath}
                        router={this.props.router}
                        toggleEditMode={this.toggleGeneralEditMode.bind(this)} />
+        )
+      }
+    }
+  }
+
+  renderSocial() {
+    if(this.state.loaded) {
+      if(this.state.socialEditMode) {
+        return (
+          <SocialEdit organization={this.state.organization}
+                      organizationPath={this.organizationPath()}
+                      toggleEditMode={this.toggleSocialEditMode.bind(this)} />
+        )
+      }
+      else {
+        return (
+          <SocialShow organization={this.state.organization}
+                      toggleEditMode={this.toggleSocialEditMode.bind(this)}
+                      permissions={this.props.permissions} />
         )
       }
     }

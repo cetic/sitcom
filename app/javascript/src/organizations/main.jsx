@@ -34,16 +34,19 @@ export default class Main extends BaseMain {
     })
 
     return Object.assign(customFieldFilters, {
-      quickSearch: this.props.location.query.quickSearch || '',
-      name:        this.props.location.query.name        || '',
-      status:      this.props.location.query.status      || '',
-      description: this.props.location.query.description || '',
-      websiteUrl:  this.props.location.query.websiteUrl  || '',
-      notes:       this.props.location.query.notes       || '',
-      contactIds:  this.props.location.query.contactIds,
-      projectIds:  this.props.location.query.projectIds,
-      eventIds:    this.props.location.query.eventIds,
-      tagIds:      this.props.location.query.tagIds
+      quickSearch:   this.props.location.query.quickSearch    || '',
+      name:          this.props.location.query.name           || '',
+      status:        this.props.location.query.status         || '',
+      description:   this.props.location.query.description    || '',
+      websiteUrl:    this.props.location.query.websiteUrl     || '',
+      companyNumber: this.props.location.query.companyNumber  || '',
+      companyNumber: this.props.location.query.companyNumber  || '',
+      address:       this.props.location.query.address        || '',
+      notes:         this.props.location.query.notes          || '',
+      contactIds:    this.props.location.query.contactIds,
+      projectIds:    this.props.location.query.projectIds,
+      eventIds:      this.props.location.query.eventIds,
+      tagIds:        this.props.location.query.tagIds
     })
   }
 

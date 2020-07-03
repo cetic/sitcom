@@ -35,6 +35,8 @@ class Project < ApplicationRecord
 
   has_many :log_entries, :as => :item # no dependent destroy/nullify because we want to keep them after deletion
 
+  has_many :tasks, :as => :item, :dependent => :destroy
+
   # Validations
 
   validates :name, :presence   => { :message => "Le nom est obligatoire." },

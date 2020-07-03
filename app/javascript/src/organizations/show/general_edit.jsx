@@ -2,22 +2,38 @@ export default class GeneralEdit extends React.Component {
   constructor(props) {
     super(props)
 
+    console.log(this.props.organization)
+
     this.state = {
-      name:        this.props.organization.name,
-      status:      this.props.organization.status,
-      description: this.props.organization.description,
-      websiteUrl:  this.props.organization.websiteUrl,
-      errors:      ''
+      name:          this.props.organization.name,
+      status:        this.props.organization.status,
+      description:   this.props.organization.description,
+      websiteUrl:    this.props.organization.websiteUrl,
+      companyNumber: this.props.organization.companyNumber,
+      address1:      this.props.organization.address1,
+      address2:      this.props.organization.address2,
+      city:          this.props.organization.city,
+      state:         this.props.organization.state,
+      zip:           this.props.organization.zip,
+      country:       this.props.organization.country,
+      errors:        ''
     }
   }
 
   backendUpdateOrganization() {
     var params = {
       organization: {
-        name:        this.state.name,
-        status:      this.state.status,
-        description: this.state.description,
-        websiteUrl:  this.state.websiteUrl
+        name:          this.state.name,
+        status:        this.state.status,
+        description:   this.state.description,
+        websiteUrl:    this.state.websiteUrl,
+        companyNumber: this.state.companyNumber,
+        address1:      this.state.address1,
+        address2:      this.state.address2,
+        city:          this.state.city,
+        state:         this.state.state,
+        zip:           this.state.zip,
+        country:       this.state.country
       }
     }
 
@@ -55,6 +71,48 @@ export default class GeneralEdit extends React.Component {
     })
   }
 
+  updateCompanyNumber(e) {
+    this.setState({
+      companyNumber: e.target.value
+    })
+  }
+
+  updateAddress1(e) {
+    this.setState({
+      address1: e.target.value
+    })
+  }
+
+  updateAddress2(e) {
+    this.setState({
+      address2: e.target.value
+    })
+  }
+
+  updateCity(e) {
+    this.setState({
+      city: e.target.value
+    })
+  }
+
+  updateState(e) {
+    this.setState({
+      state: e.target.value
+    })
+  }
+
+  updateZip(e) {
+    this.setState({
+      zip: e.target.value
+    })
+  }
+
+  updateCountry(e) {
+    this.setState({
+      country: e.target.value
+    })
+  }
+
   render() {
     return (
       <div className="general edit">
@@ -80,6 +138,9 @@ export default class GeneralEdit extends React.Component {
 
             { this.renderWebsite() }
             { this.renderDescription() }
+
+            { this.renderCompanyNumber() }
+            { this.renderAddress() }
           </div>
         </div>
 
@@ -153,6 +214,58 @@ export default class GeneralEdit extends React.Component {
                placeholder="Statut"
                defaultValue={this.state.status}
                onChange={this.updateStatus.bind(this)} />
+      </div>
+    )
+  }
+
+  renderCompanyNumber() {
+    return (
+      <div className="company-number">
+        <label>Numéro d'entreprise / TVA</label><br />
+
+        <input type="text"
+               className="company-number full"
+               placeholder="Numéro d'entreprise"
+               defaultValue={this.state.companyNumber}
+               onChange={this.updateCompanyNumber.bind(this)} />
+      </div>
+    )
+  }
+
+  renderAddress() {
+    return (
+      <div className="address-form">
+        <label>Adresse</label><br />
+
+        <input type="text"
+               className="address1 full"
+               placeholder="Ligne 1"
+               defaultValue={this.state.address1}
+               onChange={this.updateAddress1.bind(this)} /><br />
+
+        <input type="text"
+               className="address2 full"
+               placeholder="Ligne 2"
+               defaultValue={this.state.address2}
+               onChange={this.updateAddress2.bind(this)} /><br />
+
+        <input type="text"
+               className="zip full"
+               placeholder="Code postal"
+               defaultValue={this.state.zip}
+               onChange={this.updateZip.bind(this)} /><br />
+
+        <input type="text"
+               className="city full"
+               placeholder="Localité"
+               defaultValue={this.state.city}
+               onChange={this.updateCity.bind(this)} /><br />
+
+        <input type="text"
+               className="country full"
+               placeholder="Pays"
+               defaultValue={this.state.country}
+               onChange={this.updateCountry.bind(this)} />
       </div>
     )
   }

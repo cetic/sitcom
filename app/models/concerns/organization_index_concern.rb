@@ -15,6 +15,20 @@ module OrganizationIndexConcern
         indexes :description, :type => 'text', :analyzer => 'custom_each_char'
         indexes :website_url, :type => 'text', :analyzer => 'custom_each_char'
 
+        indexes :company_number, :type => 'text', :analyzer => 'custom_each_char'
+
+        indexes :address1,       :type => 'text', :analyzer => 'custom_each_char'
+        indexes :address2,       :type => 'text', :analyzer => 'custom_each_char'
+        indexes :city,           :type => 'text', :analyzer => 'custom_each_char'
+        indexes :state,          :type => 'text', :analyzer => 'custom_each_char'
+        indexes :zip,            :type => 'text', :analyzer => 'custom_each_char'
+        indexes :country,        :type => 'text', :analyzer => 'custom_each_char'
+        indexes :address,        :type => 'text', :analyzer => 'custom_each_char'
+
+        indexes :twitter_url,  :type => 'text', :analyzer => 'custom_each_char'
+        indexes :facebook_url, :type => 'text', :analyzer => 'custom_each_char'
+        indexes :linkedin_url, :type => 'text', :analyzer => 'custom_each_char'
+
         indexes :contact_ids, :type => 'long'
         indexes :event_ids,   :type => 'long'
         indexes :project_ids, :type => 'long'
@@ -53,6 +67,20 @@ module OrganizationIndexConcern
       :preview_picture_url => picture_url(:preview),
       :thumb_picture_url   => picture_url(:thumb),
 
+      :company_number => company_number,
+
+      :address  => address,
+      :address1 => address1,
+      :address2 => address2,
+      :city     => city,
+      :state    => state,
+      :zip      => zip,
+      :country  => country,
+
+      :twitter_url  => twitter_url,
+      :facebook_url => facebook_url,
+      :linkedin_url => linkedin_url,
+
       :contact_ids => contact_ids,
       :event_ids   => event_ids,
       :project_ids => project_ids,
@@ -71,6 +99,7 @@ module OrganizationIndexConcern
         :event_links   => event_links_as_indexed_json,
         :project_links => project_links_as_indexed_json,
         :notes         => notes_as_indexed_json,
+        :tasks         => tasks_as_indexed_json,
         :documents     => documents_as_indexed_json,
         :tags          => tags_as_indexed_json,
         :custom_fields => custom_fields_as_json
@@ -123,6 +152,12 @@ module OrganizationIndexConcern
   def notes_as_indexed_json
     notes.collect do |note|
       note.as_indexed_json
+    end
+  end
+
+  def tasks_as_indexed_json
+    tasks.collect do |task|
+      task.as_indexed_json
     end
   end
 

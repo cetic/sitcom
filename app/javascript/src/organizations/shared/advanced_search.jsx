@@ -20,10 +20,14 @@ export default class AdvancedSearch extends BaseAdvancedSearch {
         <fieldset>
           <legend>Général</legend>
           {this.renderSimpleFilter('name', 'Nom' )}
+
           {this.renderStatusFilter()}
-          {this.renderSimpleFilter('description', 'Description')}
-          {this.renderSimpleFilter('websiteUrl',  'Site Web'   )}
-          {this.renderSimpleFilter('notes',       'Notes'      )}
+
+          {this.renderSimpleFilter('companyNumber', "Num. d'entreprise")}
+          {this.renderSimpleFilter('description',   'Description')}
+          {this.renderSimpleFilter('address',       'Adresse'    )}
+          {this.renderSimpleFilter('websiteUrl',    'Site Web'   )}
+          {this.renderSimpleFilter('notes',         'Notes'      )}
         </fieldset>
 
         <fieldset>

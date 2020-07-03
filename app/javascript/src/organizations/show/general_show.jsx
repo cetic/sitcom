@@ -2,13 +2,6 @@ import CustomDropzone from '../../shared/custom_dropzone.jsx'
 import Tags           from '../../shared/tags.jsx'
 
 export default class GeneralShow extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-
-    }
-  }
 
   destroyOrganization() {
     if(confirm("Supprimer cette organisation ?")) {
@@ -43,6 +36,7 @@ export default class GeneralShow extends React.Component {
             <h1>
               { this.props.organization.name }
               <em className="status">{ this.props.organization.status }</em>
+              <em className="status">{ this.props.organization.companyNumber }</em>
             </h1>
 
             { this.renderWebsite() }
@@ -53,6 +47,10 @@ export default class GeneralShow extends React.Component {
               {this.props.organization.description}
             </div>
           </div>
+        </div>
+
+        <div className="row row-contact-infos">
+          { this.renderAddress() }
         </div>
 
         { this.renderButtons() }
@@ -135,4 +133,29 @@ export default class GeneralShow extends React.Component {
       )
     }
   }
+
+  renderAddress() {
+    const addressParts = [
+      this.props.organization.address1,
+      this.props.organization.address2,
+      this.props.organization.zip,
+      this.props.organization.city,
+      this.props.organization.country
+    ]
+
+    let addressHTML = _.join(
+      _.filter(addressParts, (p) => { return !_.isEmpty(p) })
+      , '<br />')
+
+    if(_.isEmpty(addressHTML)) addressHTML = "<em>non-renseignée</em>"
+
+    return (
+      <div className="col-md-4">
+        <h3>Adresse</h3>
+
+        <div dangerouslySetInnerHTML={{ __html: addressHTML }} />
+      </div>
+    )
+  }
+
 }

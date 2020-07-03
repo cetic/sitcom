@@ -90,6 +90,12 @@ Rails.application.routes.draw do
       resources :log_entries
       resources :custom_fields
 
+      resources :tasks do
+        member do
+          put :toggle
+        end
+      end
+
       member do
         get :follow_status
         get :follow
@@ -111,6 +117,12 @@ Rails.application.routes.draw do
       resources :documents
       resources :log_entries
       resources :custom_fields
+
+      resources :tasks do
+        member do
+          put :toggle
+        end
+      end
 
       member do
         get :follow_status
@@ -134,6 +146,12 @@ Rails.application.routes.draw do
       resources :log_entries
       resources :custom_fields
 
+      resources :tasks do
+        member do
+          put :toggle
+        end
+      end
+
       member do
         get :follow_status
         get :follow
@@ -154,6 +172,12 @@ Rails.application.routes.draw do
       resources :documents
       resources :log_entries
       resources :custom_fields
+
+      resources :tasks do
+        member do
+          put :toggle
+        end
+      end
 
       member do
         get :follow_status

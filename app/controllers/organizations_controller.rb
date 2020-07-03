@@ -167,6 +167,9 @@ class OrganizationsController < ApplicationController
     params.require(:organization).permit(
       :name, :status, :description, :website_url,
       :picture,
+      :company_number,
+      :address1, :address2, :city, :state, :zip, :country,
+      :twitter_url, :facebook_url, :linkedin_url,
       :contact_ids => [],
       :event_ids   => [],
       :project_ids => []

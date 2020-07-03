@@ -35,6 +35,8 @@ class Organization < ApplicationRecord
 
   has_many :log_entries, :as => :item # no dependent destroy/nullify because we want to keep them after deletion
 
+  has_many :tasks, :as => :item, :dependent => :destroy
+
   # Validations
 
   validates :name, :presence   => { :message => "Le nom est obligatoire." },
@@ -53,7 +55,10 @@ class Organization < ApplicationRecord
   around_destroy    :around_destroy_callback
 
   def before_validation_callback
-    self.website_url = sanitize_url(self.website_url)
+    self.website_url  = sanitize_url(self.website_url)
+    self.twitter_url  = sanitize_url(self.twitter_url,  :twitter)
+    self.linkedin_url = sanitize_url(self.linkedin_url, :linkedin)
+    self.facebook_url = sanitize_url(self.facebook_url, :facebook)
   end
 
   def after_create_callback
@@ -151,5 +156,10 @@ class Organization < ApplicationRecord
       :event_ids   => event_ids,
       :tag_ids     => tag_ids
     }
+  end
+
+  def address(html = false)
+    separator = html ? '<br />' : "\n"
+    [address1, address2, zip, city, state, country].reject(&:blank?).join(separator)
   end
 end

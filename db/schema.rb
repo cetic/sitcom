@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_19_125941) do
+ActiveRecord::Schema.define(version: 2020_07_03_083141) do
 
   create_table "contact_event_links", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "contact_id"
@@ -264,6 +264,16 @@ ActiveRecord::Schema.define(version: 2020_06_19_125941) do
     t.string "website_url", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "company_number", default: ""
+    t.string "address1", default: ""
+    t.string "address2", default: ""
+    t.string "city", default: ""
+    t.string "state", default: ""
+    t.string "zip", default: ""
+    t.string "country", default: ""
+    t.string "twitter_url", default: ""
+    t.string "facebook_url", default: ""
+    t.string "linkedin_url", default: ""
     t.index ["lab_id"], name: "index_organizations_on_lab_id"
   end
 
@@ -299,6 +309,20 @@ ActiveRecord::Schema.define(version: 2020_06_19_125941) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lab_id"], name: "index_tags_on_lab_id"
+  end
+
+  create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "item_type"
+    t.bigint "item_id"
+    t.bigint "user_id"
+    t.string "name"
+    t.text "text"
+    t.date "execution_date"
+    t.datetime "done_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_type", "item_id"], name: "index_tasks_on_item_type_and_item_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|

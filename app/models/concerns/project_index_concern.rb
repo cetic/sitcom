@@ -71,6 +71,7 @@ module ProjectIndexConcern
         :organization_links => organization_links_as_indexed_json,
         :event_links        => event_links_as_indexed_json,
         :notes              => notes_as_indexed_json,
+        :tasks              => tasks_as_indexed_json,
         :documents          => documents_as_indexed_json,
         :tags               => tags_as_indexed_json,
         :custom_fields      => custom_fields_as_json
@@ -123,6 +124,12 @@ module ProjectIndexConcern
   def notes_as_indexed_json
     notes.collect do |note|
       note.as_indexed_json
+    end
+  end
+
+  def tasks_as_indexed_json
+    tasks.collect do |task|
+      task.as_indexed_json
     end
   end
 

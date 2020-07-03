@@ -38,6 +38,8 @@ class Contact < ApplicationRecord
 
   has_many :log_entries, :as => :item # no dependent destroy/nullify because we want to keep them after deletion
 
+  has_many :tasks, :as => :item, :dependent => :destroy
+
   # Validations
 
   validates :first_name, :presence => { :message => "Le prénom est obligatoire."         }
