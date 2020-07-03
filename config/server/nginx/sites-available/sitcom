@@ -1,7 +1,6 @@
 server {
   listen 443;
   server_name sitcom.cetic.be;
-  server_name sitcom.phonoid.net;
 
   access_log /var/log/nginx/sitcom.access.log;
   sendfile on;
@@ -35,11 +34,4 @@ server {
   }
 
   client_max_body_size 300M;
-}
-
-server {
-  listen 80;
-  server_name sitcom.cetic.be;
-  server_name sitcom.phonoid.net;
-  return 301 https://sitcom.cetic.be;
 }
