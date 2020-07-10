@@ -3,8 +3,8 @@ class TasksController < ApplicationController
   before_action :find_lab
   before_action :find_item
   before_action :find_item_type
-  before_action :find_task,         only: [ :update, :destroy ]
-  before_action :check_permissions, only: [ :update, :destroy ]
+  before_action :find_task,         only: [ :update, :destroy, :toggle ]
+  before_action :check_permissions, only: [ :update, :destroy, :toggle ]
 
   def index
     respond_to do |format|
@@ -24,7 +24,7 @@ class TasksController < ApplicationController
     respond_to do |format|
       format.json do
         @task      = @item.tasks.new(strong_params)
-        @task.user = current_user
+        # @task.user = current_user
 
         if PermissionsService.new(current_user, @lab).can_write?(@item_type)
           if @task.save

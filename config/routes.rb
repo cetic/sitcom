@@ -208,6 +208,12 @@ Rails.application.routes.draw do
 
     resources :log_entries, only: [:index]
 
+    resources :users do
+      collection do
+        get :options
+      end
+    end
+
     # LINKS BETWEEN ITEMS
     [ :contact_organization_links, :contact_event_links,
       :contact_project_links, :event_organization_links,

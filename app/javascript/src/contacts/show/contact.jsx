@@ -5,6 +5,7 @@ import SocialEdit         from './social_edit.jsx'
 import OrganizationsBlock from '../../shared/organizations_block.jsx'
 import ItemsBlock         from '../../shared/items_block.jsx'
 import NotesBlock         from '../../shared/notes_block.jsx'
+import TasksBlock         from '../../shared/tasks_block.jsx'
 import DocumentsBlock     from '../../shared/documents_block.jsx'
 import PreviousNextNav    from '../../shared/previous_next_nav.jsx'
 import FollowButton       from '../../shared/follow_button.jsx'
@@ -132,6 +133,7 @@ export default class Contact extends React.Component {
           { this.renderGeneral() }
           { this.renderSocial() }
           { this.renderCustomFields() }
+          { this.renderTasks() }
           { this.renderNotes() }
           { this.renderDocuments() }
           { this.renderOrganizations() }
@@ -275,6 +277,17 @@ export default class Contact extends React.Component {
                     optionsPath={this.props.eventOptionsPath}
                     canWrite={this.props.permissions.canWriteContacts}
                     linkName="contactEventLink"  />
+      )
+    }
+  }
+
+  renderTasks() {
+    if(this.state.loaded) {
+      return (
+        <TasksBlock item={this.state.contact}
+                    canWrite={this.props.permissions.canWriteContacts}
+                    currentUserId={this.props.currentUserId}
+                    columns={1} />
       )
     }
   }

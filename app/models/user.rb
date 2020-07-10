@@ -19,7 +19,13 @@ class User < ApplicationRecord
 
   has_many :item_user_links, :dependent => :destroy
 
-  has_many :tasks, :dependent => :nullify
+  has_many :documents, :dependent => :nullify
+  has_many :tasks,     :dependent => :nullify
+
+  # has_many :tasked_contacts,      :class_name => "Contact",      :through => :tasks, :source => :item, :source_type => "Contact"
+  # has_many :tasked_organizations, :class_name => "Organization", :through => :tasks, :source => :item, :source_type => "Organization"
+  # has_many :tasked_projects,      :class_name => "Project",      :through => :tasks, :source => :item, :source_type => "Project"
+  # has_many :tasked_events,        :class_name => "Event",        :through => :tasks, :source => :item, :source_type => "Event"
 
   # Validations
 
@@ -41,6 +47,27 @@ class User < ApplicationRecord
 
   before_create     :set_new_api_key
   before_validation :ensure_roles
+
+  after_commit   :after_commit_callback, on: [:create, :update]
+  around_destroy :around_destroy_callback
+
+  def after_commit_callback
+    tasks.each do |task|
+      "Reindex#{task.item_type}Worker".constantize.perform_async(task.item_id)
+      task.item.cable_update
+    end
+  end
+
+  def around_destroy_callback
+    saved_task_ids = task_ids
+
+    yield
+
+    Task.where(:id => saved_task_ids).each do |task|
+      "Reindex#{task.item_type}Worker".constantize.perform_async(task.item_id)
+      task.item.cable_update
+    end
+  end
 
   # Methods
 

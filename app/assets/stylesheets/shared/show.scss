@@ -14,7 +14,7 @@
     color: #aaaaaa;
   }
 
-  .general, .social, .items-block, .contacts-block, .organizations-block, .notes-block, .documents-block, .custom-fields-block, .log-entries {
+  .general, .social, .items-block, .contacts-block, .organizations-block, .notes-block, .tasks-block, .documents-block, .custom-fields-block, .log-entries {
     position: relative;
     margin-bottom: 36px;
     background-color: white;
@@ -28,6 +28,27 @@
       .btn {
         margin-left: 12px;
       }
+    }
+  }
+
+  .tasks-block {
+    input[type=checkbox] {
+      margin-right: 10px;
+    }
+
+    .assigned-user {
+      margin-left: 5px;
+    }
+
+    .execution-date-badge {
+      background: #000;
+      color: #fff;
+      margin-left: 5px;
+      padding: 2px 4px;
+      font-size: 10px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
     }
   }
 
@@ -598,7 +619,7 @@
     }
   }
 
-  .notes-block {
+  .notes-block, .tasks-block {
     h3 {
       margin-bottom: 14px;
       margin-top: 4px;
@@ -622,20 +643,24 @@
       margin-top: 6px;
     }
 
-    .note, .new-note {
+    .note, .new-note, .task, .new-task {
       position: relative;
       margin-bottom: 14px;
       padding: 2px;
     }
 
-    .note {
-      .note-name {
+    .note, .task {
+      .note-name, .task-name {
         font-weight: bold;
       }
 
-      .note-text {
+      .note-text, .task-text {
         padding-left: 8px;
         padding-top: 3px;
+      }
+
+      .task-text {
+        margin-left: 14px;
       }
 
       .buttons {
@@ -650,7 +675,7 @@
       }
     }
 
-    .note:hover {
+    .note:hover, .task:hover {
       .buttons {
         transition: opacity .4s cubic-bezier(.25,.8,.25, 1);
         opacity: 0.8;
@@ -945,7 +970,7 @@
   }
 
   .item-show {
-    .general, .social, .items-block, .contacts-block, .organizations-block, .notes-block, .documents-block, .custom-fields-block, .log-entries {
+    .general, .social, .items-block, .contacts-block, .organizations-block, .notes-block, .tasks-block, .documents-block, .custom-fields-block, .log-entries {
       margin-bottom: 10px;
     }
   }

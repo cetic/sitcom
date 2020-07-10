@@ -23,6 +23,7 @@ class Admin::UsersController < Admin::BaseController
     if @user.save
       redirect_to admin_users_path
     else
+      raise @user.errors.inspect
       set_flash_now_errors(@user)
       render 'form'
     end

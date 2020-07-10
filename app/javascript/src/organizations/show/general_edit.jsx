@@ -2,8 +2,6 @@ export default class GeneralEdit extends React.Component {
   constructor(props) {
     super(props)
 
-    console.log(this.props.organization)
-
     this.state = {
       name:          this.props.organization.name,
       status:        this.props.organization.status,

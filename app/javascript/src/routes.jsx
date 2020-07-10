@@ -7,7 +7,7 @@ import Contacts      from './contacts/main.jsx'
 import Organizations from './organizations/main.jsx'
 import Projects      from './projects/main.jsx'
 import Events        from './events/main.jsx'
-import LogEntries     from './log_entries/main.jsx'
+import LogEntries    from './log_entries/main.jsx'
 
 class Dispatcher extends React.Component {
   constructor(props) {

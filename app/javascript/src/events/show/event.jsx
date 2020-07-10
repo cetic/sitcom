@@ -5,6 +5,7 @@ import OrganizationsBlock from '../../shared/organizations_block.jsx'
 import ItemsBlock         from '../../shared/items_block.jsx'
 import CustomFieldsBlock  from '../../shared/custom_fields_block.jsx'
 import NotesBlock         from '../../shared/notes_block.jsx'
+import TasksBlock         from '../../shared/tasks_block.jsx'
 import PreviousNextNav    from '../../shared/previous_next_nav.jsx'
 import FollowButton       from '../../shared/follow_button.jsx'
 import LogEntries         from '../../shared/log_entries.jsx'
@@ -125,6 +126,7 @@ export default class Event extends React.Component {
           { this.renderContacts() }
           { this.renderOrganizations() }
           { this.renderProjects() }
+          { this.renderTasks() }
           { this.renderNotes() }
           { this.renderLogEntries() }
         </div>
@@ -238,6 +240,17 @@ export default class Event extends React.Component {
                     optionsPath={this.props.projectOptionsPath}
                     canWrite={this.props.permissions.canWriteEvents}
                     linkName="eventProjectLink"  />
+      )
+    }
+  }
+
+  renderTasks() {
+    if(this.state.loaded) {
+      return (
+        <TasksBlock item={this.state.event}
+                    canWrite={this.props.permissions.canWriteEvents}
+                    currentUserId={this.props.currentUserId}
+                    columns={1} />
       )
     }
   }
