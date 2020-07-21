@@ -60,10 +60,10 @@
           <div class="col-md-3">
             <ul class="list-inline quicklinks">
               <li class="list-inline-item">
-                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">Privacy Policy</a>
+                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">Politique de Confidentialité</a>
               </li>
               <li class="list-inline-item">
-                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">Terms of Use</a>
+                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">Conditions Générales d'Utilisation</a>
               </li>
             </ul>
           </div>
@@ -138,17 +138,13 @@
           <div class="container">
             <div class="row">
               <div class="col-lg-8 mx-auto">
-                <div class="modal-body">
-                  <h2 class="text-uppercase">Privacy policy</h2>
-                  <p class="item-intro text-muted">
-                   À venir
-                  </p>
-                  <p>
-                    ...
-                  </p>
+                <div class="modal-body" style="text-align: left">
+                  <h2 class="text-uppercase">Politique de Confidentialité</h2>
+                  <%= render 'privacy_policy' %>
+
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
                     <i class="fa fa-times"></i>
-                    Close
+                    Fermer
                   </button>
                 </div>
               </div>
@@ -170,17 +166,13 @@
           <div class="container">
             <div class="row">
               <div class="col-lg-8 mx-auto">
-                <div class="modal-body">
-                  <h2 class="text-uppercase">Terms of use</h2>
-                  <p class="item-intro text-muted">
-                    À venir
-                  </p>
-                  <p>
-                    ...
-                  </p>
+                <div class="modal-body" style="text-align: left">
+                  <h2 class="text-uppercase">Conditions Générales d'Utilisation</h2>
+                  <%= render 'terms_of_use' %>
+
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
                     <i class="fa fa-times"></i>
-                    Close
+                    Fermer
                   </button>
                 </div>
               </div>
