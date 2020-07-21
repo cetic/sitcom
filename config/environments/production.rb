@@ -91,4 +91,24 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.action_mailer.smtp_settings = {
+    :domain               => ENV['SMTP_DOMAIN'  ].to_s,
+    :address              => ENV['SMTP_ADDRESS' ].to_s,
+    :port                 => ENV['SMTP_PORT'    ].to_s,
+    :user_name            => ENV['SMTP_USERNAME'].to_s,
+    :password             => ENV['SMTP_PASSWORD'].to_s,
+    :authentication       => ENV['SMTP_AUTH'].to_sym,
+    :enable_starttls_auto => true,
+    :ssl                  => ENV["SMTP_SSL"] == 'true',
+    :tls                  => ENV["SMTP_TLS"] == 'true'
+  }
+
+  config.action_mailer.default_url_options = {
+    :host     => ENV['APP_HOSTNAME'],
+    :protocol => 'https'
+  }
+
+  # http://stackoverflow.com/a/15539534/1243212
+  config.action_mailer.asset_host = "https://#{ENV['APP_HOSTNAME']}"
 end
