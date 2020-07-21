@@ -109,6 +109,9 @@ Rails.application.configure do
     :protocol => 'https'
   }
 
+  # https://stackoverflow.com/questions/7219732/missing-host-to-link-to-please-provide-host-parameter-or-set-default-url-optio
+  Rails.application.routes.default_url_options = config.action_mailer.default_url_options
+
   # http://stackoverflow.com/a/15539534/1243212
   config.action_mailer.asset_host = "https://#{ENV['APP_HOSTNAME']}"
 end
