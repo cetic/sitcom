@@ -99,7 +99,7 @@ Rails.application.configure do
     :user_name            => ENV['SMTP_USERNAME'].to_s,
     :password             => ENV['SMTP_PASSWORD'].to_s,
     :authentication       => ENV['SMTP_AUTH'].to_sym,
-    :enable_starttls_auto => true,
+    :enable_starttls_auto => false,
     :ssl                  => ENV["SMTP_SSL"] == 'true',
     :tls                  => ENV["SMTP_TLS"] == 'true'
   }
