@@ -59,14 +59,20 @@ class User < ApplicationRecord
   end
 
   def around_destroy_callback
-    saved_task_ids = task_ids
+    #saved_task_ids = task_ids
 
     yield
 
-    Task.where(:id => saved_task_ids).each do |task|
-      "Reindex#{task.item_type}Worker".constantize.perform_async(task.item_id)
-      task.item.cable_update
-    end
+    # Rails.logger.info "yoo 1"
+    # Rails.logger.info saved_task_ids
+
+    # Task.where(:id => saved_task_ids).each do |task|
+
+    #   Rails.logger.info "yoo 2"
+
+    #   "Reindex#{task.item_type}Worker".constantize.perform_async(task.item_id)
+    #   task.item.cable_update
+    # end
   end
 
   # Methods

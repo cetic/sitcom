@@ -49,7 +49,14 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def destroy
+    saved_task_ids = @user.task_ids
     @user.destroy
+
+    Task.where(:id => saved_task_ids).each do |task|
+      "Reindex#{task.item_type}Worker".constantize.perform_async(task.item_id)
+      task.item.cable_update
+    end
+
     redirect_to admin_users_path
   end
 

@@ -93,33 +93,42 @@ export default class NewTask extends React.Component {
     if(this.state.open) {
       return (
         <div>
-          <input className="form-control"
-                 type="text"
-                 ref="taskName"
-                 placeholder="Tâche"
-                 value={this.state.newTaskName}
-                 onChange={this.updateNewTaskName.bind(this)} />
+          <h4>Nouvelle tâche</h4>
+
+          <div className="row">
+            <div className="col-md-6">
+              <input className="form-control"
+                     type="text"
+                     ref="taskName"
+                     placeholder="Tâche"
+                     value={this.state.newTaskName}
+                     onChange={this.updateNewTaskName.bind(this)} />
+            </div>
+
+            <div className="col-md-4">
+              <UserSelect
+                value={this.state.newTaskUserId}
+                onChange={this.updateNewTaskUserId.bind(this)}
+                placeholder="Utilisateur assigné"
+              />
+            </div>
+
+            <div className="col-md-2">
+              <DatePicker showYearDropdown
+                          fixedHeight
+                          selected={this.state.newTaskExecutionDate}
+                          locale='fr-be'
+                          onChange={this.updateNewTaskExecutionDate.bind(this)}
+                          className="form-control"
+                          placeholderText="Date d'exécution" />
+            </div>
+          </div>
 
           <textarea className="form-control"
                     ref="taskText"
                     value={this.state.newTaskText}
                     placeholder="Détails"
                     onChange={this.updateNewTaskText.bind(this)} />
-
-
-
-          <label style={{ paddingRight: 5 }}>Date d'exécution:</label>
-          <DatePicker showYearDropdown
-                      fixedHeight
-                      selected={this.state.newTaskExecutionDate}
-                      locale='fr-be'
-                      onChange={this.updateNewTaskExecutionDate.bind(this)}
-                      placeholder="Date d'exécution" />
-
-          <UserSelect
-            value={this.state.newTaskUserId}
-            onChange={this.updateNewTaskUserId.bind(this)}
-          />
 
           <div className="actions">
             <button className="btn btn-default"

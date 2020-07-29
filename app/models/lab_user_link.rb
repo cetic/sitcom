@@ -21,4 +21,5 @@ class LabUserLink < ApplicationRecord
       :can_write_events        => admin_or_manager || can_write_events
     }
   end
+
 end

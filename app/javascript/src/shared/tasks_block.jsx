@@ -3,14 +3,33 @@ import NewTask from './tasks_block/new_task.jsx'
 
 export default class TasksBlock extends React.Component {
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      doneVisible: false
+    }
+
+  }
+
+  void() {}
+
+  toggleDoneVisible() {
+    this.setState({ doneVisible: !this.state.doneVisible })
+  }
+
   render() {
     return (
       <div className="tasks-block">
         <div className="row">
           <div className="col-md-12">
-            <h3>Tasks</h3>
+            {this.renderDoneVisibleToggle()}
 
-            {this.renderTasks()}
+            <h3>Tâches</h3>
+
+            {this.renderPendingTasks()}
+            {this.renderDoneTasks()}
+
             {this.renderNewTask()}
            </div>
         </div>
@@ -18,8 +37,45 @@ export default class TasksBlock extends React.Component {
     )
   }
 
-  renderTasks() {
-    return _.map(this.props.item.tasks, (task) => {
+  renderDoneVisibleToggle() {
+    return (
+      <div style={{ float : 'right' }}>
+        <input
+          type="checkbox"
+          onChange={this.void}
+          onClick={this.toggleDoneVisible.bind(this)}
+          checked={this.state.doneVisible}
+        />
+
+        <label>Afficher les tâches clôturées</label>
+      </div>
+    )
+  }
+
+  renderPendingTasks() {
+    const tasks = _.filter(this.props.item.tasks, { done: false })
+
+    return this.renderTasks(
+      _.sortBy(tasks, (task) => {
+        return task.executionDate
+      })
+    )
+  }
+
+  renderDoneTasks() {
+    const tasks = _.filter(this.props.item.tasks, { done: true })
+
+    if(this.state.doneVisible) {
+      return this.renderTasks(
+        _.sortBy(tasks, (task) => {
+          return task.doneAt
+        })
+      )
+    }
+  }
+
+  renderTasks(tasks) {
+    return _.map(tasks, (task) => {
       return (
         <Task key={task.id}
               task={task}
@@ -27,6 +83,8 @@ export default class TasksBlock extends React.Component {
       )
     })
   }
+
+
 
   renderNewTask() {
     if(this.props.canWrite) {

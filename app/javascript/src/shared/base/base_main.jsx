@@ -83,6 +83,7 @@ export default class BaseMain extends React.Component {
     console.log(`${this.itemType}-updated`)
     var newState = {}
     newState['items'] = this.props.storage.getItem(`${this.itemType}s`)
+    console.log(newState)
     this.setState(newState)
   }
 

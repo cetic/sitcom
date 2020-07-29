@@ -49,6 +49,14 @@
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
       border-radius: 5px;
+
+      &.red {
+        background-color: red;
+      }
+
+      &.green {
+        background-color: green;
+      }
     }
   }
 
@@ -643,10 +651,20 @@
       margin-top: 6px;
     }
 
-    .note, .new-note, .task, .new-task {
+    .note, .new-note {
       position: relative;
       margin-bottom: 14px;
       padding: 2px;
+    }
+
+    .task, .new-task {
+      position: relative;
+      //margin-bottom: 14px;
+      padding: 2px;
+    }
+
+    .task:last-child {
+      margin-bottom: 14px;
     }
 
     .note, .task {

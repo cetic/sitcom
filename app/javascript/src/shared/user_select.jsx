@@ -36,6 +36,7 @@ export default class UserSelect extends React.Component {
           value={valueOption}
           options={this.state.options}
           onChange={this.onChange.bind(this)}
+          placeholder={this.props.placeholder}
         />
       )
     }

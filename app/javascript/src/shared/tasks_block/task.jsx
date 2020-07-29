@@ -102,31 +102,40 @@ export default class Task extends React.Component {
     if(this.state.editMode) {
       return (
         <div>
-          <input className="form-control"
-                 type="text"
-                 ref="taskName"
-                 placeholder="Tâche"
-                 value={this.state.taskName}
-                 onChange={this.updateTaskName.bind(this)} />
+          <div className="row">
+            <div className="col-md-6">
+              <input className="form-control"
+                     type="text"
+                     ref="taskName"
+                     placeholder="Tâche"
+                     value={this.state.taskName}
+                     onChange={this.updateTaskName.bind(this)} />
+            </div>
+
+            <div className="col-md-4">
+              <UserSelect
+                value={this.state.taskUserId}
+                onChange={this.updateTaskUserId.bind(this)}
+                placeholder="Utilisateur assigné"
+              />
+            </div>
+
+            <div className="col-md-2">
+              <DatePicker showYearDropdown
+                          fixedHeight
+                          selected={this.state.taskExecutionDate}
+                          locale='fr-be'
+                          onChange={this.updateTaskExecutionDate.bind(this)}
+                          placeholder="Date d'exécution"
+                          className="form-control" />
+            </div>
+          </div>
 
           <textarea className="form-control"
                     ref="taskText"
                     value={this.state.taskText}
                     placeholder="Détails"
                     onChange={this.updateTaskText.bind(this)} />
-
-          <label style={{ paddingRight: 5 }}>Date d'exécution:</label>
-          <DatePicker showYearDropdown
-                      fixedHeight
-                      selected={this.state.taskExecutionDate}
-                      locale='fr-be'
-                      onChange={this.updateTaskExecutionDate.bind(this)}
-                      placeholder="Date d'exécution" />
-
-          <UserSelect
-            value={this.state.taskUserId}
-            onChange={this.updateTaskUserId.bind(this)}
-          />
 
           <div className="actions">
             <button onClick={this.cancel.bind(this)}
@@ -151,17 +160,26 @@ export default class Task extends React.Component {
                    onClick={this.toggle.bind(this)}
                    checked={this.props.task.done} />
 
-            { this.props.task.name }
+            <span style={{ textDecoration: this.props.task.done ? 'line-through' : 'none' }}>
+              { this.props.task.name }
+            </span>
 
             { this.renderAssignedUser() }
             { this.renderExecutionDateBadge() }
           </div>
 
-          <div className="task-text"
-               dangerouslySetInnerHTML={ {__html: this.props.task.formattedText } }>
-          </div>
-
+          { this.renderText() }
           { this.renderButtons() }
+        </div>
+      )
+    }
+  }
+
+  renderText() {
+    if(!_.isEmpty(this.props.task.text)) {
+      return (
+        <div className="task-text"
+             dangerouslySetInnerHTML={ {__html: this.props.task.formattedText } }>
         </div>
       )
     }
@@ -178,9 +196,20 @@ export default class Task extends React.Component {
   }
 
   renderExecutionDateBadge() {
+    let className = 'execution-date-badge'
+
+    if(!this.props.task.done && this.props.task.executionDate) {
+      if(moment().isAfter(this.props.task.executionDate)) {
+        className += ' red'
+      }
+      else if(moment().isBefore(this.props.task.executionDate)) {
+        className += ' green'
+      }
+    }
+
     if(this.props.task.executionDate) {
       return (
-        <span className="execution-date-badge">
+        <span className={className}>
           {moment(this.props.task.executionDate).format('DD/MM/YYYY')}
         </span>
       )
