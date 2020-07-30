@@ -89,7 +89,8 @@ export default class TasksBlock extends React.Component {
   renderNewTask() {
     if(this.props.canWrite) {
       return (
-        <NewTask item={this.props.item} />
+        <NewTask item={this.props.item}
+                 currentUserId={this.props.currentUserId} />
       )
     }
   }

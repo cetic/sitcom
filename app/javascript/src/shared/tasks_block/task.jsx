@@ -36,9 +36,9 @@ export default class Task extends React.Component {
   }
 
   updateTaskUserId(option) {
-    this.setState({
-      taskUserId: option.value
-    })
+    const taskUserId = option ? option.value : null
+
+    this.setState({ taskUserId })
   }
 
   remove() {

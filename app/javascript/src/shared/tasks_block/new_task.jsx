@@ -11,7 +11,7 @@ export default class NewTask extends React.Component {
       newTaskName:          '',
       newTaskText:          '',
       newTaskExecutionDate: null,
-      newTaskUserId:        null
+      newTaskUserId:        props.currentUserId
     }
   }
 
