@@ -52,12 +52,12 @@ describe 'Organizations export', :download_file => true do
         worksheet = workbook.worksheets[0]
 
         expect(worksheet[1][0].value).to eq("Machin SRL")
-        expect(worksheet[1][7].value).to eq(" — bla bla")
+        expect(worksheet[1][17].value).to eq(" — bla bla") # 7
 
         expect(worksheet[2][0].value).to eq("Truc SA")
-        expect(worksheet[2][4].value).to eq("Indiana Jones, Michael Corleone")
-        expect(worksheet[2][5].value).to eq("Projet A, Projet B")
-        expect(worksheet[2][6].value).to eq("Bidule, Machin")
+        expect(worksheet[2][14].value).to eq("Indiana Jones, Michael Corleone")
+        expect(worksheet[2][15].value).to eq("Projet A, Projet B")
+        expect(worksheet[2][16].value).to eq("Bidule, Machin")
       end
     end
   end

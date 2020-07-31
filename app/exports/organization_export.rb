@@ -4,10 +4,20 @@ class OrganizationExport < BaseExport
 
   def fields
     list = {
-      'Nom'         => :name,
-      'Statut'      => :status,
-      'Description' => :description,
-      'Site Web'    => :website_url
+      'Nom'                  => :name,
+      'Statut'               => :status,
+      'Description'          => :description,
+      'Site Web'             => :website_url,
+      'Numéro d\'entreprise' => :company_number,
+      'Adresse'              => :address1,
+      'Adresse (suite)'      => :address2,
+      'Ville'                => :city,
+      'Etat/province'        => :state,
+      'Code postal'          => :zip,
+      'Pays'                 => :country,
+      'URL Twitter'          => :twitter_url,
+      'URL Facebook'         => :facebook_url,
+      'URL LinkedIn'         => :linkedin_url
     }
 
     custom_fields = lab.custom_fields.where(:item_type => 'Organization')

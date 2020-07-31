@@ -1,4 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
+  default :from => "\"SitCom\" <#{ENV['MAIL_FROM']}>"
   layout 'mailer'
 
   def lab_created(lab, user)
@@ -7,7 +8,6 @@ class ApplicationMailer < ActionMailer::Base
     @subject = "Nouveau compte"
 
     mail({
-      :from    => MAIL_FROM,
       :subject => @subject,
       :to      => ENV['ADMIN_EMAIL']
     })
@@ -35,7 +35,6 @@ class ApplicationMailer < ActionMailer::Base
     @subject = "#{@user.name} #{@action_text} \"#{@item.name}\""
 
     mail({
-      :from    => MAIL_FROM,
       :subject => @subject,
       :to      => @follower.email
     })

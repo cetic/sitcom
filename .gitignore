@@ -24,13 +24,13 @@
 /public/system
 /private/system
 
-.env.development
 .env.production
 .env.staging
 .env.deploy.production
 .env.deploy.staging
 .env
 .env.local
+.env.test.local
 .notes
 
 /misc/private
