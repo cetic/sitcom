@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   # Filters
 
   before_action :authenticate_user!
-  before_action :update_last_seen_at
+  after_action :update_last_seen_at
   #before_action :http_basic_auth
 
   # Actions
@@ -42,6 +42,18 @@ class ApplicationController < ActionController::Base
   def update_last_seen_at
     if current_user
       current_user.update_column(:last_seen_at, Time.now)
+
+      if @lab
+        lab_user_link = @lab.lab_user_links.where(:user_id => current_user.id).first
+
+        if lab_user_link.try(:last_seen_at) && lab_user_link.last_seen_at < 30.minutes.ago
+          @lab.increase_lab_visits
+        end
+
+        if lab_user_link
+          lab_user_link.update_column(:last_seen_at, Time.now)
+        end
+      end
     end
   end
 

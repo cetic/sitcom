@@ -20,10 +20,10 @@ class DashboardsController < ApplicationController
   end
 
   def events
-    if PermissionsService.new(current_user, @lab).can_read?('Event')
+    if PermissionsService.new(current_user, @lab).can_read?('events')
       @events = @lab.events.where('happens_on IS NOT NULL')
                            .where('happens_on >= ?', Time.now)
-                           .order(:happens_on => :desc)
+                           .order(:happens_on => :asc)
                            .includes(:contacts, :organizations)
                            .limit(10)
     else
@@ -51,7 +51,7 @@ class DashboardsController < ApplicationController
     item_types = ['Contact', 'Organization', 'Event', 'Project']
 
     permitted_item_types = item_types.select do |item_type|
-      PermissionsService.new(current_user, @lab).can_read?(item_type)
+      PermissionsService.new(current_user, @lab).can_read?(item_type.downcase.pluralize)
     end
 
     @log_entries = @lab.log_entries.where(:item_type => permitted_item_types)

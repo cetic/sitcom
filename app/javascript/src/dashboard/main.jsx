@@ -157,7 +157,7 @@ export default class Main extends React.Component {
 
   renderMetrics() {
     return (
-      <div className="row-metrics">
+      <div className="row row-metrics">
         <div className="col-md-3">
           <Link to={`/contacts`}>
             <div className="card">
@@ -210,23 +210,34 @@ export default class Main extends React.Component {
 
   renderAgenda() {
     return (
-      <div className="row-agenda">
-        <div className="card">
-          <div className="col-md-9">
-            <h2>Évènements à venir</h2>
-            <div className="events">
-              { this.renderEventsBlankSlate() }
-              { this.renderEvents() }
+      <div className="row">
+        <div className="col-md-9">
+          <div className="row-agenda">
+            <div className="card">
+              <div className="col-md-10">
+                <h2>Évènements à venir</h2>
+                <div className="events">
+                  { this.renderEventsBlankSlate() }
+                  { this.renderEvents() }
+                </div>
+              </div>
+              <div className="col-md-2 col-button">
+                <Link to={`/events`}>
+                  <div className="btn btn-primary btn-list">
+                    Liste des<br/>évènements
+                  </div>
+                </Link>
+              </div>
+              <div style={{clear: 'both'}}>
+              </div>
             </div>
           </div>
-          <div className="col-md-3 col-button">
-            <Link to={`/events`}>
-              <div className="btn btn-primary btn-list">
-                Liste des évènements
-              </div>
-            </Link>
-          </div>
-          <div style={{clear: 'both'}}>
+        </div>
+        <div className="col-md-3">
+          <div className="row-evolution">
+            <div className="card">
+              bvlabla
+            </div>
           </div>
         </div>
       </div>
@@ -311,8 +322,8 @@ export default class Main extends React.Component {
 
   renderActivity() {
     return (
-      <div className="row-activity">
-        <div className="col-md-8">
+      <div className="row row-activity">
+        <div className="col-md-9">
           <div className="card">
             <h2>Modifications récentes</h2>
             <div className="log-entries">
@@ -329,7 +340,7 @@ export default class Main extends React.Component {
             </div>
           </div>
         </div>
-        <div className="col-md-4">
+        <div className="col-md-3">
           <div className="card">
             <h2>Utilisateurs en ligne</h2>
             <div className="users">
@@ -395,7 +406,7 @@ export default class Main extends React.Component {
           <div className="name">
             { user.name }
           </div>
-          <div className="time">
+          <div className="time" title={user.lastSeenAtAgo}>
             { user.lastSeenAtAgo }
           </div>
           <div style={{ clear: 'both' }}>

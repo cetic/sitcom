@@ -82,4 +82,18 @@ class Lab < ApplicationRecord
     end.compact.join("\n")
   end
 
+  def increase_lab_visits
+    hash = stats ? YAML.load(stats) : {}
+
+    this_month = Date.today.beginning_of_month
+
+    if hash[this_month]
+      hash[this_month] = hash[this_month] + 1
+    else
+      hash[this_month] = 1
+    end
+
+    update_column(:stats, YAML.dump(hash))
+  end
+
 end

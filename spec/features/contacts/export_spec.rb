@@ -37,7 +37,7 @@ describe 'Contacts export', :download_file => true do
   end
 
   it 'exports an XLSX file', js: true do
-    visit lab_path(@lab)
+    visit lab_contacts_path(@lab)
 
     within '.quick-search' do
       new_window = window_opened_by do

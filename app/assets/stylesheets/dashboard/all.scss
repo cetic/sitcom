@@ -123,7 +123,8 @@
           }
 
           .name {
-            float: left;
+            //float: left;
+            margin-left: 146px;
           }
         }
       }
@@ -138,8 +139,34 @@
       }
 
       .btn-list {
-
+        line-height: 20px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 14px;
+        padding-right: 14px;
+        font-size: 14px;
       }
+    }
+
+    .card:hover {
+      box-shadow: 0px 0px 20px #a8b9ca;
+      transition: box-shadow .4s cubic-bezier(.25,.8,.25, 1), background-color .4s cubic-bezier(.25,.8,.25, 1);
+    }
+  }
+
+  .row-evolution {
+    .card {
+      position: relative;
+      margin-top: 30px;
+      margin-bottom: 14px;
+      padding-top: 12px;
+      padding-bottom: 15px;
+      padding-left: 18px;
+      padding-right: 18px;
+      background-color: white;
+      box-shadow: 0px 0px 10px #dddddd;
+      transition: box-shadow .4s cubic-bezier(.25,.8,.25, 1), background-color .4s cubic-bezier(.25,.8,.25, 1);
+      min-height: 86px;
     }
 
     .card:hover {
@@ -190,6 +217,9 @@
             text-align: right;
             font-size: 11px;
             padding-top: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
         }
       }
@@ -200,6 +230,16 @@
         .btn-see-more {
           margin-bottom: 10px;
         }
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    .row-agenda {
+       .card {
+         .col-button {
+           text-align: center
+         }
       }
     }
   }

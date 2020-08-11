@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_06_124519) do
+ActiveRecord::Schema.define(version: 2020_08_11_132524) do
 
   create_table "contact_event_links", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "contact_id"
@@ -187,7 +187,9 @@ ActiveRecord::Schema.define(version: 2020_08_06_124519) do
     t.boolean "can_write_events", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "last_seen_at"
     t.index ["lab_id"], name: "index_lab_user_links_on_lab_id"
+    t.index ["last_seen_at"], name: "index_lab_user_links_on_last_seen_at"
     t.index ["user_id"], name: "index_lab_user_links_on_user_id"
   end
 
@@ -213,6 +215,7 @@ ActiveRecord::Schema.define(version: 2020_08_06_124519) do
     t.string "zip", default: ""
     t.string "country", default: ""
     t.string "account_type", default: "basic"
+    t.text "stats"
   end
 
   create_table "log_entries", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|

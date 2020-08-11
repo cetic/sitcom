@@ -42,7 +42,7 @@ describe 'Sign in' do
     current_url.should end_with '/living-lab-1/dashboard'
 
     expect(page).to have_content('LIVING LAB 1')
-    expect(page).to have_content('Dashboard')
+    expect(page).to have_content('DASHBOARD')
 
     # Still lab page (selected lab in cookies)
     visit '/'
@@ -50,6 +50,6 @@ describe 'Sign in' do
     current_url.should end_with '/living-lab-1/dashboard'
 
     expect(page).to have_content('LIVING LAB 1')
-    expect(page).to have_content('Dashboard')
+    expect(page).to have_content('DASHBOARD')
   end
 end
