@@ -83,7 +83,7 @@ describe 'Basic projects', :js => true do
     within '.item-show', :wait => 3 do
       find('h1').hover # to make button appear
 
-      click_on 'Modifier', :wait => 3
+      click_on 'Modifier', :wait => 10
 
       fill_in "Nom du projet", :with => 'Creative Valley'
       fill_in "description",   :with => 'Nous transformons vos idées en applications web et mobile'
@@ -480,7 +480,7 @@ describe 'Basic projects', :js => true do
     within '.item-show', :wait => 3 do
       find('h1').hover # to make button appear
 
-      click_on 'Modifier', :wait => 3
+      click_on 'Modifier', :wait => 10
 
       fill_in "Nom du projet", :with => 'Creative Valley'
 

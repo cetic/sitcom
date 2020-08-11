@@ -5,14 +5,14 @@ class LabsController < ApplicationController
 
   def index
     if @lab
-      redirect_to lab_contacts_path(@lab)
+      redirect_to lab_dashboard_path(@lab)
     else
       @labs = current_user.labs
     end
   end
 
   def show
-    redirect_to lab_contacts_path(@lab)
+    redirect_to lab_dashboard_path(@lab)
   end
 
   private

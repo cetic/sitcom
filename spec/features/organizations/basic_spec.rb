@@ -81,7 +81,7 @@ describe 'Basic organizations', :js => true do
     within '.item-show', :wait => 3 do
       find('h1').hover # to make button appear
 
-      click_on 'Modifier', :wait => 3
+      click_on 'Modifier', :wait => 10
 
       fill_in "Nom de l'organisation", :with => '80LIMIT'
 
@@ -475,7 +475,7 @@ describe 'Basic organizations', :js => true do
     within '.item-show', :wait => 3 do
       find('h1').hover # to make button appear
 
-      click_on 'Modifier', :wait => 3
+      click_on 'Modifier', :wait => 10
 
       fill_in "Nom de l'organisation", :with => '80LIMIT'
 

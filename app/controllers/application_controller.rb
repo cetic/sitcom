@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   # Filters
 
   before_action :authenticate_user!
+  before_action :update_last_seen_at
   #before_action :http_basic_auth
 
   # Actions
@@ -35,6 +36,12 @@ class ApplicationController < ActionController::Base
   def set_flash_now_errors(object)
     if object.errors.any?
       flash.now[:alert] = object.errors.messages.values.join('<br />').html_safe
+    end
+  end
+
+  def update_last_seen_at
+    if current_user
+      current_user.update_column(:last_seen_at, Time.now)
     end
   end
 

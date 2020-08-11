@@ -84,6 +84,15 @@ Rails.application.routes.draw do
 
   resources :labs, :path => ''
   resources :labs, :path => '', :only => [] do
+    resource :dashboard do
+      member do
+        get :metrics
+        get :events
+        get :log_entries
+        get :online_users
+      end
+    end
+
     resources :contacts do
       resources :notes
       resources :documents
@@ -105,8 +114,8 @@ Rails.application.routes.draw do
       collection do
         get    :options
         get    :export
-        post   :mailchimp_export
         delete :mass_destroy
+        post   :mailchimp_export
 
         resources :saved_searches, :item_type => 'contact'
       end
@@ -132,9 +141,9 @@ Rails.application.routes.draw do
 
       collection do
         get    :options
-        get    :status_options
         get    :export
         delete :mass_destroy
+        get    :status_options
 
         resources :saved_searches, :item_type => 'organization'
       end

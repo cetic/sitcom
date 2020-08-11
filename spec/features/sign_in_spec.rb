@@ -12,7 +12,7 @@ describe 'Sign in' do
     })
   end
 
-  it 'works and allows the user to select a lab (only the first time!)' do
+  it 'works and allows the user to select a lab (only the first time!)', :js => true do
     sleep 0.3
 
     visit '/'
@@ -31,25 +31,25 @@ describe 'Sign in' do
     end
 
     # Page for selection of lab
-    current_url.should == 'http://www.example.com/'
+    current_url.should end_with '/'
 
     expect(page).to have_content('Comptes')
     expect(page).to have_content(@lab.name)
 
     click_link @lab.name
 
-    # "Living Lab 1" lab page (list of contacts)
-    current_url.should == 'http://www.example.com/living-lab-1/contacts'
+    # "Living Lab 1" lab page (dashboard)
+    current_url.should end_with '/living-lab-1/dashboard'
 
-    expect(page).to have_content('Living Lab 1')
-    expect(page).to have_content('John')
+    expect(page).to have_content('LIVING LAB 1')
+    expect(page).to have_content('Dashboard')
 
     # Still lab page (selected lab in cookies)
     visit '/'
 
-    current_url.should == 'http://www.example.com/living-lab-1/contacts'
+    current_url.should end_with '/living-lab-1/dashboard'
 
-    expect(page).to have_content('Living Lab 1')
-    expect(page).to have_content('John')
+    expect(page).to have_content('LIVING LAB 1')
+    expect(page).to have_content('Dashboard')
   end
 end

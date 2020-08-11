@@ -1,0 +1,206 @@
+.container-dashboard {
+  .quick-search {
+    .buttons {
+      position: absolute;
+      left: 448px;
+      top: 6px;
+
+      .btn {
+        line-height: 20px;
+        padding: 4px;
+        padding-left: 6px;
+        padding-right: 6px;
+        margin-right: 6px;
+      }
+    }
+  }
+
+  .row-header {
+    background-color: white;
+    height: auto;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+
+    .title {
+      color: #333333;
+      font-size: 15px;
+      width: auto;
+      float: left;
+      padding: 13px;
+      padding-left: 17px;
+      text-transform: uppercase;
+    }
+  }
+
+  .row-metrics {
+    margin-top: 16px;
+
+    a {
+      color: #333333;
+      text-decoration: none;
+
+      .card {
+        position: relative;
+        height: 70px;
+        margin-top: 14px;
+        margin-bottom: 14px;
+        padding: 15px;
+        padding-left: 18px;
+        padding-right: 18px;
+        background-color: white;
+        box-shadow: 0px 0px 10px #dddddd;
+        transition: box-shadow .4s cubic-bezier(.25,.8,.25, 1), background-color .4s cubic-bezier(.25,.8,.25, 1);
+        text-align: center;
+        cursor: pointer;
+
+        i {
+          font-size: 40px;
+          float: left;
+        }
+
+        .number {
+          font-size: 16px;
+          font-weight: bold;
+          color: #1976d2;
+          line-height: 12px;
+        }
+      }
+
+      .card:hover {
+        box-shadow: 0px 0px 20px #a8b9ca;
+        transition: box-shadow .4s cubic-bezier(.25,.8,.25, 1), background-color .4s cubic-bezier(.25,.8,.25, 1);
+      }
+    }
+  }
+
+  .row-header-agenda {
+    margin-top: 14px;
+  }
+
+  .row-agenda {
+    .card {
+      position: relative;
+      margin-top: 30px;
+      margin-bottom: 14px;
+      padding-top: 12px;
+      padding-bottom: 15px;
+      padding-left: 18px;
+      padding-right: 18px;
+      background-color: white;
+      box-shadow: 0px 0px 10px #dddddd;
+      transition: box-shadow .4s cubic-bezier(.25,.8,.25, 1), background-color .4s cubic-bezier(.25,.8,.25, 1);
+      min-height: 86px;
+
+      h2 {
+        margin-top: 0px;
+        font-size: 15px;
+        color: #777777;
+      }
+
+      .events {
+        .empty-slate {
+          margin-top: 15px;
+        }
+
+        .event {
+          margin-bottom: 4px;
+
+          .date {
+            float: left;
+            width: 100px;
+          }
+
+          .picture {
+            float: left;
+            width: 46px;
+
+            img {
+              width: 20px;
+              margin-top: -3px;
+              padding: 0px;
+              border: 0px;
+              border-radius: 0px;
+            }
+          }
+
+          .name {
+            float: left;
+          }
+        }
+      }
+
+      .col-button {
+        text-align: right;
+
+        > a {
+          display: inline-block;
+          margin-top: 14px;
+        }
+      }
+
+      .btn-list {
+
+      }
+    }
+
+    .card:hover {
+      box-shadow: 0px 0px 20px #a8b9ca;
+      transition: box-shadow .4s cubic-bezier(.25,.8,.25, 1), background-color .4s cubic-bezier(.25,.8,.25, 1);
+    }
+  }
+
+  .row-header-activity {
+    margin-top: 14px;
+  }
+
+  .row-activity {
+    .card {
+      position: relative;
+      margin-top: 30px;
+      margin-bottom: 14px;
+      padding-top: 12px;
+      padding-bottom: 15px;
+      padding-left: 18px;
+      padding-right: 18px;
+      background-color: white;
+      box-shadow: 0px 0px 10px #dddddd;
+      transition: box-shadow .4s cubic-bezier(.25,.8,.25, 1), background-color .4s cubic-bezier(.25,.8,.25, 1);
+
+      h2 {
+        margin-top: 0px;
+        font-size: 15px;
+        color: #777777;
+      }
+
+      .log-entries {
+        padding-top: 0px;
+        box-shadow: none;
+        margin-bottom: 0px;
+      }
+
+      .users {
+        .user {
+          .name {
+            float: left;
+            width: 60%;
+          }
+
+          .time {
+            float: left;
+            width: 40%;
+            text-align: right;
+            font-size: 11px;
+            padding-top: 3px;
+          }
+        }
+      }
+
+      .cta {
+        text-align: center;
+
+        .btn-see-more {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}

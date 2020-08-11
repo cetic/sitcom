@@ -30,7 +30,7 @@ describe 'Basic contacts', :js => true do
 
     Contact.__elasticsearch__.refresh_index!
 
-    visit lab_path(@lab)
+    visit lab_contacts_path(@lab)
 
     page_names = all('.contact .name').collect { |span| span.text }
     db_names   = @lab.contacts.sort_by(&:last_name).collect(&:name)
@@ -39,7 +39,7 @@ describe 'Basic contacts', :js => true do
   end
 
   it 'can access a specific contact page (by clicking on the list) and go back to list' do
-    visit lab_path(@lab)
+    visit lab_contacts_path(@lab)
 
     first_contact = @lab.contacts.first
 
@@ -120,7 +120,7 @@ describe 'Basic contacts', :js => true do
     within '.item-show', :wait => 3 do
       find('h1').hover # to make button appear
 
-      click_on 'Modifier', :wait => 3
+      click_on 'Modifier', :wait => 10
     end
 
     # Select first field
@@ -203,7 +203,7 @@ describe 'Basic contacts', :js => true do
     within '.social' do
       find('.facebook').hover # to make button appear
 
-      click_on 'Modifier', :wait => 3
+      click_on 'Modifier', :wait => 10
 
       fill_in 'facebook', :with => 'mic'
       fill_in 'linkedin', :with => 'mic2'
@@ -413,7 +413,7 @@ describe 'Basic contacts', :js => true do
 
     contact_db_names = @lab.contacts.sort_by(&:last_name).collect(&:name)
 
-    visit lab_path(@lab)
+    visit lab_contacts_path(@lab)
 
     Capybara.current_session.current_window.resize_to(1280, 800)
 
@@ -550,7 +550,7 @@ describe 'Basic contacts', :js => true do
     within '.item-show', :wait => 3 do
       find('h1').hover # to make button appear
 
-      click_on 'Modifier', :wait => 3
+      click_on 'Modifier', :wait => 10
 
       fill_in 'Prénom', :with => 'Steve'
       fill_in 'Nom',    :with => 'Jobs'

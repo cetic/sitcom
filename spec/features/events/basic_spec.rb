@@ -83,7 +83,7 @@ describe 'Basic events', :js => true do
     within '.item-show', :wait => 3 do
       find('h1').hover # to make button appear
 
-      click_on 'Modifier', :wait => 3
+      click_on 'Modifier', :wait => 10
 
       fill_in "Nom de l'évènement", :with => 'Boostcamp'
       fill_in "place", :with => 'Mons'
@@ -483,7 +483,7 @@ describe 'Basic events', :js => true do
     within '.item-show', :wait => 3 do
       find('h1').hover # to make button appear
 
-      click_on 'Modifier', :wait => 3
+      click_on 'Modifier', :wait => 10
 
       fill_in "Nom de l'évènement", :with => 'Boostcamp'
       fill_in "place", :with => 'Mons'

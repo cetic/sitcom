@@ -3,6 +3,7 @@ import { useRouterHistory, withRouter } from 'react-router'
 
 import Storage       from './storage.js'
 
+import Dashboard     from './dashboard/main.jsx'
 import Contacts      from './contacts/main.jsx'
 import Organizations from './organizations/main.jsx'
 import Projects      from './projects/main.jsx'
@@ -17,7 +18,18 @@ class Dispatcher extends React.Component {
   }
 
   render() {
-    if(this.props.params.itemType == 'contacts') {
+    if(this.props.params.itemType == 'dashboard') {
+      return (
+        <Dashboard
+          route={this.props.route}
+          router={this.props.router}
+          location={this.props.location}
+          params={this.props.params}
+          storage={this.storage}
+        />
+      )
+    }
+    else if(this.props.params.itemType == 'contacts') {
       return(
         <Contacts
           route={this.props.route}
@@ -99,6 +111,7 @@ export default class Routes extends React.Component {
           organizationCustomFields={this.props.organizationCustomFields}
           eventCustomFields={this.props.eventCustomFields}
           projectCustomFields={this.props.projectCustomFields}
+          dashboardPath={this.props.dashboardPath}
           contactsPath={this.props.contactsPath}
           organizationsPath={this.props.organizationsPath}
           projectsPath={this.props.projectsPath}

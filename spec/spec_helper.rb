@@ -142,7 +142,7 @@ RSpec.configure do |config|
   # Before actions
 
   config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation, :except => ['ar_internal_metadata'])
+    DatabaseCleaner.clean_with(:truncation)
 
     Webpacker.compile
 
@@ -152,18 +152,15 @@ RSpec.configure do |config|
 
   # Default DatabaseCleaner strategy
   config.before :each do
-    DatabaseCleaner.strategy = :transaction # revert transactions, but doesn't work for JS specs
+    DatabaseCleaner.clean_with(:deletion)
   end
 
   # Default DatabaseCleaner strategy for :js specs
   config.before :each, :js => :true do
     Capybara.current_session.current_window.resize_to(1280, 800)
-    DatabaseCleaner.strategy = :deletion
   end
 
   config.before :each do
-    DatabaseCleaner.start
-
     [Contact, Organization, Project, Event].each do |klass|
       klass.__elasticsearch__.create_index!(:force => true)
     end
@@ -185,7 +182,6 @@ RSpec.configure do |config|
   end
 
   config.append_after(:each) do |x|
-    DatabaseCleaner.clean
     #Warden.test_reset! # (cf. 2)
   end
 

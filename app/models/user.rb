@@ -1,6 +1,10 @@
 class User < ApplicationRecord
   include GravatarConcern
 
+  require 'action_view'
+  require 'action_view/helpers'
+  include ActionView::Helpers::DateHelper
+
   # Constants
 
   # Devise
@@ -109,7 +113,15 @@ class User < ApplicationRecord
     ).any?
   end
 
+  def last_seen_at_ago
+    "il y a #{time_ago_in_words(last_seen_at)}"
+  end
+
   # Class Methods
+
+  def self.online
+    where('users.last_seen_at > ?', 10.minutes.ago)
+  end
 
   # Private Methods
 

@@ -8,7 +8,7 @@ class PagesController < ApplicationController
       find_lab_from_cookies
 
       if @lab
-        redirect_to lab_contacts_path(@lab)
+        redirect_to lab_dashboard_path(@lab)
       else
         @labs = current_user.labs
 
