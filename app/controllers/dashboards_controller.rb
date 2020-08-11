@@ -47,6 +47,21 @@ class DashboardsController < ApplicationController
     render :json => { :events => @event_hashes }
   end
 
+  def monthly_connections
+    hash = YAML.load(@lab.stats)
+
+    min_date     = hash.keys.min
+    max_date     = Date.today.beginning_of_month
+    current_date = min_date.dup
+
+    while current_date < max_date
+      hash[current_date] = 0 if !hash[current_date]
+      current_date = current_date + 1.month
+    end
+
+    render :json => { :monthly_connections => hash }
+  end
+
   def log_entries
     item_types = ['Contact', 'Organization', 'Event', 'Project']
 

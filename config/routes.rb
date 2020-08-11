@@ -88,6 +88,7 @@ Rails.application.routes.draw do
       member do
         get :metrics
         get :events
+        get :monthly_connections
         get :log_entries
         get :online_users
       end

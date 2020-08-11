@@ -1,22 +1,25 @@
 import QuickSearch from '../shared/quick_search.jsx'
 import _           from 'lodash'
+import Chart       from 'chart.js'
 
 export default class Main extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      metrics:     undefined,
-      events:      [],
-      logEntries:  [],
-      onlineUsers: [],
-      quickSearch: ""
+      metrics:            undefined,
+      events:             [],
+      logEntries:         [],
+      onlineUsers:        [],
+      monthlyConnections: {},
+      quickSearch:        ""
     }
   }
 
   componentDidMount() {
     this.reloadMetricsFromBackend()
     this.reloadEventsFromBackend()
+    this.reloadMonthlyConnectionsFromBackend()
     this.reloadLogEntriesFromBackend()
     this.reloadOnlineUsersFromBackend()
 
@@ -38,6 +41,51 @@ export default class Main extends React.Component {
         events: data.events
       })
     })
+  }
+
+  reloadMonthlyConnectionsFromBackend() {
+    http.get(this.dashboardPath() + 'monthly_connections.json', {}, (data) => {
+      this.setState({
+        monthlyConnections: data.monthlyConnections
+      }, () => {
+        this.displayConnectionsChart()
+      })
+    })
+  }
+
+  displayConnectionsChart() {
+    const config = {
+      type: 'line',
+      data: {
+        labels: _.map(_.keys(this.state.monthlyConnections), (date) => moment(date).format('MM/YYYY')),
+        datasets: [{
+          label: 'Connexions par mois',
+          backgroundColor: '#1976d2',
+          borderColor: '#1976d2',
+          data: _.values(this.state.monthlyConnections),
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          xAxes: [{
+            display: false,
+            scaleLabel: {
+              display: false
+            }
+          }],
+          yAxes: [{
+            display: true,
+            scaleLabel: {
+              display: false,
+            }
+          }]
+        }
+      }
+    }
+
+    const ctx = document.getElementById('canvas').getContext('2d')
+    this.myChart = new Chart(ctx, config)
   }
 
   reloadLogEntriesFromBackend() {
@@ -236,7 +284,9 @@ export default class Main extends React.Component {
         <div className="col-md-3">
           <div className="row-evolution">
             <div className="card">
-              bvlabla
+              <div style={{ width: '100%' }}>
+                <canvas id="canvas"></canvas>
+              </div>
             </div>
           </div>
         </div>
