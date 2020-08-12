@@ -32,8 +32,8 @@ describe 'Basic contacts', :js => true do
 
     visit lab_contacts_path(@lab)
 
-    page_names = all('.contact .name').collect { |span| span.text }
-    db_names   = @lab.contacts.sort_by(&:last_name).collect(&:name)
+    page_names = all('.contact .name').collect { |span| span.text }.sort
+    db_names   = @lab.contacts.collect(&:name).sort
 
     page_names.should == db_names
   end
