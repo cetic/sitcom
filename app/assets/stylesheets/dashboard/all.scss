@@ -147,15 +147,10 @@
         font-size: 14px;
       }
     }
-
-    .card:hover {
-      box-shadow: 0px 0px 20px #a8b9ca;
-      transition: box-shadow .4s cubic-bezier(.25,.8,.25, 1), background-color .4s cubic-bezier(.25,.8,.25, 1);
-    }
   }
 
   .row-evolution {
-    .card {
+    .card-evolution {
       padding: 4px !important;
       padding-top: 0px !important;
       position: relative;
@@ -168,10 +163,95 @@
       transition: box-shadow .4s cubic-bezier(.25,.8,.25, 1), background-color .4s cubic-bezier(.25,.8,.25, 1);
       min-height: 86px;
     }
+  }
 
-    .card:hover {
-      box-shadow: 0px 0px 20px #a8b9ca;
+  .row-tasks {
+    .card {
+      position: relative;
+      margin-top: 30px;
+      margin-bottom: 14px;
+      padding-top: 12px;
+      padding-bottom: 15px;
+      padding-left: 18px;
+      padding-right: 18px;
+      background-color: white;
+      box-shadow: 0px 0px 10px #dddddd;
       transition: box-shadow .4s cubic-bezier(.25,.8,.25, 1), background-color .4s cubic-bezier(.25,.8,.25, 1);
+      min-height: 86px;
+
+      h2 {
+        margin-top: 0px;
+        font-size: 15px;
+        color: #777777;
+      }
+
+      .buttons {
+        position: absolute;
+        top: 8px;
+        right: 18px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 600;
+
+        i {
+          font-weight: initial;
+          margin-right: 5px;
+          vertical-align: -1px;
+          font-size: 14px;
+        }
+      }
+
+      .buttons.selected {
+        i {
+          margin-right: 3px;
+        }
+      }
+
+      .tasks {
+        margin-top: 6px;
+
+        .empty-slate {
+          margin-top: 15px;
+        }
+
+        .task {
+          margin-bottom: 4px;
+
+          .icon {
+            float: left;
+            font-size: 18px;
+            margin-right: 8px;
+            line-height: 19px;
+          }
+
+          .item-name {
+            float: left;
+          }
+
+          .separator {
+            float: left;
+          }
+
+          .date {
+            float: right
+          }
+
+          .name {
+            font-weight: bold;
+          }
+
+          .assigned {
+            font-size: 12px;
+            color: #666666;
+            margin-left: 23px;
+            margin-bottom: 9px;
+
+            strong {
+              color: #777777;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -180,6 +260,8 @@
   }
 
   .row-activity {
+    margin-bottom: 20px;
+
     .card {
       position: relative;
       margin-top: 30px;

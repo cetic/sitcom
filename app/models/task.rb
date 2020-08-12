@@ -30,6 +30,12 @@ class Task < ApplicationRecord
     saved_item.cable_update
   end
 
+  # Class methods
+
+  def self.undone
+    where(:done_at => nil)
+  end
+
   # Methods
 
   def done?
@@ -57,7 +63,11 @@ class Task < ApplicationRecord
       :execution_date => execution_date,
       :done_at        => done_at,
       :done           => done?,
-      :path           => path
+      :path           => path,
+      :item_type      => item_type,
+      :item_id        => item_id,
+      :item_path      => item.path,
+      :item_name      => item.name
     })
   end
 

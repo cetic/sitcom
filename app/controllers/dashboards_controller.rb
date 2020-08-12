@@ -48,7 +48,7 @@ class DashboardsController < ApplicationController
   end
 
   def monthly_connections
-    hash = YAML.load(@lab.stats)
+    hash = @lab.stats ? YAML.load(@lab.stats) : { Date.today.beginning_of_month => 0 }
 
     min_date     = hash.keys.min
     max_date     = Date.today.beginning_of_month
@@ -81,6 +81,10 @@ class DashboardsController < ApplicationController
       :online_users => @lab.users.online.order(:name => :asc)
                                         .collect { |user| user.slice(:name, :id, :last_seen_at, :last_seen_at_ago) }
     }
+  end
+
+  def undone_tasks
+    render :json => { :undone_tasks => @lab.undone_tasks.collect(&:as_indexed_json) }
   end
 
   private

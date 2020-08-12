@@ -91,6 +91,7 @@ Rails.application.routes.draw do
         get :monthly_connections
         get :log_entries
         get :online_users
+        get :undone_tasks
       end
     end
 

@@ -96,4 +96,13 @@ class Lab < ApplicationRecord
     update_column(:stats, YAML.dump(hash))
   end
 
+  def undone_tasks
+    contact_tasks      = Task.undone.where(:item_type => 'Contact',      :item_id => contact_ids)
+    organization_tasks = Task.undone.where(:item_type => 'Organization', :item_id => organization_ids)
+    project_tasks      = Task.undone.where(:item_type => 'Project',      :item_id => project_ids)
+    event_tasks        = Task.undone.where(:item_type => 'Event',        :item_id => event_ids)
+
+    (contact_tasks + organization_tasks + project_tasks + event_tasks).sort_by(&:execution_date)
+  end
+
 end

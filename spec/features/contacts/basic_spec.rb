@@ -201,7 +201,9 @@ describe 'Basic contacts', :js => true do
     visit lab_contact_path(@lab, contact)
 
     within '.social', :wait => 15 do
-      find('.facebook', :wait => 10).hover # to make button appear
+      5.times do
+        find('.facebook', :wait => 15).hover # to make button appear
+      end
 
       click_on 'Modifier', :wait => 10
 

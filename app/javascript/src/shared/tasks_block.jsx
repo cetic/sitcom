@@ -9,10 +9,16 @@ export default class TasksBlock extends React.Component {
     this.state = {
       doneVisible: false
     }
-
   }
 
   void() {}
+
+  componentDidMount() {
+    // Scroll to tasks if url contains #tasks
+    if(_.includes(window.location.hash, '#tasks')) {
+      document.getElementById('tasks').scrollIntoView()
+    }
+  }
 
   toggleDoneVisible() {
     this.setState({ doneVisible: !this.state.doneVisible })
@@ -25,7 +31,7 @@ export default class TasksBlock extends React.Component {
           <div className="col-md-12">
             {this.renderDoneVisibleToggle()}
 
-            <h3>Tâches</h3>
+            <h3 id="tasks">Tâches</h3>
 
             {this.renderPendingTasks()}
             {this.renderDoneTasks()}
@@ -39,7 +45,7 @@ export default class TasksBlock extends React.Component {
 
   renderDoneVisibleToggle() {
     return (
-      <div style={{ float : 'right' }}>
+      <div style={{ float: 'right' }}>
         <input
           type="checkbox"
           onChange={this.void}
