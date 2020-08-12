@@ -32,10 +32,12 @@ class Lab < ApplicationRecord
   validates :name, :presence   => { :message => "Le nom est obligatoire."  },
                    :uniqueness => { :message => "Ce nom est déjà utilisé.", :case_sensitive => false }
 
-  validates :address1, :presence => { :message => "Veuillez entrer l'adresse du compte."      }
-  validates :city,     :presence => { :message => "Veuillez entrer la localité du compte."    }
-  validates :zip,      :presence => { :message => "Veuillez entrer le code postal du compte." }
-  validates :country,  :presence => { :message => "Veuillez entrer le pays du compte."        }
+  # These fields are validated at sign up in Registration model
+  #
+  # validates :address1, :presence => { :message => "Veuillez entrer l'adresse du compte."      }
+  # validates :city,     :presence => { :message => "Veuillez entrer la localité du compte."    }
+  # validates :zip,      :presence => { :message => "Veuillez entrer le code postal du compte." }
+  # validates :country,  :presence => { :message => "Veuillez entrer le pays du compte."        }
 
   # Callbacks
 
