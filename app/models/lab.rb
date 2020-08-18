@@ -104,7 +104,7 @@ class Lab < ApplicationRecord
     project_tasks      = Task.undone.where(:item_type => 'Project',      :item_id => project_ids)
     event_tasks        = Task.undone.where(:item_type => 'Event',        :item_id => event_ids)
 
-    (contact_tasks + organization_tasks + project_tasks + event_tasks).sort_by(&:execution_date)
+    (contact_tasks + organization_tasks + project_tasks + event_tasks).sort_by { |task| task.try(:execution_date) || Date.new(9999) }
   end
 
 end
