@@ -78,7 +78,7 @@ export default class Organization extends React.Component {
   }
 
   renderContacts() {
-    var l = this.props.organization.projectLinks.length
+    var l = this.props.organization.contactLinks.length
 
     if(l) {
       return (
