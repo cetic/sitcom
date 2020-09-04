@@ -507,7 +507,7 @@ describe 'Basic organizations', :js => true do
     page.should have_content('80LIMIT')
 
     # Correct contact
-    page.should have_content(Contact.first.name)
+    page.should have_content('1 contact')
 
     # Correct tag
     page.should have_content('test tag')
