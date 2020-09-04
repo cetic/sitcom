@@ -206,6 +206,7 @@ export default class Project extends React.Component {
                        parentType="project"
                        parentPath={this.projectPath()}
                        linkName="contactProjectLink"
+                       removeConfirmMessage="Délier ce contact du projet ?"
                        optionsPath={this.props.contactOptionsPath}
                        canWrite={this.props.permissions.canWriteProjects} />
       )
@@ -219,6 +220,7 @@ export default class Project extends React.Component {
                             parentType="project"
                             parentPath={this.projectPath()}
                             linkName="organizationProjectLink"
+                            removeConfirmMessage="Délier cette organisation du projet ?"
                             optionsPath={this.props.organizationOptionsPath}
                             canWrite={this.props.permissions.canWriteProjects} />
       )

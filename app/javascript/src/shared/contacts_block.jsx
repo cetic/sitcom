@@ -25,7 +25,7 @@ export default class ContactsBlock extends React.Component {
   }
 
   removeContact(contact) {
-    if(confirm("Délier ce contact ?")) {
+    if(confirm(this.props.removeConfirmMessage)) {
       var contactIds = _.filter(this.props.parent.contactIds, (contactId) => {
         return contactId != contact.id
       })

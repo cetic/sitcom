@@ -18,11 +18,11 @@ export default class AdvancedSearch extends BaseAdvancedSearch {
       <div className="advanced-search form-horizontal">
         <fieldset>
           <legend>Général</legend>
-          {this.renderSimpleFilter('name',    'Nom'      )}
-          {this.renderSimpleFilter('email',   'Email'    )}
-          {this.renderSimpleFilter('address', 'Adresse'  )}
-          {this.renderSimpleFilter('phone',   'Téléphone')}
-          {this.renderSimpleFilter('notes',   'Notes'    )}
+          {this.renderSimpleFilter('name',    'Prénom/Nom' )}
+          {this.renderSimpleFilter('email',   'Email'      )}
+          {this.renderSimpleFilter('address', 'Adresse'    )}
+          {this.renderSimpleFilter('phone',   'Téléphone'  )}
+          {this.renderSimpleFilter('notes',   'Notes'      )}
           {this.renderActiveFilter()}
         </fieldset>
 

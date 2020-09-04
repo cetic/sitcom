@@ -24,7 +24,10 @@ export default class AdvancedSearch extends BaseAdvancedSearch {
           {this.renderStatusFilter()}
 
           {this.renderSimpleFilter('companyNumber', "Num. d'entreprise")}
-          {this.renderSimpleFilter('description',   'Description')}
+          {
+            // Asked to remove by email on August 25, 2020
+            // this.renderSimpleFilter('description',   'Description')
+          }
           {this.renderSimpleFilter('address',       'Adresse'    )}
           {this.renderSimpleFilter('websiteUrl',    'Site Web'   )}
           {this.renderSimpleFilter('notes',         'Notes'      )}

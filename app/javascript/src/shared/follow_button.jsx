@@ -69,14 +69,14 @@ export default class FollowButton extends React.Component {
   renderAction() {
     if(this.state.status == 'followed') {
       if(this.state.hovered) {
-        return 'Unfollow'
+        return 'désabonner'
       }
       else {
-        return 'Following'
+        return 'suivi'
       }
     }
     else {
-      return 'Follow'
+      return 'suivre'
     }
   }
 

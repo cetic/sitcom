@@ -182,8 +182,7 @@ export default class Contact extends React.Component {
 
     if(l) {
       return (
-        <a className="association projects"
-           href="javascript:;">
+        <a className="association projects">
           <em>{ l }</em> { l == 1 ? 'projet' : 'projets' }
         </a>
       )
@@ -195,8 +194,7 @@ export default class Contact extends React.Component {
 
     if(l) {
       return (
-        <a className="association events"
-           href="javascript:;">
+        <a className="association events">
           <em>{ l }</em> { l == 1 ? 'évènement' : 'évènements' }
         </a>
       )

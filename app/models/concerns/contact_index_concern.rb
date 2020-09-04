@@ -10,7 +10,7 @@ module ContactIndexConcern
       mappings do
         indexes :id,               :type => 'long'
         indexes :lab_id,           :type => 'long'
-        indexes :name,             :type => 'text',  :analyzer => 'custom_each_char'
+        indexes :name,             :type => 'text' # default analyzer to be able to search "firstname lastname" and search only by the first letter of words (not the middle)
         indexes :first_name,       :type => 'text',  :analyzer => 'custom_each_char'
         indexes :last_name,        :type => 'text',  :analyzer => 'custom_each_char'
         indexes :active,           :type => 'boolean'

@@ -206,6 +206,7 @@ export default class Event extends React.Component {
                        parentType="event"
                        parentPath={this.eventPath()}
                        linkName="contactEventLink"
+                       removeConfirmMessage="Délier ce contact de l'événement ?"
                        optionsPath={this.props.contactOptionsPath}
                        canWrite={this.props.permissions.canWriteEvents} />
       )
@@ -219,6 +220,7 @@ export default class Event extends React.Component {
                             parentType="event"
                             parentPath={this.eventPath()}
                             linkName="eventOrganizationLink"
+                            removeConfirmMessage="Délier cette organisation de l'événement ?"
                             optionsPath={this.props.organizationOptionsPath}
                             canWrite={this.props.permissions.canWriteEvents} />
       )

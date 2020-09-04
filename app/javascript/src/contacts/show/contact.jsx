@@ -237,6 +237,7 @@ export default class Contact extends React.Component {
                             parentType="contact"
                             parentPath={this.contactPath()}
                             optionsPath={this.props.organizationOptionsPath}
+                            removeConfirmMessage="Délier cette organisation du contact ?"
                             linkName="contactOrganizationLink"
                             canWrite={this.props.permissions.canWriteContacts} />
       )

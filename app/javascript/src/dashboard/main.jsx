@@ -134,7 +134,7 @@ export default class Main extends React.Component {
       const value = _.trim(event.target.value)
 
       if(value.length > 0) {
-        this.props.router.push(`/contacts?quickSearch=${value}`)
+        window.location = this.props.route.dashboardPath.replace('/dashboard', `/contacts?quickSearch=${value}`)
       }
     }
   }
@@ -197,18 +197,18 @@ export default class Main extends React.Component {
         <i className="glyphicon glyphicon-search"></i>
 
         <div className="buttons">
-          <Link className="btn btn-primary" to={`/contacts?quickSearch=${this.state.quickSearch}`}>
+          <button className="btn btn-primary" onClick={ () => { window.location = this.props.route.dashboardPath.replace('/dashboard', `/contacts?quickSearch=${this.state.quickSearch}`) }}>
             <i className="fa fa-user"></i>
-          </Link>
-          <Link className="btn btn-primary" to={`/organizations?quickSearch=${this.state.quickSearch}`}>
+          </button>
+          <button className="btn btn-primary" onClick={ () => { window.location = this.props.route.dashboardPath.replace('/dashboard', `/organizations?quickSearch=${this.state.quickSearch}`) }}>
             <i className="fa fa-building-o"></i>
-          </Link>
-          <Link className="btn btn-primary" to={`/projects?quickSearch=${this.state.quickSearch}`}>
+          </button>
+          <button className="btn btn-primary" onClick={ () => { window.location = this.props.route.dashboardPath.replace('/dashboard', `/projects?quickSearch=${this.state.quickSearch}`) }}>
             <i className="fa fa-file-text-o"></i>
-          </Link>
-          <Link className="btn btn-primary" to={`/events?quickSearch=${this.state.quickSearch}`}>
+          </button>
+          <button className="btn btn-primary" onClick={ () => { window.location = this.props.route.dashboardPath.replace('/dashboard', `/events?quickSearch=${this.state.quickSearch}`) }}>
             <i className="fa fa-calendar"></i>
-          </Link>
+          </button>
         </div>
       </div>
     )
@@ -553,7 +553,7 @@ export default class Main extends React.Component {
       <li key={entry.id} data-entry-id={entry.id}>
         <div className="action">
           <div className="text">
-            <strong>{ entry.name }</strong> { entry.action } { entry.target } <strong>{ entry.itemName }</strong>.
+            <strong>{ entry.name }</strong> { entry.action } { entry.target } <strong><a href={ entry.itemPath } target="_blank">{ entry.itemName }</a></strong>.
           </div>
           <div className="ago" title={ entry.on }>
             { entry.ago }

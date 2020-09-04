@@ -52,7 +52,7 @@ export default class LogEntries extends React.Component {
       <li key={entry.id} data-entry-id={entry.id}>
         <div className="action">
           <div className="text">
-            <strong>{ entry.name }</strong> { entry.action } { entry.target } <strong>{ entry.itemName }</strong>.
+            <strong>{ entry.name }</strong> { entry.action } { entry.target } <strong><a href={ entry.itemPath } target="_blank">{ entry.itemName }</a></strong>.
           </div>
           <div className="ago" title={ entry.on }>
             { entry.ago }

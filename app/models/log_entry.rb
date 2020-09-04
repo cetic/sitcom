@@ -203,7 +203,7 @@ class LogEntry < ApplicationRecord
         :lab_id    => document.uploadable.lab_id,
         :action    => action,
         :content   => { 'document' => document.file_previous_change },
-        :item_name => document.uploadable
+        :item_name => document.uploadable.name
       )
 
       send_updated_emails_to_followers(document.uploadable, current_user, :document_updated)

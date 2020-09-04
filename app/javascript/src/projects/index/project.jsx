@@ -52,6 +52,7 @@ export default class Project extends React.Component {
           <span className="associations">
             { this.renderContacts() }
             { this.renderOrganizations() }
+            { this.renderEvents() }
           </span>
 
           <span className="dates">
@@ -87,8 +88,7 @@ export default class Project extends React.Component {
 
     if(l) {
       return (
-        <a className="association contacts"
-           href="javascript:;">
+        <a className="association contacts">
           <em>{ l }</em> { l == 1 ? 'contact' : 'contacts' }
         </a>
       )
@@ -100,9 +100,20 @@ export default class Project extends React.Component {
 
     if(l) {
       return (
-        <a className="association organizations"
-           href="javascript:;">
+        <a className="association organizations">
           <em>{ l }</em> { l == 1 ? 'organisation' : 'organisations' }
+        </a>
+      )
+    }
+  }
+
+  renderEvents() {
+    var l = this.props.project.eventLinks.length
+
+    if(l) {
+      return (
+        <a className="association events">
+          <em>{ l }</em> { l == 1 ? 'évènement' : 'évènements' }
         </a>
       )
     }

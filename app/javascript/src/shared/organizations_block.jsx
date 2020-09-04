@@ -30,7 +30,7 @@ export default class OrganizationsBlock extends React.Component {
   }
 
   removeOrganization(organization) {
-    if(confirm("Délier cette organisation ?")) {
+    if(confirm(this.props.removeConfirmMessage)) {
       var organizationIds = _.filter(this.organizationIds(), (organizationId) => {
         return organizationId != organization.id
       })

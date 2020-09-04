@@ -35,7 +35,7 @@ export default class DocumentsColumn extends React.Component {
           <CustomDropzone url={this.props.item.path + `/documents?privacy=${this.props.privacy}`}
                           method="post"
                           paramName="file"
-                          uploadText="Ajouter un document"
+                          uploadText="Nouveau document"
                           clickable={clickable}
                           acceptedFiles={null}>
           </CustomDropzone>

@@ -20,6 +20,10 @@ node :item_name do |l|
   l.item_name.present? ? l.item_name : "[Nom inconnu]"
 end
 
+node :item_path do |l|
+  l.item.try(:path)
+end
+
 node :target do |l|
   case l.item_type
     when 'Contact'      then "le contact"

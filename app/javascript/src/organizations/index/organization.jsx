@@ -48,8 +48,10 @@ export default class Organization extends React.Component {
             <Link to={'/organizations/' + this.props.organization.id + this.props.search}>{this.props.organization.name}</Link>
           </span>
 
-          <span className="links">
+          <span className="associations">
             { this.renderContacts() }
+            { this.renderProjects() }
+            { this.renderEvents()   }
           </span>
 
           { this.renderTagsContainer() }
@@ -76,16 +78,39 @@ export default class Organization extends React.Component {
   }
 
   renderContacts() {
-    return _.map(this.props.organization.contactLinks, (contactLink, i) => {
+    var l = this.props.organization.projectLinks.length
+
+    if(l) {
       return (
-        <span key={contactLink.contact.id}>
-          <Link to={'/contacts/' + contactLink.contact.id}>
-            { contactLink.contact.name }
-          </Link>
-          { this.props.organization.contactLinks.length - 1 == i ? '' : ', '}
-        </span>
+        <a className="association contacts">
+          <em>{ l }</em> { l == 1 ? 'contact' : 'contacts' }
+        </a>
       )
-    })
+    }
+  }
+
+  renderProjects() {
+    var l = this.props.organization.projectLinks.length
+
+    if(l) {
+      return (
+        <a className="association projects">
+          <em>{ l }</em> { l == 1 ? 'projet' : 'projets' }
+        </a>
+      )
+    }
+  }
+
+  renderEvents() {
+    var l = this.props.organization.eventLinks.length
+
+    if(l) {
+      return (
+        <a className="association events">
+          <em>{ l }</em> { l == 1 ? 'évènement' : 'évènements' }
+        </a>
+      )
+    }
   }
 
   renderTagsContainer() {

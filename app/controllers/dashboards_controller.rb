@@ -70,7 +70,7 @@ class DashboardsController < ApplicationController
     end
 
     @log_entries = @lab.log_entries.where(:item_type => permitted_item_types)
-                       .limit(20)
+                       .limit(5)
                        .order(:created_at => :desc)
 
     render 'log_entries/index'
