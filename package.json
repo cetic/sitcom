@@ -27,7 +27,7 @@
     "email-validator": "2.0.4",
     "envify": "4.1.0",
     "humps": "2.0.1",
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "moment": "2.24.0",
     "prop-types": "15.7.2",
     "react": "15.6.2",
