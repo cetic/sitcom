@@ -4,7 +4,7 @@ class ContactSearch < BaseSearch
 
     add_own_ids_search(options)
 
-    add_quick_search(options, [ 'name', 'email', 'phone', 'address' ])
+    add_quick_search(options, [ 'name' ])
 
     [ 'name', 'email', 'address', 'phone' ].each do |field|
       add_string_search(options, field)

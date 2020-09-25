@@ -4,7 +4,7 @@ class ProjectSearch < BaseSearch
 
     add_own_ids_search(options)
 
-    add_quick_search(options, [ 'name', 'description' ])
+    add_quick_search(options, [ 'name' ])
 
     [ 'name', 'description' ].each do |field|
       add_string_search(options, field)

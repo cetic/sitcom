@@ -4,7 +4,7 @@ class EventSearch < BaseSearch
 
     add_own_ids_search(options)
 
-    add_quick_search(options, [ 'name', 'place', 'description', 'website_url' ])
+    add_quick_search(options, [ 'name' ])
 
     [ 'name', 'place', 'description', 'website_url' ].each do |field|
       add_string_search(options, field)
