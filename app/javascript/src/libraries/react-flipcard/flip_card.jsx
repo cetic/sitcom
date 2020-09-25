@@ -1,8 +1,9 @@
-import React, { PropTypes } from 'react';
-import { findDOMNode }      from 'react-dom';
-import cx                   from 'classnames';
-import contains             from './contains.jsx';
-import injectStyle          from './inject_style.jsx';
+import React           from 'react';
+import PropTypes       from 'prop-types';
+import { findDOMNode } from 'react-dom';
+import cx              from 'classnames';
+import contains        from './contains.jsx';
+import injectStyle     from './inject_style.jsx';
 
 // Auto inject the styles (will only be done once)
 injectStyle();
