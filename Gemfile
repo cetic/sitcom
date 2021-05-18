@@ -25,7 +25,7 @@ gem 'font-awesome-rails'
 
 # File Attachments
 gem 'rmagick'
-gem 'carrierwave'
+gem 'carrierwave', '2.1.1'
 
 # Jobs
 gem 'redis'
