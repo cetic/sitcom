@@ -4,7 +4,7 @@ ruby '2.6.5'
 
 gem 'devise', '4.7.1'
 gem 'mysql2', '0.5.2'
-gem 'puma',   '4.3.11'
+gem 'puma',   '4.3.12'
 gem 'rack',   '2.1.4'
 gem 'rails',  '6.0.4.6'
 
